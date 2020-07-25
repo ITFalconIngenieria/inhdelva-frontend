@@ -1,0 +1,31 @@
+<div style="display: flex;">
+    <div class="login-form-container">
+        <!-- <img class="imagen" src="../../assets/logo-Sf.png" alt="" srcset=""> -->
+        <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Por favor digite un usuario">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input type="text" nz-input formControlName="userName" placeholder="Usuario" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Por favor digite una contraseña">
+                    <nz-input-group nzPrefixIcon="lock">
+                        <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <label nz-checkbox formControlName="remember">
+                      <span>Recuérdame</span>
+                  </label>
+                    <a class="login-form-forgot" class="login-form-forgot">Olvidó su contraseña</a>
+                    <button nz-button class="login-form-button" [nzType]="'primary'" (click)="login()">Iniciar sesión</button> O
+                    <a>regístrate ahora!</a>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>
