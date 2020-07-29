@@ -50,6 +50,16 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { ClientesComponent } from './pages/clientes/clientes.component';
+import { MedidoresComponent } from './pages/medidores/medidores.component';
+import { BloquesHorariosComponent } from './pages/bloquesHorarios/bloquesHorarios.component';
+import { TarifaHorariaComponent } from './pages/tarifaHoraria/tarifaHoraria.component';
+import { TarifaMonimicaComponent } from './pages/tarifaMonimica/tarifaMonimica.component';
+import { ParametrosEntradaComponent } from './pages/parametrosEntrada/parametrosEntrada.component';
+import { ContratosComponent } from './pages/contratos/contratos.component';
+import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnergetica.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
+import { AyudaComponent } from './pages/ayuda/ayuda.component';
 
 registerLocaleData(en);
 
@@ -58,7 +68,17 @@ registerLocaleData(en);
     AppComponent,
     LoginComponent,
     WelcomeComponent,
-    ProveedoresComponent
+    AyudaComponent,
+    InicioComponent,
+    ClientesComponent,
+    ProveedoresComponent,
+    MedidoresComponent,
+    BloquesHorariosComponent,
+    TarifaHorariaComponent,
+    TarifaMonimicaComponent,
+    ParametrosEntradaComponent,
+    ContratosComponent,
+    MatrizEnergeticaComponent
   ],
   imports: [
     BrowserModule,
