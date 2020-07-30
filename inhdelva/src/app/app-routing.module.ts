@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { FacturaComponent } from "./pages/factura/factura.component"
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -15,7 +16,14 @@ const routes: Routes = [
     children: [
       { path: 'proveedores', component: ProveedoresComponent }
     ]
-  }
+  },
+  // {
+  //   path: '',
+  //   component: FacturaComponent,
+  //   children: [
+  //     { path: 'factura', component: FacturaComponent }
+  //   ]
+  // }
 ];
 
 @NgModule({
