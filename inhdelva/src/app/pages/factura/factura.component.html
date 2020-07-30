@@ -1,4 +1,90 @@
-<p>
-    factura works!
-  </p>
-  
+<div>
+  <nz-card
+    class="card-style"
+    [nzBordered]="true"
+    nzTitle="INHDELVA"
+    [nzExtra]="extraTemplate"
+  >
+    <div style="background: #ececec; padding: 30px;">
+      <div nz-row [nzGutter]="12">
+        <div nz-col [nzSpan]="12">
+          <nz-card nzTitle="DATOS DE LA FACTURA">
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+          </nz-card>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-card nzTitle="DATOS DEL TITULAR">
+            <p>.</p>
+            <p>.</p>
+            <p>.</p>
+          </nz-card>
+        </div>
+      </div>
+      <br />
+      <nz-card
+        class="card-style"
+        [nzBordered]="true"
+        nzTitle="RESUMEN DE LA FACTURA"
+        [nzExtra]="extraTemplate"
+      >
+        <div nz-row [nzGutter]="5">
+          <div nz-col [nzSpan]="5">
+            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+              <p>.</p>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="5">
+            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+              <p>.</p>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="5">
+            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+              <p>.</p>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="4">
+            <nz-card class="card-small-font" nzTitle="Consumo total en kWh">
+              <p>.</p>
+            </nz-card>
+          </div>
+          <div nz-col [nzSpan]="5">
+            <nz-card class="card-small-font" nzTitle="Total a pagar">
+              <p>.</p>
+            </nz-card>
+          </div>
+        </div>
+      </nz-card>
+      <br>
+      <nz-card
+        class="card-style"
+        [nzBordered]="true"
+        nzTitle="DETALLE DE CONSUMO DE ENERGÍA"
+        [nzExtra]="extraTemplate"
+      >
+        <nz-table #basicTable [nzData]="listOfData">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Lectura Actual</th>
+              <th>Lectura Anterior</th>
+              <th>Consumo</th>
+              <th>Unidades</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{ data.campo }}</td>
+              <td>{{ data.lecturaActual }}</td>
+              <td>{{ data.lecturaAnterior }}</td>
+              <td>{{ data.consumo }}</td>
+              <td>{{ data.unidades}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </nz-card>
+</div>
