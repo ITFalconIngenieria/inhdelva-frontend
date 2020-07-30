@@ -15,7 +15,7 @@ import { TarifaMonimicaComponent } from './pages/tarifaMonimica/tarifaMonimica.c
 import { ParametrosEntradaComponent } from './pages/parametrosEntrada/parametrosEntrada.component';
 import { ContratosComponent } from './pages/contratos/contratos.component';
 import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnergetica.component';
-
+import { FacturaComponent } from './pages/factura/factura.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
@@ -33,9 +33,17 @@ const routes: Routes = [
       { path: 'parametrosEntrada', component: ParametrosEntradaComponent },
       { path: 'contratos', component: ContratosComponent },
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
-      { path: 'ayuda', component: AyudaComponent }
+      { path: 'ayuda', component: AyudaComponent },
+      { path: 'factura', component: FacturaComponent}
     ]
-  }
+  },
+  // {
+  //   path: '',
+  //   component: FacturaComponent,
+  //   children: [
+  //     { path: 'factura', component: FacturaComponent }
+  //   ]
+  // }
 ];
 
 @NgModule({
