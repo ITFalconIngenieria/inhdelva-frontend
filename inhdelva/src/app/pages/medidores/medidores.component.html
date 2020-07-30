@@ -1,3 +1,56 @@
-<p>
-  medidores works!
-</p>
+<div class="row">
+    <div class="col">
+        <h2> Medidores </h2>
+    </div>
+    <div class="col">
+        <button nz-button nzType="primary" nzSize="large" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo medidor</button>
+    </div>
+</div>
+<br>
+<br>
+<div class="tabla">
+    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th nzWidth="60px"></th>
+                <th></th>
+                <th></th>
+                <th>Codigo</th>
+                <th>Modelo</th>
+                <th>Serie</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                    <td>
+                        <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.age }}</td>
+                    <td>{{ data.address }}</td>
+                    <td>
+                        <span class="badge badge-pill badge-danger">En contrato</span>
+                    </td>
+                    <td>
+                        <button nz-button nzType="primary" nzSize="small" nzShape="round">Rollover</button>
+
+                    </td>
+                </tr>
+                <tr [nzExpand]="expandSet.has(data.id)">
+                    <td colSpan="8">{{ data.description }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
