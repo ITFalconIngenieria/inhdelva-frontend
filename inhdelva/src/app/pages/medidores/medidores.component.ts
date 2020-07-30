@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MedidoresComponent implements OnInit {
   expandSet = new Set<number>();
+  isVisible = false;
+  validateForm: FormGroup;
 
   listOfData = [
     {
@@ -36,7 +39,9 @@ export class MedidoresComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
@@ -46,7 +51,35 @@ export class MedidoresComponent implements OnInit {
     }
   }
 
+  submitForm(): void {
+    // tslint:disable-next-line: forin
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+  }
+
   ngOnInit() {
+
+    this.validateForm = this.fb.group({
+      Codigo: [null, [Validators.required]],
+      Descripcion: [null, [Validators.required]],
+      Serie: [null, [Validators.required]],
+      Modelo: [null, [Validators.required]],
+      Observacion: [null, [Validators.required]]
+    });
+  }
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
   }
 
 }

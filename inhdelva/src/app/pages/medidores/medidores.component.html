@@ -2,8 +2,8 @@
     <div class="col">
         <h2> Medidores </h2>
     </div>
-    <div class="col">
-        <button nz-button nzType="primary" nzSize="large" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo medidor</button>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo medidor</button>
     </div>
 </div>
 <br>
@@ -54,3 +54,42 @@
         </tbody>
     </nz-table>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Medidores" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <nz-form-item>
+            <nz-form-label>Código del medidor</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your username!">
+                <input nz-input formControlName="Codigo" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Descripción</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="Descripcion" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Serie</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="Serie" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Modelo</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="Modelo" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+    </div>
+</nz-modal>
