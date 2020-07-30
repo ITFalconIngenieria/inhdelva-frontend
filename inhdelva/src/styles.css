@@ -8,3 +8,7 @@
 @import "~ng-zorro-antd/button/style/index.min.css";
 
 /* Import styles of the component */
+
+.ant-btn {
+    line-height: 0.5;
+}
