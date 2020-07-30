@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    this.route.navigate(['proveedores']);
+    this.route.navigate(['inicio']);
   }
 
   constructor(

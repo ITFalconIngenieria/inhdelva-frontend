@@ -7,28 +7,108 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/inicio" [nzTitle]="isCollapsed ? 'Inicio' : ''" nzSelected>
+                <i nz-icon nzType="home"></i>
+                <span>Inicio</span>
+            </li>
+        </ul>
+        <ul nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu nzTitle="Mantenimiento" nzIcon="tool">
                 <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Welcome</a>
+                    <li nz-menu-item>
+                        <a routerLink="/clientes">Clientes</a>
                     </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Monitor</a>
+                    <li nz-menu-item>
+                        <a routerLink="/proveedores">Proveedores</a>
                     </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Workplace</a>
+                    <li nz-menu-item>
+                        <a routerLink="/medidores">Medidores</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a routerLink="/bloquesHorarios">Bloques Horarios</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a>Tipos de contrato</a>
                     </li>
                     <li [routerLink]="'/receipt" nz-menu-item nzMatchRouter>
                         <a>Receipt</a>
                     </li>
                 </ul>
             </li>
-            <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+        </ul>
+        <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
+            <li nz-submenu nzTitle="Tarifas" nzIcon="calculator">
                 <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Basic Form</a>
+                    <li nz-menu-item>
+                        <a routerLink="/tarifaMonimica">Tarifa Monimica</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a routerLink="/tarifaHoraria">Tarifa Horaria</a>
                     </li>
                 </ul>
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/parametrosEntrada" [nzTitle]="isCollapsed ? 'Parámetros de entrada' : ''">
+                <i nz-icon nzType="control"></i>
+                <span>Parámetros de entrada</span>
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/contratos" [nzTitle]="isCollapsed ? 'Contratos' : ''">
+                <i nz-icon nzType="book"></i>
+                <span>Contratos</span>
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/matrizEnergetica" [nzTitle]="isCollapsed ? 'Matriz Energética' : ''">
+                <i nz-icon nzType="pie-chart"></i>
+                <span>Matriz Energética</span>
+            </li>
+            <li nz-submenu nzTitle="Facturación" nzIcon="profile">
+                <ul>
+                    <li nz-menu-item>
+                        <a>Cargos especiales</a>
+                    </li>
+                    <li nz-submenu nzTitle="Facturas" nzIcon="file-text">
+                        <ul>
+                            <li nz-menu-item>
+                                <a>Opcion 1</a>
+                            </li>
+                            <li nz-menu-item>
+                                <a>Opcion 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu nzTitle="Reportes" nzIcon="bar-chart">
+                <ul>
+                    <li nz-menu-item>
+                        <a>Reporte 1</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a>Reporte 2</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a>Reporte 3</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu nzTitle="Configuración" nzIcon="setting">
+                <ul>
+                    <li nz-menu-item>
+                        <a>Opcion 1</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a>Opcion 2</a>
+                    </li>
+                    <li nz-menu-item>
+                        <a>Opcion 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzSelected="false" routerLink="/ayuda" [nzTitle]="isCollapsed ? 'Ayuda' : ''">
+                <i nz-icon nzType="question-circle"></i>
+                <span>Ayuda</span>
             </li>
         </ul>
     </nz-sider>
@@ -36,11 +116,8 @@
         <nz-header>
             <div class="app-header">
                 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-              <i class="trigger"
-                 nz-icon
-                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-              ></i>
-          </span>
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+                </span>
             </div>
         </nz-header>
         <nz-content>
