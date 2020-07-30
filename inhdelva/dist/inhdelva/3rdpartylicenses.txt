@@ -1,3 +1,6 @@
+ng-zorro-antd
+MIT
+
 undefined
 
 @angular-devkit/build-angular
@@ -52,6 +55,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+
+@angular/cdk/scrolling
 
 @angular/common
 MIT
@@ -128,9 +133,6 @@ date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
 Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
 
 
-ng-zorro-antd
-MIT
-
 ng-zorro-antd/button
 
 ng-zorro-antd/checkbox
@@ -138,6 +140,8 @@ ng-zorro-antd/checkbox
 ng-zorro-antd/drawer
 
 ng-zorro-antd/dropdown
+
+ng-zorro-antd/empty
 
 ng-zorro-antd/form
 
@@ -152,6 +156,16 @@ ng-zorro-antd/message
 ng-zorro-antd/modal
 
 ng-zorro-antd/notification
+
+ng-zorro-antd/pagination
+
+ng-zorro-antd/radio
+
+ng-zorro-antd/select
+
+ng-zorro-antd/spin
+
+ng-zorro-antd/table
 
 ng-zorro-antd/tooltip
 
