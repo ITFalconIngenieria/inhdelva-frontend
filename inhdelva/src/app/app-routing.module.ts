@@ -16,6 +16,8 @@ import { ParametrosEntradaComponent } from './pages/parametrosEntrada/parametros
 import { ContratosComponent } from './pages/contratos/contratos.component';
 import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnergetica.component';
 import { FacturaComponent } from './pages/factura/factura.component';
+import { EdificioComponent } from './pages/edificio/edificio.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
@@ -34,7 +36,8 @@ const routes: Routes = [
       { path: 'contratos', component: ContratosComponent },
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
       { path: 'ayuda', component: AyudaComponent },
-      { path: 'factura', component: FacturaComponent}
+      { path: 'factura', component: FacturaComponent},
+      { path: 'edificio', component: EdificioComponent}
     ]
   },
   // {
