@@ -1,3 +1,77 @@
-<p>
-  clientes works!
-</p>
+<div>
+    <nz-table #basicTable [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td>
+                    <div>
+                        <div class="container">
+                            <div class="row">
+                                <div style="background-color: aquamarine;" class="col-2">
+                                    <img class="img-cliente " src="assets/img-menu.svg">
+                                </div>
+                                <div style="background-color: rgb(64, 138, 113);" class="col-10">
+                                    <h6>Atlantic</h6>
+                                    <label>Norte-Consumo Energia INHDELVA</label>
+                                    <br>
+                                    <label>Telefono: +504 9845-3257</label>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col" style="background-color: rgb(28, 170, 0);">
+                                    <i nz-icon nzType="mail" nzTheme="outline"></i>
+                                    <i nz-icon nzType="phone" nzTheme="outline"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <div class="container">
+                            <div class="row">
+                                <div style="background-color: aquamarine;" class="col-2">
+                                    <img class="img-cliente " src="assets/img-menu.svg">
+                                </div>
+                                <div style="background-color: rgb(64, 138, 113);" class="col-10">
+                                    <h6>Atlantic</h6>
+                                    <label>Norte-Consumo Energia INHDELVA</label>
+                                    <br>
+                                    <label>Telefono: +504 9845-3257</label>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col" style="background-color: rgb(28, 170, 0);">
+                                    <i nz-icon nzType="mail" nzTheme="outline"></i>
+                                    <i nz-icon nzType="phone" nzTheme="outline"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div style="background-color: aquamarine;" class="col-2">
+            <img class="img-cliente " src="assets/img-menu.svg">
+        </div>
+        <div style="background-color: rgb(64, 138, 113);" class="col-10">
+            <h6>Atlantic</h6>
+            <label>Norte-Consumo Energia INHDELVA</label>
+            <br>
+            <label>Telefono: +504 9845-3257</label>
+        </div>
+        <div class="w-100"></div>
+        <div class="col" style="background-color: rgb(28, 170, 0);">
+            <i nz-icon nzType="mail" nzTheme="outline"></i>
+            <i nz-icon nzType="phone" nzTheme="outline"></i>
+        </div>
+    </div>
+</div>

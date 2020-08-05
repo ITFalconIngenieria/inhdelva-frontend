@@ -61,6 +61,8 @@ import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnerge
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { AyudaComponent } from './pages/ayuda/ayuda.component';
 import { FacturaComponent } from './pages/factura/factura.component';
+import { EdificioComponent } from './pages/edificio/edificio.component';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -79,7 +81,8 @@ registerLocaleData(en);
     ParametrosEntradaComponent,
     ContratosComponent,
     MatrizEnergeticaComponent,
-    FacturaComponent
+    FacturaComponent,
+    EdificioComponent
   ],
   imports: [
     BrowserModule,
