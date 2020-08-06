@@ -78,3 +78,11 @@ nz-content {
     background: #fff;
     height: 100%;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    background-color: #001529;
+    width: 100%;
+    text-align: center;
+}
