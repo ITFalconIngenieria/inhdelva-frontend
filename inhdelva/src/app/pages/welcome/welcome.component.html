@@ -22,7 +22,7 @@
                         <a routerLink="/proveedores">Proveedores</a>
                     </li>
                     <li nz-menu-item>
-                        <a routerLink="/edificio">Edificios</a>
+                        <a routerLink="/localizacion">Localización</a>
                     </li>
                     <li nz-menu-item>
                         <a routerLink="/medidores">Medidores</a>
@@ -70,10 +70,10 @@
                     <li nz-submenu nzTitle="Facturas" nzIcon="file-text">
                         <ul>
                             <li nz-menu-item>
-                                <a>Opcion 1</a>
+                                <a>Facturas generadas</a>
                             </li>
                             <li nz-menu-item>
-                                <a>Opcion 2</a>
+                                <a>Facturas emitidas</a>
                             </li>
                         </ul>
                     </li>
@@ -120,7 +120,11 @@
             <div class="app-header">
                 <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+                    <span>
+                        <label style="margin-left: 26%;">SISTEMA DE FACTURACIÓN ENÉRGETICA</label>
+                    </span>
                 </span>
+
             </div>
         </nz-header>
         <nz-content>

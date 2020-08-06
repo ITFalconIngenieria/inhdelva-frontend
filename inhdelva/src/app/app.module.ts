@@ -61,7 +61,7 @@ import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnerge
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { AyudaComponent } from './pages/ayuda/ayuda.component';
 import { FacturaComponent } from './pages/factura/factura.component';
-import { EdificioComponent } from './pages/edificio/edificio.component';
+import { LocalizacionComponent } from './pages/localizacion/localizacion.component';
 
 registerLocaleData(en);
 
@@ -82,7 +82,7 @@ registerLocaleData(en);
     ContratosComponent,
     MatrizEnergeticaComponent,
     FacturaComponent,
-    EdificioComponent
+    LocalizacionComponent
   ],
   imports: [
     BrowserModule,
