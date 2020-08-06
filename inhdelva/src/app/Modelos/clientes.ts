@@ -7,6 +7,7 @@ export interface Clientes {
   Telefono: string;
   Email: string;
   Direccion: string;
+  Imagen: any;
   Observacion: string;
   Estado: boolean;
 }

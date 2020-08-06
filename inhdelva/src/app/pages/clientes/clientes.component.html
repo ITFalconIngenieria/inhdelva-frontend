@@ -1,3 +1,13 @@
+<div class="row">
+    <div class="col">
+        <h2> Medidores </h2>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo cliente</button>
+    </div>
+</div>
+<br>
+<br>
 <div class="tabla">
     <nz-table #basicTable [nzData]="listOfData">
         <thead>
@@ -11,23 +21,23 @@
                 <td>
                     <div class="container">
                         <div class="row">
-                            <div class="col-3 text-center">
-                                <img src="assets/img-menu.svg" class="img-cliente">
+                            <div class="col-3 text-center div-border">
+                                <img src="assets/project.png" class="img-cliente">
                             </div>
-                            <div class="col-9" style="position: relative;">
+                            <div class="col-9 div-border" style="position: relative;">
                                 <h6>Atlantic</h6>
                                 <label>Norte-Consumo Energia INHDELVA</label>
                                 <br>
                                 <label>Telefono: +504 9845-3257</label>
-                                <div style="position: absolute; top: 0%; left: 67%;">
-                                    <i nz-icon nzType="edit" nzTheme="fill"></i>
-                                    <i nz-icon nzType="close" nzTheme="outline"></i>
+                                <div style="position: absolute; top: 0%; left: 81%;">
+                                    <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
+                                    <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col text-center">
-                                <i nz-icon nzType="mail" nzTheme="outline"></i>
-                                <i nz-icon nzType="phone" nzTheme="outline"></i>
+                                <i nz-icon nzType="mail" nzTheme="outline" class="icon-tabla"></i>
+                                <i nz-icon nzType="phone" nzTheme="fill" class="icon-tabla"></i>
                             </div>
                         </div>
                     </div>
@@ -35,19 +45,23 @@
                 <td>
                     <div class="container">
                         <div class="row">
-                            <div style="background-color: aquamarine;" class="col-3 text-center">
-                                <img src="assets/img-menu.svg" class="img-cliente">
+                            <div class="col-3 text-center div-border">
+                                <img src="assets/project.png" class="img-cliente">
                             </div>
-                            <div style="background-color: rgb(64, 138, 113);" class="col-9">
+                            <div class="col-9 div-border" style="position: relative;">
                                 <h6>Atlantic</h6>
                                 <label>Norte-Consumo Energia INHDELVA</label>
                                 <br>
                                 <label>Telefono: +504 9845-3257</label>
+                                <div style="position: absolute; top: 0%; left: 81%;">
+                                    <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
+                                    <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
+                                </div>
                             </div>
                             <div class="w-100"></div>
-                            <div class="col text-center" style="background-color: rgb(28, 170, 0);">
-                                <i nz-icon nzType="mail" nzTheme="outline"></i>
-                                <i nz-icon nzType="phone" nzTheme="outline"></i>
+                            <div class="col text-center">
+                                <i nz-icon nzType="mail" nzTheme="outline" class="icon-tabla"></i>
+                                <i nz-icon nzType="phone" nzTheme="fill" class="icon-tabla"></i>
                             </div>
                         </div>
                     </div>
@@ -56,3 +70,74 @@
         </tbody>
     </nz-table>
 </div>
+
+<!-- Modal Formulario -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Clientes" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <nz-form-item>
+            <nz-form-label>Código del cliente</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your username!">
+                <input nz-input formControlName="Codigo" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Nombre empresa</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>RTN</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="RTN" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Representante legal</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="RepresentanteLegal" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Nombre del contacto</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Teléfono</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Email</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Dirección</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Imagen</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="NombreContacto" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+    </div>
+</nz-modal>

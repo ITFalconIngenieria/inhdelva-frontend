@@ -13,7 +13,7 @@
             </li>
         </ul>
         <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu nzTitle="Mantenimiento" nzIcon="tool">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Mantenimiento'" nzIcon="tool">
                 <ul>
                     <li nz-menu-item>
                         <a routerLink="/clientes">Clientes</a>
@@ -81,7 +81,7 @@
             </li>
         </ul>
         <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu nzTitle="Reportes" nzIcon="bar-chart">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Reportes'" nzIcon="bar-chart">
                 <ul>
                     <li nz-menu-item>
                         <a>Reporte 1</a>
@@ -96,7 +96,7 @@
             </li>
         </ul>
         <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu nzTitle="Configuración" nzIcon="setting">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Configuración'" nzIcon="setting">
                 <ul>
                     <li nz-menu-item>
                         <a>Opcion 1</a>
@@ -109,7 +109,9 @@
                     </li>
                 </ul>
             </li>
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" nzSelected="false" routerLink="/ayuda" [nzTitle]="isCollapsed ? 'Ayuda' : ''">
+        </ul>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/ayuda" [nzTitle]="isCollapsed ? 'Ayuda' : ''">
                 <i nz-icon nzType="question-circle"></i>
                 <span>Ayuda</span>
             </li>
@@ -134,3 +136,6 @@
         </nz-content>
     </nz-layout>
 </nz-layout>
+<div class="footer">
+    <label style="color: white;">© INHDELVA, TODOS LOS DERECHOS RESERVADOS</label>
+</div>
