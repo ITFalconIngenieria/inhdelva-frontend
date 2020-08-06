@@ -1,5 +1,17 @@
 .img-cliente {
+    display: block;
+    margin: 4vh auto;
     height: 20%;
-    width: 100%;
-    margin: 0%;
+    width: 20%;
+}
+
+.tabla {
+    width: 90%;
+    margin: auto;
+}
+
+[nz-icon] {
+    font-size: 22px;
+    color: #35404a;
+    margin: 7px;
 }
