@@ -36,3 +36,30 @@
     border-left: none;
     border-right: none;
 }
+
+
+/* .grid-container {
+    height: 100%;
+    margin: 0;
+} */
+
+.DosColumnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+
+/* .grid-container * {
+    position: relative;
+}
+
+.grid-container *:after {
+    content: attr(class);
+    position: absolute;
+    top: 0;
+    left: 0;
+} */

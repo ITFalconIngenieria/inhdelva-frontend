@@ -1,55 +1,31 @@
 <div class="row">
     <div class="col">
-        <h2> Medidores </h2>
+        <h2> Clientes </h2>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo cliente</button>
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+                nzTheme="outline"></i>Nuevo cliente</button>
     </div>
 </div>
 <br>
 <br>
 <div class="tabla">
-    <nz-table #basicTable [nzData]="listOfData">
+    <nz-table #basicTable [nzData]="listOfData" nzPageSize="6">
         <thead>
             <tr>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let data of basicTable.data">
-                <td>
+            <tr class="DosColumnas">
+                <td *ngFor="let data of basicTable.data">
                     <div class="container">
                         <div class="row">
                             <div class="col-3 text-center div-border">
                                 <img src="assets/project.png" class="img-cliente">
                             </div>
                             <div class="col-9 div-border" style="position: relative;">
-                                <h6>Atlantic</h6>
-                                <label>Norte-Consumo Energia INHDELVA</label>
-                                <br>
-                                <label>Telefono: +504 9845-3257</label>
-                                <div style="position: absolute; top: 0%; left: 81%;">
-                                    <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
-                                    <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
-                                </div>
-                            </div>
-                            <div class="w-100"></div>
-                            <div class="col text-center">
-                                <i nz-icon nzType="mail" nzTheme="outline" class="icon-tabla"></i>
-                                <i nz-icon nzType="phone" nzTheme="fill" class="icon-tabla"></i>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-3 text-center div-border">
-                                <img src="assets/project.png" class="img-cliente">
-                            </div>
-                            <div class="col-9 div-border" style="position: relative;">
-                                <h6>Atlantic</h6>
+                                <h6>Atlantic {{data.key}}</h6>
                                 <label>Norte-Consumo Energia INHDELVA</label>
                                 <br>
                                 <label>Telefono: +504 9845-3257</label>

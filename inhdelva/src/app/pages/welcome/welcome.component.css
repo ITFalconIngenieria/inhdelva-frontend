@@ -80,7 +80,7 @@ nz-content {
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     background-color: #001529;
     width: 100%;
