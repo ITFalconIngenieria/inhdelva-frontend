@@ -18,3 +18,15 @@
 [nz-form] {
     max-width: 600px;
 }
+
+.form-rollover {
+    max-width: 800px;
+}
+
+nz-date-picker {
+    margin: 0 8px 12px 0;
+}
+
+nz-input-number {
+    margin-right: 8px;
+}
