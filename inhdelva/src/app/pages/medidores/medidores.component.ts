@@ -9,7 +9,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MedidoresComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
+  isVisibleRollover = false;
   validateForm: FormGroup;
+  dateFormat = 'yyyy/MM/dd';
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   listOfData = [
     {
@@ -37,10 +43,9 @@ export class MedidoresComponent implements OnInit {
       description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
     }
   ];
-
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  
+  parserLectura = (value: string) => value.replace('kW ', '');
+  formatterLectura = (value: number) => `kW ${value}`;
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
@@ -79,6 +84,18 @@ export class MedidoresComponent implements OnInit {
 
   handleOk(): void {
     this.isVisible = false;
+  }
+
+  showModalRollover(): void {
+    this.isVisibleRollover = true;
+  }
+
+  handleCancelRollover(): void {
+    this.isVisibleRollover = false;
+  }
+
+  handleOkRollover(): void {
+    this.isVisibleRollover = false;
   }
 
 }

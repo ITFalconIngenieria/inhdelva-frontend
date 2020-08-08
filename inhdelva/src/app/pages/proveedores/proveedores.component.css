@@ -1,0 +1,47 @@
+.img-proveedor {
+    display: block;
+    margin: 3vh auto;
+    height: 50%;
+    width: 50%;
+}
+
+.ant-btn {
+    line-height: 0.5;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #334d7c;
+    border-color: #334d7c;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
+
+.tabla {
+    width: 90%;
+    margin: auto;
+}
+
+.icon-tabla {
+    font-size: 20px;
+    color: #5d656d;
+    margin: 5px;
+}
+
+.div-border {
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-color: rgb(230, 230, 230);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.DosColumnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+}
