@@ -15,12 +15,8 @@
     box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
 }
 
-[nz-form] {
-    max-width: 600px;
-}
-
-.form-rollover {
-    max-width: 800px;
+td {
+    background-color: white;
 }
 
 nz-date-picker {

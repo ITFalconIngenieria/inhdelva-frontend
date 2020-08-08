@@ -10,6 +10,10 @@ export class LocalizacionComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   validateForm: FormGroup;
+  demoValue = 100;
+  radioValue = 'A';
+  parserArea = (value: string) => value.replace(' m²', '');
+  formatterArea = (value: number) => `${value} m²`;
 
   listOfData = [
     {

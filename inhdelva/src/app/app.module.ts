@@ -43,6 +43,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 // Importaciones de componentes
 import { LoginComponent } from './login/login.component';
@@ -105,6 +106,7 @@ registerLocaleData(en);
     NzIconModule,
     NzModalModule,
     NzDrawerModule,
+    NzRadioModule,
     NzFormModule,
     NzSelectModule,
     NzInputNumberModule,
