@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col">
+        <h2> Bloques Horarios </h2>
+    </div>
+    <div style="display: flex; justify-content: center;" class="col">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="large">
+            <input type="text" nz-input placeholder="Buscar.." />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch nzSize="large"><i nz-icon nzType="search" ></i></button>
+        </ng-template>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
+    </div>
+</div>
