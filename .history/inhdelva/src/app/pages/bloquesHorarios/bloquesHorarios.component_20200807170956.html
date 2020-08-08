@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col">
+        <h2> Bloques Horarios </h2>
+    </div>
+    <div style="display: flex; justify-content: center;" class="col">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" nzSize="large">
+            <input type="text" nz-input placeholder="Buscar.." />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch nzSize="large"><i nz-icon nzType="search" ></i></button>
+        </ng-template>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
+    </div>
+</div>
+<br>
+<br>
+<div class="tabla">
+    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzBordered nzShowSizeChanger>
+        <thead>
+            <tr>
+                <!--<th nzWidth="60px"></th>-->
+                <th rowspan="4" nzWidth="40px"></th>
+                <th rowspan="4" nzWidth="40px"></th>
+                <th rowspan="4">Clase de Dia</th>
+                <th colspan="2">Periodo de Punta</th>
+                <!--<div class="row">
+                      <div class="col-sm-1">
+                          <button nz-button nzType="default" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                          </button>
+                      </div>
+                      <div class="col-sm-1">
+                          <button nz-button nzType="default " nzShape="circle ">
+                            <i nz-icon nzType="delete " nzTheme="outline "></i>
+                          </button>
+                      </div>
+                      <div class="col">
+                          Periodo de Punta
+                      </div>
+                  </div>-->
+
+
+                <th colspan="2 ">Periodo Intermedio</th>
+                <th colspan="2 ">Periodo Valle</th>
+            </tr>
+            <tr>
+                <th rowspan="3 ">Total Horas</th>
+                <th rowspan="3 ">Horario</th>
+                <th rowspan="3 ">Total Horas</th>
+                <th rowspan="3 ">Horario</th>
+                <th rowspan="3 ">Total Horas</th>
+                <th rowspan="3 ">Horario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data ">
+                <tr>
+                    <td>
+                        <button nz-button nzType="default " nzShape="circle ">
+                          <i nz-icon nzType="edit " nzTheme="outline "></i>
+                      </button>
+                    </td>
+                    <td>
+                        <button nz-button nzType="default " nzShape="circle ">
+                          <i nz-icon nzType="delete " nzTheme="outline "></i>
+                      </button>
+                    </td>
+                    <td>{{ data.clase_dia }}</td>
+                    <td>{{ data.pp_totalhoras }}</td>
+                    <td>{{ data.pp_horario }}</td>
+                    <td>{{ data.pi_totalhoras }}</td>
+                    <td>{{ data.pi_horario }}</td>
+                    <td>{{ data.pv_totalhoras }}</td>
+                    <td>{{ data.pv_horario }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
