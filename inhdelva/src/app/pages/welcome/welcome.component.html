@@ -7,7 +7,7 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/inicio" [nzTitle]="isCollapsed ? 'Inicio' : ''" nzSelected>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/inicio" [nzTitle]="isCollapsed ? 'Inicio' : ''">
                 <i nz-icon nzType="home"></i>
                 <span>Inicio</span>
             </li>
@@ -66,7 +66,7 @@
             <li nz-submenu nzTitle="Facturación" nzIcon="profile">
                 <ul>
                     <li nz-menu-item>
-                        <a>Cargos especiales</a>
+                        <a routerLink="/cargosEspeciales">Cargos especiales</a>
                     </li>
                     <li nz-menu-item>
                         <a routerLink="/factura">Factura</a>
@@ -74,10 +74,10 @@
                     <li nz-submenu nzTitle="Facturas" nzIcon="file-text">
                         <ul>
                             <li nz-menu-item>
-                                <a>Facturas generadas</a>
+                                <a routerLink="/facturasGeneradas">Facturas generadas</a>
                             </li>
                             <li nz-menu-item>
-                                <a>Facturas emitidas</a>
+                                <a routerLink="/facturasEmitidas">Facturas emitidas</a>
                             </li>
                         </ul>
                     </li>

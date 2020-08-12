@@ -17,6 +17,9 @@ import { ContratosComponent } from './pages/contratos/contratos.component';
 import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnergetica.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { LocalizacionComponent } from './pages/localizacion/localizacion.component';
+import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
+import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
+import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -37,7 +40,11 @@ const routes: Routes = [
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
       { path: 'ayuda', component: AyudaComponent },
       { path: 'factura', component: FacturaComponent},
-      { path: 'localizacion', component: LocalizacionComponent}
+      { path: 'localizacion', component: LocalizacionComponent},
+      { path: 'cargosEspeciales', component: CargosEspecialesComponent},
+      { path: 'facturasGeneradas', component: FacturasGeneradasComponent},
+      { path: 'facturasEmitidas', component: FacturasEmitidasComponent}
+
     ]
   },
   // {

@@ -61,6 +61,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { AyudaComponent } from './pages/ayuda/ayuda.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { LocalizacionComponent } from './pages/localizacion/localizacion.component';
+import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
+import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
+import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 
 registerLocaleData(en);
 
@@ -81,7 +84,10 @@ registerLocaleData(en);
     ContratosComponent,
     MatrizEnergeticaComponent,
     FacturaComponent,
-    LocalizacionComponent
+    LocalizacionComponent,
+    CargosEspecialesComponent,
+    FacturasEmitidasComponent,
+    FacturasGeneradasComponent
   ],
   imports: [
     BrowserModule,
