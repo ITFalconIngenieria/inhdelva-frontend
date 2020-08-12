@@ -1,25 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-tarifaHoraria',
-  templateUrl: './tarifaHoraria.component.html',
-  styleUrls: ['./tarifaHoraria.component.css']
+  selector: 'app-cargosEspeciales',
+  templateUrl: './cargosEspeciales.component.html',
+  styleUrls: ['./cargosEspeciales.component.css']
 })
-export class TarifaHorariaComponent implements OnInit {
+export class CargosEspecialesComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
-  isVisibleParametro = false;
   validateForm: FormGroup;
-  dateFormat = 'yyyy/MM/dd';
-
-  parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
-
-  constructor(
-    private fb: FormBuilder
-  ) { }
+  demoValue = 100;
+  radioValue = 'A';
+  parserArea = (value: string) => value.replace(' m²', '');
+  formatterArea = (value: number) => `${value} m²`;
 
   listOfData = [
     {
@@ -48,6 +42,11 @@ export class TarifaHorariaComponent implements OnInit {
     }
   ];
 
+  constructor(
+    private fb: FormBuilder
+
+  ) { }
+
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
       this.expandSet.add(id);
@@ -65,7 +64,6 @@ export class TarifaHorariaComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.validateForm = this.fb.group({
       Codigo: [null, [Validators.required]],
       Descripcion: [null, [Validators.required]],
@@ -85,18 +83,6 @@ export class TarifaHorariaComponent implements OnInit {
 
   handleOk(): void {
     this.isVisible = false;
-  }
-
-  showModalParametro(): void {
-    this.isVisibleParametro = true;
-  }
-
-  handleCancelParametro(): void {
-    this.isVisibleParametro = false;
-  }
-
-  handleOkParametro(): void {
-    this.isVisibleParametro = false;
   }
 
 }

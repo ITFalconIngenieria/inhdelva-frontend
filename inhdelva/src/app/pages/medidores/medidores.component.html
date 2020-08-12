@@ -13,8 +13,8 @@
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
-                <th></th>
-                <th></th>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
                 <th>Codigo</th>
                 <th>Modelo</th>
                 <th>Serie</th>
@@ -26,12 +26,12 @@
             <ng-container *ngFor="let data of nzTable.data">
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-                    <td>
+                    <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>
+                    <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
@@ -86,11 +86,6 @@
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Please input your Password!">
                 <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-control [nzOffset]="7" [nzSpan]="12">
-
             </nz-form-control>
         </nz-form-item>
     </form>
@@ -157,8 +152,8 @@
                     <th>Codigo</th>
                     <th>Modelo</th>
                     <th>Serie</th>
-                    <th></th>
-                    <th></th>
+                    <th nzWidth="30px"></th>
+                    <th nzWidth="30px"></th>
                 </tr>
             </thead>
             <tbody>
@@ -167,12 +162,12 @@
                         <td>{{ data.name }}</td>
                         <td>{{ data.age }}</td>
                         <td>{{ data.address }}</td>
-                        <td>
+                        <td style="width: 30px;">
                             <button nz-button nzType="primary" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>
                             </button>
                         </td>
-                        <td>
+                        <td style="width: 30px;">
                             <button nz-button nzType="primary" nzShape="circle">
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>

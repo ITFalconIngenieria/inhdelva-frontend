@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col">
-        <h2> Localización </h2>
+        <h2> Cargos especiales </h2>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
         <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
-                nzTheme="outline"></i>Nuevo localización</button>
+              nzTheme="outline"></i>Nuevo cargo</button>
     </div>
 </div>
 <br>
@@ -13,34 +13,31 @@
     <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
         <thead>
             <tr>
-                <th nzWidth="60px"></th>
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
                 <th>Codigo</th>
-                <th>Zona</th>
-                <th>Área</th>
+                <th>Cargo</th>
+                <th>Fecha inicio</th>
+                <th>Fecha final</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let data of nzTable.data">
                 <tr>
-                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
-                            <i nz-icon nzType="edit" nzTheme="outline"></i>
-                        </button>
+                          <i nz-icon nzType="edit" nzTheme="outline"></i>
+                      </button>
                     </td>
                     <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
-                            <i nz-icon nzType="delete" nzTheme="outline"></i>
-                        </button>
+                          <i nz-icon nzType="delete" nzTheme="outline"></i>
+                      </button>
                     </td>
                     <td>{{ data.name }}</td>
                     <td>{{ data.age }}</td>
-                    <td>{{ data.address }}</td>
-                </tr>
-                <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.description }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.name }}</td>
                 </tr>
             </ng-container>
         </tbody>

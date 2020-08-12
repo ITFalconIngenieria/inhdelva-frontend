@@ -12,3 +12,7 @@
 .ant-btn {
     line-height: 0.5;
 }
+
+div.ant-card-head.ng-star-inserted {
+    background-color: #dbeeff;
+}

@@ -53,7 +53,7 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { MedidoresComponent } from './pages/medidores/medidores.component';
 import { BloquesHorariosComponent } from './pages/bloquesHorarios/bloquesHorarios.component';
 import { TarifaHorariaComponent } from './pages/tarifaHoraria/tarifaHoraria.component';
-import { TarifaMonimicaComponent } from './pages/tarifaMonimica/tarifaMonimica.component';
+import { TipoTarifaComponent } from './pages/tipoTarifa/tipoTarifa.component';
 import { ParametrosEntradaComponent } from './pages/parametrosEntrada/parametrosEntrada.component';
 import { ContratosComponent } from './pages/contratos/contratos.component';
 import { MatrizEnergeticaComponent } from './pages/matrizEnergetica/matrizEnergetica.component';
@@ -61,6 +61,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { AyudaComponent } from './pages/ayuda/ayuda.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { LocalizacionComponent } from './pages/localizacion/localizacion.component';
+import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
+import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
+import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 
 registerLocaleData(en);
 
@@ -76,12 +79,15 @@ registerLocaleData(en);
     MedidoresComponent,
     BloquesHorariosComponent,
     TarifaHorariaComponent,
-    TarifaMonimicaComponent,
+    TipoTarifaComponent,
     ParametrosEntradaComponent,
     ContratosComponent,
     MatrizEnergeticaComponent,
     FacturaComponent,
-    LocalizacionComponent
+    LocalizacionComponent,
+    CargosEspecialesComponent,
+    FacturasEmitidasComponent,
+    FacturasGeneradasComponent
   ],
   imports: [
     BrowserModule,

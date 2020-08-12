@@ -1,0 +1,28 @@
+.tabla {
+    width: 80%;
+    margin: auto;
+}
+
+.ant-btn {
+    line-height: 0.5;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #334d7c;
+    border-color: #334d7c;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
+
+td {
+    background-color: white;
+}
+
+nz-date-picker {
+    margin: 0 8px 12px 0;
+}
+
+nz-input-number {
+    margin-right: 8px;
+}
