@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-tarifaHoraria',
-  templateUrl: './tarifaHoraria.component.html',
-  styleUrls: ['./tarifaHoraria.component.css']
+  selector: 'app-tipoTarifa',
+  templateUrl: './tipoTarifa.component.html',
+  styleUrls: ['./tipoTarifa.component.css']
 })
-export class TarifaHorariaComponent implements OnInit {
+export class TipoTarifaComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleParametro = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
+
 
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;

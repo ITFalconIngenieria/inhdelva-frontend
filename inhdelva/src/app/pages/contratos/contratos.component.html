@@ -1,3 +1,321 @@
-<p>
-  contratos works!
-</p>
+<div class="row">
+    <div class="col">
+        <h2> Contratos </h2>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+                nzTheme="outline"></i>Nuevo contrato</button>
+    </div>
+</div>
+<br>
+<br>
+<div class="tabla">
+    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th nzWidth="60px"></th>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
+                <th>Codigo</th>
+                <th>Cliente</th>
+                <th>Tarifa</th>
+                <th>Creación</th>
+                <th>Medidores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.age }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>
+                        <button nz-button nzType="primary" nzSize="small" (click)="showModalMedidor()" nzShape="round">Medidores</button>
+
+                    </td>
+                </tr>
+                <tr [nzExpand]="expandSet.has(data.id)">
+                    <td colSpan="8">{{ data.description }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
+
+<!-- Modal Formulario contrato-->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Medidores" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Código</nz-form-label>
+                    <nz-form-control nzErrorTip="Please input your username!">
+                        <input nz-input formControlName="Codigo" placeholder="input placeholder" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Clasificación</nz-form-label>
+                    <nz-form-control>
+                        <nz-select ngModel="lucy" formControlName="Descripcion">
+                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <nz-form-item>
+            <nz-form-label>Descripción</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <input nz-input formControlName="Descripcion" placeholder="input placeholder" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Dueño del contrato</nz-form-label>
+            <nz-form-control>
+                <nz-select ngModel="lucy" formControlName="Descripcion">
+                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-card style="width: 100%;" nzTitle="Fechas">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <nz-form-item>
+                            <nz-form-label>Creación</nz-form-label>
+                            <nz-form-control>
+                                <nz-date-picker [nzFormat]="dateFormat"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col">
+                        <nz-form-item>
+                            <nz-form-label>Vencimiento</nz-form-label>
+                            <nz-form-control>
+                                <nz-date-picker [nzFormat]="dateFormat"></nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <nz-form-item>
+                            <nz-form-label>Día generación factura</nz-form-label>
+                            <nz-form-control>
+                                <nz-select ngModel="lucy" formControlName="Descripcion">
+                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col">
+                        <nz-form-item>
+                            <nz-form-label>Días disponibles para pago</nz-form-label>
+                            <nz-form-control>
+                                <nz-select ngModel="lucy" formControlName="Descripcion">
+                                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </nz-card>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+    </div>
+</nz-modal>
+
+<!-- Modal Roolover -->
+<nz-modal [(nzVisible)]="isVisibleMedidor" nzTitle="Medidores" nzWidth="800" (nzOnCancel)="handleCancelMedidor()">
+    <form style="width: 500px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Código del medidor</nz-form-label>
+                        <nz-form-control>
+                            <nz-select ngModel="lucy" formControlName="Descripcion">
+                                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <nz-form-label>Tipo de fechas</nz-form-label>
+                            <nz-radio-group>
+                                <label nz-radio nzValue="A">Fechas contrato</label>
+                                <label nz-radio nzValue="B">Específicas</label>
+                            </nz-radio-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
+                        <nz-form-control>
+                            <nz-range-picker [nzFormat]="dateFormat"></nz-range-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <!-- <div class="col">
+
+                </div> -->
+                <div class="w-100"></div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Localización</nz-form-label>
+                        <nz-form-control>
+                            <nz-select ngModel="lucy" formControlName="Descripcion">
+                                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Edificio</nz-form-label>
+                        <nz-form-control>
+                            <nz-select ngModel="lucy" formControlName="Descripcion">
+                                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Tarifa</nz-form-label>
+                        <nz-form-control>
+                            <nz-select ngModel="lucy" formControlName="Descripcion">
+                                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col">
+                    <nz-form-item>
+                        <nz-form-label>Tipo de servicio</nz-form-label>
+                        <nz-form-control>
+                            <nz-select ngModel="lucy" formControlName="Descripcion">
+                                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                                <nz-option nzValue="disabled" nzLabel="Disabled"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+        <nz-form-item>
+            <nz-form-label>Alimentación del punto de medición</nz-form-label>
+            <div class="grid-container">
+                <div style="display: flex; justify-content: center;">
+                    <nz-form-label>Trifasica</nz-form-label>
+                </div>
+                <div>
+                    <nz-form-control nzErrorTip="Please input your username!">
+                        <nz-switch></nz-switch>
+                    </nz-form-control>
+                </div>
+            </div>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <div class="row">
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelMedidor()">Cancelar</button>
+                    </div>
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="handleOkMedidor()">Guardar</button>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <br>
+    <div style="background-color: #f3f9ff; padding: 15px;">
+        <h6> Listado de parámetros </h6>
+        <nz-table #nzTableParametro [nzData]="listOfData" nzTableLayout="fixed">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>valor</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th nzWidth="30px"></th>
+                    <th nzWidth="30px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTableParametro.data">
+                    <tr>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.age }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.name }}</td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
+                        </td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="primary" (click)="handleOkMedidor()">OK</button>
+    </div>
+</nz-modal>

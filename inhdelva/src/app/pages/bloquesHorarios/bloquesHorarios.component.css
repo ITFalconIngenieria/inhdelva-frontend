@@ -18,3 +18,10 @@
 [nz-form] {
     max-width: 600px;
 }
+
+nz-form-item,
+nz-form-label,
+nz-form-control {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

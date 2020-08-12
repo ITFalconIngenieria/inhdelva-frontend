@@ -30,22 +30,26 @@
                     <li nz-menu-item>
                         <a routerLink="/bloquesHorarios">Bloques Horarios</a>
                     </li>
-                    <li nz-menu-item>
+                    <!-- <li nz-menu-item>
                         <a>Tipos de contrato</a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
         </ul>
         <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzTitle="Tarifas" nzIcon="calculator">
+            <!-- <li nz-submenu nzTitle="Tarifas" nzIcon="calculator">
                 <ul>
                     <li nz-menu-item>
-                        <a routerLink="/tarifaMonimica">Tarifa Monimica</a>
+                        <a routerLink="/tipoTarifa">Tipo tarifa</a>
                     </li>
                     <li nz-menu-item>
-                        <a routerLink="/tarifaHoraria">Tarifa Horaria</a>
+                        <a routerLink="/tarifaHoraria">Horaria</a>
                     </li>
                 </ul>
+            </li> -->
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/tipoTarifa" [nzTitle]="isCollapsed ? 'Tarifa' : ''">
+                <i nz-icon nzType="calculator"></i>
+                <span>Tarifa</span>
             </li>
             <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/parametrosEntrada" [nzTitle]="isCollapsed ? 'Parámetros de entrada' : ''">
                 <i nz-icon nzType="control"></i>

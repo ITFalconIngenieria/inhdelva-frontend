@@ -14,8 +14,8 @@
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
-                <th></th>
-                <th></th>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
                 <th>Codigo</th>
                 <th>Zona</th>
                 <th>Área</th>
@@ -25,12 +25,12 @@
             <ng-container *ngFor="let data of nzTable.data">
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-                    <td>
+                    <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>
+                    <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
@@ -80,8 +80,8 @@
                     <nz-form-label>Tipo de cobro para servicios</nz-form-label>
                     <nz-form-control nzErrorTip="Please input your Password!">
                         <nz-radio-group ngModel="radioValue" formControlName="Descripcion">
-                            <label nz-radio nzValue="A">A</label>
-                            <label nz-radio nzValue="B">B</label>
+                            <label nz-radio nzValue="A">Energía activa (kWh)</label>
+                            <label nz-radio nzValue="B">Área (m²)</label>
                         </nz-radio-group>
                     </nz-form-control>
                 </nz-form-item>
