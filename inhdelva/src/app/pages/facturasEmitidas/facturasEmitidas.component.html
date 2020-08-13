@@ -1,3 +1,35 @@
-<p>
-  facturasEmitidas works!
-</p>
+<h2> Facturas emitidas </h2>
+<br>
+<br>
+<div class="tabla">
+    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+            <tr>
+                <th nzWidth="30px"></th>
+                <th>Código</th>
+                <th>Contrato</th>
+                <th>Cliente</th>
+                <th>Fecha generación</th>
+                <th>Energia consumida</th>
+                <th>Total a pagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" nzShape="circle">
+                      <i nz-icon nzType="search" nzTheme="outline"></i>
+                  </button>
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.age }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.age }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.age }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
