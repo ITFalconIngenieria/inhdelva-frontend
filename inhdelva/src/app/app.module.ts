@@ -6,6 +6,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 
@@ -44,6 +45,8 @@ import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 // Importaciones de componentes
 import { LoginComponent } from './login/login.component';
@@ -102,6 +105,8 @@ registerLocaleData(en);
     /////////////////
     IconsProviderModule,
     // NgZorroAntdModule,
+    NzTabsModule,
+    NzBadgeModule,
     NzCardModule,
     NzGridModule,
     NzLayoutModule,
