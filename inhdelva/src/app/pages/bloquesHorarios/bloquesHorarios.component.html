@@ -11,58 +11,39 @@
         </ng-template>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
+        <button nz-button nzType="primary" nzSize="large" nzShape="round" (click)="showModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
     </div>
 </div>
 <br>
 <br>
 <div class="tabla">
+    <div class="row">
+        <div class="col-sm-2 form-group">
+            <label for="Codigo">Codigo</label>
+            <nz-input-group nzSize="large">
+                <input type="text" nz-input placeholder="Ingrese el Codigo" name="Codigo" />
+            </nz-input-group>
+        </div>
+        <div class="col-sm-3 form-group">
+            <label for="FechaCreacion">Fecha Creacion</label>
+            <nz-date-picker nzSize="large" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Seleccione una Fecha" name="FechaCreacion"></nz-date-picker>
+        </div>
+        <div class="col-sm-7 form-group">
+            <label for="Descripcion">Descripcion</label>
+            <nz-input-group nzSize="large">
+                <input type="text" nz-input placeholder="Ingrese la Descrpcion" name="Descripcion" />
+            </nz-input-group>
+        </div>
+    </div>
     <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzBordered nzShowSizeChanger>
         <thead>
             <tr>
                 <!--<th nzWidth="60px"></th>-->
-                <th rowspan="4" nzWidth="100px"></th>
+                <th rowspan="4"></th>
                 <th rowspan="4">Clase de Dia</th>
-                <th colspan="2">
-                    <div class="row">
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-                        </div>
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="close"></i></button>
-                        </div>
-                        <div style="line-height: 2.5;" class="col-8">
-                            Periodo de Punta
-                        </div>
-                    </div>
-                </th>
-
-                <th colspan="2 ">
-                    <div class="row">
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-                        </div>
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="close"></i></button>
-                        </div>
-                        <div style="line-height: 2.5;" class="col-8">
-                            Periodo Intermedio
-                        </div>
-                    </div>
-                </th>
-                <th colspan="2 ">
-                    <div class="row">
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-                        </div>
-                        <div class="col-2">
-                            <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="close"></i></button>
-                        </div>
-                        <div style="line-height: 2.5;" class="col-8">
-                            Periodo Valle
-                        </div>
-                    </div>
-                </th>
+                <th colspan="2">Periodo de Punta</th>
+                <th colspan="2 ">Periodo Intermedio</th>
+                <th colspan="2 ">Periodo Valle</th>
             </tr>
             <tr>
                 <th rowspan="3 ">Total Horas</th>
@@ -76,26 +57,229 @@
         <tbody>
             <ng-container *ngFor="let data of nzTable.data ">
                 <tr>
+                    <td>##</td>
+                    <td>{{ data.clase_dia }}</td>
                     <td>
                         <div class="row">
-                            <div class="col-5">
-                                <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="edit"></i></a>
                             </div>
-                            <div class="col-5">
-                                <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="delete"></i></button>
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="close"></i></a>
+                            </div>
+                            <div style="line-height: 2.0;" class="col-2">
+                                {{ data.pp_totalhoras }}
                             </div>
                         </div>
-
                     </td>
-                    <td>{{ data.clase_dia }}</td>
-                    <td>{{ data.pp_totalhoras }}</td>
-                    <td>{{ data.pp_horario }}</td>
-                    <td>{{ data.pi_totalhoras }}</td>
+                    <td>{{ data.pp_horario }} </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="edit"></i></a>
+                            </div>
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="close"></i></a>
+                            </div>
+                            <div style="line-height: 2.0;" class="col-2">
+                                {{ data.pi_totalhoras }}
+                            </div>
+                        </div>
+                    </td>
                     <td>{{ data.pi_horario }}</td>
-                    <td>{{ data.pv_totalhoras }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="edit"></i></a>
+                            </div>
+                            <div class="col-2">
+                                <a (click)="showModal()"><i nz-icon nzType="close"></i></a>
+                            </div>
+                            <div style="line-height: 2.0;" class="col-2">
+                                {{ data.pv_totalhoras }}
+                            </div>
+                        </div>
+                    </td>
                     <td>{{ data.pv_horario }}</td>
                 </tr>
             </ng-container>
         </tbody>
     </nz-table>
+
+    <div class="row">
+        <div class="col-sm-12 form-group">
+            <label for="Observacion">Observacion</label>
+            <textarea rows="5" nz-input [(ngModel)]="inputValue" placeholder="Ingrese su observacion" name="Observacion"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div style="display: flex; justify-content: flex-end;" class="col">
+            <button nz-button nzType="primary" nzSize="large"><i nz-icon nzType="save" nzTheme="outline"></i>Guardar Cambios</button>
+        </div>
+    </div>
 </div>
+
+<nz-modal nzMaskClosable="false" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>
+        Nueva Empresa
+    </ng-template>
+
+    <ng-template #modalContent>
+        <form nz-form>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label for="Descripcion">Descripcion</label>
+                    <nz-input-group nzSize="large">
+                        <input type="text" nz-input placeholder="Ingrese la Descrpcion" name="Descripcion" />
+                    </nz-input-group>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label for="Periodo">Periodo</label>
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opcion:">
+                        <nz-option nzLabel="Activo" nzValue="true"></nz-option>
+                        <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
+                    </nz-select>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="ClaseDias">Clase Dias</label>
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opcion:">
+                        <nz-option nzLabel="Activo" nzValue="true"></nz-option>
+                        <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <nz-tabset>
+                        <nz-tab nzTitle="Horarios">
+                            <div nz-row>
+                                <div nz-col nzSpan="24">
+                                    Seleccione el rango de horarios a utilizar:
+                                </div>
+                            </div>
+                            <br/>
+                            <div nz-row>
+                                <a (click)="handleCancel()">
+                                    <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
+                                        00:00<br/>a<br>08:00
+                                    </div>
+                                </a>
+                                <a (click)="handleCancel()">
+                                    <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
+                                        08:00<br/>a<br>10:00
+                                    </div>
+                                </a>
+                                <a (click)="handleCancel()">
+                                    <div nz-col nzSpan="4" style="background-color: #e64040; text-align: center;">
+                                        10:00<br/>a<br>15:00
+                                    </div>
+                                </a>
+                                <a (click)="handleCancel()">
+                                    <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
+                                        15:00<br/>a<br>17:00
+                                    </div>
+                                </a>
+                                <a (click)="handleCancel()">
+                                    <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
+                                        17:00<br/>a<br>24:00
+                                    </div>
+                                </a>
+                            </div>
+                            <br/>
+                            <div nz-row>
+                                <nz-badge nzStatus="success" nzText="Nuevo"></nz-badge>
+                                <br />
+                                <nz-badge nzStatus="error" nzText="Otro Bloque Horario"></nz-badge>
+                                <br />
+                                <nz-badge nzStatus="default" nzText="Disponible"></nz-badge>
+                                <br />
+
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="Periodo">
+                            <br/>
+                            <div class="row">
+                                <div class="col-sm-12 form-group">
+                                    <label for="Descripcion">Nombre Periodo:</label>
+                                    <nz-input-group>
+                                        <input type="text" nz-input placeholder="Nombre del Periodo" name="Descripcion" />
+                                    </nz-input-group>
+                                </div>
+                            </div>
+                        </nz-tab>
+                        <nz-tab nzTitle="Clase de Dia">
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label for="Descripcion">Nombre de la Clase:</label>
+                                    <nz-input-group>
+                                        <input type="text" nz-input placeholder="Nombre de la clase" />
+                                    </nz-input-group>
+                                </div>
+                                <div class="col-sm-5">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label for="Descripcion">Dias de la Semana</label>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Lunes</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Martes</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Miercoles</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Jueves</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Viernes</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Sabado</label>
+                                    </nz-input-group>
+                                    <nz-input-group>
+                                        <label nz-checkbox>Domingo</label>
+                                    </nz-input-group>
+                                </div>
+                            </div>
+
+                        </nz-tab>
+                    </nz-tabset>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="row">
+                <div class="col-sm-5">
+                    <button nz-button nzType="primary" nzSize="large">Registrar uno Nuevo</button>
+                </div>
+                <div style="display: flex; justify-content: flex-end;" class="col-sm-4">
+                    <button nz-button nzType="primary" nzSize="large">Guardar Cambios</button>
+                </div>
+            </div>
+            <hr/>
+            <br/>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label for="Observacion">Observacion</label>
+                    <textarea rows="5" nz-input [(ngModel)]="inputValue" placeholder="Ingrese su observacion" name="Observacion"></textarea>
+                </div>
+            </div>
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary">Guardar</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cerrar</button>
+    </ng-template>
+</nz-modal>

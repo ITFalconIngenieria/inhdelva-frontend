@@ -45,6 +45,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 // Importaciones de componentes
 import { LoginComponent } from './login/login.component';
@@ -126,6 +128,8 @@ registerLocaleData(en);
     NzSpinModule,
     NzCalendarModule,
     NzToolTipModule,
+    NzTabsModule,
+    NzBadgeModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-bloquesHorarios',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class BloquesHorariosComponent implements OnInit {
 
   isVisible = false;
+  date = null;
+  inputValue: string;
 
   listOfData = [
     {
@@ -42,7 +45,8 @@ export class BloquesHorariosComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor( private message: NzMessageService ) { }
+
 
   ngOnInit() {
   }
@@ -57,6 +61,19 @@ export class BloquesHorariosComponent implements OnInit {
 
   handleOk(): void {
     this.isVisible = false;
+  }
+
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
+  }
+
+  onValueChange(value: Date): void {
+    console.log(`Current value: ${value}`);
+  }
+
+  onPanelChange(change: { date: Date; mode: string }): void {
+    console.log(`Current value: ${change.date}`);
+    console.log(`Current mode: ${change.mode}`);
   }
 
 }
