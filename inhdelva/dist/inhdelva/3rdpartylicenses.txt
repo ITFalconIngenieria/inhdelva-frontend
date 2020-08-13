@@ -133,6 +133,8 @@ date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
 Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
 
 
+ng-zorro-antd/badge
+
 ng-zorro-antd/button
 
 ng-zorro-antd/calendar
@@ -176,6 +178,8 @@ ng-zorro-antd/spin
 ng-zorro-antd/switch
 
 ng-zorro-antd/table
+
+ng-zorro-antd/tabs
 
 ng-zorro-antd/time-picker
 
