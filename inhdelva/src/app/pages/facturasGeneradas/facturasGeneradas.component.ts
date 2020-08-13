@@ -41,7 +41,6 @@ export class FacturasGeneradasComponent implements OnInit {
   listOfCurrentPageData: ItemData[] = [];
   listOfData: ItemData[] = [];
   setOfCheckedId = new Set<number>();
-
   constructor() { }
 
   updateCheckedSet(id: number, checked: boolean): void {
