@@ -1,102 +1,226 @@
-<!-- <div>
-  <nz-card
-    class="card-style"
-    [nzBordered]="true"
-    nzTitle="INHDELVA"
-    [nzExtra]="extraTemplate"
-  >
-    <div style="background: #ececec; padding: 30px;">
-      <div nz-row [nzGutter]="12">
-        <div nz-col [nzSpan]="12">
-          <nz-card nzTitle="DATOS DE LA FACTURA">
-            <p>.</p>
-            <p>.</p>
-            <p>.</p>
-          </nz-card>
-        </div>
-        <div nz-col [nzSpan]="12">
-          <nz-card nzTitle="DATOS DEL TITULAR">
-            <p>.</p>
-            <p>.</p>
-            <p>.</p>
-          </nz-card>
-        </div>
-      </div>
-      <br />
-      <nz-card
-        class="card-style"
-        [nzBordered]="true"
-        nzTitle="RESUMEN DE LA FACTURA"
-        [nzExtra]="extraTemplate"
-      >
-        <div nz-row [nzGutter]="5">
-          <div nz-col [nzSpan]="5">
-            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-              <p>.</p>
-            </nz-card>
-          </div>
-          <div nz-col [nzSpan]="5">
-            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-              <p>.</p>
-            </nz-card>
-          </div>
-          <div nz-col [nzSpan]="5">
-            <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-              <p>.</p>
-            </nz-card>
-          </div>
-          <div nz-col [nzSpan]="4">
-            <nz-card class="card-small-font" nzTitle="Consumo total en kWh">
-              <p>.</p>
-            </nz-card>
-          </div>
-          <div nz-col [nzSpan]="5">
-            <nz-card class="card-small-font" nzTitle="Total a pagar">
-              <p>.</p>
-            </nz-card>
-          </div>
-        </div>
-      </nz-card>
-      <br>
-      <nz-card
-        class="card-style"
-        [nzBordered]="true"
-        nzTitle="DETALLE DE CONSUMO DE ENERGÍA"
-        [nzExtra]="extraTemplate"
-      >
-        <nz-table #basicTable [nzData]="listOfData">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Lectura Actual</th>
-              <th>Lectura Anterior</th>
-              <th>Consumo</th>
-              <th>Unidades</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of basicTable.data">
-              <td>{{ data.campo }}</td>
-              <td>{{ data.lecturaActual }}</td>
-              <td>{{ data.lecturaAnterior }}</td>
-              <td>{{ data.consumo }}</td>
-              <td>{{ data.unidades}}</td>
-            </tr>
-          </tbody>
-        </nz-table>
-        <div nz-row [nzGutter]="12">
-          <div nz-col [nzSpan]="12">
-            <nz-card class="card-small-font" nzTitle="Cálculo de consumo de Energía">
-              <p>.</p>
-            </nz-card>
-          </div>
-          <div nz-col [nzSpan]="12">
-            <nz-card class="card-small-font" nzTitle="Historico de consumo">
-              <p>.</p>
-            </nz-card>
-          </div>
-        </div>
-      </nz-card>
+<div class="cabecera">
+    <h1> INHDELVA </h1>
+    <div style="text-align: end;">
+        <p class="direccion"> Dirección: 800 Metros, Camino a la Jutosa, Choloma, Cortés </p>
+        <p class="direccion"> Honduras, Centro América </p>
     </div>
-  </nz-card>
+</div>
+<br>
+<div class="titulos">
+    <h5>Datos de Factura</h5>
+    <h5>Datos del titular </h5>
+</div>
+
+<div class="grid-container">
+
+    <div class="datos">
+        <div>
+            <p class="etiqueta-izq"> Fecha de lectura: </p>
+            <p class="etiqueta-izq"> Fecha de emisión: </p>
+            <p class="etiqueta-izq"> Fecha de vencimiento: </p>
+            <p class="etiqueta-izq"> Periodo: </p>
+            <p class="etiqueta-izq"> Días de facturación: </p>
+            <p class="etiqueta-izq"> Número de factura: </p>
+        </div>
+        <div>
+            <p class="etiqueta-der"> 2020/07/18 </p>
+            <p class="etiqueta-der"> 2020/07/18 </p>
+            <p class="etiqueta-der"> 2020/07/18 </p>
+            <p class="etiqueta-der"> 2020/06/01 hasta 2020/07/01 </p>
+            <p class="etiqueta-der"> 30 </p>
+            <p class="etiqueta-der"> 2020-2039-20 </p>
+        </div>
+    </div>
+    <div class="datos">
+        <div>
+            <p class="etiqueta-izq-titular"> Nombre del titular: </p>
+            <p class="etiqueta-izq-titular"> Dirección de suministro: </p>
+            <p class="etiqueta-izq-titular"> Ubicación: </p>
+            <p class="etiqueta-izq-titular"> Código del cliente: </p>
+            <p class="etiqueta-izq-titular"> Número del medidor: </p>
+            <p class="etiqueta-izq-titular"> Tipo de consumo: </p>
+            <p class="etiqueta-izq-titular"> Tarifa: </p>
+        </div>
+        <div>
+            <p class="etiqueta-der-titular"> INHDELVA </p>
+            <p class="etiqueta-der-titular"> Norte </p>
+            <p class="etiqueta-der-titular"> 364-249-245 </p>
+            <p class="etiqueta-der-titular"> 372837 </p>
+            <p class="etiqueta-der-titular"> 372837 </p>
+            <p class="etiqueta-der-titular"> Industrial </p>
+            <p class="etiqueta-der-titular"> Servicio general en baja tensión </p>
+        </div>
+    </div>
+</div>
+<br>
+<div class="titulos">
+    <h5>Resumen de la Factura</h5>
+</div>
+<div class="resumen-container">
+    <div class="consumo">
+        <p class="etiqueta-consumo"> Consumo en kWh </p>
+        <p class="etiqueta-bloque"> *Bloque de horario punta </p>
+        <p class="etiqueta-valor"> 60,000.00 </p>
+    </div>
+    <div class="consumo">
+        <p class="etiqueta-consumo"> Consumo en kWh </p>
+        <p class="etiqueta-bloque"> *Bloque de horario intermedio </p>
+        <p class="etiqueta-valor"> 40,000.00 </p>
+    </div>
+    <div class="consumo">
+        <p class="etiqueta-consumo"> Consumo en kWh </p>
+        <p class="etiqueta-bloque"> *Bloque de horario valle </p>
+        <p class="etiqueta-valor"> 34,320.00 </p>
+    </div>
+    <div class="consumo">
+        <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
+        <p class="etiqueta-valor"> 134,320.00 </p>
+    </div>
+    <div class="consumo">
+        <p class="etiqueta-consumo-total"> Consumo en kWh </p>
+        <p class="etiqueta-valor"> L. 631,734.05 </p>
+    </div>
+</div>
+<br>
+<div class="titulos">
+    <h5>Detalle de Consumo de Energía</h5>
+</div>
+<div class="titulos-detalle">
+    <h6></h6>
+    <h6>Lectura actual</h6>
+    <h6>Lectura anterior</h6>
+    <h6>Consumo</h6>
+    <h6>Unidades</h6>
+</div>
+<div class="detalle-container">
+    <div>
+        <p class="etiqueta-detalle">Fecha lectura</p>
+        <p class="etiqueta-detalle">Activa</p>
+        <p class="etiqueta-detalle">Reactiva</p>
+        <p class="etiqueta-detalle">Demanda</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">2020/06/01</p>
+        <p class="etiqueta-detalle">7,437</p>
+        <p class="etiqueta-detalle">3,543</p>
+        <p class="etiqueta-detalle">1,213</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">2020/07/01</p>
+        <p class="etiqueta-detalle">7,145</p>
+        <p class="etiqueta-detalle">3,415</p>
+        <p class="etiqueta-detalle">-</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">-</p>
+        <p class="etiqueta-detalle">134,320.00</p>
+        <p class="etiqueta-detalle">58,880.00</p>
+        <p class="etiqueta-detalle">557.98</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">-</p>
+        <p class="etiqueta-detalle">kWh</p>
+        <p class="etiqueta-detalle">kWArh</p>
+        <p class="etiqueta-detalle">kW</p>
+    </div>
+</div>
+<br>
+<div class="titulos">
+    <h5>Cálculo de Consumo de Energía</h5>
+    <h5>Histórico de Consumo</h5>
+</div>
+<div class="consumo-container">
+    <div>
+        ...
+    </div>
+    <div>
+        ...
+    </div>
+</div>
+<!-- <div>
+    <nz-card class="card-style" [nzBordered]="true" nzTitle="INHDELVA">
+        <div style="background: #ececec; padding: 30px;">
+            <div nz-row [nzGutter]="12">
+                <div nz-col [nzSpan]="12">
+                    <nz-card nzTitle="DATOS DE LA FACTURA">
+                        <p>.</p>
+                        <p>.</p>
+                        <p>.</p>
+                    </nz-card>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <nz-card nzTitle="DATOS DEL TITULAR">
+                        <p>.</p>
+                        <p>.</p>
+                        <p>.</p>
+                    </nz-card>
+                </div>
+            </div>
+            <br />
+            <nz-card class="card-style" [nzBordered]="true" nzTitle="RESUMEN DE LA FACTURA">
+                <div nz-row [nzGutter]="5">
+                    <div nz-col [nzSpan]="5">
+                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                    <div nz-col [nzSpan]="5">
+                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                    <div nz-col [nzSpan]="5">
+                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                    <div nz-col [nzSpan]="4">
+                        <nz-card class="card-small-font" nzTitle="Consumo total en kWh">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                    <div nz-col [nzSpan]="5">
+                        <nz-card class="card-small-font" nzTitle="Total a pagar">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                </div>
+            </nz-card>
+            <br>
+            <nz-card class="card-style" [nzBordered]="true" nzTitle="DETALLE DE CONSUMO DE ENERGÍA">
+                <nz-table #basicTable [nzData]="listOfData">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Lectura Actual</th>
+                            <th>Lectura Anterior</th>
+                            <th>Consumo</th>
+                            <th>Unidades</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td>{{ data.campo }}</td>
+                            <td>{{ data.lecturaActual }}</td>
+                            <td>{{ data.lecturaAnterior }}</td>
+                            <td>{{ data.consumo }}</td>
+                            <td>{{ data.unidades}}</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+                <div nz-row [nzGutter]="12">
+                    <div nz-col [nzSpan]="12">
+                        <nz-card class="card-small-font" nzTitle="Cálculo de consumo de Energía">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                    <div nz-col [nzSpan]="12">
+                        <nz-card class="card-small-font" nzTitle="Historico de consumo">
+                            <p>.</p>
+                        </nz-card>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+    </nz-card>
 </div> -->
