@@ -14,7 +14,7 @@
     grid-template-rows: 1fr;
     gap: 1px 1px;
     grid-template-areas: ". .";
-    width: 80%;
+    width: 65%;
     margin: auto;
 }
 
@@ -33,7 +33,7 @@
     background-color: #334d7c;
     display: flex;
     justify-content: space-around;
-    width: 80%;
+    width: 65%;
     margin: auto;
 }
 
@@ -41,7 +41,7 @@
     background-color: #334d7c;
     display: flex;
     justify-content: space-around;
-    width: 80%;
+    width: 65%;
     margin: auto;
     margin-top: 5px;
 }
@@ -87,7 +87,7 @@
     grid-template-rows: 1fr;
     gap: 1px 1px;
     grid-template-areas: ". . . . .";
-    width: 80%;
+    width: 65%;
     margin: auto;
     margin-top: 5px;
 }
@@ -132,7 +132,7 @@
     gap: 1px 1px;
     grid-template-areas: ". . . . .";
     margin-top: 3px;
-    width: 80%;
+    width: 65%;
     margin: auto;
 }
 
@@ -150,7 +150,7 @@
     gap: 1px 1px;
     grid-template-areas: ". .";
     margin-top: 5px;
-    width: 80%;
+    width: 65%;
     margin: auto;
 }
 
@@ -204,7 +204,7 @@
     gap: 1px 1px;
     grid-template-areas: ". .";
     margin-top: 5px;
-    width: 80%;
+    width: 65%;
     margin: auto;
 }
 
@@ -220,6 +220,14 @@
     display: flex;
     justify-content: space-between;
     color: black;
+    margin: 0% 5% 0% 5%;
+}
+
+.totales-historico {
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-weight: bold;
     margin: 0% 5% 0% 5%;
 }
 
@@ -242,6 +250,11 @@
     grid-template-rows: 0.4fr 1fr 1fr 1fr;
     gap: 1px 1px;
     grid-template-areas: "." "." "." ".";
+}
+
+.div-etiquetas-medioambiente {
+    display: flex;
+    justify-content: space-between;
 }
 
 h1,
