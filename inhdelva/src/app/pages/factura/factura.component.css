@@ -54,7 +54,7 @@
     grid-template-rows: 1fr;
     gap: 1px 1px;
     grid-template-areas: ". .";
-    margin-right: 2%;
+    margin-right: 1%;
 }
 
 .etiqueta-izq {
@@ -97,7 +97,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 2%;
+    margin-right: 1%;
 }
 
 .etiqueta-consumo {
