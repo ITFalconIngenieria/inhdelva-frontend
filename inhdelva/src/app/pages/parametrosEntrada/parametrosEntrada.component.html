@@ -53,7 +53,7 @@
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <nz-form-item>
             <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-range-picker style="width: 100%; margin: auto;" [nzFormat]="dateFormat"></nz-range-picker>
             </nz-form-control>
         </nz-form-item>
@@ -73,7 +73,7 @@
             <div class="col">
                 <nz-form-item>
                     <nz-form-label>Valor</nz-form-label>
-                    <nz-form-control nzErrorTip="Please input your Password!">
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <nz-input-number style="width: 100%; margin: 0px;" formControlName="Observacion" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
@@ -81,8 +81,8 @@
         </div>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>

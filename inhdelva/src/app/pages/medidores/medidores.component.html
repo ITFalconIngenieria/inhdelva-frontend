@@ -60,32 +60,37 @@
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your username!">
-                <input nz-input formControlName="Codigo" placeholder="input placeholder" />
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <nz-input-group formControlName="Codigo" nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <input type="text" nz-Escribe aquí...="Busca por código" />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                </ng-template>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <input nz-input formControlName="Descripcion" placeholder="input placeholder" />
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Serie</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <input nz-input formControlName="Serie" placeholder="input placeholder" />
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input formControlName="Serie" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Modelo</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <input nz-input formControlName="Modelo" placeholder="input placeholder" />
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input formControlName="Modelo" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
@@ -101,32 +106,32 @@
         <h5> Configuración del Rollover </h5>
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your username!">
-                <input style="width: 100%; margin: 0px;" disabled="true" formControlName="Codigo" placeholder="input placeholder" />
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input style="width: 100%; margin: 0px;" disabled="true" formControlName="Codigo" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Fecha de Rollover</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-date-picker style="margin: 0px;" [nzFormat]="dateFormat"></nz-date-picker>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Lectura antes del Rollover</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-number style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nueva lectura</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-number style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
-            <nz-form-control nzErrorTip="Please input your Password!">
-                <textarea nz-input formControlName="Observacion" placeholder="textarea with clear icon"></textarea>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
