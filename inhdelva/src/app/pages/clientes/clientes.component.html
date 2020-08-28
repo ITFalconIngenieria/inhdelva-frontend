@@ -9,7 +9,7 @@
 </div>
 <br>
 <div class="tabla">
-    <nz-table #basicTable [nzData]="listOfData" nzPageSize="6">
+    <nz-table #basicTable [nzData]="listOfDataClientes" nzPageSize="6">
         <thead>
             <tr>
                 <th></th>
@@ -24,10 +24,10 @@
                                 <img src="assets/project.png">
                             </div>
                             <div class="col-9 div-border" style="position: relative;">
-                                <h6>Atlantic {{data.key}}</h6>
-                                <label>Norte-Consumo Energia INHDELVA</label>
+                                <h6> {{ data.Nombre }} </h6>
+                                <label> {{ data.Direccion }} </label>
                                 <br>
-                                <label>Telefono: +504 9845-3257</label>
+                                <label>Telefono: {{ data.Telefono }} </label>
                                 <div style="position: absolute; top: 0%; left: 81%;">
                                     <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
                                     <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
@@ -53,7 +53,7 @@
             <nz-form-label>Código del cliente</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group formControlName="Codigo" nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" nz-Escribe aquí...="Busca por código" />
+                    <input class="input-busqueda" type="text" nz-Escribe aquí...="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>

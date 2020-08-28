@@ -49,6 +49,8 @@ export class LocalizacionComponent implements OnInit {
       .toPromise()
       .then(
         (data: LocalizacionModel[]) => {
+          console.log(data);
+
           this.listOfDataLocalizacion = data;
         }
       );

@@ -36,8 +36,8 @@
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
+                    <td>{{ data.id }}</td>
                     <td>{{ data.name }}</td>
-                    <td>{{ data.age }}</td>
                     <td>{{ data.address }}</td>
                     <td>
                         <span class="badge badge-pill badge-danger">En contrato</span>
@@ -62,7 +62,7 @@
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group formControlName="Codigo" nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" nz-Escribe aquí...="Busca por código" />
+                    <input class="input-busqueda" type="text" nz-Escribe aquí...="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
@@ -85,6 +85,18 @@
             <nz-form-label>Modelo</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <input nz-input formControlName="Modelo" placeholder="Escribe aquí..." />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Direción IP</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Lectura maxima</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>

@@ -102,6 +102,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @ant-design/icons-angular
 MIT
 
+angular-fusioncharts
+MIT
+
 core-js
 MIT
 Copyright (c) 2014-2020 Denis Pushkarev
@@ -132,6 +135,10 @@ MIT
 date-fns is licensed under the [MIT license](http://kossnocorp.mit-license.org).
 Read more about MIT at [TLDRLegal](https://tldrlegal.com/license/mit-license).
 
+
+fusioncharts
+http://www.fusioncharts.com/buy/
+https://www.fusioncharts.com/buy/
 
 ng-zorro-antd/badge
 

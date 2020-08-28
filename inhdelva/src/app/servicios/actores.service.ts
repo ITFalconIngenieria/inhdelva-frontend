@@ -9,13 +9,16 @@ const apiUrl = environment.apiUrl;
 })
 export class ActoresService {
 
-constructor(
-  private http: HttpClient
-) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-getActores(){
-  this.http.get(`${apiUrl}actores`);
-}
+  getClientes() {
+    return this.http.get(`${apiUrl}v-clientes`);
+  }
 
+  getProveedores() {
+    return this.http.get(`${apiUrl}v-proveedores`);
+  }
 
 }

@@ -7,19 +7,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tipoTarifa.component.css']
 })
 export class TipoTarifaComponent implements OnInit {
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
+
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleParametro = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
-
-
-  parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
-
-  constructor(
-    private fb: FormBuilder
-  ) { }
 
   listOfData = [
     {
@@ -27,26 +24,30 @@ export class TipoTarifaComponent implements OnInit {
       name: 'John Brown',
       age: 32,
       expand: false,
-      address: 'New York No. 1 Lake Park',
-      description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
+      address: 'MATRIZ X',
+      description: 'Tarifa monomica para servicio de XXXX Tension'
     },
     {
       id: 2,
       name: 'Jim Green',
       age: 42,
       expand: false,
-      address: 'London No. 1 Lake Park',
-      description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
+      address: 'MATRIZ X',
+      description: 'Tarifa monomica para servicio de XXXX Tension'
     },
     {
       id: 3,
       name: 'Joe Black',
       age: 32,
       expand: false,
-      address: 'Sidney No. 1 Lake Park',
-      description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
+      address: 'MATRIZ X',
+      description: 'Tarifa monomica para servicio de XXXX Tension'
     }
   ];
+
+
+  parserLectura = (value: string) => value.replace('kW ', '');
+  formatterLectura = (value: number) => `kW ${value}`;
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
