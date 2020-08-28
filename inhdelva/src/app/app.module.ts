@@ -10,6 +10,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 
+import { FusionChartsModule } from "angular-fusioncharts";
+
+// Import FusionCharts library and chart modules
+import * as FusionCharts from "fusioncharts";
+import * as charts from "fusioncharts/fusioncharts.charts";
+import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
+
 // config angular i18n
 import { registerLocaleData, CommonModule } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -102,6 +112,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FusionChartsModule,
     /////////////////
     IconsProviderModule,
     // NgZorroAntdModule,
