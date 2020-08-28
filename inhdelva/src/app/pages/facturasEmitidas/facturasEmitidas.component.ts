@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 interface ItemData {
   id: number;
   name: string;
-  age: number;
+  age: string;
   address: string;
+  energia: string;
+  Total: string;
 }
 
 @Component({
@@ -27,9 +29,11 @@ export class FacturasEmitidasComponent implements OnInit {
     this.listOfData = new Array(200).fill(0).map((_, index) => {
       return {
         id: index,
-        name: `Edward King ${index}`,
-        age: 32,
-        address: `London, Park Lane no. ${index}`
+        name: `CNT- ${index}`,
+        age: 'XXXX',
+        address: `##/##/####`,
+        energia: '#,###.##',
+        Total: '#,###.##'
       };
     });
   }

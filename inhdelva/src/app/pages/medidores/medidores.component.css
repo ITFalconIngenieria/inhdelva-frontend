@@ -33,3 +33,9 @@ nz-form-control {
     margin-top: 0px;
     margin-bottom: 0px;
 }
+
+.input-busqueda {
+    border-color: #8c8c8c;
+    width: 100%;
+    height: 31px;
+}

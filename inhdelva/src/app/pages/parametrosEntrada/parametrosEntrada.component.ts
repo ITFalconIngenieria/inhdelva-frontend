@@ -7,44 +7,44 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./parametrosEntrada.component.css']
 })
 export class ParametrosEntradaComponent implements OnInit {
+  
+  constructor(
+    private fb: FormBuilder
+  ) { }
   expandSet = new Set<number>();
   isVisible = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
 
-  parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
-  
-  constructor(
-    private fb: FormBuilder
-  ) { }
-
   listOfData = [
     {
       id: 1,
-      name: 'John Brown',
+      name: 'Perdidas de Transformacion',
       age: 32,
       expand: false,
-      address: 'New York No. 1 Lake Park',
+      address: '##/##/####',
       description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
     },
     {
       id: 2,
-      name: 'Jim Green',
+      name: 'Perdidas de Transformacion',
       age: 42,
       expand: false,
-      address: 'London No. 1 Lake Park',
+      address: '##/##/####',
       description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
     },
     {
       id: 3,
-      name: 'Joe Black',
+      name: 'Perdidas de Transformacion',
       age: 32,
       expand: false,
-      address: 'Sidney No. 1 Lake Park',
+      address: '##/##/####',
       description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
     }
   ];
+
+  parserLectura = (value: string) => value.replace('kW ', '');
+  formatterLectura = (value: number) => `kW ${value}`;
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {

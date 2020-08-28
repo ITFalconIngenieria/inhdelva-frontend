@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-interface Person {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
+import { ClientesModel } from '../../Modelos/actores';
+import { ActoresService } from '../../servicios/actores.service';
 
 @Component({
   selector: 'app-clientes',
@@ -17,78 +12,10 @@ export class ClientesComponent implements OnInit {
   isVisible = false;
   validateForm: FormGroup;
 
-  listOfData: Person[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '4',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '5',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '6',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '7',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '8',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '9',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '10',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      key: '11',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
-
+  listOfDataClientes: ClientesModel[] = [];
   constructor(
-    private fb: FormBuilder
-
+    private fb: FormBuilder,
+    private actoresService: ActoresService
   ) { }
 
   submitForm(): void {
@@ -100,6 +27,17 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.actoresService.getClientes()
+      .toPromise()
+      .then(
+        (data: any[]) => {
+          console.log(data);
+          
+          this.listOfDataClientes = data;
+        }
+      );
+
     this.validateForm = this.fb.group({
       Codigo: [null, [Validators.required]],
       RTN: [null, [Validators.required]],
