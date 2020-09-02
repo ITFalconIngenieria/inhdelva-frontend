@@ -26,6 +26,10 @@ export class ClientesComponent implements OnInit {
     }
   }
 
+  busquedad(){
+    
+  }
+
   ngOnInit() {
 
     this.actoresService.getClientes()
@@ -33,7 +37,7 @@ export class ClientesComponent implements OnInit {
       .then(
         (data: any[]) => {
           console.log(data);
-          
+
           this.listOfDataClientes = data;
         }
       );
