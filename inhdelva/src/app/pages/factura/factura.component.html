@@ -13,7 +13,7 @@
 
 <div class="grid-container">
 
-    <div class="datos">
+    <!-- <div class="datos">
         <div>
             <p class="etiqueta-izq"> Fecha de lectura: </p>
             <p class="etiqueta-izq"> Fecha de emisión: </p>
@@ -50,7 +50,7 @@
             <p class="etiqueta-der-titular"> {{ maestroFactura[0].TipoConsumo }} </p>
             <p class="etiqueta-der-titular"> {{ maestroFactura[0].Tarifa }} </p>
         </div>
-    </div>
+    </div> -->
 </div>
 <br>
 <div class="titulos">
@@ -130,7 +130,7 @@
     <h5>Histórico de Consumo</h5>
 </div>
 <div class="consumo-container">
-    <div class="calculo-consumo-container">
+    <!-- <div class="calculo-consumo-container">
         <div>
             <table class="table table-bordered table-sm">
                 <thead>
@@ -220,10 +220,10 @@
             </div>
             <img style="width: 100%;" src="assets/formular.PNG">
         </div>
-    </div>
+    </div> -->
     <div class="historico-consumo-container">
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <fusioncharts width="500" height="350" type="Column2d" [dataSource]="dataSource">
+            <fusioncharts width="600" height="400" type="Column2d" [dataSource]="dataSourceBarra">
             </fusioncharts>
         </div>
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
@@ -294,7 +294,7 @@
             <h4>Origen de la eletricidad</h4>
         </div>
         <div style="margin-top: 10px;">
-            <table class="table table-bordered table-sm">
+            <!-- <table class="table table-bordered table-sm">
                 <thead>
                     <tr>
                         <th style="background-color: #717171; color: white;" scope="col">Origen</th>
@@ -367,7 +367,7 @@
                         <td> 19% </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </div>
     <div class="medioambiental-container">
@@ -452,10 +452,12 @@
             </div>
         </div>
         <div>
-            ....
+            <fusioncharts width="600" height="350" type="pie2d" [dataSource]="dataSourcePastelINH">
+            </fusioncharts>
         </div>
         <div>
-            ....
+            <fusioncharts width="600" height="400" type="pie2d" [dataSource]="dataSourcePastelHN">
+            </fusioncharts>
         </div>
     </div>
 </div>

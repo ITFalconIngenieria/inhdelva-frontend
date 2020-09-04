@@ -1,7 +1,7 @@
-import { LocalizacionModel } from './../../Modelos/localizacion';
+import { ZonaModel } from '../../Modelos/zona';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocalizacionService } from '../../servicios/localizacion.service';
+import { ZonaService } from '../../servicios/zona.service';
 
 @Component({
   selector: 'app-localizacion',
@@ -12,7 +12,7 @@ export class LocalizacionComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private localizacionService: LocalizacionService
+    private zonaService: ZonaService
 
   ) { }
 
@@ -21,17 +21,17 @@ export class LocalizacionComponent implements OnInit {
   validateForm: FormGroup;
   demoValue = 100;
   radioValue = 'A';
-
-  listOfDataLocalizacion: LocalizacionModel[] = [];
+  dataZona;
+  listOfDataZona: ZonaModel[] = [];
 
   parserArea = (value: string) => value.replace(' m²', '');
   formatterArea = (value: number) => `${value} m²`;
 
-  onExpandChange(Codigo: any, checked: boolean): void {
+  onExpandChange(id: any, checked: boolean): void {
     if (checked) {
-      this.expandSet.add(Codigo);
+      this.expandSet.add(id);
     } else {
-      this.expandSet.delete(Codigo);
+      this.expandSet.delete(id);
     }
   }
 
@@ -41,26 +41,44 @@ export class LocalizacionComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+
+  }
+
+  guardar() {
+    console.log(this.validateForm.value);
+
+    this.dataZona = {
+      ...this.validateForm.value,
+      estado: true
+    };
+
+    console.log(this.dataZona);
+
+    this.zonaService.postZona(this.dataZona)
+      .toPromise()
+      .then(
+        (data: ZonaModel) => {
+          this.listOfDataZona = [...this.listOfDataZona, data];
+        }
+      );
   }
 
   ngOnInit() {
 
-    this.localizacionService.getLocalizacion()
+    this.zonaService.getZonas()
       .toPromise()
       .then(
-        (data: LocalizacionModel[]) => {
-          console.log(data);
+        (data: ZonaModel[]) => {
+          // console.log(data);
 
-          this.listOfDataLocalizacion = data;
+          this.listOfDataZona = data;
         }
       );
 
     this.validateForm = this.fb.group({
-      Codigo: [null, [Validators.required]],
-      Descripcion: [null, [Validators.required]],
-      ZonaId: [null, [Validators.required]],
-      Area: [0, [Validators.required]],
-      Observacion: [null, [Validators.required]]
+      codigo: [null, [Validators.required]],
+      descripcion: [null, [Validators.required]],
+      observacion: [null, [Validators.required]],
     });
   }
 

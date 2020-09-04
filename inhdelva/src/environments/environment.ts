@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://backend-factinh.herokuapp.com/'
+  apiUrl: 'https://indv-backend.herokuapp.com/'
 };
 
 /*
