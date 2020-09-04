@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://backend-factinh.herokuapp.com/'
+  apiUrl: 'https://indv-backend.herokuapp.com/'
 };
