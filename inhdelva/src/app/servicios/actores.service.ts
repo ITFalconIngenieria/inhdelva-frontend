@@ -14,11 +14,15 @@ export class ActoresService {
   ) { }
 
   getClientes() {
-    return this.http.get(`${apiUrl}v-clientes`);
+    return this.http.get(`${apiUrl}actores-sap?filter={"where":%20{"TipoActor":%20false}}`);
   }
 
   getProveedores() {
-    return this.http.get(`${apiUrl}v-proveedores`);
+    return this.http.get(`${apiUrl}actores-sap?filter={"where":%20{"TipoActor":%20true}}`);
+  }
+
+  busquedad(){
+    return this.http.get(`${apiUrl}actor-sap`);
   }
 
 }
