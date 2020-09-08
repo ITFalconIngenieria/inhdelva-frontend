@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ClientesModel } from '../../Modelos/actores';
+import { ClientesModel, ActoresSap } from '../../Modelos/actores';
 import { ActoresService } from '../../servicios/actores.service';
 
 @Component({
@@ -10,40 +9,35 @@ import { ActoresService } from '../../servicios/actores.service';
 })
 export class ClientesComponent implements OnInit {
   isVisible = false;
-  validateForm: FormGroup;
-  clienteFiltrado: ClientesModel[] = [];
+  clienteFiltrado: ActoresSap[] = [];
   listOfDataClientes: ClientesModel[] = [];
+  codigo: string;
+  nombre: string;
+  rtn: string;
+  contacto: string;
+  tel: string;
+  email: string;
+  direccion: string;
+  imagen: string;
+  observacion: string;
+
   constructor(
-    private fb: FormBuilder,
     private actoresService: ActoresService
   ) { }
 
-  submitForm(): void {
-    // tslint:disable-next-line: forin
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-  }
-
   busquedad() {
-    const codigo = this.validateForm.value.Codigo;
-    const cliente = this.listOfDataClientes.filter(x => x.Codigo === codigo);
-    this.clienteFiltrado = { ...cliente };
+    const codigo = this.codigo;
+    this.actoresService.busquedad()
+      .toPromise()
+      .then(
+        (data: ActoresSap[]) => {
+          const cliente = data.filter(x => x.Cardcode === codigo);
+          this.clienteFiltrado = { ...cliente };
 
-    this.validateForm = this.fb.group({
-      Codigo: [this.clienteFiltrado[0].Codigo, [Validators.required]],
-      RTN: [this.clienteFiltrado[0].RTN, [Validators.required]],
-      Nombre: [this.clienteFiltrado[0].Nombre, [Validators.required]],
-      Contacto: [this.clienteFiltrado[0].Contacto, [Validators.required]],
-      Telefono: [this.clienteFiltrado[0].Telefono, [Validators.required]],
-      Email: [this.clienteFiltrado[0].Email, [Validators.required]],
-      Direccion: [this.clienteFiltrado[0].Direccion, [Validators.required]],
-      Imagen: [this.clienteFiltrado[0].Imagen, [Validators.required]],
-      Observacion: [this.clienteFiltrado[0].Observacion, [Validators.required]]
-    });
+          console.log(this.clienteFiltrado);
 
-    console.log(this.clienteFiltrado[0].Nombre);
+        }
+      );
 
   }
 
@@ -59,17 +53,6 @@ export class ClientesComponent implements OnInit {
         }
       );
 
-    this.validateForm = this.fb.group({
-      Codigo: [null, [Validators.required]],
-      RTN: [null, [Validators.required]],
-      Nombre: [null, [Validators.required]],
-      Contacto: [null, [Validators.required]],
-      Telefono: [null, [Validators.required]],
-      Email: [null, [Validators.required]],
-      Direccion: [null, [Validators.required]],
-      Imagen: [null, [Validators.required]],
-      Observacion: [null, [Validators.required]]
-    });
   }
 
   showModal(): void {

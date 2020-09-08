@@ -17,3 +17,13 @@ export interface ClientesModel {
   Imagen: string;
   Observacion: string;
 }
+
+export interface ActoresSap {
+  Cardcode: string;
+  Cardname: string;
+  vatiduncmp?: string;
+  Contacto?: string;
+  Address?: string;
+  phone1?: string;
+  E_mail?: string;
+}

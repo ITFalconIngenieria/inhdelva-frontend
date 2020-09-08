@@ -25,9 +25,9 @@
                             </div>
                             <div class="col-9 div-border" style="position: relative;">
                                 <h6> {{ data.Nombre }} </h6>
-                                <label> {{ data.Direccion }} </label>
+                                <label> {{ data.Direccion ? data.Direccion : '---'  }} </label>
                                 <br>
-                                <label>Telefono: {{ data.Telefono }} </label>
+                                <label>Telefono: {{ data.Telefono ? data.Telefono : '---' }} </label>
                                 <div style="position: absolute; top: 0%; left: 81%;">
                                     <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
                                     <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
@@ -48,12 +48,12 @@
 
 <!-- Modal Formulario -->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Clientes" (nzOnCancel)="handleCancel()">
-    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form nz-form nzLayout="vertical">
         <nz-form-item>
             <nz-form-label>Código del cliente</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" formControlName="Codigo" nz-input placeholder="Busca por código" />
+                    <input type="text" [(ngModel)]="codigo" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" (click)="busquedad()" nzSearch><i nz-icon
@@ -64,49 +64,49 @@
         <nz-form-item>
             <nz-form-label>Nombre empresa</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="Nombre" />
+                <input nz-input disabled="true" [(ngModel)]="nombre" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>RTN</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="RTN" />
+                <input nz-input disabled="true" [(ngModel)]="rtn" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nombre del contacto</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="Contacto" />
+                <input nz-input disabled="true" [(ngModel)]="contacto" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="Telefono" />
+                <input nz-input disabled="true" [(ngModel)]="tel" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Email</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="Email" />
+                <input nz-input disabled="true" [(ngModel)]="email" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Dirección</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" formControlName="Direccion" />
+                <input nz-input disabled="true" [(ngModel)]="direccion" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Imagen</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Imagen" />
+                <input nz-input [(ngModel)]="imagen" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input disabled="true" formControlName="Observacion"></textarea>
+                <textarea nz-input [(ngModel)]="observacion"></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
