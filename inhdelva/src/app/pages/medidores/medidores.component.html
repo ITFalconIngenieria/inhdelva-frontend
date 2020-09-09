@@ -62,7 +62,7 @@
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" formControlName="Codigo" nz-input placeholder="Busca por código" />
+                    <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
@@ -72,37 +72,37 @@
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Serie</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Serie" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="serie" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Modelo</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Modelo" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="modelo" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Direción IP</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="direccionIp" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Lectura maxima</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
@@ -119,7 +119,7 @@
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input style="width: 100%; margin: 0px;" disabled="true" formControlName="Codigo" placeholder="Escribe aquí..." />
+                <input style="width: 100%; margin: 0px;" disabled="true" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -143,7 +143,7 @@
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>

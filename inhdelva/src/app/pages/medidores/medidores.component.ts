@@ -12,6 +12,13 @@ export class MedidoresComponent implements OnInit {
   isVisibleRollover = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
+  codigo: string;
+  descripcion: string;
+  serie: string;
+  modelo: string;
+  direccionIp: string;
+  lecMax: number;
+  observacion: string;
 
   constructor(
     private fb: FormBuilder
@@ -43,7 +50,7 @@ export class MedidoresComponent implements OnInit {
       description: 'Aqui va una descripcion'
     }
   ];
-  
+
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;
 

@@ -53,7 +53,7 @@
             <nz-form-label>Código del cliente</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" [(ngModel)]="codigo" nz-input placeholder="Busca por código" />
+                    <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" (click)="busquedad()" nzSearch><i nz-icon
@@ -64,54 +64,54 @@
         <nz-form-item>
             <nz-form-label>Nombre empresa</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="nombre" />
+                <input nz-input disabled="true" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>RTN</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="rtn" />
+                <input nz-input disabled="true" [(ngModel)]="rtn" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nombre del contacto</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="contacto" />
+                <input nz-input disabled="true" [(ngModel)]="contacto" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="tel" />
+                <input nz-input disabled="true" [(ngModel)]="tel" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Email</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="email" />
+                <input nz-input disabled="true" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Dirección</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="direccion" />
+                <input nz-input disabled="true" [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Imagen</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="imagen" />
+                <input nz-input [(ngModel)]="imagen" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input [(ngModel)]="observacion"></textarea>
+                <textarea nz-input [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}"></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
     </div>
 </nz-modal>

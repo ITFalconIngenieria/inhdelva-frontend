@@ -1,12 +1,12 @@
-export interface ActoresModel {
-  Codigo: string;
-  TipoActor: boolean;
-  Imagen: string;
-  Observacion: string;
-  Estado: boolean;
+export interface ClientesModel {
+  codigo: string;
+  tipoActor: boolean;
+  imagen: string;
+  observacion: string;
+  estado: boolean;
 }
 
-export interface ClientesModel {
+export interface ClientesVista {
   Codigo: string;
   Nombre: string;
   RTN?: any;
@@ -18,7 +18,7 @@ export interface ClientesModel {
   Observacion: string;
 }
 
-export interface ActoresSap {
+export interface ActoresSapSearch {
   Cardcode: string;
   Cardname: string;
   vatiduncmp?: string;
@@ -27,3 +27,4 @@ export interface ActoresSap {
   phone1?: string;
   E_mail?: string;
 }
+
