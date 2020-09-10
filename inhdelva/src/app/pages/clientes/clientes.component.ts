@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientesModel, ActoresSap } from '../../Modelos/actores';
+import { ClientesVista, ActoresSapSearch, ClientesModel } from '../../Modelos/actores';
 import { ActoresService } from '../../servicios/actores.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-clientes',
@@ -9,8 +10,9 @@ import { ActoresService } from '../../servicios/actores.service';
 })
 export class ClientesComponent implements OnInit {
   isVisible = false;
-  clienteFiltrado: ActoresSap[] = [];
-  listOfDataClientes: ClientesModel[] = [];
+  clienteData: ClientesModel;
+  actoresSap: ActoresSapSearch[] = [];
+  listOfDataClientes: ClientesVista[] = [];
   codigo: string;
   nombre: string;
   rtn: string;
@@ -27,17 +29,52 @@ export class ClientesComponent implements OnInit {
 
   busquedad() {
     const codigo = this.codigo;
-    this.actoresService.busquedad()
+
+    const cliente: ActoresSapSearch[] = this.actoresSap.filter(x => x.Cardcode === codigo);
+
+    if (cliente.length > 0) {
+      this.nombre = cliente[0].Cardname;
+      this.rtn = cliente[0].vatiduncmp;
+      this.contacto = cliente[0].Contacto;
+      this.tel = cliente[0].phone1;
+      this.email = cliente[0].E_mail;
+      this.direccion = cliente[0].Address;
+    } else {
+      this.codigo = '';
+      swal({
+        icon: 'warning',
+        text: 'No se encontró ese cliente'
+      });
+    }
+
+  }
+
+  guardar() {
+    this.clienteData = {
+      codigo: this.codigo,
+      tipoActor: false,
+      imagen: (this.imagen) ? this.imagen : '',
+      observacion: (this.observacion) ? this.observacion : '',
+      estado: true
+    };
+
+    console.log(this.clienteData);
+
+    this.actoresService.postClientes(this.clienteData)
       .toPromise()
       .then(
-        (data: ActoresSap[]) => {
-          const cliente = data.filter(x => x.Cardcode === codigo);
-          this.clienteFiltrado = { ...cliente };
-
-          console.log(this.clienteFiltrado);
+        (data) => {
+          console.log(data);
 
         }
+
       );
+
+  }
+
+  editar(id) {
+    this.isVisible = true;
+
 
   }
 
@@ -50,6 +87,14 @@ export class ClientesComponent implements OnInit {
           console.log(data);
 
           this.listOfDataClientes = data;
+        }
+      );
+
+    this.actoresService.busquedad()
+      .toPromise()
+      .then(
+        (data: ActoresSapSearch[]) => {
+          this.actoresSap = data;
         }
       );
 

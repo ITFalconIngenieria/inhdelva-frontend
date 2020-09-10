@@ -25,12 +25,12 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="editar(data.codigo)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="editar(data)" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="eliminar(data)" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -60,37 +60,6 @@
                 <input nz-input formControlName="descripcion" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
-
-        <!-- <div class="row">
-            <div class="col">
-                <nz-form-item>
-                    <nz-form-label>Zona</nz-form-label>
-                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-select formControlName="observacion" style="width: 100%;" nzAllowClear nzPlaceHolder="Seleccione uno..." formControlName="Descripcion">
-                            <nz-option *ngFor="let zona of listOfDataZona" [nzLabel]="zona.descripcion" [nzValue]="zona.id"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-            <div class="col">
-                <nz-form-item>
-                    <nz-form-label>Tipo de cobro para servicios</nz-form-label>
-                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group formControlName="descripcion">
-                            <label nz-radio nzValue="A">Energía activa (kWh)</label>
-                            <label nz-radio nzValue="B">Área (m²)</label>
-                        </nz-radio-group>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
-        </div> -->
-
-        <!-- <nz-form-item>
-            <nz-form-label>Área</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%;" [nzMin]="1" [nzMax]="100" [nzStep]="1" formControlName="Area" [nzFormatter]="formatterArea" [nzParser]="parserArea"></nz-input-number>
-            </nz-form-control>
-        </nz-form-item> -->
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">

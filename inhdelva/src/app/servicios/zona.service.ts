@@ -21,9 +21,12 @@ export class ZonaService {
     return this.http.post(`${apiUrl}zona`, zona);
   }
 
-  putZona(zona) {
-    return this.http.put(`${apiUrl}zona`, zona);
+  putZona(id, zona) {
+    return this.http.put(`${apiUrl}zona${id}`, zona);
   }
 
+  deleteZona(id, zona) {
+    return this.http.patch(`${apiUrl}zona${id}`, zona);
+  }
 
 }

@@ -21,8 +21,10 @@ export class LocalizacionComponent implements OnInit {
   validateForm: FormGroup;
   demoValue = 100;
   radioValue = 'A';
+  zonaEdit;
   dataZona;
   listOfDataZona: ZonaModel[] = [];
+  accion: string;
 
   parserArea = (value: string) => value.replace(' m²', '');
   formatterArea = (value: number) => `${value} m²`;
@@ -45,22 +47,42 @@ export class LocalizacionComponent implements OnInit {
   }
 
   guardar() {
-    console.log(this.validateForm.value);
 
     this.dataZona = {
       ...this.validateForm.value,
       estado: true
     };
 
-    console.log(this.dataZona);
+    switch (this.accion) {
+      case 'nuevo': {
+        console.log(this.dataZona);
 
-    this.zonaService.postZona(this.dataZona)
-      .toPromise()
-      .then(
-        (data: ZonaModel) => {
-          this.listOfDataZona = [...this.listOfDataZona, data];
-        }
-      );
+        this.zonaService.postZona(this.dataZona)
+          .toPromise()
+          .then(
+            (data: ZonaModel) => {
+              this.listOfDataZona = [...this.listOfDataZona, data];
+            }
+          );
+        break;
+      }
+      case 'editar': {
+        this.zonaService.putZona(this.zonaEdit, this.dataZona)
+          .toPromise()
+          .then(
+            (data) => {
+              console.log('edit');
+            }
+          );
+        break;
+      }
+      case 'borrar': {
+        break;
+      }
+      default:
+        break;
+    }
+
   }
 
   ngOnInit() {
@@ -94,9 +116,30 @@ export class LocalizacionComponent implements OnInit {
     this.isVisible = false;
   }
 
-  editar(id) {
+  editar(data) {
+    this.accion = 'editar';
     this.isVisible = true;
-    console.log(id);
+    console.log(data);
+    this.zonaEdit = data.id;
+    this.validateForm = this.fb.group({
+      codigo: [data.codigo, [Validators.required]],
+      descripcion: [data.descripcion, [Validators.required]],
+      observacion: [data.observacion, [Validators.required]],
+    });
 
+  }
+
+  eliminar(data) {
+
+    console.log(data);
+
+    this.zonaService.deleteZona(data.id, { 'estado': false })
+      .toPromise()
+      .then(
+        (data) => {
+          console.log(data);
+
+        }
+      );
   }
 }

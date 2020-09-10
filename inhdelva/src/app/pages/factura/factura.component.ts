@@ -211,22 +211,20 @@ export class FacturaComponent implements OnInit {
       data: this.chartDataPstelHN
     };
 
-    // this.facturaService.get()
-    //   .toPromise()
-    //   .then(
-    //     (data: any) => {
-    //       console.log(data);
-    //       this.detallefactura = { ...data[0] };
-    //       this.periodofactura = data[1];
-    //       this.origenElectricidad = data[2];
-    //       this.detalleCliente = data[3];
-    //       this.maestroFactura = data[4];
+    this.facturaService.getDetalleFactura()
+      .toPromise()
+      .then(
+        (data: any) => {
+          console.log(data);
+          this.detallefactura = { ...data[0] };
+          this.periodofactura = data[1];
+          this.origenElectricidad = data[2];
 
-    //       console.log(this.detallefactura[0].ActivaActual);
+          console.log(this.detallefactura[0].ActivaActual);
 
 
-    //     }
-    //   );
+        }
+      );
 
   }
 
