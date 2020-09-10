@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-interface ItemData {
-  id: number;
-  name: string;
-  age: string;
-  address: string;
-  energia: string;
-  Total: string;
-}
+import { FacturaService } from '../../servicios/factura.service';
+import { ListadoFactura } from '../../Modelos/factura';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -40,10 +33,39 @@ export class FacturasGeneradasComponent implements OnInit {
 
   checked = false;
   indeterminate = false;
-  listOfCurrentPageData: ItemData[] = [];
-  listOfData: ItemData[] = [];
+  listOfCurrentPageData: ListadoFactura[] = [];
+  listOfDataFacturas: ListadoFactura[] = [];
   setOfCheckedId = new Set<number>();
-  constructor() { }
+
+  constructor(
+    private facturaService: FacturaService
+  ) { }
+
+
+
+  ngOnInit() {
+
+    this.facturaService.getListadoFacturas()
+      .toPromise()
+      .then(
+        (data: ListadoFactura[]) => {
+          console.log(data);
+          this.listOfDataFacturas = data;
+
+        }
+      );
+
+    // this.listOfDataFacturas = new Array(200).fill(0).map((_, index) => {
+    //   return {
+    //     id: index,
+    //     name: `CNT- ${index}`,
+    //     age: 'XXXX',
+    //     address: `##/##/####`,
+    //     energia: '#,###.##',
+    //     Total: '#,###.##'
+    //   };
+    // });
+  }
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
@@ -63,7 +85,7 @@ export class FacturasGeneradasComponent implements OnInit {
     this.refreshCheckedStatus();
   }
 
-  onCurrentPageDataChange($event: ItemData[]): void {
+  onCurrentPageDataChange($event: ListadoFactura[]): void {
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
   }
@@ -71,19 +93,6 @@ export class FacturasGeneradasComponent implements OnInit {
   refreshCheckedStatus(): void {
     this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
-  }
-
-  ngOnInit() {
-    this.listOfData = new Array(200).fill(0).map((_, index) => {
-      return {
-        id: index,
-        name: `CNT- ${index}`,
-        age: 'XXXX',
-        address: `##/##/####`,
-        energia: '#,###.##',
-        Total: '#,###.##'
-      };
-    });
   }
 
 }

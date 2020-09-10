@@ -46,14 +46,14 @@ export class LocalizacionComponent implements OnInit {
 
   }
 
-  guardar(accion) {
+  guardar() {
 
     this.dataZona = {
       ...this.validateForm.value,
       estado: true
     };
 
-    switch (accion) {
+    switch (this.accion) {
       case 'nuevo': {
         console.log(this.dataZona);
 

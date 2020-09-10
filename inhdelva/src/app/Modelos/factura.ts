@@ -33,3 +33,13 @@ export interface DetalleFactura {
   valor: number;
   facturaId: number;
 }
+
+export interface ListadoFactura {
+  id: number;
+  codigo: string;
+  contrato: string;
+  cliente: string;
+  fechaLectura: string;
+  consumo: number;
+  total: number;
+}

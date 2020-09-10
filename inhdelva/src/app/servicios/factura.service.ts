@@ -15,14 +15,15 @@ export class FacturaService {
     private http: HttpClient
   ) { }
 
-  get(): Observable<any> {
+  getListadoFacturas() {
+    return this.http.get(`${apiUrl}vlistado-facturas`);
+  }
 
+  getDetalleFactura(): Observable<any> {
     return forkJoin(
-      this.http.get(`${apiUrl}detalle-facturas`),
-      this.http.get(`${apiUrl}periodo-facturas`),
-      this.http.get(`${apiUrl}origen-electricidad`),
-      this.http.get(`${apiUrl}detalle-clientes`),
-      this.http.get(`${apiUrl}maestro-facturas`)
+      this.http.get(`${apiUrl}facturas`),
+      this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":1}}`),
+      this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":1}}`)
     );
   }
 
