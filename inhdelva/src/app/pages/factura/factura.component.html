@@ -16,7 +16,7 @@
 
 <div class="grid-container">
 
-    <!-- <div class="datos">
+    <div class="datos">
         <div>
             <p class="etiqueta-izq"> Fecha de lectura: </p>
             <p class="etiqueta-izq"> Fecha de emisión: </p>
@@ -26,12 +26,12 @@
             <p class="etiqueta-izq"> Número de factura: </p>
         </div>
         <div>
-            <p class="etiqueta-der"> {{ maestroFactura[0].FechaLectura | date:'yyyy/M/dd' }} </p>
-            <p class="etiqueta-der"> {{ maestroFactura[0].FechaEmision | date:'yyyy/M/dd'}} </p>
-            <p class="etiqueta-der"> {{ maestroFactura[0].FechaVencimiento | date:'yyyy/M/dd'}} </p>
-            <p class="etiqueta-der"> {{ maestroFactura[0].FechaInicio | date:'yyyy/M/dd'}} hasta {{ maestroFactura[0].FechaFin | date:'yyyy/M/dd'}} </p>
+            <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura }} </p>
+            <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
+            <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
+            <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
             <p class="etiqueta-der"> 30 </p>
-            <p class="etiqueta-der"> {{ maestroFactura[0].Codigo }} </p>
+            <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
         </div>
     </div>
     <div class="datos">
@@ -45,36 +45,36 @@
             <p class="etiqueta-izq-titular"> Tarifa: </p>
         </div>
         <div>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].Titular }} </p>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].Direccion }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.titular }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.direccion }} </p>
             <p class="etiqueta-der-titular"> 364-249-245 </p>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].CodigoCliente }} </p>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].Medidor }} </p>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].TipoConsumo }} </p>
-            <p class="etiqueta-der-titular"> {{ maestroFactura[0].Tarifa }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.codigoCliente }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.medidor }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tipoConsumo }} </p>
+            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tarifa }} </p>
         </div>
-    </div> -->
+    </div>
 </div>
 <br>
 <div class="titulos">
     <h5>Resumen de la Factura</h5>
 </div>
 <div class="resumen-container">
-    <div class="consumo">
+    <div class="consumo" *ngFor="let item of BloquesdeEnergiaFactura">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario punta </p>
-        <p class="etiqueta-valor"> 60,000.00 </p>
+        <p class="etiqueta-valor"> {{ item.lps }} </p>
     </div>
-    <div class="consumo">
+    <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario intermedio </p>
-        <p class="etiqueta-valor"> 40,000.00 </p>
-    </div>
-    <div class="consumo">
+        <p class="etiqueta-valor"> {{ BloquesdeEnergiaFactura[1].lps }} </p>
+    </div> -->
+    <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario valle </p>
-        <p class="etiqueta-valor"> 34,320.00 </p>
-    </div>
+        <p class="etiqueta-valor"> {{ BloquesdeEnergiaFactura[2].lps }} </p>
+    </div> -->
     <div class="consumo">
         <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
         <p class="etiqueta-valor"> 134,320.00 </p>
@@ -92,6 +92,8 @@
     <h6></h6>
     <h6>Lectura actual</h6>
     <h6>Lectura anterior</h6>
+    <h6>Diferencia</h6>
+    <h6>Multiplicador</h6>
     <h6>Consumo</h6>
     <h6>Unidades</h6>
 </div>
@@ -104,15 +106,27 @@
     </div>
     <div>
         <p class="etiqueta-detalle">2020/06/01</p>
-        <p class="etiqueta-detalle">7,437</p>
-        <p class="etiqueta-detalle">3,543</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number}}</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number}}</p>
         <p class="etiqueta-detalle">1,213</p>
     </div>
     <div>
         <p class="etiqueta-detalle">2020/07/01</p>
-        <p class="etiqueta-detalle">7,145</p>
-        <p class="etiqueta-detalle">3,415</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number}}</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number}}</p>
         <p class="etiqueta-detalle">-</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">-</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor | number}}</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor | number}}</p>
+        <p class="etiqueta-detalle">557.98</p>
+    </div>
+    <div>
+        <p class="etiqueta-detalle">-</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
     </div>
     <div>
         <p class="etiqueta-detalle">-</p>
@@ -133,7 +147,7 @@
     <h5>Histórico de Consumo</h5>
 </div>
 <div class="consumo-container">
-    <!-- <div class="calculo-consumo-container">
+    <div class="calculo-consumo-container">
         <div>
             <table class="table table-bordered table-sm">
                 <thead>
@@ -150,27 +164,27 @@
                             <p style="margin: 0px;">Activa</p>
                             <p style="font-size: 10px; margin: 0px;">*Bloque en horario punta</p>
                         </td>
-                        <td> {{ periodofactura[0].LPS | number: '1.2-2'}} </td>
-                        <td> {{ periodofactura[0].Valor }} </td>
-                        <td> {{ periodofactura[0].LPS * periodofactura[0].Valor | number: '1.2-2'}} </td>
+                        <td> 545452 </td>
+                        <td> 58584 </td>
+                        <td> 3652 </td>
                     </tr>
                     <tr>
                         <td>
                             <p style="margin: 0px;">Activa</p>
                             <p style="font-size: 10px; margin: 0px;">*Bloque en horario intermedio</p>
                         </td>
-                        <td> {{ periodofactura[1].LPS | number: '1.2-2'}} </td>
-                        <td> {{ periodofactura[1].Valor }} </td>
-                        <td> {{ periodofactura[1].LPS * periodofactura[1].Valor | number: '1.2-2'}} </td>
+                        <td> 4444 </td>
+                        <td> 54545 </td>
+                        <td> 63636 </td>
                     </tr>
                     <tr>
                         <td>
                             <p style="margin: 0px;">Activa</p>
                             <p style="font-size: 10px; margin: 0px;">*Bloque en horario valle</p>
                         </td>
-                        <td> {{ periodofactura[2].LPS | number: '1.2-2'}} </td>
-                        <td> {{ periodofactura[2].Valor }} </td>
-                        <td> {{ periodofactura[2].LPS * periodofactura[2].Valor | number: '1.2-2'}} </td>
+                        <td> 12121 </td>
+                        <td> 1212 </td>
+                        <td> 32323 </td>
                     </tr>
                 </tbody>
             </table>
@@ -190,9 +204,9 @@
                         <td>
                             <p style="margin: 0px;">Demanda</p>
                         </td>
-                        <td> {{ detallefactura[0].LpsDemanda | number: '1.2-2'}} </td>
-                        <td> {{ detallefactura[0].DemandaSeleccionada }} </td>
-                        <td> {{ detallefactura[0].LpsDemanda * detallefactura[0].DemandaSeleccionada | number: '1.2-2'}} </td>
+                        <td> 7458 </td>
+                        <td> 4589 </td>
+                        <td> 25478 </td>
                     </tr>
                 </tbody>
             </table>
@@ -209,10 +223,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td> {{ detallefactura[0].DemandaLeida }} </td>
-                        <td> {{ detallefactura[0].DemandaMaxima }} </td>
-                        <td> {{ detallefactura[0].DemandaContratada }} </td>
-                        <td> {{ detallefactura[0].DemandaSeleccionada }} </td>
+                        <td> {{ DetalleFacturaData[5]?.valor | number}} </td>
+                        <td> {{ DetalleFacturaData[6]?.valor | number}} </td>
+                        <td> {{ DetalleFacturaData[7]?.valor | number}} </td>
+                        <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
                     </tr>
                 </tbody>
             </table>
@@ -223,10 +237,10 @@
             </div>
             <img style="width: 100%;" src="assets/formular.PNG">
         </div>
-    </div> -->
+    </div>
     <div class="historico-consumo-container">
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <fusioncharts width="480" height="300" type="Column2d" [dataSource]="dataSourceBarra">
+            <fusioncharts width="610" height="360" type="Column2d" [dataSource]="dataSourceBarra">
             </fusioncharts>
         </div>
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
@@ -261,8 +275,8 @@
 <div class="impacto-container">
     <div class="detalle-cliente-container">
         <div class="contenedor-cliente-regulado">
-            <p class="datos-cliente-regulado"> <span> Costo de energia: </span> <span> 451,453.54 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
+            <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span> {{ item.descripcion }}: </span> <span> {{ item.valor | number }} </span> </p>
+            <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo por perdidad de distribución: </span> <span> 0.00 </span>
@@ -278,18 +292,18 @@
             <p class="datos-cliente-regulado"> <span> Cargo por corte: </span> <span> 0.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Recargo por mora: </span> <span> 0.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Otros conceptos: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Subtotal: </span> <span> 0.00 </span> </p>
+            <p class="datos-cliente-regulado"> <span> Subtotal: </span> <span> 0.00 </span> </p> -->
         </div>
         <div style="background-color: #a9a9a9; margin: 1% 0% 0% 0%;">
             <p class="total-pagar">
                 <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;">
-                    Total a pagar (L.):
+                   {{ DetalleFacturaData[28]?.descripcion }}:
                 </span>
                 <span style="color: black;
                 font-weight: bold;
-                font-size: 16px;"> 632,734.05
+                font-size: 16px;"> {{ DetalleFacturaData[28]?.valor | number}} 
                 </span>
             </p>
         </div>
@@ -297,7 +311,7 @@
             <h4>Origen de la eletricidad</h4>
         </div>
         <div style="margin-top: 10px;">
-            <!-- <table class="table table-bordered table-sm">
+            <table class="table table-bordered table-sm">
                 <thead>
                     <tr>
                         <th style="background-color: #717171; color: white;" scope="col">Origen</th>
@@ -310,67 +324,67 @@
                         <td style="background-color: #717171; color: white;">
                             Hidro embalse
                         </td>
-                        <td> {{ origenElectricidad[0].Energia }} </td>
+                        <td> 15 </td>
                         <td> 20% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Hidro pasada
                         </td>
-                        <td> {{ origenElectricidad[1].Energia }} </td>
+                        <td> 25 </td>
                         <td> 15% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Eólica
                         </td>
-                        <td> {{ origenElectricidad[2].Energia }} </td>
+                        <td> 14 </td>
                         <td> 8% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Solar
                         </td>
-                        <td> {{ origenElectricidad[3].Energia }} </td>
+                        <td> 21 </td>
                         <td> 15% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Biogás
                         </td>
-                        <td> {{ origenElectricidad[4].Energia }} </td>
+                        <td> 30 </td>
                         <td> 8% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Diésel
                         </td>
-                        <td> {{ origenElectricidad[5].Energia }} </td>
+                        <td> 8 </td>
                         <td> 10% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Bunker
                         </td>
-                        <td> {{ origenElectricidad[6].Energia }} </td>
+                        <td> 6 </td>
                         <td> 9% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Carbón
                         </td>
-                        <td> {{ origenElectricidad[7].Energia }} </td>
+                        <td> 7 </td>
                         <td> 9% </td>
                     </tr>
                     <tr>
                         <td style="background-color: #717171; color: white;">
                             Gas
                         </td>
-                        <td> {{ origenElectricidad[8].Energia }} </td>
+                        <td> 14 </td>
                         <td> 19% </td>
                     </tr>
                 </tbody>
-            </table> -->
+            </table>
         </div>
     </div>
     <div class="medioambiental-container">
@@ -385,7 +399,7 @@
                 font-size: 16px;
                 color: white;
                 text-align: start;
-                width: 25%;
+                width: 27%;
                 margin: 0% 0% 1% 1%;">
                     A RENOVABLE
                 </span>
@@ -455,11 +469,11 @@
             </div>
         </div>
         <div>
-            <fusioncharts width="480" height="300" type="pie2d" [dataSource]="dataSourcePastelINH">
+            <fusioncharts width="600" height="350" type="pie2d" [dataSource]="dataSourcePastelINH">
             </fusioncharts>
         </div>
         <div>
-            <fusioncharts width="480" height="300" type="pie2d" [dataSource]="dataSourcePastelHN">
+            <fusioncharts width="625" height="400" type="pie2d" [dataSource]="dataSourcePastelHN">
             </fusioncharts>
         </div>
     </div>

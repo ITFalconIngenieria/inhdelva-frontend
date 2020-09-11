@@ -21,7 +21,7 @@ export class FacturaService {
 
   getDetalleFactura(): Observable<any> {
     return forkJoin(
-      this.http.get(`${apiUrl}facturas`),
+      this.http.get(`${apiUrl}facturas/1`),
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":1}}`),
       this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":1}}`)
     );

@@ -1,13 +1,6 @@
+import { EncabezadoFactura, BloquesdeEnergia, DetalleFactura } from './../../Modelos/factura';
 import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
-
-interface Data {
-  campo: string;
-  lecturaActual: string;
-  lecturaAnterior: string;
-  consumo: number;
-  unidades: string;
-}
 
 @Component({
   selector: 'app-factura',
@@ -19,42 +12,13 @@ export class FacturaComponent implements OnInit {
   dataSourceBarra: any;
   dataSourcePastelINH: any;
   dataSourcePastelHN: any;
-  listOfData: Data[] = [
-    {
-      campo: 'Fecha Lectura',
-      lecturaActual: '2019/10/01',
-      lecturaAnterior: '2019/11/01',
-      consumo: 32000,
-      unidades: 'kWh'
-    },
-    {
-      campo: 'Activa',
-      lecturaActual: '2019/10/01',
-      lecturaAnterior: '2019/11/01',
-      consumo: 32000,
-      unidades: 'kVArh'
-    },
-    {
-      campo: 'Reactiva',
-      lecturaActual: '2019/10/01',
-      lecturaAnterior: '2019/11/01',
-      consumo: 32000,
-      unidades: 'kW'
-    },
-    {
-      campo: 'Demanda',
-      lecturaActual: '2019/10/01',
-      lecturaAnterior: '2019/11/01',
-      consumo: 32000,
-      unidades: 'kWh'
-    }
-  ];
 
-  detallefactura: any;
-  periodofactura: any;
-  origenElectricidad: any;
-  detalleCliente: any;
-  maestroFactura: any;
+  clienteReguladoData: any[] = [];
+
+  EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
+  BloquesdeEnergiaFactura: BloquesdeEnergia;
+  DetalleFacturaData: DetalleFactura = new DetalleFactura();
+
   chartDataPstelINH = [
     {
       label: 'Fracción energía concencional',
@@ -215,12 +179,17 @@ export class FacturaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
-          console.log(data);
-          this.detallefactura = { ...data[0] };
-          this.periodofactura = data[1];
-          this.origenElectricidad = data[2];
+          this.EncabezadoFacturaData = { ...data[0] };
+          this.BloquesdeEnergiaFactura = data[1];
+          this.DetalleFacturaData = { ...data[2] };
 
-          console.log(this.detallefactura[0].ActivaActual);
+          for (let x = 13; x < 28; x++) {
+            this.clienteReguladoData.push(this.DetalleFacturaData[x]);
+          }
+
+          console.log(this.clienteReguladoData);
+
+          console.log(this.DetalleFacturaData);
 
 
         }
