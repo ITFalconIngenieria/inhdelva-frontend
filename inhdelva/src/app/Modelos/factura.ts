@@ -1,7 +1,7 @@
-export interface EncabezadoFactura {
+export class EncabezadoFactura {
   id: number;
   codigo: string;
-  fechaLectura: string;
+  fechaLectura?: any;
   fechaEmision?: any;
   fechaVencimiento?: any;
   fechaInicio: string;
@@ -18,7 +18,7 @@ export interface EncabezadoFactura {
   estado: number;
 }
 
-export interface BloquesdeEnergia {
+export class BloquesdeEnergia {
   id: number;
   periodoId: number;
   valor: number;
@@ -27,14 +27,14 @@ export interface BloquesdeEnergia {
   estado: boolean;
 }
 
-export interface DetalleFactura {
+export class DetalleFactura {
   id: number;
   descripcion: string;
   valor: number;
   facturaId: number;
 }
 
-export interface ListadoFactura {
+export class ListadoFactura {
   id: number;
   codigo: string;
   contrato: string;
