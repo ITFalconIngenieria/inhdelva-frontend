@@ -257,12 +257,61 @@
     grid-template-columns: 1fr;
     grid-template-rows: 0.1fr 0.6fr 0.8fr 0.8fr;
     gap: 1px 1px;
-    grid-template-areas: "." "." "." ".";
+    grid-template-areas: "."".""."".";
 }
 
 .div-etiquetas-medioambiente {
     display: flex;
     justify-content: space-between;
+}
+
+.img-formula {
+    width: 57%;
+    margin: 0% 0% 0% 24%;
+    position: relative;
+    height: 17%;
+}
+
+.formula-dividendo {
+    position: absolute;
+    font-size: 15px;
+    color: black;
+    margin: 0% 0% 0% 1%;
+}
+
+.formula-divisor1 {
+    position: absolute;
+    font-size: 15px;
+    color: black;
+    margin: 0% 0% 0% 12%;
+}
+
+.formula-divisor2 {
+    position: absolute;
+    font-size: 15px;
+    color: black;
+    margin: 0% 0% 0% 18%;
+}
+
+.formula-penalidad {
+    position: absolute;
+    font-size: 15px;
+    color: black;
+    /* margin: 0% 0% 0% 18%; */
+}
+
+.resultado-factor {
+    position: absolute;
+    font-size: 15px;
+    color: black;
+    margin: 0% 0% 0% 28%;
+    background-color: #d8d8d8;
+    padding: 0px 12px 0px 12px;
+}
+
+.resultado-penalidad {
+    background-color: #d8d8d8;
+    padding: 0px 12px 0px 12px;
 }
 
 h1,

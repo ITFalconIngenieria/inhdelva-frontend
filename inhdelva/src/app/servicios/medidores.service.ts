@@ -12,8 +12,42 @@ export class MedidoresService {
     private http: HttpClient
   ) { }
 
-  getMedidores() {
-    return this.http.get(`${apiUrl}`);
+  // Medidpres
+  getMedidoresPME() {
+    return this.http.get(`${apiUrl}vmedidores-pme`);
+  }
+
+  postMedidores(medidor) {
+    return this.http.post(`${apiUrl}medidor`, medidor);
+  }
+
+  updateMedidores(id, medidor) {
+    return this.http.put(`${apiUrl}medidor/${id}`, medidor);
+  }
+
+  deleteMedidores(id, medidor) {
+    return this.http.patch(`${apiUrl}medidor/${id}`, medidor);
+  }
+
+  busquedadMedidor(){
+    return this.http.get(`${apiUrl}vmedidor-pme`);
+  }
+
+  // Rollover
+  getRollovers() {
+    return this.http.get(`${apiUrl}roll-overs`);
+  }
+
+  postRollovers(rollover) {
+    return this.http.post(`${apiUrl}roll-overs`, rollover);
+  }
+
+  putRollovers(id, rollover) {
+    return this.http.put(`${apiUrl}roll-overs/${id}`, rollover);
+  }
+
+  deleteRollovers(id, rollover) {
+    return this.http.patch(`${apiUrl}roll-overs/${id}`, rollover);
   }
 
 }

@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" routerLink="/facturasGeneradas"><i nz-icon nzType="rollback" ></i>Volver a
+<button nz-button nzType="primary" routerLink="/facturasGeneradas"><i nz-icon nzType="rollback"></i>Volver a
     facturas</button>
 <hr>
 <div class="cabecera">
@@ -63,7 +63,7 @@
     <div class="consumo" *ngFor="let item of BloquesdeEnergiaFactura">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario punta </p>
-        <p class="etiqueta-valor"> {{ item.lps }} </p>
+        <p class="etiqueta-valor"> {{ item.lps | number}} </p>
     </div>
     <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
@@ -77,11 +77,11 @@
     </div> -->
     <div class="consumo">
         <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
-        <p class="etiqueta-valor"> 134,320.00 </p>
+        <p class="etiqueta-valor"> L. {{ totalConsumo | number}} </p>
     </div>
     <div class="consumo">
-        <p class="etiqueta-consumo-total"> Consumo en kWh </p>
-        <p class="etiqueta-valor"> L. 631,734.05 </p>
+        <p class="etiqueta-consumo-total"> Total a pagar </p>
+        <p class="etiqueta-valor"> L. {{ totalApagar | number}} </p>
     </div>
 </div>
 <br>
@@ -108,7 +108,7 @@
         <p class="etiqueta-detalle">2020/06/01</p>
         <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number}}</p>
         <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number}}</p>
-        <p class="etiqueta-detalle">1,213</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
     </div>
     <div>
         <p class="etiqueta-detalle">2020/07/01</p>
@@ -120,7 +120,7 @@
         <p class="etiqueta-detalle">-</p>
         <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor | number}}</p>
         <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor | number}}</p>
-        <p class="etiqueta-detalle">557.98</p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
     </div>
     <div>
         <p class="etiqueta-detalle">-</p>
@@ -130,9 +130,13 @@
     </div>
     <div>
         <p class="etiqueta-detalle">-</p>
-        <p class="etiqueta-detalle">134,320.00</p>
-        <p class="etiqueta-detalle">58,880.00</p>
-        <p class="etiqueta-detalle">557.98</p>
+        <p class="etiqueta-detalle">
+            {{ (DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor) * DetalleFacturaData[2]?.valor | number}}
+        </p>
+        <p class="etiqueta-detalle">
+            {{ (DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor) * DetalleFacturaData[2]?.valor | number}}
+        </p>
+        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number}}</p>
     </div>
     <div>
         <p class="etiqueta-detalle">-</p>
@@ -159,15 +163,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let item of BloquesdeEnergiaFactura">
                         <td>
                             <p style="margin: 0px;">Activa</p>
-                            <p style="font-size: 10px; margin: 0px;">*Bloque en horario punta</p>
+                            <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }} </p>
                         </td>
-                        <td> 545452 </td>
-                        <td> 58584 </td>
-                        <td> 3652 </td>
-                    </tr>
+                        <td> {{ item.lps | number}} </td>
+                        <td> {{ item.valor | number}} </td>
+                        <td> {{ item.lps * item.valor | number}} </td>
+                        <!-- </tr>
                     <tr>
                         <td>
                             <p style="margin: 0px;">Activa</p>
@@ -185,7 +189,7 @@
                         <td> 12121 </td>
                         <td> 1212 </td>
                         <td> 32323 </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -204,9 +208,9 @@
                         <td>
                             <p style="margin: 0px;">Demanda</p>
                         </td>
-                        <td> 7458 </td>
-                        <td> 4589 </td>
-                        <td> 25478 </td>
+                        <td> {{ DetalleFacturaData[9]?.valor | number}} </td>
+                        <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
+                        <td> {{ DetalleFacturaData[9]?.valor * DetalleFacturaData[8]?.valor | number}} </td>
                     </tr>
                 </tbody>
             </table>
@@ -235,7 +239,16 @@
             <div style="background-color:  #969696; text-align: center;">
                 <h6>Ajuste por factor de potencia</h6>
             </div>
-            <img style="width: 100%;" src="assets/formular.PNG">
+            <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia </p>
+            <label> <span class="formula-dividendo"> {{ totalConsumo | number}} kWh</span> <span
+                    class="formula-divisor1">
+                    ( {{ totalConsumo | number}} kWh)^2 </span> <span class="formula-divisor2"> + (
+                    {{ energiaReactiva  | number}} kWh)^2 =
+                </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
+            <img class="img-formula" src="assets/raiz.svg">
+            <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
+            <p class="formula-penalidad"> 0.00 x ( 451,543.54 + 165,857.97 ) = <span class="resultado-penalidad"> L.
+                    {{ resultadoPenalidad |number }} </span> </p>
         </div>
     </div>
     <div class="historico-consumo-container">
@@ -246,19 +259,19 @@
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
             <p class="totales-historico">
                 <span>Total del mes (L.):</span>
-                <span> 632,734.05</span>
+                <span> {{ DetalleFacturaData[28]?.valor | number}} </span>
             </p>
         </div>
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
             <p class="totales-historico">
                 <span> Saldo pendiente (L.): </span>
-                <span> 0.00 </span>
+                <span> {{ DetalleFacturaData[10]?.valor | number}} </span>
             </p>
         </div>
         <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
             <p class="totales-historico">
                 <span> Total a pagar (L.):</span>
-                <span>632,734.05</span>
+                <span> {{ DetalleFacturaData[28]?.valor + DetalleFacturaData[10]?.valor | number}} </span>
             </p>
         </div>
         <div style="text-align: end; margin: 1% 3% 1% 3%;">
@@ -275,7 +288,8 @@
 <div class="impacto-container">
     <div class="detalle-cliente-container">
         <div class="contenedor-cliente-regulado">
-            <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span> {{ item.descripcion }}: </span> <span> {{ item.valor | number }} </span> </p>
+            <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span> {{ item.descripcion }}:
+                </span> <span> {{ item.valor | number }} </span> </p>
             <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
@@ -299,11 +313,11 @@
                 <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;">
-                   {{ DetalleFacturaData[28]?.descripcion }}:
+                    {{ DetalleFacturaData[28]?.descripcion }}:
                 </span>
                 <span style="color: black;
                 font-weight: bold;
-                font-size: 16px;"> {{ DetalleFacturaData[28]?.valor | number}} 
+                font-size: 16px;"> {{ DetalleFacturaData[28]?.valor | number}}
                 </span>
             </p>
         </div>

@@ -14,9 +14,14 @@ export class FacturaComponent implements OnInit {
   dataSourcePastelHN: any;
 
   clienteReguladoData: any[] = [];
+  totalConsumo: number = 0;
+  totalApagar: number = 0;
+  energiaReactiva: number = 0;
+  resultadoFactorP: number = 0;
+  resultadoPenalidad: number = 0;
 
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
-  BloquesdeEnergiaFactura: BloquesdeEnergia;
+  BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
 
   chartDataPstelINH = [
@@ -124,7 +129,6 @@ export class FacturaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.dataSourceBarra = {
       chart: {
         caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
@@ -183,11 +187,20 @@ export class FacturaComponent implements OnInit {
           this.BloquesdeEnergiaFactura = data[1];
           this.DetalleFacturaData = { ...data[2] };
 
+          this.BloquesdeEnergiaFactura.forEach(x => {
+            this.totalConsumo += x.lps;
+          });
+
+          this.energiaReactiva = this.DetalleFacturaData[3].valor - this.DetalleFacturaData[4].valor;
+          this.totalApagar = this.DetalleFacturaData[28].valor + this.DetalleFacturaData[11].valor;
+
+          this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
+          console.log(this.resultadoFactorP);
+          
+          this.resultadoPenalidad = this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor;
           for (let x = 13; x < 28; x++) {
             this.clienteReguladoData.push(this.DetalleFacturaData[x]);
           }
-
-          console.log(this.clienteReguladoData);
 
           console.log(this.DetalleFacturaData);
 
