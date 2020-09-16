@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MedidoresService } from '../../servicios/medidores.service';
+import { MedidorPME, RolloverModel } from '../../Modelos/medidor';
 
 @Component({
   selector: 'app-medidores',
@@ -12,6 +14,7 @@ export class MedidoresComponent implements OnInit {
   isVisibleRollover = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
+
   codigo: string;
   descripcion: string;
   serie: string;
@@ -19,37 +22,14 @@ export class MedidoresComponent implements OnInit {
   direccionIp: string;
   lecMax: number;
   observacion: string;
+  codigoMedidor;
+  listOfDataMedidores: MedidorPME[] = [];
+  listOfDataRollover: RolloverModel[] = [];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private medidoresService: MedidoresService
   ) { }
-
-  listOfData = [
-    {
-      id: 1,
-      name: 'Scheneider Electric',
-      age: 32,
-      expand: false,
-      address: '##########',
-      description: 'Aqui va una descripcion'
-    },
-    {
-      id: 2,
-      name: 'Scheneider Electric',
-      age: 42,
-      expand: false,
-      address: '##########',
-      description: 'Aqui va una descripcion'
-    },
-    {
-      id: 3,
-      name: 'Scheneider Electric',
-      age: 32,
-      expand: false,
-      address: '##########',
-      description: 'Aqui va una descripcion'
-    }
-  ];
 
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;
@@ -70,14 +50,42 @@ export class MedidoresComponent implements OnInit {
     }
   }
 
+  guardarRollover() {
+
+    console.log(this.validateForm.value);
+
+  }
+
+  editarRollover(data) {
+    console.log(data);
+
+  }
+
   ngOnInit() {
 
+    this.medidoresService.getMedidoresPME()
+      .toPromise()
+      .then(
+        (data: MedidorPME[]) => {
+          this.listOfDataMedidores = data;
+        }
+      );
+
+    this.medidoresService.getRollovers()
+      .toPromise()
+      .then(
+        (data: RolloverModel[]) => {
+          this.listOfDataRollover = data;
+        }
+      );
+
     this.validateForm = this.fb.group({
-      Codigo: [null, [Validators.required]],
-      Descripcion: [null, [Validators.required]],
-      Serie: [null, [Validators.required]],
-      Modelo: [null, [Validators.required]],
-      Observacion: [null, [Validators.required]]
+      medidorId: [null, [Validators.required]],
+      fecha: [null, [Validators.required]],
+      energia: [null, [Validators.required]],
+      lecturaAnterior: [0, [Validators.required]],
+      lecturaNueva: [0, [Validators.required]],
+      observacion: [null]
     });
   }
 
@@ -93,8 +101,14 @@ export class MedidoresComponent implements OnInit {
     this.isVisible = false;
   }
 
-  showModalRollover(): void {
+  showModalRollover(data): void {
     this.isVisibleRollover = true;
+    this.codigoMedidor = data.codigo;
+
+
+
+
+
   }
 
   handleCancelRollover(): void {

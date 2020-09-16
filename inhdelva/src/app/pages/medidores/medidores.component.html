@@ -3,13 +3,14 @@
         <h2> Medidores </h2>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo medidor</button>
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+                nzTheme="outline"></i>Nuevo medidor</button>
     </div>
 </div>
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDataMedidores" nzTableLayout="fixed">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -36,19 +37,19 @@
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.address }}</td>
+                    <td>{{ data.codigo }}</td>
+                    <td>{{ data.modelo }}</td>
+                    <td>{{ data.serie }}</td>
                     <td>
                         <span class="badge badge-pill badge-danger">En contrato</span>
                     </td>
                     <td>
-                        <button nz-button nzType="primary" nzSize="small" (click)="showModalRollover()" nzShape="round">Rollover</button>
+                        <button nz-button nzType="primary" nzSize="small" (click)="showModalRollover(data)" nzShape="round">Rollover</button>
 
                     </td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.description }}</td>
+                    <td colSpan="8">{{ data.descripcion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -57,7 +58,7 @@
 
 <!-- Modal Formulario medidor-->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Medidores" (nzOnCancel)="handleCancel()">
-    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form nz-form nzLayout="vertical">
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
@@ -119,31 +120,48 @@
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input style="width: 100%; margin: 0px;" disabled="true" placeholder="Escribe aquí..." />
+                <input style="width: 100%; margin: 0px;" [(ngModel)]="codigoMedidor" [ngModelOptions]="{standalone: true}" formControlName="medidorId" disabled="true" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item>
-            <nz-form-label>Fecha de Rollover</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-date-picker style="margin: 0px;" [nzFormat]="dateFormat"></nz-date-picker>
-            </nz-form-control>
-        </nz-form-item>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Fecha de Rollover</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-date-picker style="margin: 0px;" formControlName="fecha" nzPlaceHolder="Seleccione la fecha" [nzFormat]="dateFormat"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Energia</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-radio-group formControlName="energia" nzButtonStyle="solid">
+                            <label nz-radio nzValue="false" nzAutoFocus="true">Activa</label>
+                            <label nz-radio nzValue="true">Reactiva</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
         <nz-form-item>
             <nz-form-label>Lectura antes del Rollover</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
+                <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                </nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nueva lectura</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
+                <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                </nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -153,7 +171,7 @@
                         <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelRollover()">Cancelar</button>
                     </div>
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="primary" (click)="handleOkRollover()">Guardar</button>
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()">Guardar</button>
                     </div>
                 </div>
             </nz-form-control>
@@ -163,12 +181,13 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Historico de Rollover </h6>
-        <nz-table #nzTableRollover [nzData]="listOfData" nzTableLayout="fixed">
+        <nz-table #nzTableRollover [nzData]="listOfDataRollover" nzTableLayout="fixed">
             <thead>
                 <tr>
-                    <th>Codigo</th>
-                    <th>Modelo</th>
-                    <th>Serie</th>
+                    <th>Fecha rollover</th>
+                    <th>Ultima lectura</th>
+                    <th>Nueva lectura</th>
+                    <th>Energia</th>
                     <th nzWidth="30px"></th>
                     <th nzWidth="30px"></th>
                 </tr>
@@ -176,11 +195,12 @@
             <tbody>
                 <ng-container *ngFor="let data of nzTableRollover.data">
                     <tr>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.age }}</td>
-                        <td>{{ data.address }}</td>
+                        <td>{{ data.fecha | date:'yyyy/M/dd'}}</td>
+                        <td>{{ data.lecturaAnterior }}</td>
+                        <td>{{ data.lecturaNueva }}</td>
+                        <td>{{ data.energia && 'Reactiva' || 'Activa'}}</td>
                         <td style="width: 30px;">
-                            <button nz-button nzType="primary" nzShape="circle">
+                            <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>
                             </button>
                         </td>

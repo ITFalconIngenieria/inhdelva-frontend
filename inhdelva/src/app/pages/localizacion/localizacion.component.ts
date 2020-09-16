@@ -53,39 +53,47 @@ export class LocalizacionComponent implements OnInit {
       estado: true
     };
 
-    switch (this.accion) {
-      case 'nuevo': {
-        console.log(this.dataZona);
+    if (this.accion === 'nuevo') {
+      console.log(this.dataZona);
 
-        this.zonaService.postZona(this.dataZona)
-          .toPromise()
-          .then(
-            (data: ZonaModel) => {
-              this.listOfDataZona = [...this.listOfDataZona, data];
-            }
-          );
-        break;
-      }
-      case 'editar': {
-        this.zonaService.putZona(this.zonaEdit, this.dataZona)
-          .toPromise()
-          .then(
-            (data) => {
-              console.log('edit');
-            }
-          );
-        break;
-      }
-      case 'borrar': {
-        break;
-      }
-      default:
-        break;
+      this.zonaService.postZona(this.dataZona)
+        .toPromise()
+        .then(
+          (data: ZonaModel) => {
+            this.listOfDataZona = [...this.listOfDataZona, data];
+          }
+        );
+    } else {
+      this.zonaService.putZona(this.zonaEdit, this.dataZona)
+        .toPromise()
+        .then(
+          (data) => {
+            console.log('edit');
+          }
+        );
     }
+
+    // switch (this.accion) {
+    //   case 'nuevo': {
+
+    //     break;
+    //   }
+    //   case 'editar': {
+
+    //     break;
+    //   }
+    //   case 'borrar': {
+    //     break;
+    //   }
+    //   default:
+    //     break;
+    // }
 
   }
 
   ngOnInit() {
+
+    this.accion = 'nuevo';
 
     this.zonaService.getZonas()
       .toPromise()
