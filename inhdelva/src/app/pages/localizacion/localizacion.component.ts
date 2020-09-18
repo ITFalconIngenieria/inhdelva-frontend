@@ -61,6 +61,11 @@ export class LocalizacionComponent implements OnInit {
         .then(
           (data: ZonaModel) => {
             this.listOfDataZona = [...this.listOfDataZona, data];
+            this.validateForm = this.fb.group({
+              codigo: [null, [Validators.required]],
+              descripcion: [null, [Validators.required]],
+              observacion: [null, [Validators.required]],
+            });
           }
         );
     } else {
@@ -69,6 +74,11 @@ export class LocalizacionComponent implements OnInit {
         .then(
           (data) => {
             console.log('edit');
+            this.validateForm = this.fb.group({
+              codigo: [null, [Validators.required]],
+              descripcion: [null, [Validators.required]],
+              observacion: [null, [Validators.required]],
+            });
           }
         );
     }
@@ -141,9 +151,10 @@ export class LocalizacionComponent implements OnInit {
 
     console.log(data);
 
-    this.zonaService.deleteZona(data.id, { 'estado': false })
+    this.zonaService.deleteZona(data.id, { estado: false })
       .toPromise()
       .then(
+        // tslint:disable-next-line: no-shadowed-variable
         (data) => {
           console.log(data);
 

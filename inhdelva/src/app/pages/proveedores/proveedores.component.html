@@ -4,12 +4,12 @@
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
         <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
-              nzTheme="outline"></i>Nuevo proveedor</button>
+                nzTheme="outline"></i>Nuevo proveedor</button>
     </div>
 </div>
 <br>
 <div class="tabla">
-    <nz-table #basicTable [nzData]="listOfData" nzPageSize="6">
+    <nz-table #basicTable [nzData]="listOfDataProveedores" nzPageSize="6">
         <thead>
             <tr>
                 <th></th>
@@ -48,12 +48,12 @@
 
 <!-- Modal Formulario -->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Proveedores" (nzOnCancel)="handleCancel()">
-    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form nz-form nzLayout="vertical">
         <nz-form-item>
             <nz-form-label>Código del provedor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" formControlName="Codigo" nz-input placeholder="Busca por código" />
+                    <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
@@ -63,56 +63,56 @@
         <nz-form-item>
             <nz-form-label>Empresa</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="nombreEmpresa" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>RTN</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="RTN" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="rtn" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Representante legal</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="RepresentanteLegal" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="representate" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nombre del contacto</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="contacto" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="tel" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Email</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Dirección</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="direccion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Imagen</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="NombreContacto" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="imagen" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input [(ngModel)]="observacion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>

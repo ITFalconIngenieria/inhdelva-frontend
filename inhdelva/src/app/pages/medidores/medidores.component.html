@@ -66,38 +66,38 @@
                     <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
-                    <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                    <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
                 </ng-template>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Serie</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="serie" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="serie" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Modelo</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="modelo" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="modelo" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Direción IP</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="direccionIp" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="direccionIp" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Lectura maxima</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -120,7 +120,7 @@
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input style="width: 100%; margin: 0px;" [(ngModel)]="codigoMedidor" [ngModelOptions]="{standalone: true}" formControlName="medidorId" disabled="true" placeholder="Escribe aquí..." />
+                <input style="width: 100%; margin: 0px;" [(ngModel)]="codigoMedidor" [ngModelOptions]="{standalone: true}" disabled="true" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <div class="row">
@@ -136,8 +136,8 @@
                 <nz-form-item>
                     <nz-form-label>Energia</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group formControlName="energia" nzButtonStyle="solid">
-                            <label nz-radio nzValue="false" nzAutoFocus="true">Activa</label>
+                        <nz-radio-group formControlName="energia">
+                            <label nz-radio nzValue="false">Activa</label>
                             <label nz-radio nzValue="true">Reactiva</label>
                         </nz-radio-group>
                     </nz-form-control>
