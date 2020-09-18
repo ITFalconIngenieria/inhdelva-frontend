@@ -14,7 +14,7 @@ export class ClientesComponent implements OnInit {
   actoresSap: ActoresSapSearch[] = [];
   listOfDataClientes: ClientesVista[] = [];
   codigo: string;
-  nombre: string;
+  nombreEmpresa: string;
   rtn: string;
   contacto: string;
   tel: string;
@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit {
     const cliente: ActoresSapSearch[] = this.actoresSap.filter(x => x.Cardcode === codigo);
 
     if (cliente.length > 0) {
-      this.nombre = cliente[0].Cardname;
+      this.nombreEmpresa = cliente[0].Cardname;
       this.rtn = cliente[0].vatiduncmp;
       this.contacto = cliente[0].Contacto;
       this.tel = cliente[0].phone1;
@@ -58,14 +58,19 @@ export class ClientesComponent implements OnInit {
       estado: true
     };
 
-    console.log(this.clienteData);
-
     this.actoresService.postClientes(this.clienteData)
       .toPromise()
       .then(
         (data) => {
           console.log(data);
-
+          this.nombreEmpresa = '';
+          this.rtn = '';
+          this.contacto = '';
+          this.tel = '';
+          this.email = '';
+          this.direccion = '';
+          this.imagen = '';
+          this.observacion = '';
         }
 
       );

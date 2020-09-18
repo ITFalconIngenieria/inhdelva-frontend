@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
 import { ListadoFactura } from '../../Modelos/factura';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -38,11 +39,17 @@ export class FacturasGeneradasComponent implements OnInit {
   setOfCheckedId = new Set<number>();
 
   constructor(
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private router: Router,
+
   ) { }
 
-
-
+  verFactura(data) {
+    const navigationExtras: NavigationExtras = {
+      state: data
+    };
+    this.router.navigate(['factura'], navigationExtras);
+  }
   ngOnInit() {
 
     this.facturaService.getListadoFacturas()

@@ -1,6 +1,8 @@
 import { EncabezadoFactura, BloquesdeEnergia, DetalleFactura } from './../../Modelos/factura';
 import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-factura',
@@ -19,6 +21,7 @@ export class FacturaComponent implements OnInit {
   energiaReactiva: number = 0;
   resultadoFactorP: number = 0;
   resultadoPenalidad: number = 0;
+  dataFactura
 
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
   BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
@@ -125,57 +128,46 @@ export class FacturaComponent implements OnInit {
   ];
 
   constructor(
-    private facturaService: FacturaService
-  ) { }
+    private facturaService: FacturaService,
+    private router: Router,
+  ) {
+    this.dataFactura = this.router.getCurrentNavigation().extras.state || this.dataFactura;
+    console.log(this.dataFactura);
+
+  }
 
   ngOnInit() {
+    this.dataFactura = this.dataFactura;
     this.dataSourceBarra = {
       chart: {
         caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
-        // subCaption: 'In MMbbl = One Million barrels', //Set the chart subcaption
-        //  xAxisName: 'Country', //Set the x-axis name
-        //  yAxisName: 'Reserves (MMbbl)', //Set the y-axis name
-        //  numberSuffix: 'K',
         rotateLabels: '0',
         labelDisplay: 'rotate',
-        // labelDisplay: 'Auto',
-        // useEllipsesWhenOverflow: '0',
         palettecolors: '334d7c,b9b9b9',
         theme: 'fusion' // Set the theme for your chart
       },
-      // Chart Data - from step 2
       data: this.chartDataBarra
     };
 
     this.dataSourcePastelINH = {
       chart: {
         caption: 'Matriz energética de INHDELVA', // Set the chart caption
-        // subCaption: 'In MMbbl = One Million barrels', //Set the chart subcaption
-        //  xAxisName: 'Country', //Set the x-axis name
-        //  yAxisName: 'Reserves (MMbbl)', //Set the y-axis name
-        //  numberSuffix: 'K',
         valuePosition: 'inside',
         palettecolors: '0E9679,F3931F',
         showLabels: '0',
         theme: 'fusion' // Set the theme for your chart
       },
-      // Chart Data - from step 2
       data: this.chartDataPstelINH
     };
 
     this.dataSourcePastelHN = {
       chart: {
         caption: 'Matriz energética de INHDELVA', // Set the chart caption
-        // subCaption: 'In MMbbl = One Million barrels', //Set the chart subcaption
-        //  xAxisName: 'Country', //Set the x-axis name
-        //  yAxisName: 'Reserves (MMbbl)', //Set the y-axis name
-        //  numberSuffix: 'K',
         valuePosition: 'inside',
         showLabels: '0',
         palettecolors: '8BB53A,0E9679,2CB8C5,F2921F,929133,7E5025,E65124,4D4E4D,1D1D1B',
         theme: 'fusion' // Set the theme for your chart
       },
-      // Chart Data - from step 2
       data: this.chartDataPstelHN
     };
 
@@ -196,7 +188,7 @@ export class FacturaComponent implements OnInit {
 
           this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
           console.log(this.resultadoFactorP);
-          
+
           this.resultadoPenalidad = this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor;
           for (let x = 13; x < 28; x++) {
             this.clienteReguladoData.push(this.DetalleFacturaData[x]);
