@@ -49,6 +49,7 @@ export class FacturasGeneradasComponent implements OnInit {
       state: data
     };
     this.router.navigate(['factura'], navigationExtras);
+    this.facturaService.ejecutarNavegacion(data);
   }
   ngOnInit() {
 

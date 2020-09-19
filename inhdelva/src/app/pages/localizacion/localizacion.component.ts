@@ -72,8 +72,14 @@ export class LocalizacionComponent implements OnInit {
       this.zonaService.putZona(this.zonaEdit, this.dataZona)
         .toPromise()
         .then(
-          (data) => {
-            console.log('edit');
+          () => {
+            for (const item of this.listOfDataZona.filter(x => x.id === this.zonaEdit)) {
+              item.codigo = this.dataZona.codigo;
+              item.descripcion = this.dataZona.descripcion;
+              item.observacion = this.dataZona.observacion;
+              item.estado = this.dataZona.estado;
+            }
+
             this.validateForm = this.fb.group({
               codigo: [null, [Validators.required]],
               descripcion: [null, [Validators.required]],
@@ -82,22 +88,6 @@ export class LocalizacionComponent implements OnInit {
           }
         );
     }
-
-    // switch (this.accion) {
-    //   case 'nuevo': {
-
-    //     break;
-    //   }
-    //   case 'editar': {
-
-    //     break;
-    //   }
-    //   case 'borrar': {
-    //     break;
-    //   }
-    //   default:
-    //     break;
-    // }
 
   }
 
@@ -109,8 +99,6 @@ export class LocalizacionComponent implements OnInit {
       .toPromise()
       .then(
         (data: ZonaModel[]) => {
-          // console.log(data);
-
           this.listOfDataZona = data;
         }
       );
@@ -128,6 +116,11 @@ export class LocalizacionComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.validateForm = this.fb.group({
+      codigo: [null, [Validators.required]],
+      descripcion: [null, [Validators.required]],
+      observacion: [null, [Validators.required]],
+    });
   }
 
   handleOk(): void {
@@ -137,7 +130,7 @@ export class LocalizacionComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
-    console.log(data);
+
     this.zonaEdit = data.id;
     this.validateForm = this.fb.group({
       codigo: [data.codigo, [Validators.required]],
@@ -148,16 +141,11 @@ export class LocalizacionComponent implements OnInit {
   }
 
   eliminar(data) {
-
-    console.log(data);
-
     this.zonaService.deleteZona(data.id, { estado: false })
       .toPromise()
       .then(
-        // tslint:disable-next-line: no-shadowed-variable
-        (data) => {
-          console.log(data);
-
+        () => {
+          this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
         }
       );
   }
