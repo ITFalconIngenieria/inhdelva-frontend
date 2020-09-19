@@ -131,13 +131,16 @@ export class FacturaComponent implements OnInit {
     private facturaService: FacturaService,
     private router: Router,
   ) {
-    this.dataFactura = this.router.getCurrentNavigation().extras.state || this.dataFactura;
-    console.log(this.dataFactura);
-
+    this.dataFactura = this.router.getCurrentNavigation().extras.state || this.facturaService.getInfoNavegacion();
   }
 
   ngOnInit() {
-    this.dataFactura = this.dataFactura;
+    this.dataFactura = this.facturaService.getInfoNavegacion();
+    console.log(this.dataFactura);
+
+    const { id } = this.dataFactura;
+    console.log(id);
+
     this.dataSourceBarra = {
       chart: {
         caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
@@ -171,7 +174,7 @@ export class FacturaComponent implements OnInit {
       data: this.chartDataPstelHN
     };
 
-    this.facturaService.getDetalleFactura()
+    this.facturaService.getDetalleFactura(id)
       .toPromise()
       .then(
         (data: any) => {
@@ -180,7 +183,7 @@ export class FacturaComponent implements OnInit {
           this.DetalleFacturaData = { ...data[2] };
 
           this.BloquesdeEnergiaFactura.forEach(x => {
-            this.totalConsumo += x.lps;
+            this.totalConsumo += x.valor;
           });
 
           this.energiaReactiva = this.DetalleFacturaData[3].valor - this.DetalleFacturaData[4].valor;

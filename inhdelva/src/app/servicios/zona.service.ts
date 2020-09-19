@@ -14,7 +14,7 @@ export class ZonaService {
   ) { }
 
   getZonas() {
-    return this.http.get(`${apiUrl}zona`);
+    return this.http.get(`${apiUrl}zona?filter[where][estado]=true`);
   }
 
   postZona(zona) {
@@ -22,11 +22,11 @@ export class ZonaService {
   }
 
   putZona(id, zona) {
-    return this.http.put(`${apiUrl}zona${id}`, zona);
+    return this.http.put(`${apiUrl}zona/${id}`, zona);
   }
 
   deleteZona(id, zona) {
-    return this.http.patch(`${apiUrl}zona${id}`, zona);
+    return this.http.patch(`${apiUrl}zona/${id}`, zona);
   }
 
 }

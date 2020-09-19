@@ -247,7 +247,7 @@
                 </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
             <img class="img-formula" src="assets/raiz.svg">
             <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
-            <p class="formula-penalidad"> 0.00 x ( 451,543.54 + 165,857.97 ) = <span class="resultado-penalidad"> L.
+            <p class="formula-penalidad"> 0.00 x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
                     {{ resultadoPenalidad |number }} </span> </p>
         </div>
     </div>
