@@ -23,7 +23,9 @@ export class MedidoresComponent implements OnInit {
   modelo: string;
   direccionIp: string;
   lecMax: number;
+  multiplicador: number;
   observacion: string;
+
   codigoMedidor;
 
   accion;
@@ -32,6 +34,7 @@ export class MedidoresComponent implements OnInit {
   medidoresPME: any[] = [];
   listOfDataMedidores: MedidorPME[] = [];
   listOfDataRollover: RolloverModel[] = [];
+  listOfDataRolloverMedidor: RolloverModel[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +64,7 @@ export class MedidoresComponent implements OnInit {
     const dataRollover = {
       medidorId: this.idMedidor,
       fecha: moment(this.validateForm.controls.fecha.value).toISOString(),
-      energia: this.validateForm.controls.energia.value,
+      energia: (this.validateForm.controls.energia.value === 'false') ? false : true,
       lecturaAnterior: this.validateForm.controls.lecturaAnterior.value,
       lecturaNueva: this.validateForm.controls.lecturaNueva.value,
       observacion: this.validateForm.controls.observacion.value,
@@ -72,8 +75,18 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.putRollovers(this.idRollover, dataRollover)
         .toPromise()
         .then(
-          (data) => {
-            console.log(data);
+          () => {
+
+            for (const item of this.listOfDataRolloverMedidor.filter(x => x.id === this.idRollover)) {
+              item.medidorId = dataRollover.medidorId;
+              item.fecha = dataRollover.fecha;
+              item.energia = dataRollover.energia;
+              item.lecturaAnterior = dataRollover.lecturaAnterior;
+              item.lecturaNueva = dataRollover.lecturaNueva;
+              item.observacion = dataRollover.observacion;
+              item.estado = dataRollover.estado;
+            }
+
             this.validateForm = this.fb.group({
               fecha: [null, [Validators.required]],
               energia: [null, [Validators.required]],
@@ -88,8 +101,9 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.postRollovers(dataRollover)
         .toPromise()
         .then(
-          (data) => {
+          (data: RolloverModel) => {
             console.log(data);
+            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
             this.validateForm = this.fb.group({
               fecha: [null, [Validators.required]],
               energia: [null, [Validators.required]],
@@ -107,29 +121,120 @@ export class MedidoresComponent implements OnInit {
     this.idRollover = data.id;
     this.accion = 'editar';
     this.validateForm = this.fb.group({
-      fecha: [moment(data.fecha).format('YYYY/MM/DD'), [Validators.required]],
-      energia: [data.energia, [Validators.required]],
-      lecturaAnterior: [data.lecturaAnterior, [Validators.required]],
-      lecturaNueva: [data.lecturaNueva, [Validators.required]],
+      fecha: [data.fecha],
+      energia: [(data.energia === false) ? 'false' : 'true'],
+      lecturaAnterior: [data.lecturaAnterior],
+      lecturaNueva: [data.lecturaNueva],
       observacion: [data.observacion]
     });
   }
 
+  eliminarRollover(data) {
+    this.medidoresService.deleteRollovers(data.id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
+        }
+      );
+  }
+
+  ////////////////////////////////////////////////////////
+  guardarMedidor() {
+    const dataMedidor = {
+      codigo: this.codigo,
+      lecturaMax: this.lecMax,
+      multiplicador: this.multiplicador,
+      observacion: this.observacion,
+      estado: true
+    };
+
+    if (this.accion === 'editar') {
+      this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
+        .toPromise()
+        .then(
+          () => {
+
+            for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidor)) {
+              item.codigo = dataMedidor.codigo;
+              item.lecturaMax = dataMedidor.lecturaMax;
+              item.multiplicador = dataMedidor.multiplicador;
+              item.observacion = dataMedidor.observacion;
+            }
+
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+            this.multiplicador = 0;
+            this.observacion = '';
+          }
+        );
+    } else {
+      this.medidoresService.postMedidores(dataMedidor)
+        .toPromise()
+        .then(
+          (data: RolloverModel) => {
+            console.log(data);
+            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+            this.multiplicador = 0;
+            this.observacion = '';
+
+          }
+        );
+    }
+  }
+
+  editarMedidor(data) {
+    this.idMedidor = data.id;
+    this.accion = 'editar';
+
+    this.codigo = data.codigo;
+    this.descripcion = data.descripcion;
+    this.serie = data.serie;
+    this.modelo = data.modelo;
+    this.direccionIp = data.ip;
+    this.lecMax = data.lecturaMax;
+    this.multiplicador = data.multiplicador;
+    this.observacion = data.observacion;
+  }
+
+  eliminarMedidor(data) {
+    this.medidoresService.deleteMedidores(data.id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+        }
+      );
+  }
+
   busquedadMedidor() {
     const codigo = this.codigo;
-
-    const medidor: any[] = this.medidoresPME.filter(x => x.nombre === codigo);
-
-    console.log(medidor);
+    const medidor: MedidorPME[] = this.medidoresPME.filter(x => x.codigo === codigo);
 
     if (medidor.length > 0) {
-      console.log('Encontre');
+      this.descripcion = medidor[0].descripcion;
+      this.serie = medidor[0].serie;
+      this.modelo = medidor[0].modelo;
+      this.direccionIp = medidor[0].ip;
+      this.lecMax = medidor[0].lecturaMax;
+      this.observacion = medidor[0].observacion;
 
     } else {
       this.codigo = '';
       swal({
         icon: 'warning',
-        text: 'No se encontró ese cliente'
+        text: 'No se encontró ese medidor'
       });
     }
 
@@ -156,10 +261,7 @@ export class MedidoresComponent implements OnInit {
     this.medidoresService.busquedadMedidor()
       .toPromise()
       .then(
-        (data: any[]) => {
-          console.log(data);
-          this.medidoresPME = data;
-        }
+        (data: any[]) => this.medidoresPME = data
       );
 
     this.validateForm = this.fb.group({
@@ -187,6 +289,8 @@ export class MedidoresComponent implements OnInit {
     this.isVisibleRollover = true;
     this.codigoMedidor = data.codigo;
     this.idMedidor = data.id;
+    this.listOfDataRolloverMedidor = this.listOfDataRollover.filter(x => x.medidorId === this.idMedidor);
+
   }
 
   handleCancelRollover(): void {

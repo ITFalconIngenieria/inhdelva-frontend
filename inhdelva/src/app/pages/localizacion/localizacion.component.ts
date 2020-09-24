@@ -53,22 +53,7 @@ export class LocalizacionComponent implements OnInit {
       estado: true
     };
 
-    if (this.accion === 'nuevo') {
-      console.log(this.dataZona);
-
-      this.zonaService.postZona(this.dataZona)
-        .toPromise()
-        .then(
-          (data: ZonaModel) => {
-            this.listOfDataZona = [...this.listOfDataZona, data];
-            this.validateForm = this.fb.group({
-              codigo: [null, [Validators.required]],
-              descripcion: [null, [Validators.required]],
-              observacion: [null, [Validators.required]],
-            });
-          }
-        );
-    } else {
+    if (this.accion === 'editar') {
       this.zonaService.putZona(this.zonaEdit, this.dataZona)
         .toPromise()
         .then(
@@ -83,7 +68,20 @@ export class LocalizacionComponent implements OnInit {
             this.validateForm = this.fb.group({
               codigo: [null, [Validators.required]],
               descripcion: [null, [Validators.required]],
-              observacion: [null, [Validators.required]],
+              observacion: [null],
+            });
+          }
+        );
+    } else {
+      this.zonaService.postZona(this.dataZona)
+        .toPromise()
+        .then(
+          (data: ZonaModel) => {
+            this.listOfDataZona = [...this.listOfDataZona, data];
+            this.validateForm = this.fb.group({
+              codigo: [null, [Validators.required]],
+              descripcion: [null, [Validators.required]],
+              observacion: [null],
             });
           }
         );
@@ -106,7 +104,7 @@ export class LocalizacionComponent implements OnInit {
     this.validateForm = this.fb.group({
       codigo: [null, [Validators.required]],
       descripcion: [null, [Validators.required]],
-      observacion: [null, [Validators.required]],
+      observacion: [null],
     });
   }
 
@@ -119,7 +117,7 @@ export class LocalizacionComponent implements OnInit {
     this.validateForm = this.fb.group({
       codigo: [null, [Validators.required]],
       descripcion: [null, [Validators.required]],
-      observacion: [null, [Validators.required]],
+      observacion: [null],
     });
   }
 
