@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 const apiUrl = environment.apiUrl;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +22,7 @@ export class MedidoresService {
     return this.http.post(`${apiUrl}medidor`, medidor);
   }
 
-  updateMedidores(id, medidor) {
+  putMedidores(id, medidor) {
     return this.http.put(`${apiUrl}medidor/${id}`, medidor);
   }
 
@@ -29,14 +30,18 @@ export class MedidoresService {
     return this.http.patch(`${apiUrl}medidor/${id}`, medidor);
   }
 
-  busquedadMedidor(){
-    return this.http.get(`${apiUrl}vmedidor-pme`);
+  busquedadMedidor() {
+    return this.http.get(`${apiUrl}vmedidores-pme`);
   }
 
   // roll-overs?filter[where][medidorId]=1
   // Rollover
   getRollovers() {
     return this.http.get(`${apiUrl}roll-overs`);
+  }
+
+  getRolloversMedidor(id) {
+    return this.http.get(`${apiUrl} roll-overs?filter[where][medidorId]=${id}`);
   }
 
   postRollovers(rollover) {

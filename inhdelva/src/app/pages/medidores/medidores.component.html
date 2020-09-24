@@ -28,12 +28,12 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="editarMedidor(data)" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="eliminarMedidor(data)" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -66,7 +66,8 @@
                     <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
-                    <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                    <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
+                            nzType="search"></i></button>
                 </ng-template>
             </nz-form-control>
         </nz-form-item>
@@ -98,6 +99,12 @@
             <nz-form-label>Lectura maxima</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <input nz-input disabled="true" [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Multiplicador</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input disabled="true" [(ngModel)]="multiplicador" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -147,14 +154,14 @@
         <nz-form-item>
             <nz-form-label>Lectura antes del Rollover</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                 </nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nueva lectura</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                 </nz-input-number>
             </nz-form-control>
         </nz-form-item>
@@ -181,7 +188,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Historico de Rollover </h6>
-        <nz-table #nzTableRollover [nzData]="listOfDataRollover" nzTableLayout="fixed">
+        <nz-table #nzTableRollover [nzData]="listOfDataRolloverMedidor" nzTableLayout="fixed">
             <thead>
                 <tr>
                     <th>Fecha rollover</th>
@@ -205,7 +212,7 @@
                             </button>
                         </td>
                         <td style="width: 30px;">
-                            <button nz-button nzType="primary" nzShape="circle">
+                            <button nz-button nzType="primary" (click)="eliminarRollover(data)" nzShape="circle">
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>
                         </td>

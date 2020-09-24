@@ -15,6 +15,10 @@
     box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
 }
 
+nz-select {
+    width: 100%;
+}
+
 td {
     background-color: white;
 }
@@ -44,4 +48,17 @@ div.ant-card-head.ng-star-inserted {
     grid-template-rows: 1fr;
     gap: 1px 1px;
     grid-template-areas: ". .";
+}
+
+.grid-form {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 1% 2%;
+    grid-template-areas: ". .";
+}
+
+.opciones {
+    width: 30%;
+    margin-bottom: 3%;
 }

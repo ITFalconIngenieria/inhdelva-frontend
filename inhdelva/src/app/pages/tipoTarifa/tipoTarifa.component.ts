@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ParametroTarifaModel, TarifaModel } from '../../Modelos/tarifa';
+import { TarifaService } from '../../servicios/tarifa.service';
 
 @Component({
   selector: 'app-tipoTarifa',
@@ -8,9 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class TipoTarifaComponent implements OnInit {
 
-  constructor(
-    private fb: FormBuilder
-  ) { }
 
   expandSet = new Set<number>();
   isVisible = false;
@@ -18,33 +17,14 @@ export class TipoTarifaComponent implements OnInit {
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
 
-  listOfData = [
-    {
-      id: 1,
-      name: 'John Brown',
-      age: 32,
-      expand: false,
-      address: 'MATRIZ X',
-      description: 'Tarifa monomica para servicio de XXXX Tension'
-    },
-    {
-      id: 2,
-      name: 'Jim Green',
-      age: 42,
-      expand: false,
-      address: 'MATRIZ X',
-      description: 'Tarifa monomica para servicio de XXXX Tension'
-    },
-    {
-      id: 3,
-      name: 'Joe Black',
-      age: 32,
-      expand: false,
-      address: 'MATRIZ X',
-      description: 'Tarifa monomica para servicio de XXXX Tension'
-    }
-  ];
+  listOfDataTarifa: TarifaModel[] = [];
+  listOfDataParametros: ParametroTarifaModel[] = [];
+  listOfDataParametrosFiltrado: ParametroTarifaModel[] = [];
 
+  constructor(
+    private fb: FormBuilder,
+    private tarifaService: TarifaService
+  ) { }
 
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;
@@ -67,6 +47,18 @@ export class TipoTarifaComponent implements OnInit {
 
   ngOnInit() {
 
+    this.tarifaService.getTarifas()
+      .toPromise()
+      .then(
+        (data: TarifaModel[]) => this.listOfDataTarifa = data
+      );
+
+    this.tarifaService.getTarifasParametro()
+      .toPromise()
+      .then(
+        (data: ParametroTarifaModel[]) => this.listOfDataParametros = data
+      );
+
     this.validateForm = this.fb.group({
       Codigo: [null, [Validators.required]],
       Descripcion: [null, [Validators.required]],
@@ -88,8 +80,9 @@ export class TipoTarifaComponent implements OnInit {
     this.isVisible = false;
   }
 
-  showModalParametro(): void {
+  showModalParametro(data): void {
     this.isVisibleParametro = true;
+    this.listOfDataParametrosFiltrado = this.listOfDataParametros.filter(x => x.tarifaId === data.id);
   }
 
   handleCancelParametro(): void {
