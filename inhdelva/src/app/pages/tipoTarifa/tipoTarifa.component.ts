@@ -20,6 +20,7 @@ export class TipoTarifaComponent implements OnInit {
   dateFormat = 'yyyy/MM/dd';
   accion;
   idTarifa;
+  idParametro;
   listOfDataTarifa: TarifaModel[] = [];
   listOfDataParametros: ParametroTarifaModel[] = [];
   listOfDataParametrosFiltrado: ParametroTarifaModel[] = [];
@@ -45,19 +46,19 @@ export class TipoTarifaComponent implements OnInit {
 
   submitForm(): void {
     // tslint:disable-next-line: forin
-    for (const i in this.validateFormTarifa.controls) {
-      this.validateFormTarifa.controls[i].markAsDirty();
-      this.validateFormTarifa.controls[i].updateValueAndValidity();
+    for (const i in this.validateFormTarifa.value) {
+      this.validateFormTarifa.value[i].markAsDirty();
+      this.validateFormTarifa.value[i].updateValueAndValidity();
     }
   }
 
   guardarTarifa() {
     const dataTarifa = {
-      codigo: this.validateFormTarifa.controls.codigo.value,
-      puntoMedicionId: this.validateFormTarifa.controls.puntoMedicionId.value,
-      descripcion: this.validateFormTarifa.controls.descripcion.value,
-      tipo: this.validateFormTarifa.controls.tipo.value,
-      matrizHorariaId: this.validateFormTarifa.controls.matrizHorariaId.value,
+      codigo: this.validateFormTarifa.value.codigo,
+      puntoMedicionId: this.validateFormTarifa.value.puntoMedicionId,
+      descripcion: this.validateFormTarifa.value.descripcion,
+      tipo: (this.validateFormTarifa.value.tipo === 'false') ? false : true,
+      matrizHorariaId: this.validateFormTarifa.value.matrizHorariaId,
       estado: true
     };
 
@@ -102,7 +103,7 @@ export class TipoTarifaComponent implements OnInit {
       codigo: [data.codigo, [Validators.required]],
       puntoMedicionId: [data.puntoMedicionId, [Validators.required]],
       descripcion: [data.descripcion, [Validators.required]],
-      tipo: [data.tipo, [Validators.required]],
+      tipo: [(data.tipo === false) ? 'false' : 'true'],
       matrizHorariaId: [data.matrizHorariaId, [Validators.required]],
       observacion: [data.observacion]
     });
@@ -114,6 +115,75 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         () => {
           this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
+        }
+      );
+  }
+
+  guardarParametro() {
+    const dataParametro = {
+      tarifaId: this.idTarifa,
+      tipoCargoId: this.validateFormParametro.value.tipoCargoId,
+      bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
+      fechaInicio: this.validateFormParametro.value.fechaInicio[0],
+      fechaFinal: this.validateFormParametro.value.fechaInicio[1],
+      valor: this.validateFormParametro.value.valor,
+      observacion: this.validateFormParametro.value.observacion,
+      estado: true
+    };
+
+    if (this.accion === 'editar') {
+      this.tarifaService.putTarifaParametro(this.idParametro, dataParametro)
+        .toPromise()
+        .then(
+          () => {
+            for (const item of this.listOfDataParametrosFiltrado.filter(x => x.id === this.idParametro)) {
+              item.tarifaId = dataParametro.tarifaId;
+              item.tipoCargoId = dataParametro.tipoCargoId;
+              item.bloqueHorarioId = dataParametro.bloqueHorarioId;
+              item.fechaInicio = dataParametro.fechaInicio;
+              item.fechaFinal = dataParametro.fechaFinal;
+              item.valor = dataParametro.valor;
+              item.observacion = dataParametro.observacion;
+              item.estado = dataParametro.estado;
+            }
+
+            this.limpiarParametro();
+          }
+        );
+    } else {
+      this.tarifaService.postTarifaParametro(dataParametro)
+        .toPromise()
+        .then(
+          (data: ParametroTarifaModel) => {
+            console.log(data);
+            this.listOfDataParametrosFiltrado = [...this.listOfDataParametrosFiltrado, data];
+
+            this.limpiarParametro();
+          }
+        );
+    }
+  }
+
+  editarParametro(data) {
+    this.idParametro = data.id;
+    this.accion = 'editar';
+
+    this.validateFormParametro = this.fb.group({
+      tarifaId: [data.tarifaId, [Validators.required]],
+      tipoCargoId: [data.tipoCargoId, [Validators.required]],
+      bloqueHorarioId: [data.bloqueHorarioId, [Validators.required]],
+      fechaInicio: [[data.fechaInicio, data.fechaFinal]],
+      valor: [data.valor, [Validators.required]],
+      observacion: [data.observacion]
+    });
+  }
+
+  eliminarParametro(data) {
+    this.tarifaService.deleteTarifaParametro(data.id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.listOfDataParametrosFiltrado = this.listOfDataParametrosFiltrado.filter(x => x.id !== data.id);
         }
       );
   }
@@ -192,6 +262,8 @@ export class TipoTarifaComponent implements OnInit {
 
   showModalParametro(data): void {
     this.isVisibleParametro = true;
+    this.idTarifa = data.id;
+
     this.listOfDataParametrosFiltrado = this.listOfDataParametros.filter(x => x.tarifaId === data.id);
 
     this.tarifaService.getBloqueHorario(data.matrizHorariaId)
