@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
 import { ListadoFactura } from '../../Modelos/factura';
 import { Router, NavigationExtras } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -75,9 +76,44 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   emitirFactura() {
-    console.log(this.setOfCheckedId);
+    if (this.setOfCheckedId.size > 0) {
+      this.setOfCheckedId.forEach(x => {
+        console.log(x)
+        this.facturaService.changeFactura(x, { estado: 2 })
+          .toPromise()
+          .then(
+            () => {
+              swal({
+                icon: 'success',
+                text: 'Facturas emitidas'
+              });
+            }
+          );
+      }
+      );
+    } else {
+      swal({
+        icon: 'warning',
+        text: 'No selecciono ninguna facturas'
+      });
+    }
 
   }
+
+  cancelarFactura(data) {
+
+    this.facturaService.changeFactura(data.id, { estado: 0 })
+      .toPromise()
+      .then(
+        () => {
+          swal({
+            icon: 'success',
+            text: 'Facturas cancelada'
+          });
+        }
+      );
+  }
+
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
