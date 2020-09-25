@@ -20,7 +20,6 @@ export class FacturaService {
   ejecutarNavegacion(data) {
     localStorage.setItem('dataFactura', JSON.stringify(data));
 
-
     this.valores = JSON.parse(localStorage.getItem('dataFactura'));
     return this.valores;
   }
@@ -46,6 +45,9 @@ export class FacturaService {
     );
   }
 
+  changeFactura(id, emitir) {
+    return this.http.patch(`${apiUrl}facturas/${id}`, emitir);
+  }
 
 
 }
