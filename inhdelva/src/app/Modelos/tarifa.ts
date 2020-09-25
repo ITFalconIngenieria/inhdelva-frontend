@@ -19,3 +19,25 @@ export interface ParametroTarifaModel {
     observacion?: string;
     estado: boolean;
 }
+
+export interface PuntoMedicion {
+    id: number;
+    codigo: string;
+    descripcion: string;
+    estado: boolean;
+}
+
+export interface MatrizHoraria {
+    id: number;
+    codigo: string;
+    descripcion: string;
+}
+
+export interface TipoCargo {
+  id: number;
+  codigo: string;
+  nombre: string;
+  estado: boolean;
+}
+
+

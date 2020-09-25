@@ -3,13 +3,14 @@
         <h2> Parámetros </h2>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo parámetro</button>
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+                nzTheme="outline"></i>Nuevo parámetro</button>
     </div>
 </div>
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDataParametro" nzTableLayout="fixed">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -26,22 +27,22 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
-                      <i nz-icon nzType="edit" nzTheme="outline"></i>
-                  </button>
+                        <button nz-button nzType="primary" (click)="editarParametro(data)" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
-                      <i nz-icon nzType="delete" nzTheme="outline"></i>
-                  </button>
+                        <button nz-button nzType="primary" (click)="eliminarParametro(data)" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
                     </td>
                     <td>{{ data.id }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.address }}</td>
-                    <td>{{ data.address }}</td>
+                    <td>{{ data.tipoCargoId }}</td>
+                    <td>{{ data.fechaInicio | date: 'yyyy/M/dd' }}</td>
+                    <td>{{ data.fechaFinal | date: 'yyyy/M/dd' }}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.description }}</td>
+                    <td colSpan="8">{{ data.observacion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -54,27 +55,27 @@
         <nz-form-item>
             <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-range-picker style="width: 100%; margin: auto;" [nzFormat]="dateFormat"></nz-range-picker>
+                <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
             </nz-form-control>
         </nz-form-item>
         <div class="row">
-            <div class="col">
+            <div class="col-9">
                 <nz-form-item>
                     <nz-form-label>Cargo</nz-form-label>
                     <nz-form-control>
-                        <nz-select ngModel="lucy" formControlName="Descripcion">
-                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        <nz-select formControlName="tipoCargoId">
+                            <nz-option *ngFor="let cargo of tipoCargo" [nzValue]="cargo.id" [nzLabel]="cargo.nombre">
+                            </nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <nz-form-item>
                     <nz-form-label>Valor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="Observacion" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                        </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -82,12 +83,12 @@
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardarParametro()">Guardar</button>
     </div>
 </nz-modal>

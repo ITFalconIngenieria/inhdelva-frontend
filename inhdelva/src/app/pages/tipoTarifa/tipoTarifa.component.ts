@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ParametroTarifaModel, TarifaModel } from '../../Modelos/tarifa';
+import { MatrizHoraria, ParametroTarifaModel, PuntoMedicion, TarifaModel, TipoCargo } from '../../Modelos/tarifa';
 import { TarifaService } from '../../servicios/tarifa.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-tipoTarifa',
@@ -10,17 +11,22 @@ import { TarifaService } from '../../servicios/tarifa.service';
 })
 export class TipoTarifaComponent implements OnInit {
 
-
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleParametro = false;
-  validateForm: FormGroup;
-  dateFormat = 'yyyy/MM/dd';
+  validateFormTarifa: FormGroup;
+  validateFormParametro: FormGroup;
 
+  dateFormat = 'yyyy/MM/dd';
+  accion;
+  idTarifa;
   listOfDataTarifa: TarifaModel[] = [];
   listOfDataParametros: ParametroTarifaModel[] = [];
   listOfDataParametrosFiltrado: ParametroTarifaModel[] = [];
-
+  puntoMedicion: PuntoMedicion[] = [];
+  matrizHoraria: MatrizHoraria[] = [];
+  tipoCargo: TipoCargo[] = [];
+  bloqueHorario: any[] = [];
   constructor(
     private fb: FormBuilder,
     private tarifaService: TarifaService
@@ -39,10 +45,100 @@ export class TipoTarifaComponent implements OnInit {
 
   submitForm(): void {
     // tslint:disable-next-line: forin
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    for (const i in this.validateFormTarifa.controls) {
+      this.validateFormTarifa.controls[i].markAsDirty();
+      this.validateFormTarifa.controls[i].updateValueAndValidity();
     }
+  }
+
+  guardarTarifa() {
+    const dataTarifa = {
+      codigo: this.validateFormTarifa.controls.codigo.value,
+      puntoMedicionId: this.validateFormTarifa.controls.puntoMedicionId.value,
+      descripcion: this.validateFormTarifa.controls.descripcion.value,
+      tipo: this.validateFormTarifa.controls.tipo.value,
+      matrizHorariaId: this.validateFormTarifa.controls.matrizHorariaId.value,
+      estado: true
+    };
+
+    if (this.accion === 'editar') {
+      this.tarifaService.putTarifa(this.idTarifa, dataTarifa)
+        .toPromise()
+        .then(
+          () => {
+
+            for (const item of this.listOfDataTarifa.filter(x => x.id === this.idTarifa)) {
+              item.codigo = dataTarifa.codigo;
+              item.puntoMedicionId = dataTarifa.puntoMedicionId;
+              item.descripcion = dataTarifa.descripcion;
+              item.tipo = dataTarifa.tipo;
+              item.matrizHorariaId = dataTarifa.matrizHorariaId;
+              item.estado = dataTarifa.estado;
+            }
+
+            this.limpiarTarifa();
+          }
+        );
+    } else {
+      this.tarifaService.postTarifa(dataTarifa)
+        .toPromise()
+        .then(
+          (data: TarifaModel) => {
+            console.log(data);
+            this.listOfDataTarifa = [...this.listOfDataTarifa, data];
+
+            this.limpiarTarifa();
+          }
+        );
+    }
+  }
+
+  editarTarifa(data) {
+    this.idTarifa = data.id;
+    this.accion = 'editar';
+    this.isVisible = true;
+
+    this.validateFormTarifa = this.fb.group({
+      codigo: [data.codigo, [Validators.required]],
+      puntoMedicionId: [data.puntoMedicionId, [Validators.required]],
+      descripcion: [data.descripcion, [Validators.required]],
+      tipo: [data.tipo, [Validators.required]],
+      matrizHorariaId: [data.matrizHorariaId, [Validators.required]],
+      observacion: [data.observacion]
+    });
+  }
+
+  eliminarTarifa(data) {
+    this.tarifaService.deleteTarifa(data.id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
+        }
+      );
+  }
+
+  limpiarTarifa() {
+    this.validateFormTarifa = this.fb.group({
+      codigo: [null, [Validators.required]],
+      puntoMedicionId: [null, [Validators.required]],
+      descripcion: [null, [Validators.required]],
+      tipo: [null, [Validators.required]],
+      matrizHorariaId: [null, [Validators.required]],
+      observacion: [null]
+    });
+  }
+
+  limpiarParametro() {
+    this.validateFormParametro = this.fb.group({
+      tarifaId: [null, [Validators.required]],
+      tipoCargoId: [null, [Validators.required]],
+      bloqueHorarioId: [null, [Validators.required]],
+      tipo: [null, [Validators.required]],
+      fechaInicio: [null, [Validators.required]],
+      valor: [0, [Validators.required]],
+      observacion: [null]
+    });
   }
 
   ngOnInit() {
@@ -59,13 +155,27 @@ export class TipoTarifaComponent implements OnInit {
         (data: ParametroTarifaModel[]) => this.listOfDataParametros = data
       );
 
-    this.validateForm = this.fb.group({
-      Codigo: [null, [Validators.required]],
-      Descripcion: [null, [Validators.required]],
-      Serie: [null, [Validators.required]],
-      Modelo: [null, [Validators.required]],
-      Observacion: [null, [Validators.required]]
-    });
+    this.tarifaService.getPuntoMedicion()
+      .toPromise()
+      .then(
+        (data: PuntoMedicion[]) => this.puntoMedicion = data
+      );
+
+    this.tarifaService.getMatrizHoraria()
+      .toPromise()
+      .then(
+        (data: MatrizHoraria[]) => this.matrizHoraria = data
+      );
+
+    this.tarifaService.getTipoCargo()
+      .toPromise()
+      .then(
+        (data: TipoCargo[]) => this.tipoCargo = data
+      );
+
+    this.limpiarTarifa();
+    this.limpiarParametro();
+
   }
 
   showModal(): void {
@@ -83,6 +193,12 @@ export class TipoTarifaComponent implements OnInit {
   showModalParametro(data): void {
     this.isVisibleParametro = true;
     this.listOfDataParametrosFiltrado = this.listOfDataParametros.filter(x => x.tarifaId === data.id);
+
+    this.tarifaService.getBloqueHorario(data.matrizHorariaId)
+      .toPromise()
+      .then(
+        (res: []) => this.bloqueHorario = res
+      );
   }
 
   handleCancelParametro(): void {

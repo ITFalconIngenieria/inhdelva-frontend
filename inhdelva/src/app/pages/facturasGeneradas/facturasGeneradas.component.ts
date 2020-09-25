@@ -57,7 +57,6 @@ export class FacturasGeneradasComponent implements OnInit {
       .toPromise()
       .then(
         (data: ListadoFactura[]) => {
-          console.log(data);
           this.listOfDataFacturas = data;
 
         }
@@ -75,6 +74,11 @@ export class FacturasGeneradasComponent implements OnInit {
     // });
   }
 
+  emitirFactura() {
+    console.log(this.setOfCheckedId);
+
+  }
+
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(id);
@@ -86,6 +90,8 @@ export class FacturasGeneradasComponent implements OnInit {
   onItemChecked(id: number, checked: boolean): void {
     this.updateCheckedSet(id, checked);
     this.refreshCheckedStatus();
+    console.log(id);
+
   }
 
   onAllChecked(value: boolean): void {
