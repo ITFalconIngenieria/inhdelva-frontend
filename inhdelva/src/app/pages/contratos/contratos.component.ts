@@ -143,28 +143,44 @@ export class ContratosComponent implements OnInit {
 
 
   guardarMedidor() {
-
-    const dataMedidor = {
-      contratoId: this.idContrato,
-      medidorId: this.validateFormMedidores.value.medidorId,
-      fechaInicial: (this.validateFormMedidores.value.fechaInicial) ? this.validateFormMedidores.value.fechaInicial[0] : null,
-      fechaFinal: (this.validateFormMedidores.value.fechaInicial) ? this.validateFormMedidores.value.fechaInicial[1] : null,
-      zonaId: this.validateFormMedidores.value.zonaId,
-      area: this.validateFormMedidores.value.area,
-      tipoServicioId: parseInt(this.validateFormMedidores.value.tipoServicioId),
-      trifasica: this.validateFormMedidores.value.trifasica,
-      potencia: this.validateFormMedidores.value.potencia,
-      iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
-      iluminacionP: this.validateFormMedidores.value.iluminacionP,
-      sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
-      sComP: this.validateFormMedidores.value.sComP,
-      tarifaId: this.validateFormMedidores.value.tarifaId,
-      observacion: this.validateFormMedidores.value.observacion,
-      estado: true
-    };
-
-    console.log(dataMedidor);
-
+    let dataMedidor;
+    if (this.validateFormMedidores.value.fechaInicial) {
+      dataMedidor = {
+        contratoId: this.idContrato,
+        medidorId: this.validateFormMedidores.value.medidorId,
+        fechaInicial: this.validateFormMedidores.value.fechaInicial[0],
+        fechaFinal: this.validateFormMedidores.value.fechaInicial[1],
+        zonaId: this.validateFormMedidores.value.zonaId,
+        area: this.validateFormMedidores.value.area,
+        tipoServicioId: parseInt(this.validateFormMedidores.value.tipoServicioId),
+        trifasica: this.validateFormMedidores.value.trifasica,
+        potencia: this.validateFormMedidores.value.potencia,
+        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
+        iluminacionP: this.validateFormMedidores.value.iluminacionP,
+        sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
+        sComP: this.validateFormMedidores.value.sComP,
+        tarifaId: this.validateFormMedidores.value.tarifaId,
+        observacion: this.validateFormMedidores.value.observacion,
+        estado: true
+      };
+    } else {
+      dataMedidor = {
+        contratoId: this.idContrato,
+        medidorId: this.validateFormMedidores.value.medidorId,
+        zonaId: this.validateFormMedidores.value.zonaId,
+        area: this.validateFormMedidores.value.area,
+        tipoServicioId: parseInt(this.validateFormMedidores.value.tipoServicioId),
+        trifasica: this.validateFormMedidores.value.trifasica,
+        potencia: this.validateFormMedidores.value.potencia,
+        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
+        iluminacionP: this.validateFormMedidores.value.iluminacionP,
+        sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
+        sComP: this.validateFormMedidores.value.sComP,
+        tarifaId: this.validateFormMedidores.value.tarifaId,
+        observacion: this.validateFormMedidores.value.observacion,
+        estado: true
+      };
+    }
 
     if (this.accion === 'editar') {
 

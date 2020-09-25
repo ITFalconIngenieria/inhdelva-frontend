@@ -2,9 +2,11 @@
 <br>
 <br>
 <div class="tabla">
+    <button nz-button nzSize="small" style="width: 9%; margin-left: 90%;" (click)="emitirFactura()" nzType="primary">Emitir</button>
     <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
         <thead>
             <tr>
+                <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
                 <th>Código</th>
@@ -29,12 +31,17 @@
                         <i nz-icon nzType="search" nzTheme="outline"></i>
                     </button>
                 </td>
+                <td style="width: 30px;">
+                    <button nz-button nzType="primary" nzShape="circle">
+                        <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                    </button>
+                </td>
                 <td>{{ data.codigo }}</td>
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
                 <td>{{ data.consumo }}</td>
-                <td>{{ data.total }}</td>
+                <td>{{ data.total | number}}</td>
                 <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>
         </tbody>

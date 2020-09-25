@@ -3,7 +3,8 @@
         <h2> Tipo de tarifas </h2>
     </div>
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo tipo</button>
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+                nzTheme="outline"></i>Nuevo tipo</button>
     </div>
 </div>
 <br>
@@ -25,14 +26,14 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
-                          <i nz-icon nzType="edit" nzTheme="outline"></i>
-                      </button>
+                        <button nz-button nzType="primary" (click)="editarTarifa(data)" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" nzShape="circle">
-                          <i nz-icon nzType="delete" nzTheme="outline"></i>
-                      </button>
+                        <button nz-button nzType="primary" (click)="eliminarTarifa(data)" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
                     </td>
                     <td>{{ data.codigo }}</td>
                     <td>{{ data.matrizHorariaId }}</td>
@@ -51,13 +52,13 @@
 
 <!-- Modal Formulario tipo tarifa-->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Tipo de tarifas" (nzOnCancel)="handleCancel()">
-    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateFormTarifa">
         <div class="row">
             <div class="col">
                 <nz-form-item>
                     <nz-form-label>Código</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <input nz-input formControlName="Codigo" placeholder="Escribe aquí..." />
+                        <input nz-input formControlName="codigo" placeholder="Escribe aquí..." />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -65,10 +66,8 @@
                 <nz-form-item>
                     <nz-form-label>Punto de medición</nz-form-label>
                     <nz-form-control>
-                        <nz-select ngModel="lucy" formControlName="Descripcion">
-                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        <nz-select formControlName="puntoMedicionId">
+                            <nz-option *ngFor="let punto of puntoMedicion" [nzValue]="punto.id" [nzLabel]="punto.descripcion"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -77,7 +76,7 @@
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
+                <input nz-input formControlName="descripcion" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <div class="row">
@@ -85,7 +84,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de tarifa</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group ngModel="radioValue" formControlName="Descripcion">
+                        <nz-radio-group formControlName="tipo">
                             <label nz-radio nzValue="A">Monomica</label>
                             <label nz-radio nzValue="B">Horaria</label>
                         </nz-radio-group>
@@ -94,12 +93,10 @@
             </div>
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Tarifa horaria</nz-form-label>
+                    <nz-form-label>Matriz horaria</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="Descripcion">
-                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        <nz-select formControlName="matrizHorariaId">
+                            <nz-option *ngFor="let matriz of matrizHoraria" [nzValue]="matriz.id" [nzLabel]="matriz.descripcion"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -108,43 +105,42 @@
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardarTarifa()">Guardar</button>
     </div>
 </nz-modal>
 
 <!-- Modal Formulario Parametro-->
 <nz-modal [(nzVisible)]="isVisibleParametro" nzWidth="760" nzTitle="Configuración de parámetros" (nzOnCancel)="handleCancelParametro()">
-    <form nz-form nzLayout="vertical" style="width: 420px; margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form nz-form nzLayout="vertical" style="width: 620px; margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateFormParametro">
         <nz-form-item>
             <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-range-picker style="width: 100%; margin: auto;" [nzFormat]="dateFormat"></nz-range-picker>
+                <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
             </nz-form-control>
         </nz-form-item>
         <div class="row">
-            <div class="col">
+            <div class="col-9">
                 <nz-form-item>
                     <nz-form-label>Cargo</nz-form-label>
                     <nz-form-control>
-                        <nz-select ngModel="lucy" formControlName="Descripcion">
-                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        <nz-select formControlName="tipoCargoId">
+                            <nz-option *ngFor="let cargo of tipoCargo" [nzValue]="cargo.id" [nzLabel]="cargo.nombre">
+                            </nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col">
+            <div class="col-3">
                 <nz-form-item>
                     <nz-form-label>Valor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%;" formControlName="Observacion" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
+                        <nz-input-number style="width: 100%;" formControlName="valor" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -152,17 +148,15 @@
         <nz-form-item>
             <nz-form-label>Bloque Horario</nz-form-label>
             <nz-form-control>
-                <nz-select style="width: 50%;" formControlName="Descripcion">
-                    <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                    <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                    <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                <nz-select style="width: 50%;" formControlName="bloqueHorarioId">
+                    <nz-option *ngFor="let bloqueH of bloqueHorario" [nzValue]="bloqueH.id" [nzLabel]="bloqueH.descripcion"></nz-option>
                 </nz-select>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -201,13 +195,13 @@
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" nzShape="circle">
-                              <i nz-icon nzType="edit" nzTheme="outline"></i>
-                          </button>
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </button>
                         </td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" nzShape="circle">
-                              <i nz-icon nzType="delete" nzTheme="outline"></i>
-                          </button>
+                                <i nz-icon nzType="delete" nzTheme="outline"></i>
+                            </button>
                         </td>
                     </tr>
                 </ng-container>

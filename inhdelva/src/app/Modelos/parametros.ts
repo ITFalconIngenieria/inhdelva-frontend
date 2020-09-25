@@ -1,8 +1,11 @@
 export interface Parametro {
-  Id: number;
-  TarifaId: number;
-  TipoCargoId: number;
-  TrimestreId: number;
-  Valor: number;
-  Estado: boolean;
+  id: number;
+  tarifaId?: any;
+  tipoCargoId: number;
+  bloqueHorarioId?: any;
+  fechaInicio: string;
+  fechaFinal: string;
+  valor: number;
+  observacion?: string;
+  estado: boolean;
 }

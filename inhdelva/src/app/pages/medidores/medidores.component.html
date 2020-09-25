@@ -41,7 +41,8 @@
                     <td>{{ data.modelo }}</td>
                     <td>{{ data.serie }}</td>
                     <td>
-                        <span class="badge badge-pill badge-danger">En contrato</span>
+                        <span *ngIf="data.contrato" class="badge badge-pill badge-danger">En contrato</span>
+                        <span *ngIf="!data.contrato" class="badge badge-pill badge-success">Sin contrato</span>
                     </td>
                     <td>
                         <button nz-button nzType="primary" nzSize="small" (click)="showModalRollover(data)" nzShape="round">Rollover</button>

@@ -10,13 +10,14 @@ export interface Medidor {
 export interface MedidorPME {
   id: number;
   codigo: string;
-  descripcion?: any;
-  serie?: any;
+  descripcion: string;
+  serie?: string;
   modelo: string;
   ip: string;
   lecturaMax?: any;
   multiplicador: number;
   observacion?: any;
+  contrato: boolean;
 }
 
 export interface RolloverModel {
