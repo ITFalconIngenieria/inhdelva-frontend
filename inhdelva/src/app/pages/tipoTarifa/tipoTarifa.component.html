@@ -85,8 +85,8 @@
                     <nz-form-label>Tipo de tarifa</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <nz-radio-group formControlName="tipo">
-                            <label nz-radio nzValue="A">Monomica</label>
-                            <label nz-radio nzValue="B">Horaria</label>
+                            <label nz-radio nzValue="true">Monomica</label>
+                            <label nz-radio nzValue="false">Horaria</label>
                         </nz-radio-group>
                     </nz-form-control>
                 </nz-form-item>
@@ -166,7 +166,7 @@
                         <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelParametro()">Cancelar</button>
                     </div>
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="primary" (click)="handleOkParametro()">Guardar</button>
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarParametro()">Guardar</button>
                     </div>
                 </div>
             </nz-form-control>
@@ -194,12 +194,12 @@
                         <td>{{ data.fechaInicio | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
                         <td style="width: 30px;">
-                            <button nz-button nzType="primary" nzShape="circle">
+                            <button nz-button nzType="primary" (click)="editarParametro(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>
                             </button>
                         </td>
                         <td style="width: 30px;">
-                            <button nz-button nzType="primary" nzShape="circle">
+                            <button nz-button nzType="primary" (click)="eliminarParametro(data)" nzShape="circle">
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>
                         </td>
