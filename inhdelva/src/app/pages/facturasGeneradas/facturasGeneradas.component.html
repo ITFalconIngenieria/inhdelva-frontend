@@ -22,17 +22,17 @@
         <tbody>
             <tr *ngFor="let data of rowSelectionTable.data">
                 <td style="width: 30px;">
-                    <button nz-button nzType="primary" nzShape="circle">
+                    <button nz-button nzType="primary" nzShape="circle" nzTooltipTitle="Editar factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </td>
                 <td style="width: 30px;">
-                    <button nz-button nzType="primary" (click)="verFactura(data)" nzShape="circle">
+                    <button nz-button nzType="primary" (click)="verFactura(data)" nzShape="circle" nzTooltipTitle="Ver factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="search" nzTheme="outline"></i>
                     </button>
                 </td>
                 <td style="width: 30px;">
-                    <button nz-button nzType="primary" (click)="cancelarFactura(data)" nzShape="circle">
+                    <button nz-button nzType="primary" (click)="cancelarFactura(data)" nzShape="circle" nzTooltipTitle="Cancelar factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="close-circle" nzTheme="outline"></i>
                     </button>
                 </td>

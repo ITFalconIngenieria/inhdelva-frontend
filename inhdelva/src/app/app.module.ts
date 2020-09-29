@@ -24,6 +24,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 import { registerLocaleData, CommonModule } from '@angular/common';
 import en from '@angular/common/locales/en';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 // Importaciones de componentes ng-zorro
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -113,6 +115,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FusionChartsModule,
+    NgxSpinnerModule,
     /////////////////
     IconsProviderModule,
     // NgZorroAntdModule,

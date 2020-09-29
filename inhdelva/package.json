@@ -24,6 +24,7 @@
         "fusioncharts": "^3.15.2",
         "moment": "^2.28.0",
         "ng-zorro-antd": "^8.5.2",
+        "ngx-spinner": "^8.1.0",
         "rxjs": "~6.4.0",
         "sweetalert": "^2.1.2",
         "tslib": "^1.10.0",
