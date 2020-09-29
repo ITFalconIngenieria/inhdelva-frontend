@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientesVista, ActoresSapSearch, ClientesModel } from '../../Modelos/actores';
 import { ActoresService } from '../../servicios/actores.service';
 import swal from 'sweetalert';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-clientes',
@@ -10,9 +11,9 @@ import swal from 'sweetalert';
 })
 export class ClientesComponent implements OnInit {
   isVisible = false;
-  clienteData: ClientesModel;
   actoresSap: ActoresSapSearch[] = [];
   listOfDataClientes: ClientesVista[] = [];
+  idCliente;
   codigo: string;
   nombreEmpresa: string;
   rtn: string;
@@ -22,9 +23,11 @@ export class ClientesComponent implements OnInit {
   direccion: string;
   imagen: string;
   observacion: string;
+  accion: string;
 
   constructor(
-    private actoresService: ActoresService
+    private actoresService: ActoresService,
+    private notification: NzNotificationService
   ) { }
 
   busquedad() {
@@ -50,7 +53,7 @@ export class ClientesComponent implements OnInit {
   }
 
   guardar() {
-    this.clienteData = {
+    const clienteData = {
       codigo: this.codigo,
       tipoActor: false,
       imagen: (this.imagen) ? this.imagen : '',
@@ -58,40 +61,117 @@ export class ClientesComponent implements OnInit {
       estado: true
     };
 
-    this.actoresService.postClientes(this.clienteData)
-      .toPromise()
-      .then(
-        (data) => {
-          console.log(data);
-          this.nombreEmpresa = '';
-          this.rtn = '';
-          this.contacto = '';
-          this.tel = '';
-          this.email = '';
-          this.direccion = '';
-          this.imagen = '';
-          this.observacion = '';
-        }
+    if (this.accion === 'editar') {
+      this.actoresService.putClientes(this.idCliente, clienteData)
+        .toPromise()
+        .then(
+          () => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
 
-      );
+            // for (const item of this.listOfDataClientes.filter(x => x.Id === this.idCliente)) {
+            //   item.Codigo = clienteData.codigo;
+            //   item.Contacto = clienteData.;
+            //   item.Observacion = clienteData.observacion;
+            // }
+
+            this.codigo = '';
+            this.nombreEmpresa = '';
+            this.rtn = '';
+            this.contacto = '';
+            this.tel = '';
+            this.email = '';
+            this.direccion = '';
+            this.imagen = '';
+            this.observacion = '';
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+    } else {
+      this.actoresService.postClientes(clienteData)
+        .toPromise()
+        .then(
+          (data) => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+
+            this.codigo = '';
+            this.nombreEmpresa = '';
+            this.rtn = '';
+            this.contacto = '';
+            this.tel = '';
+            this.email = '';
+            this.direccion = '';
+            this.imagen = '';
+            this.observacion = '';
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+
+        );
+
+
+    }
+
 
   }
 
-  editar(id) {
+  editar(data) {
+    this.accion = 'editar';
     this.isVisible = true;
 
+    this.idCliente = data.Id;
+    this.codigo = data.Codigo;
+    this.nombreEmpresa = data.Nombre;
+    this.rtn = data.RTN;
+    this.contacto = data.Contacto;
+    this.tel = data.Telefono;
+    this.email = data.Email;
+    this.direccion = data.Direccion;
+    this.imagen = data.Imagen;
+    this.observacion = data.Observacion;
 
   }
 
   ngOnInit() {
+    this.accion = 'nuevo';
 
     this.actoresService.getClientes()
       .toPromise()
       .then(
         (data: any[]) => {
-          console.log(data);
-
           this.listOfDataClientes = data;
+        },
+        (error) => {
+
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
 
@@ -100,9 +180,27 @@ export class ClientesComponent implements OnInit {
       .then(
         (data: ActoresSapSearch[]) => {
           this.actoresSap = data;
+        },
+        (error) => {
+
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
 
+  }
+
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
   }
 
   showModal(): void {

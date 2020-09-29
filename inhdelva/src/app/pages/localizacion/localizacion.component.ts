@@ -2,6 +2,8 @@ import { ZonaModel } from '../../Modelos/zona';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ZonaService } from '../../servicios/zona.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-localizacion',
@@ -12,8 +14,8 @@ export class LocalizacionComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private zonaService: ZonaService
-
+    private zonaService: ZonaService,
+    private notification: NzNotificationService
   ) { }
 
   expandSet = new Set<any>();
@@ -58,6 +60,12 @@ export class LocalizacionComponent implements OnInit {
         .toPromise()
         .then(
           () => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+
             for (const item of this.listOfDataZona.filter(x => x.id === this.zonaEdit)) {
               item.codigo = this.dataZona.codigo;
               item.descripcion = this.dataZona.descripcion;
@@ -70,6 +78,15 @@ export class LocalizacionComponent implements OnInit {
               descripcion: [null, [Validators.required]],
               observacion: [null],
             });
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -77,16 +94,38 @@ export class LocalizacionComponent implements OnInit {
         .toPromise()
         .then(
           (data: ZonaModel) => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataZona = [...this.listOfDataZona, data];
             this.validateForm = this.fb.group({
               codigo: [null, [Validators.required]],
               descripcion: [null, [Validators.required]],
               observacion: [null],
             });
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
 
+  }
+
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
   }
 
   ngOnInit() {
@@ -98,6 +137,14 @@ export class LocalizacionComponent implements OnInit {
       .then(
         (data: ZonaModel[]) => {
           this.listOfDataZona = data;
+        },
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+          console.log(error);
         }
       );
 
@@ -143,7 +190,21 @@ export class LocalizacionComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }

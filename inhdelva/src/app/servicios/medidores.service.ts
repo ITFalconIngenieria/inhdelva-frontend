@@ -37,7 +37,7 @@ export class MedidoresService {
   // roll-overs?filter[where][medidorId]=1
   // Rollover
   getRollovers() {
-    return this.http.get(`${apiUrl}roll-overs`);
+    return this.http.get(`${apiUrl}roll-overs?filter[where][estado]=true`);
   }
 
   getRolloversMedidor(id) {
