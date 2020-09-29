@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Parametro } from '../../Modelos/parametros';
 import { TarifaService } from '../../servicios/tarifa.service';
 import { TipoCargo } from '../../Modelos/tarifa';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-parametrosEntrada',
@@ -24,9 +26,17 @@ export class ParametrosEntradaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private parametroServce: ParametroEntradaService,
-    private tarifaService: TarifaService
+    private tarifaService: TarifaService,
+    private notification: NzNotificationService
   ) { }
 
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
+  }
 
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;
@@ -62,7 +72,11 @@ export class ParametrosEntradaComponent implements OnInit {
         .toPromise()
         .then(
           () => {
-
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             for (const item of this.listOfDataParametro.filter(x => x.id === this.idParametro)) {
               item.tipoCargoId = dataParametro.tipoCargoId;
               item.fechaInicio = dataParametro.fechaInicio;
@@ -73,6 +87,14 @@ export class ParametrosEntradaComponent implements OnInit {
             }
 
             this.limpiarParametro();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -80,9 +102,22 @@ export class ParametrosEntradaComponent implements OnInit {
         .toPromise()
         .then(
           (data: Parametro) => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataParametro = [...this.listOfDataParametro, data];
 
             this.limpiarParametro();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -106,7 +141,20 @@ export class ParametrosEntradaComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataParametro = this.listOfDataParametro.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -127,10 +175,19 @@ export class ParametrosEntradaComponent implements OnInit {
       .then(
         (data: Parametro[]) => {
           this.listOfDataParametro = data;
+        },
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
 
-      this.tarifaService.getTipoCargo()
+    this.tarifaService.getTipoCargo()
       .toPromise()
       .then(
         (data: TipoCargo[]) => this.tipoCargo = data

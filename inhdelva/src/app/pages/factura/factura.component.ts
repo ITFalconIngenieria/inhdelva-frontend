@@ -2,7 +2,7 @@ import { EncabezadoFactura, BloquesdeEnergia, DetalleFactura } from './../../Mod
 import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
 import { Router } from '@angular/router';
-
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-factura',
@@ -200,9 +200,21 @@ export class FacturaComponent implements OnInit {
           console.log(this.DetalleFacturaData);
 
 
+        },
+        (error) => {
+
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
 
   }
+
+  
 
 }

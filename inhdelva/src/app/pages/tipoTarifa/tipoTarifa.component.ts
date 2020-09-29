@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatrizHoraria, ParametroTarifaModel, PuntoMedicion, TarifaModel, TipoCargo } from '../../Modelos/tarifa';
 import { TarifaService } from '../../servicios/tarifa.service';
 import * as moment from 'moment';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-tipoTarifa',
@@ -30,8 +32,17 @@ export class TipoTarifaComponent implements OnInit {
   bloqueHorario: any[] = [];
   constructor(
     private fb: FormBuilder,
-    private tarifaService: TarifaService
+    private tarifaService: TarifaService,
+    private notification: NzNotificationService
   ) { }
+
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
+  }
 
   parserLectura = (value: string) => value.replace('kW ', '');
   formatterLectura = (value: number) => `kW ${value}`;
@@ -67,7 +78,11 @@ export class TipoTarifaComponent implements OnInit {
         .toPromise()
         .then(
           () => {
-
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             for (const item of this.listOfDataTarifa.filter(x => x.id === this.idTarifa)) {
               item.codigo = dataTarifa.codigo;
               item.puntoMedicionId = dataTarifa.puntoMedicionId;
@@ -78,6 +93,14 @@ export class TipoTarifaComponent implements OnInit {
             }
 
             this.limpiarTarifa();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -85,10 +108,22 @@ export class TipoTarifaComponent implements OnInit {
         .toPromise()
         .then(
           (data: TarifaModel) => {
-            console.log(data);
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataTarifa = [...this.listOfDataTarifa, data];
 
             this.limpiarTarifa();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -114,7 +149,21 @@ export class TipoTarifaComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -136,6 +185,12 @@ export class TipoTarifaComponent implements OnInit {
         .toPromise()
         .then(
           () => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+
             for (const item of this.listOfDataParametrosFiltrado.filter(x => x.id === this.idParametro)) {
               item.tarifaId = dataParametro.tarifaId;
               item.tipoCargoId = dataParametro.tipoCargoId;
@@ -148,6 +203,14 @@ export class TipoTarifaComponent implements OnInit {
             }
 
             this.limpiarParametro();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -155,10 +218,22 @@ export class TipoTarifaComponent implements OnInit {
         .toPromise()
         .then(
           (data: ParametroTarifaModel) => {
-            console.log(data);
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataParametrosFiltrado = [...this.listOfDataParametrosFiltrado, data];
 
             this.limpiarParametro();
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -183,7 +258,21 @@ export class TipoTarifaComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataParametrosFiltrado = this.listOfDataParametrosFiltrado.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -217,6 +306,16 @@ export class TipoTarifaComponent implements OnInit {
       .toPromise()
       .then(
         (data: TarifaModel[]) => this.listOfDataTarifa = data
+        ,
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
+        }
       );
 
     this.tarifaService.getTarifasParametro()

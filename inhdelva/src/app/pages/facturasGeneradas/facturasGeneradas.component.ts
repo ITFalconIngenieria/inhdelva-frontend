@@ -3,6 +3,7 @@ import { FacturaService } from '../../servicios/factura.service';
 import { ListadoFactura } from '../../Modelos/factura';
 import { Router, NavigationExtras } from '@angular/router';
 import swal from 'sweetalert';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -42,7 +43,7 @@ export class FacturasGeneradasComponent implements OnInit {
   constructor(
     private facturaService: FacturaService,
     private router: Router,
-
+    private notification: NzNotificationService
   ) { }
 
   verFactura(data) {
@@ -52,6 +53,7 @@ export class FacturasGeneradasComponent implements OnInit {
     this.router.navigate(['factura'], navigationExtras);
     this.facturaService.ejecutarNavegacion(data);
   }
+
   ngOnInit() {
 
     this.facturaService.getListadoFacturas()
@@ -60,25 +62,31 @@ export class FacturasGeneradasComponent implements OnInit {
         (data: ListadoFactura[]) => {
           this.listOfDataFacturas = data;
 
+        },
+        (error) => {
+
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
+  }
 
-    // this.listOfDataFacturas = new Array(200).fill(0).map((_, index) => {
-    //   return {
-    //     id: index,
-    //     name: `CNT- ${index}`,
-    //     age: 'XXXX',
-    //     address: `##/##/####`,
-    //     energia: '#,###.##',
-    //     Total: '#,###.##'
-    //   };
-    // });
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
   }
 
   emitirFactura() {
     if (this.setOfCheckedId.size > 0) {
       this.setOfCheckedId.forEach(x => {
-        console.log(x)
         this.facturaService.changeFactura(x, { estado: 2 })
           .toPromise()
           .then(
@@ -87,6 +95,15 @@ export class FacturasGeneradasComponent implements OnInit {
                 icon: 'success',
                 text: 'Facturas emitidas'
               });
+            },
+            (error) => {
+
+              this.ShowNotification(
+                'error',
+                'No se pudo emitir factura',
+                'La factura no se pudo emitir, por favor revise su conexión a internet o comuníquese con el proveedor.'
+              );
+              console.log(error);
             }
           );
       }
@@ -110,6 +127,15 @@ export class FacturasGeneradasComponent implements OnInit {
             icon: 'success',
             text: 'Facturas cancelada'
           });
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo cancelar factura',
+            'La factura no se pudo cancelar, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }

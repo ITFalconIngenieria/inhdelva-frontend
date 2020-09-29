@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedidoresService } from '../../servicios/medidores.service';
 import { MedidorPME, RolloverModel } from '../../Modelos/medidor';
 import * as moment from 'moment';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 
 @Component({
@@ -38,7 +39,8 @@ export class MedidoresComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private medidoresService: MedidoresService
+    private medidoresService: MedidoresService,
+    private notification: NzNotificationService
   ) { }
 
   parserLectura = (value: string) => value.replace('kW ', '');
@@ -76,7 +78,11 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           () => {
-
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             for (const item of this.listOfDataRolloverMedidor.filter(x => x.id === this.idRollover)) {
               item.medidorId = dataRollover.medidorId;
               item.fecha = dataRollover.fecha;
@@ -95,6 +101,14 @@ export class MedidoresComponent implements OnInit {
               observacion: [null]
             });
 
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -102,8 +116,11 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: RolloverModel) => {
-            console.log(data);
-            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            ); this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
             this.validateForm = this.fb.group({
               fecha: [null, [Validators.required]],
               energia: [null, [Validators.required]],
@@ -112,6 +129,14 @@ export class MedidoresComponent implements OnInit {
               observacion: [null]
             });
 
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -134,7 +159,20 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -155,6 +193,11 @@ export class MedidoresComponent implements OnInit {
         .then(
           () => {
 
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidor)) {
               item.codigo = dataMedidor.codigo;
               item.lecturaMax = dataMedidor.lecturaMax;
@@ -170,6 +213,14 @@ export class MedidoresComponent implements OnInit {
             this.lecMax = 0;
             this.multiplicador = 0;
             this.observacion = '';
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -177,7 +228,12 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: RolloverModel) => {
-            console.log(data);
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
 
             this.codigo = '';
@@ -189,6 +245,14 @@ export class MedidoresComponent implements OnInit {
             this.multiplicador = 0;
             this.observacion = '';
 
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -213,7 +277,20 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
           this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -240,13 +317,31 @@ export class MedidoresComponent implements OnInit {
 
   }
 
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
+
     this.medidoresService.getMedidoresPME()
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
           this.listOfDataMedidores = data;
+        },
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
         }
       );
 

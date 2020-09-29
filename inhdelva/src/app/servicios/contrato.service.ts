@@ -15,9 +15,8 @@ export class ContratoService {
 
   // Contratos
   getContratos() {
-    return this.http.get(`${apiUrl}contrato`);
-    //  return this.http.get(`${apiUrl}contrato?filter[where][estado]=true`);
-
+    // return this.http.get(`${apiUrl}contrato`);
+    return this.http.get(`${apiUrl}contrato?filter[where][estado]=true`);
   }
 
   postContrato(contrato) {
@@ -34,7 +33,7 @@ export class ContratoService {
 
   // Contratos-Medidores
   getContratosMedidor() {
-    return this.http.get(`${apiUrl}contratos-medidores`);
+    return this.http.get(`${apiUrl}contratos-medidores?filter[where][estado]=true`);
   }
 
   getContratosMedidorID(id) {

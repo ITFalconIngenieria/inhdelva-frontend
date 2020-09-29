@@ -10,6 +10,8 @@ import { ClientesVista } from '../../Modelos/actores';
 import { ZonaModel } from '../../Modelos/zona';
 import { TarifaModel } from '../../Modelos/tarifa';
 import { TarifaService } from '../../servicios/tarifa.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-contratos',
@@ -46,7 +48,9 @@ export class ContratosComponent implements OnInit {
     private medidorService: MedidoresService,
     private actoresService: ActoresService,
     private zonaService: ZonaService,
-    private tarifaService: TarifaService
+    private tarifaService: TarifaService,
+    private notification: NzNotificationService
+
   ) { }
 
   parserLectura = (value: string) => value.replace('kW ', '');
@@ -87,6 +91,13 @@ export class ContratosComponent implements OnInit {
         .toPromise()
         .then(
           () => {
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+
             for (const item of this.listOfDataContrato.filter(x => x.id === this.idContrato)) {
               item.codigo = dataContrato.codigo;
               item.clasificacion = dataContrato.clasificacion;
@@ -101,6 +112,15 @@ export class ContratosComponent implements OnInit {
             }
 
             this.limpiarFormContrato();
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     } else {
@@ -108,8 +128,23 @@ export class ContratosComponent implements OnInit {
         .toPromise()
         .then(
           (data: Contrato) => {
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listOfDataContrato = [...this.listOfDataContrato, data];
             this.limpiarFormContrato();
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
         );
     }
@@ -136,7 +171,22 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+
           this.listOfDataContrato = this.listOfDataContrato.filter(x => x.id !== data.id);
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
       );
   }
@@ -188,6 +238,12 @@ export class ContratosComponent implements OnInit {
         .toPromise()
         .then(
           () => {
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             for (const item of this.listaMedidoresFiltrado.filter(x => x.id === this.idMedidorContrato)) {
               item.contratoId = dataMedidor.contratoId,
                 item.medidorId = dataMedidor.medidorId,
@@ -208,16 +264,42 @@ export class ContratosComponent implements OnInit {
             }
 
             this.limpiarFormMedidores();
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
+
         );
     } else {
       this.contratoService.postContratoMedidor(dataMedidor)
         .toPromise()
         .then(
           (data: ContratoMedidores) => {
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
             this.listaMedidoresFiltrado = [...this.listaMedidoresFiltrado, data];
             this.limpiarFormMedidores();
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
           }
+
         );
     }
   }
@@ -248,8 +330,24 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+
           this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
         }
+
       );
   }
 
@@ -287,6 +385,7 @@ export class ContratosComponent implements OnInit {
   changeOpcion(data) {
     this.rangoFechas = (data === 'A') ? true : false;
   }
+
   ngOnInit() {
 
     this.radioValue = 'A';
@@ -321,6 +420,16 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: Contrato[]) => this.listOfDataContrato = data
+        ,
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+
+          console.log(error);
+        }
       );
 
     this.contratoService.getContratosMedidor()
@@ -332,6 +441,14 @@ export class ContratosComponent implements OnInit {
     this.limpiarFormContrato();
     this.limpiarFormMedidores();
 
+  }
+
+  ShowNotification(type: string, titulo: string, mensaje: string): void {
+    this.notification.create(
+      type,
+      titulo,
+      mensaje
+    );
   }
 
   onExpandChange(id: number, checked: boolean): void {
