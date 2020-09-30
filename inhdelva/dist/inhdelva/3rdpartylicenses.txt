@@ -218,6 +218,9 @@ ng-zorro-antd/time-picker
 
 ng-zorro-antd/tooltip
 
+ngx-spinner
+MIT
+
 regenerator-runtime
 MIT
 MIT License

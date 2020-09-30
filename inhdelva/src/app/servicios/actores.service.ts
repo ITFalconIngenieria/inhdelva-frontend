@@ -33,6 +33,18 @@ export class ActoresService {
     return this.http.get(`${apiUrl}actores-sap?filter={"where":%20{"TipoActor":%20true}}`);
   }
 
+  postProveedor(cliente) {
+    return this.http.post(`${apiUrl}actores`, cliente);
+  }
+
+  putProveedor(id, cliente) {
+    return this.http.put(`${apiUrl}actores/${id}`, cliente);
+  }
+
+  delteProveedor(id, data) {
+    return this.http.patch(`${apiUrl}actores/${id}`, data);
+  }
+
   busquedad() {
     return this.http.get(`${apiUrl}actor-sap`);
   }

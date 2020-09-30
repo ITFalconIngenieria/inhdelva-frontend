@@ -13,6 +13,7 @@ export class ClientesComponent implements OnInit {
   isVisible = false;
   actoresSap: ActoresSapSearch[] = [];
   listOfDataClientes: ClientesVista[] = [];
+  
   idCliente;
   codigo: string;
   nombreEmpresa: string;

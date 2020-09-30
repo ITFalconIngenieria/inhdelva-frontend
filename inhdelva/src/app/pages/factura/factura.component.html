@@ -9,169 +9,169 @@
     </div>
 </div>
 <br>
-<div class="titulos">
-    <h5>Datos de Factura</h5>
-    <h5>Datos del titular </h5>
-</div>
+<div *ngIf="cargado">
+    <div class="titulos">
+        <h5>Datos de Factura</h5>
+        <h5>Datos del titular </h5>
+    </div>
+    <div class="grid-container">
 
-<div class="grid-container">
-
-    <div class="datos">
-        <div>
-            <p class="etiqueta-izq"> Fecha de lectura: </p>
-            <p class="etiqueta-izq"> Fecha de emisión: </p>
-            <p class="etiqueta-izq"> Fecha de vencimiento: </p>
-            <p class="etiqueta-izq"> Periodo: </p>
-            <p class="etiqueta-izq"> Días de facturación: </p>
-            <p class="etiqueta-izq"> Número de factura: </p>
+        <div class="datos">
+            <div>
+                <p class="etiqueta-izq"> Fecha de lectura: </p>
+                <p class="etiqueta-izq"> Fecha de emisión: </p>
+                <p class="etiqueta-izq"> Fecha de vencimiento: </p>
+                <p class="etiqueta-izq"> Periodo: </p>
+                <p class="etiqueta-izq"> Días de facturación: </p>
+                <p class="etiqueta-izq"> Número de factura: </p>
+            </div>
+            <div>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
+                <p class="etiqueta-der"> 30 </p>
+                <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
+            </div>
         </div>
-        <div>
-            <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura }} </p>
-            <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
-            <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
-            <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
-            <p class="etiqueta-der"> 30 </p>
-            <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
+        <div class="datos">
+            <div>
+                <p class="etiqueta-izq-titular"> Nombre del titular: </p>
+                <p class="etiqueta-izq-titular"> Dirección de suministro: </p>
+                <p class="etiqueta-izq-titular"> Ubicación: </p>
+                <p class="etiqueta-izq-titular"> Código del cliente: </p>
+                <p class="etiqueta-izq-titular"> Número del medidor: </p>
+                <p class="etiqueta-izq-titular"> Tipo de consumo: </p>
+                <p class="etiqueta-izq-titular"> Tarifa: </p>
+            </div>
+            <div>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.titular }} </p>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.direccion }} </p>
+                <p class="etiqueta-der-titular"> 364-249-245 </p>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.codigoCliente }} </p>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.medidor }} </p>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tipoConsumo }} </p>
+                <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tarifa }} </p>
+            </div>
         </div>
     </div>
-    <div class="datos">
-        <div>
-            <p class="etiqueta-izq-titular"> Nombre del titular: </p>
-            <p class="etiqueta-izq-titular"> Dirección de suministro: </p>
-            <p class="etiqueta-izq-titular"> Ubicación: </p>
-            <p class="etiqueta-izq-titular"> Código del cliente: </p>
-            <p class="etiqueta-izq-titular"> Número del medidor: </p>
-            <p class="etiqueta-izq-titular"> Tipo de consumo: </p>
-            <p class="etiqueta-izq-titular"> Tarifa: </p>
-        </div>
-        <div>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.titular }} </p>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.direccion }} </p>
-            <p class="etiqueta-der-titular"> 364-249-245 </p>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.codigoCliente }} </p>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.medidor }} </p>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tipoConsumo }} </p>
-            <p class="etiqueta-der-titular"> {{ EncabezadoFacturaData.tarifa }} </p>
-        </div>
+    <br>
+    <div class="titulos">
+        <h5>Resumen de la Factura</h5>
     </div>
-</div>
-<br>
-<div class="titulos">
-    <h5>Resumen de la Factura</h5>
-</div>
-<div class="resumen-container">
-    <div class="consumo" *ngFor="let item of BloquesdeEnergiaFactura">
-        <p class="etiqueta-consumo"> Consumo en kWh </p>
-        <p class="etiqueta-bloque"> *Bloque de horario punta </p>
-        <p class="etiqueta-valor"> {{ item.lps | number}} </p>
-    </div>
-    <!-- <div class="consumo">
+    <div class="resumen-container">
+        <div class="consumo" *ngFor="let item of BloquesdeEnergiaFactura">
+            <p class="etiqueta-consumo"> Consumo en kWh </p>
+            <p class="etiqueta-bloque"> *Bloque de horario punta </p>
+            <p class="etiqueta-valor"> {{ item.lps | number}} </p>
+        </div>
+        <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario intermedio </p>
         <p class="etiqueta-valor"> {{ BloquesdeEnergiaFactura[1].lps }} </p>
     </div> -->
-    <!-- <div class="consumo">
+        <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
         <p class="etiqueta-bloque"> *Bloque de horario valle </p>
         <p class="etiqueta-valor"> {{ BloquesdeEnergiaFactura[2].lps }} </p>
     </div> -->
-    <div class="consumo">
-        <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
-        <p class="etiqueta-valor"> L. {{ totalConsumo | number}} </p>
+        <div class="consumo">
+            <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
+            <p class="etiqueta-valor"> L. {{ totalConsumo | number}} </p>
+        </div>
+        <div class="consumo">
+            <p class="etiqueta-consumo-total"> Total a pagar </p>
+            <p class="etiqueta-valor"> L. {{ totalApagar | number}} </p>
+        </div>
     </div>
-    <div class="consumo">
-        <p class="etiqueta-consumo-total"> Total a pagar </p>
-        <p class="etiqueta-valor"> L. {{ totalApagar | number}} </p>
+    <br>
+    <div class="titulos">
+        <h5>Detalle de Consumo de Energía</h5>
     </div>
-</div>
-<br>
-<div class="titulos">
-    <h5>Detalle de Consumo de Energía</h5>
-</div>
-<div class="titulos-detalle">
-    <h6></h6>
-    <h6>Lectura actual</h6>
-    <h6>Lectura anterior</h6>
-    <h6>Diferencia</h6>
-    <h6>Multiplicador</h6>
-    <h6>Consumo</h6>
-    <h6>Unidades</h6>
-</div>
-<div class="detalle-container">
-    <div>
-        <p class="etiqueta-detalle">Fecha lectura</p>
-        <p class="etiqueta-detalle">Activa</p>
-        <p class="etiqueta-detalle">Reactiva</p>
-        <p class="etiqueta-detalle">Demanda</p>
+    <div class="titulos-detalle">
+        <h6></h6>
+        <h6>Lectura actual</h6>
+        <h6>Lectura anterior</h6>
+        <h6>Diferencia</h6>
+        <h6>Multiplicador</h6>
+        <h6>Consumo</h6>
+        <h6>Unidades</h6>
     </div>
-    <div>
-        <p class="etiqueta-detalle">2020/06/01</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number}}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number}}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
-    </div>
-    <div>
-        <p class="etiqueta-detalle">2020/07/01</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number}}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number}}</p>
-        <p class="etiqueta-detalle">-</p>
-    </div>
-    <div>
-        <p class="etiqueta-detalle">-</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor | number}}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor | number}}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
-    </div>
-    <div>
-        <p class="etiqueta-detalle">-</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
-    </div>
-    <div>
-        <p class="etiqueta-detalle">-</p>
-        <p class="etiqueta-detalle">
-            {{ (DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor) * DetalleFacturaData[2]?.valor | number}}
-        </p>
-        <p class="etiqueta-detalle">
-            {{ (DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor) * DetalleFacturaData[2]?.valor | number}}
-        </p>
-        <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number}}</p>
-    </div>
-    <div>
-        <p class="etiqueta-detalle">-</p>
-        <p class="etiqueta-detalle">kWh</p>
-        <p class="etiqueta-detalle">kWArh</p>
-        <p class="etiqueta-detalle">kW</p>
-    </div>
-</div>
-<br>
-<div class="titulos">
-    <h5>Cálculo de Consumo de Energía</h5>
-    <h5>Histórico de Consumo</h5>
-</div>
-<div class="consumo-container">
-    <div class="calculo-consumo-container">
+    <div class="detalle-container">
         <div>
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Cargo</th>
-                        <th scope="col">L/kWh</th>
-                        <th scope="col">Consumo</th>
-                        <th scope="col">Valor(L.)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of BloquesdeEnergiaFactura">
-                        <td>
-                            <p style="margin: 0px;">Activa</p>
-                            <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }} </p>
-                        </td>
-                        <td> {{ item.lps | number}} </td>
-                        <td> {{ item.valor | number}} </td>
-                        <td> {{ item.lps * item.valor | number}} </td>
-                        <!-- </tr>
+            <p class="etiqueta-detalle">Fecha lectura</p>
+            <p class="etiqueta-detalle">Activa</p>
+            <p class="etiqueta-detalle">Reactiva</p>
+            <p class="etiqueta-detalle">Demanda</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">2020/06/01</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">2020/07/01</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number}}</p>
+            <p class="etiqueta-detalle">-</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">-</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">-</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[2]?.valor }}</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">-</p>
+            <p class="etiqueta-detalle">
+                {{ (DetalleFacturaData[0]?.valor - DetalleFacturaData[1]?.valor) * DetalleFacturaData[2]?.valor | number}}
+            </p>
+            <p class="etiqueta-detalle">
+                {{ (DetalleFacturaData[3]?.valor - DetalleFacturaData[4]?.valor) * DetalleFacturaData[2]?.valor | number}}
+            </p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number}}</p>
+        </div>
+        <div>
+            <p class="etiqueta-detalle">-</p>
+            <p class="etiqueta-detalle">kWh</p>
+            <p class="etiqueta-detalle">kWArh</p>
+            <p class="etiqueta-detalle">kW</p>
+        </div>
+    </div>
+    <br>
+    <div class="titulos">
+        <h5>Cálculo de Consumo de Energía</h5>
+        <h5>Histórico de Consumo</h5>
+    </div>
+    <div class="consumo-container">
+        <div class="calculo-consumo-container">
+            <div>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">L/kWh</th>
+                            <th scope="col">Consumo</th>
+                            <th scope="col">Valor(L.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of BloquesdeEnergiaFactura">
+                            <td>
+                                <p style="margin: 0px;">Activa</p>
+                                <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }} </p>
+                            </td>
+                            <td> {{ item.lps | number}} </td>
+                            <td> {{ item.valor | number}} </td>
+                            <td> {{ item.lps * item.valor | number}} </td>
+                            <!-- </tr>
                     <tr>
                         <td>
                             <p style="margin: 0px;">Activa</p>
@@ -190,107 +190,109 @@
                         <td> 1212 </td>
                         <td> 32323 </td>
                     </tr> -->
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Cargo</th>
-                        <th scope="col">L/kWh</th>
-                        <th scope="col">Consumo</th>
-                        <th scope="col">Valor(L.)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <p style="margin: 0px;">Demanda</p>
-                        </td>
-                        <td> {{ DetalleFacturaData[9]?.valor | number}} </td>
-                        <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
-                        <td> {{ DetalleFacturaData[9]?.valor * DetalleFacturaData[8]?.valor | number}} </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Demanda leída kW</th>
-                        <th scope="col">Demanda máxima kW</th>
-                        <th scope="col">Demanda contrada kW</th>
-                        <th scope="col">Demanda seleccionada kW</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> {{ DetalleFacturaData[5]?.valor | number}} </td>
-                        <td> {{ DetalleFacturaData[6]?.valor | number}} </td>
-                        <td> {{ DetalleFacturaData[7]?.valor | number}} </td>
-                        <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <div style="background-color:  #969696; text-align: center;">
-                <h6>Ajuste por factor de potencia</h6>
+                    </tbody>
+                </table>
             </div>
-            <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia </p>
-            <label> <span class="formula-dividendo"> {{ totalConsumo | number}} kWh</span> <span
-                    class="formula-divisor1">
-                    ( {{ totalConsumo | number}} kWh)^2 </span> <span class="formula-divisor2"> + (
-                    {{ energiaReactiva  | number}} kWh)^2 =
-                </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
-            <img class="img-formula" src="assets/raiz.svg">
-            <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
-            <p class="formula-penalidad"> 0.00 x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
-                    {{ resultadoPenalidad |number }} </span> </p>
+            <div>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">L/kWh</th>
+                            <th scope="col">Consumo</th>
+                            <th scope="col">Valor(L.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p style="margin: 0px;">Demanda</p>
+                            </td>
+                            <td> {{ DetalleFacturaData[9]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[9]?.valor * DetalleFacturaData[8]?.valor | number}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Demanda leída kW</th>
+                            <th scope="col">Demanda máxima kW</th>
+                            <th scope="col">Demanda contrada kW</th>
+                            <th scope="col">Demanda seleccionada kW</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {{ DetalleFacturaData[5]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[6]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[7]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div style="background-color:  #969696; text-align: center;">
+                    <h6>Ajuste por factor de potencia</h6>
+                </div>
+                <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia
+                </p>
+                <label> <span class="formula-dividendo"> {{ totalConsumo | number}} kWh</span> <span
+                        class="formula-divisor1">
+                        ( {{ totalConsumo | number}} kWh)^2 </span> <span class="formula-divisor2"> + (
+                        {{ energiaReactiva  | number}} kWh)^2 =
+                    </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
+                <img class="img-formula" src="assets/raiz.svg">
+                <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
+                <p class="formula-penalidad"> 0.00 x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
+                        {{ resultadoPenalidad |number }} </span> </p>
+            </div>
+        </div>
+        <div class="historico-consumo-container">
+            <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
+                <fusioncharts width="610" height="360" type="Column2d" [dataSource]="dataSourceBarra">
+                </fusioncharts>
+            </div>
+            <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
+                <p class="totales-historico">
+                    <span>Total del mes (L.):</span>
+                    <span> {{ DetalleFacturaData[28]?.valor | number}} </span>
+                </p>
+            </div>
+            <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
+                <p class="totales-historico">
+                    <span> Saldo pendiente (L.): </span>
+                    <span> {{ DetalleFacturaData[10]?.valor | number}} </span>
+                </p>
+            </div>
+            <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
+                <p class="totales-historico">
+                    <span> Total a pagar (L.):</span>
+                    <span> {{ DetalleFacturaData[28]?.valor + DetalleFacturaData[10]?.valor | number}} </span>
+                </p>
+            </div>
+            <div style="text-align: end; margin: 1% 3% 1% 3%;">
+                <p style="color: black; font-size: 12px;"> *Según reglamento de tarifas vigentes a fecha de factura </p>
+            </div>
+            <!-- <img src="assets/grafica-consumo.PNG" alt=""> -->
         </div>
     </div>
-    <div class="historico-consumo-container">
-        <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <fusioncharts width="610" height="360" type="Column2d" [dataSource]="dataSourceBarra">
-            </fusioncharts>
-        </div>
-        <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <p class="totales-historico">
-                <span>Total del mes (L.):</span>
-                <span> {{ DetalleFacturaData[28]?.valor | number}} </span>
-            </p>
-        </div>
-        <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <p class="totales-historico">
-                <span> Saldo pendiente (L.): </span>
-                <span> {{ DetalleFacturaData[10]?.valor | number}} </span>
-            </p>
-        </div>
-        <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-            <p class="totales-historico">
-                <span> Total a pagar (L.):</span>
-                <span> {{ DetalleFacturaData[28]?.valor + DetalleFacturaData[10]?.valor | number}} </span>
-            </p>
-        </div>
-        <div style="text-align: end; margin: 1% 3% 1% 3%;">
-            <p style="color: black; font-size: 12px;"> *Según reglamento de tarifas vigentes a fecha de factura </p>
-        </div>
-        <!-- <img src="assets/grafica-consumo.PNG" alt=""> -->
+    <br>
+    <div class="titulos">
+        <h4>Detalle como cliente regulado</h4>
+        <h4>Impacto medioambiental</h4>
     </div>
-</div>
-<br>
-<div class="titulos">
-    <h4>Detalle como cliente regulado</h4>
-    <h4>Impacto medioambiental</h4>
-</div>
-<div class="impacto-container">
-    <div class="detalle-cliente-container">
-        <div class="contenedor-cliente-regulado">
-            <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span> {{ item.descripcion }}:
-                </span> <span> {{ item.valor | number }} </span> </p>
-            <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
+    <div class="impacto-container">
+        <div class="detalle-cliente-container">
+            <div class="contenedor-cliente-regulado">
+                <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span>
+                        {{ item.descripcion }}:
+                    </span> <span> {{ item.valor | number }} </span> </p>
+                <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo por perdidad de distribución: </span> <span> 0.00 </span>
@@ -307,190 +309,195 @@
             <p class="datos-cliente-regulado"> <span> Recargo por mora: </span> <span> 0.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Otros conceptos: </span> <span> 0.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Subtotal: </span> <span> 0.00 </span> </p> -->
-        </div>
-        <div style="background-color: #a9a9a9; margin: 1% 0% 0% 0%;">
-            <p class="total-pagar">
-                <span style="color: black;
+            </div>
+            <div style="background-color: #a9a9a9; margin: 1% 0% 0% 0%;">
+                <p class="total-pagar">
+                    <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;">
-                    {{ DetalleFacturaData[28]?.descripcion }}:
-                </span>
-                <span style="color: black;
+                        {{ DetalleFacturaData[28]?.descripcion }}:
+                    </span>
+                    <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;"> {{ DetalleFacturaData[28]?.valor | number}}
-                </span>
-            </p>
+                    </span>
+                </p>
+            </div>
+            <div style="background-color: #334d7c; text-align: center; margin-top: 3%;">
+                <h4>Origen de la eletricidad</h4>
+            </div>
+            <div style="margin-top: 10px;">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #717171; color: white;" scope="col">Origen</th>
+                            <th style="background-color: #717171; color: white;" scope="col">Energía (kWh)</th>
+                            <th style="background-color: #717171; color: white;" scope="col">Sobre total (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Hidro embalse
+                            </td>
+                            <td> 15 </td>
+                            <td> 20% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Hidro pasada
+                            </td>
+                            <td> 25 </td>
+                            <td> 15% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Eólica
+                            </td>
+                            <td> 14 </td>
+                            <td> 8% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Solar
+                            </td>
+                            <td> 21 </td>
+                            <td> 15% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Biogás
+                            </td>
+                            <td> 30 </td>
+                            <td> 8% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Diésel
+                            </td>
+                            <td> 8 </td>
+                            <td> 10% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Bunker
+                            </td>
+                            <td> 6 </td>
+                            <td> 9% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Carbón
+                            </td>
+                            <td> 7 </td>
+                            <td> 9% </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #717171; color: white;">
+                                Gas
+                            </td>
+                            <td> 14 </td>
+                            <td> 19% </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div style="background-color: #334d7c; text-align: center; margin-top: 3%;">
-            <h4>Origen de la eletricidad</h4>
-        </div>
-        <div style="margin-top: 10px;">
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th style="background-color: #717171; color: white;" scope="col">Origen</th>
-                        <th style="background-color: #717171; color: white;" scope="col">Energía (kWh)</th>
-                        <th style="background-color: #717171; color: white;" scope="col">Sobre total (%)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Hidro embalse
-                        </td>
-                        <td> 15 </td>
-                        <td> 20% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Hidro pasada
-                        </td>
-                        <td> 25 </td>
-                        <td> 15% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Eólica
-                        </td>
-                        <td> 14 </td>
-                        <td> 8% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Solar
-                        </td>
-                        <td> 21 </td>
-                        <td> 15% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Biogás
-                        </td>
-                        <td> 30 </td>
-                        <td> 8% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Diésel
-                        </td>
-                        <td> 8 </td>
-                        <td> 10% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Bunker
-                        </td>
-                        <td> 6 </td>
-                        <td> 9% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Carbón
-                        </td>
-                        <td> 7 </td>
-                        <td> 9% </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color: #717171; color: white;">
-                            Gas
-                        </td>
-                        <td> 14 </td>
-                        <td> 19% </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="medioambiental-container">
-        <div>
-            <p style="color: black; margin: 3%;">
-                Nivel de impacto ambiental debido a las fuentes de energías utilizadas en comparación a la medida nacional de Honduras en una escala de A a G, donde A indica el mínimo impacto y G el máximo.
-            </p>
-        </div>
-        <div style="margin: 2%;">
-            <div class="div-etiquetas-medioambiente">
-                <span class="badge badge-pill" style="background-color: #5E7835;
+        <div class="medioambiental-container">
+            <div>
+                <p style="color: black; margin: 3%;">
+                    Nivel de impacto ambiental debido a las fuentes de energías utilizadas en comparación a la medida nacional de Honduras en una escala de A a G, donde A indica el mínimo impacto y G el máximo.
+                </p>
+            </div>
+            <div style="margin: 2%;">
+                <div class="div-etiquetas-medioambiente">
+                    <span class="badge badge-pill" style="background-color: #5E7835;
                 font-size: 16px;
                 color: white;
                 text-align: start;
                 width: 27%;
                 margin: 0% 0% 1% 1%;">
-                    A RENOVABLE
-                </span>
-                <hr style="height: 3px; width: 100%; background-color: #5E7835;">
+                        A RENOVABLE
+                    </span>
+                    <hr style="height: 3px; width: 100%; background-color: #5E7835;">
 
-                <!-- <span style="font-size: 20px;
+                    <!-- <span style="font-size: 20px;
             color: #5e7835;
             font-weight: bold;">----------------------------------------</span> -->
-            </div>
-            <div class="div-etiquetas-medioambiente">
-                <span class="badge badge-pill" style="background-color: #8EB23E;
+                </div>
+                <div class="div-etiquetas-medioambiente">
+                    <span class="badge badge-pill" style="background-color: #8EB23E;
                 font-size: 16px;
                 color: white;
                 text-align: start;
                 width: 30%;
                 margin: 0% 0% 1% 1%;">
-                    B GAS NATURAL
-                </span>
-                <span style=" margin-top: -4%; color: #5e7835;font-size: 15px;"> EMISIONES 0 kg CO2 </span>
-            </div>
-            <!-- <br> -->
-            <span class="badge badge-pill" style="background-color: #CAD62B;
+                        B GAS NATURAL
+                    </span>
+                    <span style=" margin-top: -4%; color: #5e7835;font-size: 15px;"> EMISIONES 0 kg CO2 </span>
+                </div>
+                <!-- <br> -->
+                <span class="badge badge-pill" style="background-color: #CAD62B;
             font-size: 16px;
             color: white;
             text-align: start;
             width: 35%;
             margin: 0% 0% 1% 1%;">
-                C PROPANO
-            </span>
-            <br>
-            <div class="div-etiquetas-medioambiente">
-                <span class="badge badge-pill" style="background-color: #F9D32A;
+                    C PROPANO
+                </span>
+                <br>
+                <div class="div-etiquetas-medioambiente">
+                    <span class="badge badge-pill" style="background-color: #F9D32A;
                 font-size: 16px;
                 color: white;
                 text-align: start;
                 width: 40%;
                 margin: 0% 0% 1% 1%;">
-                    D DIESEL
-                </span>
-                <span style="margin: 5% 0% -3% 0%; color: #000000;font-size: 15px;"> MEDIA NACIONAL </span>
-            </div>
-            <div class="div-etiquetas-medioambiente">
-                <span class="badge badge-pill" style="background-color: #E37D25;
+                        D DIESEL
+                    </span>
+                    <span style="margin: 5% 0% -3% 0%; color: #000000;font-size: 15px;"> MEDIA NACIONAL </span>
+                </div>
+                <div class="div-etiquetas-medioambiente">
+                    <span class="badge badge-pill" style="background-color: #E37D25;
                 font-size: 16px;
                 color: white;
                 text-align: start;
                 width: 45%;
                 margin: 0% 0% 1% 1%;">
-                    E BUNKER
-                </span>
-                <hr style="height: 3px; width: 55%; background-color: #E37D25;">
+                        E BUNKER
+                    </span>
+                    <hr style="height: 3px; width: 55%; background-color: #E37D25;">
 
-                <!-- <span style="font-size: 20px;
+                    <!-- <span style="font-size: 20px;
                 color: #E37D25;
                 font-weight: bold;">----------------------------</span> -->
-            </div>
-            <div class="div-etiquetas-medioambiente">
-                <span class="badge badge-pill" style="background-color: #E05E26;
+                </div>
+                <div class="div-etiquetas-medioambiente">
+                    <span class="badge badge-pill" style="background-color: #E05E26;
                 font-size: 16px;
                 color: white;
                 text-align: start;
                 width: 50%;
                 margin: 0% 0% 1% 1%;">
-                    F CARBÓN
-                </span>
-                <span style=" margin-top: -4%; color: #000000;font-size: 15px;"> 0.27 kg CO2/KwH </span>
+                        F CARBÓN
+                    </span>
+                    <span style=" margin-top: -4%; color: #000000;font-size: 15px;"> 0.27 kg CO2/KwH </span>
+                </div>
+            </div>
+            <div>
+                <fusioncharts width="600" height="350" type="pie2d" [dataSource]="dataSourcePastelINH">
+                </fusioncharts>
+            </div>
+            <div>
+                <fusioncharts width="625" height="400" type="pie2d" [dataSource]="dataSourcePastelHN">
+                </fusioncharts>
             </div>
         </div>
-        <div>
-            <fusioncharts width="600" height="350" type="pie2d" [dataSource]="dataSourcePastelINH">
-            </fusioncharts>
-        </div>
-        <div>
-            <fusioncharts width="625" height="400" type="pie2d" [dataSource]="dataSourcePastelHN">
-            </fusioncharts>
-        </div>
     </div>
+</div>
+
+<div>
+    <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>
 
 <!-- <div>

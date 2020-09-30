@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-factura',
@@ -21,8 +22,8 @@ export class FacturaComponent implements OnInit {
   energiaReactiva: number = 0;
   resultadoFactorP: number = 0;
   resultadoPenalidad: number = 0;
-  dataFactura
-
+  dataFactura;
+  cargado: boolean;
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
   BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
@@ -130,11 +131,14 @@ export class FacturaComponent implements OnInit {
   constructor(
     private facturaService: FacturaService,
     private router: Router,
+    private spinner: NgxSpinnerService
   ) {
     this.dataFactura = this.router.getCurrentNavigation().extras.state || this.facturaService.getInfoNavegacion();
   }
 
   ngOnInit() {
+    this.cargado = false;
+    this.spinner.show();
     this.dataFactura = this.facturaService.getInfoNavegacion();
     console.log(this.dataFactura);
 
@@ -196,10 +200,8 @@ export class FacturaComponent implements OnInit {
           for (let x = 13; x < 28; x++) {
             this.clienteReguladoData.push(this.DetalleFacturaData[x]);
           }
-
-          console.log(this.DetalleFacturaData);
-
-
+          this.cargado = true;
+          this.spinner.hide();
         },
         (error) => {
 
@@ -215,6 +217,6 @@ export class FacturaComponent implements OnInit {
 
   }
 
-  
+
 
 }

@@ -24,6 +24,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 import { registerLocaleData, CommonModule } from '@angular/common';
 import en from '@angular/common/locales/en';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 // Importaciones de componentes ng-zorro
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -77,6 +79,7 @@ import { LocalizacionComponent } from './pages/localizacion/localizacion.compone
 import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
 import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
+import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 
 registerLocaleData(en);
 
@@ -100,7 +103,8 @@ registerLocaleData(en);
     LocalizacionComponent,
     CargosEspecialesComponent,
     FacturasEmitidasComponent,
-    FacturasGeneradasComponent
+    FacturasGeneradasComponent,
+    FacturasCanceladasComponent
   ],
   imports: [
     BrowserModule,
@@ -113,6 +117,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FusionChartsModule,
+    NgxSpinnerModule,
     /////////////////
     IconsProviderModule,
     // NgZorroAntdModule,

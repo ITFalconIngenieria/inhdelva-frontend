@@ -6,11 +6,11 @@ import swal from 'sweetalert';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-facturasEmitidas',
-  templateUrl: './facturasEmitidas.component.html',
-  styleUrls: ['./facturasEmitidas.component.css']
+  selector: 'app-facturasCanceladas',
+  templateUrl: './facturasCanceladas.component.html',
+  styleUrls: ['./facturasCanceladas.component.css']
 })
-export class FacturasEmitidasComponent implements OnInit {
+export class FacturasCanceladasComponent implements OnInit {
 
   listOfSelection = [
     {
@@ -114,5 +114,6 @@ export class FacturasEmitidasComponent implements OnInit {
     this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
+
 
 }
