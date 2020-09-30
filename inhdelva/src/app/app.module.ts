@@ -79,6 +79,7 @@ import { LocalizacionComponent } from './pages/localizacion/localizacion.compone
 import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
 import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
+import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 
 registerLocaleData(en);
 
@@ -102,7 +103,8 @@ registerLocaleData(en);
     LocalizacionComponent,
     CargosEspecialesComponent,
     FacturasEmitidasComponent,
-    FacturasGeneradasComponent
+    FacturasGeneradasComponent,
+    FacturasCanceladasComponent
   ],
   imports: [
     BrowserModule,

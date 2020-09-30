@@ -40,7 +40,7 @@
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
-                <td>{{ data.consumo }}</td>
+                <td>{{ data.consumo | number }}</td>
                 <td>{{ data.total | number}}</td>
                 <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>

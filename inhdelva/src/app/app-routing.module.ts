@@ -20,6 +20,7 @@ import { LocalizacionComponent } from './pages/localizacion/localizacion.compone
 import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeciales.component';
 import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
+import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -39,11 +40,12 @@ const routes: Routes = [
       { path: 'contratos', component: ContratosComponent },
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
       { path: 'ayuda', component: AyudaComponent },
-      { path: 'factura', component: FacturaComponent},
-      { path: 'localizacion', component: LocalizacionComponent},
-      { path: 'cargosEspeciales', component: CargosEspecialesComponent},
-      { path: 'facturasGeneradas', component: FacturasGeneradasComponent},
-      { path: 'facturasEmitidas', component: FacturasEmitidasComponent}
+      { path: 'factura', component: FacturaComponent },
+      { path: 'localizacion', component: LocalizacionComponent },
+      { path: 'cargosEspeciales', component: CargosEspecialesComponent },
+      { path: 'facturasGeneradas', component: FacturasGeneradasComponent },
+      { path: 'facturasEmitidas', component: FacturasEmitidasComponent },
+      { path: 'facturasCanceladas', component: FacturasCanceladasComponent }
 
     ]
   },
