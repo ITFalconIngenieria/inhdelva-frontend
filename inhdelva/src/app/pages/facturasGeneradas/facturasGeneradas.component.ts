@@ -56,7 +56,7 @@ export class FacturasGeneradasComponent implements OnInit {
 
   ngOnInit() {
 
-    this.facturaService.getListadoFacturas()
+    this.facturaService.getListadoFacturas(1)
       .toPromise()
       .then(
         (data: ListadoFactura[]) => {
@@ -87,10 +87,12 @@ export class FacturasGeneradasComponent implements OnInit {
   emitirFactura() {
     if (this.setOfCheckedId.size > 0) {
       this.setOfCheckedId.forEach(x => {
+
         this.facturaService.changeFactura(x, { estado: 2 })
           .toPromise()
           .then(
             () => {
+              this.listOfDataFacturas = this.listOfDataFacturas.filter(y => y.id !== x);
               swal({
                 icon: 'success',
                 text: 'Facturas emitidas'
@@ -123,6 +125,9 @@ export class FacturasGeneradasComponent implements OnInit {
       .toPromise()
       .then(
         () => {
+
+          this.listOfDataFacturas = this.listOfDataFacturas.filter(x => x.id !== data.id);
+
           swal({
             icon: 'success',
             text: 'Facturas cancelada'

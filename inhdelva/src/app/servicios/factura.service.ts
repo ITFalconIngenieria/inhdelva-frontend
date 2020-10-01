@@ -33,8 +33,8 @@ export class FacturaService {
     localStorage.removeItem('dataFactura');
   }
 
-  getListadoFacturas() {
-    return this.http.get(`${apiUrl}vlistado-facturas`);
+  getListadoFacturas(id) {
+    return this.http.get(`${apiUrl}vlistado-facturas?filter[where][Estado]=${id}`);
   }
 
   getDetalleFactura(id): Observable<any> {

@@ -11,13 +11,6 @@ import swal from 'sweetalert';
   styleUrls: ['./localizacion.component.css']
 })
 export class LocalizacionComponent implements OnInit {
-
-  constructor(
-    private fb: FormBuilder,
-    private zonaService: ZonaService,
-    private notification: NzNotificationService
-  ) { }
-
   expandSet = new Set<any>();
   isVisible = false;
   validateForm: FormGroup;
@@ -27,6 +20,12 @@ export class LocalizacionComponent implements OnInit {
   dataZona;
   listOfDataZona: ZonaModel[] = [];
   accion: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private zonaService: ZonaService,
+    private notification: NzNotificationService
+  ) { }
 
   parserArea = (value: string) => value.replace(' m²', '');
   formatterArea = (value: number) => `${value} m²`;

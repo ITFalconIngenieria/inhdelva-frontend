@@ -68,9 +68,6 @@
                     <li nz-menu-item>
                         <a routerLink="/cargosEspeciales">Cargos especiales</a>
                     </li>
-                    <li nz-menu-item>
-                        <a routerLink="/factura">Factura</a>
-                    </li>
                     <li nz-submenu nzTitle="Facturas" nzIcon="file-text">
                         <ul>
                             <li nz-menu-item>
@@ -106,7 +103,7 @@
             <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Configuración'" nzIcon="setting">
                 <ul>
                     <li nz-menu-item>
-                        <a>Opcion 1</a>
+                        <a routerLink="/rangoFactura">Rango factura</a>
                     </li>
                     <li nz-menu-item>
                         <a>Opcion 2</a>
