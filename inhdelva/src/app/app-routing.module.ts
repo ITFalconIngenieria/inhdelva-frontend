@@ -21,6 +21,7 @@ import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeci
 import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
+import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -45,7 +46,8 @@ const routes: Routes = [
       { path: 'cargosEspeciales', component: CargosEspecialesComponent },
       { path: 'facturasGeneradas', component: FacturasGeneradasComponent },
       { path: 'facturasEmitidas', component: FacturasEmitidasComponent },
-      { path: 'facturasCanceladas', component: FacturasCanceladasComponent }
+      { path: 'facturasCanceladas', component: FacturasCanceladasComponent },
+      { path: 'rangoFactura', component: RangoFacturaComponent }
 
     ]
   },

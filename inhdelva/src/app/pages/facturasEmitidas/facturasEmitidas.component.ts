@@ -57,7 +57,7 @@ export class FacturasEmitidasComponent implements OnInit {
 
   ngOnInit() {
 
-    this.facturaService.getListadoFacturas()
+    this.facturaService.getListadoFacturas(2)
       .toPromise()
       .then(
         (data: ListadoFactura[]) => {

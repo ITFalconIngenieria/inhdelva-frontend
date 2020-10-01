@@ -80,6 +80,7 @@ import { CargosEspecialesComponent } from './pages/cargosEspeciales/cargosEspeci
 import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmitidas.component';
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
+import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 
 registerLocaleData(en);
 
@@ -104,7 +105,8 @@ registerLocaleData(en);
     CargosEspecialesComponent,
     FacturasEmitidasComponent,
     FacturasGeneradasComponent,
-    FacturasCanceladasComponent
+    FacturasCanceladasComponent,
+    RangoFacturaComponent
   ],
   imports: [
     BrowserModule,

@@ -42,4 +42,5 @@ export class ListadoFactura {
   fechaLectura: string;
   consumo: number;
   total: number;
+  Estado: number;
 }

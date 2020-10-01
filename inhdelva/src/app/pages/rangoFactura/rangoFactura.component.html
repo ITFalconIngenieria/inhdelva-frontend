@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col">
+        <h2> Rango de facturación </h2>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+        nzTheme="outline"></i>Nuevo rango</button>
+    </div>
+</div>
+<br>
+<br>
+<div class="tabla">
+    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzPageSize="5">
+        <thead>
+            <tr>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
+                <th>Día Inicio</th>
+                <th>Día final</th>
+                <th>Día Inicio</th>
+                <th>Día final</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="editar(data)" nzShape="circle">
+              <i nz-icon nzType="edit" nzTheme="outline"></i>
+            </button>
+                    </td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="eliminar(data)" nzShape="circle">
+              <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </button>
+                    </td>
+                    <td>{{ data.key }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.key }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.key }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
+
+<!-- Modal Formulario -->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Rango de facturación" nzWidth="400" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical" style="width: 300px; margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <div class="itemsForm">
+            <nz-form-item>
+                <nz-form-label>Tipo</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                    <nz-radio-group formControlName="tipo">
+                        <label nz-radio nzValue="true">Mismo mes</label>
+                        <label nz-radio nzValue="false" nzAutoFocus="true">Meses diferentes</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="row">
+            <div class="col itemsForm">
+                <nz-form-item>
+                    <nz-form-label>Día inicio</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number formControlName="diaInicio" [nzMin]="1" [nzMax]="31" [nzStep]="1">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col itemsForm">
+                <nz-form-item>
+                    <nz-form-label>Día final</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number formControlName="diaFin" [nzMin]="1" [nzMax]="31" [nzStep]="1">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col itemsForm">
+                <nz-form-item>
+                    <nz-form-label>Hora inicial</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-time-picker formControlName="horaInicio" nzFormat="HH:mm"></nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col itemsForm">
+                <nz-form-item>
+                    <nz-form-label>Hora final</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-time-picker formControlName="horaFin" nzFormat="HH:mm"></nz-time-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
+    </div>
+</nz-modal>
