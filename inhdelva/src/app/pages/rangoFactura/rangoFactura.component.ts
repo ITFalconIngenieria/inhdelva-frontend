@@ -1,9 +1,9 @@
-// import { any } from '../../Modelos/zona';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { ZonaService } from '../../servicios/zona.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { RangoFechaService } from '../../servicios/rangoFecha.service';
 import swal from 'sweetalert';
+import * as moment from 'moment';
 
 interface Person {
   key: string;
@@ -23,36 +23,14 @@ export class RangoFacturaComponent implements OnInit {
   validateForm: FormGroup;
   demoValue = 100;
   radioValue = 'A';
-  zonaEdit;
-  dataZona;
-  listOfDataZona: any[] = [];
+  rangoEdit;
+  listOfDataRango: any[] = [];
   accion: string;
   time = new Date();
 
-  listOfData: Person[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
-
   constructor(
     private fb: FormBuilder,
-    // private zonaService: ZonaService,
+    private rangoService: RangoFechaService,
     private notification: NzNotificationService
   ) { }
 
@@ -67,73 +45,73 @@ export class RangoFacturaComponent implements OnInit {
 
   guardar() {
 
-    // this.dataZona = {
-    //   ...this.validateForm.value,
-    //   estado: true
-    // };
+    this.validateForm.value.HoraInicio = moment(this.validateForm.value.HoraInicio).toISOString();
+    this.validateForm.value.HoraFinal = moment(this.validateForm.value.HoraFinal).toISOString();
+    this.validateForm.value.Mes = (this.validateForm.value.Mes === 'false') ? false : true;
 
-    // if (this.accion === 'editar') {
-    //   this.zonaService.putZona(this.zonaEdit, this.dataZona)
-    //     .toPromise()
-    //     .then(
-    //       () => {
-    //         this.ShowNotification(
-    //           'success',
-    //           'Guardado con éxito',
-    //           'El registro fue guardado con éxito'
-    //         );
+    const dataRango = {
+      ...this.validateForm.value,
+      Estado: true
+    };
 
-    //         for (const item of this.listOfDataZona.filter(x => x.id === this.zonaEdit)) {
-    //           item.codigo = this.dataZona.codigo;
-    //           item.descripcion = this.dataZona.descripcion;
-    //           item.observacion = this.dataZona.observacion;
-    //           item.estado = this.dataZona.estado;
-    //         }
+    if (this.accion === 'editar') {
+      this.rangoService.putRango(this.rangoEdit, dataRango)
+        .toPromise()
+        .then(
+          () => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
 
-    //         this.validateForm = this.fb.group({
-    //           codigo: [null, [Validators.required]],
-    //           descripcion: [null, [Validators.required]],
-    //           observacion: [null],
-    //         });
-    //       },
-    //       (error) => {
+            for (const item of this.listOfDataRango.filter(x => x.Id === this.rangoEdit)) {
+              item.DiaInicio = dataRango.DiaInicio;
+              item.DiaFinal = dataRango.DiaFinal;
+              item.Mes = dataRango.Mes;
+              item.HoraInicio = dataRango.HoraInicio;
+              item.HoraFinal = dataRango.HoraFinal;
+              item.Estado = dataRango.Estado;
+            }
 
-    //         this.ShowNotification(
-    //           'error',
-    //           'No se pudo guardar',
-    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-    //         );
-    //         console.log(error);
-    //       }
-    //     );
-    // } else {
-    //   this.zonaService.postZona(this.dataZona)
-    //     .toPromise()
-    //     .then(
-    //       (data: any) => {
-    //         this.ShowNotification(
-    //           'success',
-    //           'Guardado con éxito',
-    //           'El registro fue guardado con éxito'
-    //         );
-    //         this.listOfDataZona = [...this.listOfDataZona, data];
-    //         this.validateForm = this.fb.group({
-    //           codigo: [null, [Validators.required]],
-    //           descripcion: [null, [Validators.required]],
-    //           observacion: [null],
-    //         });
-    //       },
-    //       (error) => {
+            this.limpiar();
 
-    //         this.ShowNotification(
-    //           'error',
-    //           'No se pudo guardar',
-    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-    //         );
-    //         console.log(error);
-    //       }
-    //     );
-    // }
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+    } else {
+      this.rangoService.postRango(dataRango)
+        .toPromise()
+        .then(
+          (data: any) => {
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+            this.listOfDataRango = [...this.listOfDataRango, data];
+
+            this.limpiar();
+          },
+          (error) => {
+
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+    }
 
   }
 
@@ -145,35 +123,37 @@ export class RangoFacturaComponent implements OnInit {
     );
   }
 
-
+  limpiar() {
+    this.validateForm = this.fb.group({
+      Mes: [null, [Validators.required]],
+      DiaInicio: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
+      DiaFinal: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
+      HoraInicio: [null, [Validators.required]],
+      HoraFinal: [null, [Validators.required]],
+    });
+  }
 
   ngOnInit() {
 
     this.accion = 'nuevo';
 
-    // this.zonaService.getZonas()
-    //   .toPromise()
-    //   .then(
-    //     (data: any[]) => {
-    //       this.listOfDataZona = data;
-    //     },
-    //     (error) => {
-    //       swal({
-    //         icon: 'error',
-    //         title: 'No se pudo conectar al servidor',
-    //         text: 'Revise su conexión a internet o comuníquese con el proveedor.'
-    //       });
-    //       console.log(error);
-    //     }
-    //   );
+    this.rangoService.getRangos()
+      .toPromise()
+      .then(
+        (data: any[]) => {
+          this.listOfDataRango = data;
+        },
+        (error) => {
+          swal({
+            icon: 'error',
+            title: 'No se pudo conectar al servidor',
+            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+          });
+          console.log(error);
+        }
+      );
 
-    this.validateForm = this.fb.group({
-      tipo: [null, [Validators.required]],
-      diaInicio: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      diaFin: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      horaInicio: [null, [Validators.required]],
-      horaFin: [null, [Validators.required]],
-    });
+    this.limpiar();
   }
 
   showModal(): void {
@@ -182,13 +162,7 @@ export class RangoFacturaComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    this.validateForm = this.fb.group({
-      tipo: [null, [Validators.required]],
-      diaInicio: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      diaFin: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      horaInicio: [null, [Validators.required]],
-      horaFin: [null, [Validators.required]],
-    });
+    this.limpiar();
   }
 
   handleOk(): void {
@@ -199,39 +173,40 @@ export class RangoFacturaComponent implements OnInit {
     this.accion = 'editar';
     this.isVisible = true;
 
-    this.zonaEdit = data.id;
+    this.rangoEdit = data.Id;
+
     this.validateForm = this.fb.group({
-      tipo: [null, [Validators.required]],
-      diaInicio: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      diaFin: [1, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      horaInicio: [null, [Validators.required]],
-      horaFin: [null, [Validators.required]],
+      Mes: [(data.Mes === false) ? 'false' : 'true', [Validators.required]],
+      DiaInicio: [data.DiaInicio, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
+      DiaFinal: [data.DiaFinal, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
+      HoraInicio: [new Date(data.HoraInicio), [Validators.required]],
+      HoraFinal: [new Date(data.HoraFinal), [Validators.required]],
     });
 
   }
 
   eliminar(data) {
-    // this.zonaService.deleteZona(data.id, { estado: false })
-    //   .toPromise()
-    //   .then(
-    //     () => {
-    //       this.ShowNotification(
-    //         'success',
-    //         'Eliminado',
-    //         'El registro fue eliminado con éxito'
-    //       );
-    //       this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
-    //     },
-    //     (error) => {
+    this.rangoService.deleteRango(data.Id, { Estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+          this.listOfDataRango = this.listOfDataRango.filter(x => x.Id !== data.Id);
+        },
+        (error) => {
 
-    //       this.ShowNotification(
-    //         'error',
-    //         'No se pudo eliminar',
-    //         'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-    //       );
-    //       console.log(error);
-    //     }
-    //   );
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
+        }
+      );
   }
 
 }

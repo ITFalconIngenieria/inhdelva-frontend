@@ -4,6 +4,7 @@ import { ListadoFactura } from '../../Modelos/factura';
 import { Router, NavigationExtras } from '@angular/router';
 import swal from 'sweetalert';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -34,17 +35,28 @@ export class FacturasGeneradasComponent implements OnInit {
     }
   ];
 
+  isVisible = false;
   checked = false;
+  validateForm: FormGroup;
   indeterminate = false;
   listOfCurrentPageData: ListadoFactura[] = [];
   listOfDataFacturas: ListadoFactura[] = [];
   setOfCheckedId = new Set<number>();
 
   constructor(
+    private fb: FormBuilder,
     private facturaService: FacturaService,
     private router: Router,
     private notification: NzNotificationService
   ) { }
+
+  submitForm(): void {
+    // tslint:disable-next-line: forin
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+  }
 
   verFactura(data) {
     const navigationExtras: NavigationExtras = {
@@ -145,6 +157,21 @@ export class FacturasGeneradasComponent implements OnInit {
       );
   }
 
+  guardar() {
+
+  }
+
+  editarFactura(data): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {

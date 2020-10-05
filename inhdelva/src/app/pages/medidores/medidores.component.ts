@@ -120,7 +120,8 @@ export class MedidoresComponent implements OnInit {
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
-            ); this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+            );
+            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
             this.validateForm = this.fb.group({
               fecha: [null, [Validators.required]],
               energia: [null, [Validators.required]],

@@ -10,7 +10,7 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzPageSize="5">
+    <nz-table #nzTable [nzData]="listOfDataRango" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="30px"></th>
@@ -19,7 +19,7 @@
                 <th>Día final</th>
                 <th>Día Inicio</th>
                 <th>Día final</th>
-                <th>Estado</th>
+                <th>Tipo</th>
             </tr>
         </thead>
         <tbody>
@@ -35,11 +35,11 @@
               <i nz-icon nzType="delete" nzTheme="outline"></i>
             </button>
                     </td>
-                    <td>{{ data.key }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.key }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.key }}</td>
+                    <td>{{ data.DiaInicio }}</td>
+                    <td>{{ data.DiaFinal }}</td>
+                    <td>{{ data.HoraInicio | date: 'h:mm a' }}</td>
+                    <td>{{ data.HoraFinal | date: 'h:mm a' }}</td>
+                    <td>{{ data.Mes && 'Mismo mes' || 'Meses diferentes'}}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -53,7 +53,7 @@
             <nz-form-item>
                 <nz-form-label>Tipo</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                    <nz-radio-group formControlName="tipo">
+                    <nz-radio-group formControlName="Mes">
                         <label nz-radio nzValue="true">Mismo mes</label>
                         <label nz-radio nzValue="false" nzAutoFocus="true">Meses diferentes</label>
                     </nz-radio-group>
@@ -65,7 +65,7 @@
                 <nz-form-item>
                     <nz-form-label>Día inicio</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number formControlName="diaInicio" [nzMin]="1" [nzMax]="31" [nzStep]="1">
+                        <nz-input-number formControlName="DiaInicio" [nzMin]="1" [nzMax]="31" [nzStep]="1">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
@@ -74,7 +74,7 @@
                 <nz-form-item>
                     <nz-form-label>Día final</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number formControlName="diaFin" [nzMin]="1" [nzMax]="31" [nzStep]="1">
+                        <nz-input-number formControlName="DiaFinal" [nzMin]="1" [nzMax]="31" [nzStep]="1">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
@@ -85,7 +85,7 @@
                 <nz-form-item>
                     <nz-form-label>Hora inicial</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-time-picker formControlName="horaInicio" nzFormat="HH:mm"></nz-time-picker>
+                        <nz-time-picker formControlName="HoraInicio" nzFormat="HH:mm"></nz-time-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -93,7 +93,7 @@
                 <nz-form-item>
                     <nz-form-label>Hora final</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-time-picker formControlName="horaFin" nzFormat="HH:mm"></nz-time-picker>
+                        <nz-time-picker formControlName="HoraFinal" nzFormat="HH:mm"></nz-time-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>

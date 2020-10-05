@@ -22,7 +22,7 @@
         <tbody>
             <tr *ngFor="let data of rowSelectionTable.data">
                 <td style="width: 30px;">
-                    <button nz-button nzType="primary" nzShape="circle" nzTooltipTitle="Editar factura" nzTooltipPlacement="top" nz-tooltip>
+                    <button nz-button nzType="primary" (click)="editarFactura(data)" nzShape="circle" nzTooltipTitle="Editar factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </td>
@@ -47,3 +47,14 @@
         </tbody>
     </nz-table>
 </div>
+
+<!-- Modal Formulario editar Factura-->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical">
+
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
+    </div>
+</nz-modal>
