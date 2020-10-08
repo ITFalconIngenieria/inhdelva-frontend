@@ -51,7 +51,7 @@
 </div>
 
 <!-- Modal Formulario tipo tarifa-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Tipo de tarifas" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Tipo de tarifas" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateFormTarifa">
         <div class="row">
             <div class="col">
@@ -66,7 +66,7 @@
                 <nz-form-item>
                     <nz-form-label>Punto de medición</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="puntoMedicionId">
+                        <nz-select formControlName="puntoMedicionId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let punto of puntoMedicion" [nzValue]="punto.id" [nzLabel]="punto.descripcion"></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -95,7 +95,7 @@
                 <nz-form-item>
                     <nz-form-label>Matriz horaria</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="matrizHorariaId">
+                        <nz-select formControlName="matrizHorariaId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let matriz of matrizHoraria" [nzValue]="matriz.id" [nzLabel]="matriz.descripcion"></nz-option>
                         </nz-select>
                     </nz-form-control>
@@ -129,7 +129,7 @@
                 <nz-form-item>
                     <nz-form-label>Cargo</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoCargoId">
+                        <nz-select formControlName="tipoCargoId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let cargo of tipoCargo" [nzValue]="cargo.id" [nzLabel]="cargo.nombre">
                             </nz-option>
                         </nz-select>
@@ -148,7 +148,7 @@
         <nz-form-item>
             <nz-form-label>Bloque Horario</nz-form-label>
             <nz-form-control>
-                <nz-select style="width: 50%;" formControlName="bloqueHorarioId">
+                <nz-select style="width: 50%;" formControlName="bloqueHorarioId" nzShowSearch nzAllowClear>
                     <nz-option *ngFor="let bloqueH of bloqueHorario" [nzValue]="bloqueH.id" [nzLabel]="bloqueH.descripcion"></nz-option>
                 </nz-select>
             </nz-form-control>

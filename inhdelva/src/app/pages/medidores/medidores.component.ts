@@ -333,7 +333,25 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
-          this.listOfDataMedidores = data;
+          console.log(data);
+
+          // this.listOfDataMedidores = data;
+          // tslint:disable-next-line: prefer-for-of
+          for (let x = 0; x < data.length; x++) {
+            this.listOfDataMedidores = [{
+              id: data[x].id,
+              codigo: data[x].codigo.substr(9),
+              descripcion: data[x].descripcion,
+              serie: data[x].serie,
+              modelo: data[x].modelo,
+              ip: data[x].ip,
+              lecturaMax: data[x].lecturaMax,
+              multiplicador: data[x].multiplicador,
+              observacion: data[x].observacion,
+              contrato: (data[x].contrato)
+            }, ...this.listOfDataMedidores];
+          }
+
         },
         (error) => {
           swal({
@@ -357,7 +375,25 @@ export class MedidoresComponent implements OnInit {
     this.medidoresService.busquedadMedidor()
       .toPromise()
       .then(
-        (data: any[]) => this.medidoresPME = data
+        (data: any[]) => {
+          // this.medidoresPME = data
+          // tslint:disable-next-line: prefer-for-of
+          for (let x = 0; x < data.length; x++) {
+            this.medidoresPME = [{
+              id: data[x].id,
+              codigo: data[x].codigo.substr(9),
+              descripcion: data[x].descripcion,
+              serie: data[x].serie,
+              modelo: data[x].modelo,
+              ip: data[x].ip,
+              lecturaMax: data[x].lecturaMax,
+              multiplicador: data[x].multiplicador,
+              observacion: data[x].observacion,
+              contrato: (data[x].contrato)
+            }, ...this.medidoresPME];
+          }
+
+        }
       );
 
     this.validateForm = this.fb.group({

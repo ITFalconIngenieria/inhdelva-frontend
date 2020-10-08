@@ -55,7 +55,7 @@
 </div>
 
 <!-- Modal Formulario contrato-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Medidores" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Contratos" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateFormContrato">
         <div class="row">
             <div class="col">
@@ -88,7 +88,7 @@
         <nz-form-item>
             <nz-form-label>Dueño del contrato</nz-form-label>
             <nz-form-control>
-                <nz-select formControlName="actorId" placeholder="Seleccione una...">
+                <nz-select formControlName="actorId" placeholder="Seleccione una..." nzShowSearch nzAllowClear>
                     <nz-option *ngFor="let cliente of listaClientes" [nzValue]="cliente.Id" [nzLabel]="cliente.Nombre">
                     </nz-option>
                 </nz-select>
@@ -110,8 +110,9 @@
                     <div class="col">
                         <nz-form-item>
                             <nz-form-label>Día generación factura</nz-form-label>
+                            <p style="color: #e00000; font-size: 10px; margin: -8% 0% 0% 0%;">Día inicio en rango de facturación ({{validarDia}})</p>
                             <nz-form-control>
-                                <nz-select ngModel="lucy" formControlName="diaGeneracion">
+                                <nz-select nzShowSearch nzAllowClear formControlName="diaGeneracion">
                                     <nz-option *ngFor="let item of diasGeneracion" [nzValue]="item" [nzLabel]="item">
                                     </nz-option>
                                     <nz-option nzValue="30" nzLabel="Ultimo día"></nz-option>
@@ -145,7 +146,7 @@
 </nz-modal>
 
 <!-- Modal contrato medidor -->
-<nz-modal [(nzVisible)]="isVisibleMedidor" nzTitle="Medidores" nzWidth="1000" (nzOnCancel)="handleCancelMedidor()">
+<nz-modal [(nzVisible)]="isVisibleMedidor" nzTitle="Configuración Medidores" nzWidth="1000" (nzOnCancel)="handleCancelMedidor()">
     <div class="opciones">
         <label style="color: black;">Tipo de fechas</label>
         <nz-radio-group [(ngModel)]="radioValue" (ngModelChange)="changeOpcion($event)">
@@ -160,15 +161,15 @@
                 <nz-form-item>
                     <nz-form-label>Código del medidor</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="medidorId" [(ngModel)]="medidorId" nzPlaceHolder="Buscar medidor...">
-                            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.codigo" [nzValue]="option.id"></nz-option>
+                        <nz-select formControlName="medidorId" [(ngModel)]="medidorId" nzPlaceHolder="Buscar medidor..." nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let option of listOfMedidores" [nzLabel]="option.codigo" [nzValue]="option.id"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Zona</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="zonaId">
+                        <nz-select formControlName="zonaId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let zona of listaZonas" [nzValue]="zona.id" [nzLabel]="zona.codigo">
                             </nz-option>
                         </nz-select>
@@ -209,7 +210,7 @@
                             <nz-form-item>
                                 <nz-form-label>Tipo de servicio</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select formControlName="tipoServicioId">
+                                    <nz-select formControlName="tipoServicioId" nzShowSearch nzAllowClear>
                                         <nz-option nzValue="1" nzLabel="Banco"></nz-option>
                                         <nz-option nzValue="2" nzLabel="Administración"></nz-option>
                                         <nz-option nzValue="3" nzLabel="Agua potable"></nz-option>
@@ -224,7 +225,7 @@
                             <nz-form-item>
                                 <nz-form-label>Tarifa</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select formControlName="tarifaId">
+                                    <nz-select formControlName="tarifaId" nzShowSearch nzAllowClear>
                                         <nz-option *ngFor="let tarifa of listaTarifas" [nzValue]="tarifa.id" [nzLabel]="tarifa.codigo"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -325,7 +326,7 @@
         <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzTableLayout="fixed">
             <thead>
                 <tr>
-                    <th>Codigo medidor</th>
+                    <th>ID medidor</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
                     <th nzWidth="30px"></th>
