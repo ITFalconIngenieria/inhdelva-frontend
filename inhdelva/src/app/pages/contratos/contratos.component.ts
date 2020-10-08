@@ -12,6 +12,12 @@ import { TarifaModel } from '../../Modelos/tarifa';
 import { TarifaService } from '../../servicios/tarifa.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
+import { RangoFechaService } from '../../servicios/rangoFecha.service';
+
+interface Medidor {
+  id: number;
+  codigo: string;
+}
 
 @Component({
   selector: 'app-contratos',
@@ -34,12 +40,13 @@ export class ContratosComponent implements OnInit {
   idMedidorContrato;
   radioValue;
   rangoFechas: boolean;
+  validarDia;
   // tslint:disable-next-line: max-line-length
   diasGeneracion: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
   listOfDataContrato: Contrato[] = [];
   listOfDataMedidores: ContratoMedidores[] = [];
   listaMedidoresFiltrado: ContratoMedidores[] = [];
-  listOfOption: MedidorPME[] = [];
+  listOfMedidores: Medidor[] = [];
   medidorId;
 
   constructor(
@@ -49,8 +56,8 @@ export class ContratosComponent implements OnInit {
     private actoresService: ActoresService,
     private zonaService: ZonaService,
     private tarifaService: TarifaService,
-    private notification: NzNotificationService
-
+    private notification: NzNotificationService,
+    private rangoFactura: RangoFechaService
   ) { }
 
   parserLectura = (value: string) => value.replace('kW ', '');
@@ -72,82 +79,92 @@ export class ContratosComponent implements OnInit {
 
   guardarContrato() {
 
-    const dataContrato = {
-      codigo: this.validateFormContrato.value.codigo,
-      clasificacion: this.validateFormContrato.value.clasificacion,
-      descripcion: this.validateFormContrato.value.descripcion,
-      actorId: this.validateFormContrato.value.actorId,
-      fechaCreacion: this.validateFormContrato.value.fechaCreacion[0],
-      fechaVenc: this.validateFormContrato.value.fechaCreacion[1],
-      diaGeneracion: this.validateFormContrato.value.diaGeneracion,
-      diasDisponibles: this.validateFormContrato.value.diasDisponibles,
-      observacion: this.validateFormContrato.value.observacion,
-      estado: true
-    };
+    if (this.validateFormContrato.value.diaGeneracion < this.validarDia) {
 
-    if (this.accion === 'editar') {
-
-      this.contratoService.putContrato(this.idContrato, dataContrato)
-        .toPromise()
-        .then(
-          () => {
-
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-
-            for (const item of this.listOfDataContrato.filter(x => x.id === this.idContrato)) {
-              item.codigo = dataContrato.codigo;
-              item.clasificacion = dataContrato.clasificacion;
-              item.descripcion = dataContrato.descripcion;
-              item.actorId = dataContrato.actorId;
-              item.fechaCreacion = dataContrato.fechaCreacion;
-              item.fechaVenc = dataContrato.fechaVenc;
-              item.diaGeneracion = dataContrato.diaGeneracion;
-              item.diasDisponibles = dataContrato.diasDisponibles;
-              item.observacion = dataContrato.observacion;
-              item.estado = dataContrato.estado;
-            }
-
-            this.limpiarFormContrato();
-          },
-          (error) => {
-
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
+      swal({
+        icon: 'error',
+        title: 'Día de generacón de factura',
+        text: `El día de generación de factura debe ser mayor al rango de factura (${this.validarDia})`
+      });
     } else {
-      this.contratoService.postContrato(dataContrato)
-        .toPromise()
-        .then(
-          (data: Contrato) => {
+      const dataContrato = {
+        codigo: this.validateFormContrato.value.codigo,
+        clasificacion: this.validateFormContrato.value.clasificacion,
+        descripcion: this.validateFormContrato.value.descripcion,
+        actorId: this.validateFormContrato.value.actorId,
+        fechaCreacion: this.validateFormContrato.value.fechaCreacion[0],
+        fechaVenc: this.validateFormContrato.value.fechaCreacion[1],
+        diaGeneracion: this.validateFormContrato.value.diaGeneracion,
+        diasDisponibles: this.validateFormContrato.value.diasDisponibles,
+        observacion: this.validateFormContrato.value.observacion,
+        estado: true
+      };
 
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            this.listOfDataContrato = [...this.listOfDataContrato, data];
-            this.limpiarFormContrato();
-          },
-          (error) => {
+      if (this.accion === 'editar') {
 
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
+        this.contratoService.putContrato(this.idContrato, dataContrato)
+          .toPromise()
+          .then(
+            () => {
+
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+
+              for (const item of this.listOfDataContrato.filter(x => x.id === this.idContrato)) {
+                item.codigo = dataContrato.codigo;
+                item.clasificacion = dataContrato.clasificacion;
+                item.descripcion = dataContrato.descripcion;
+                item.actorId = dataContrato.actorId;
+                item.fechaCreacion = dataContrato.fechaCreacion;
+                item.fechaVenc = dataContrato.fechaVenc;
+                item.diaGeneracion = dataContrato.diaGeneracion;
+                item.diasDisponibles = dataContrato.diasDisponibles;
+                item.observacion = dataContrato.observacion;
+                item.estado = dataContrato.estado;
+              }
+
+              this.limpiarFormContrato();
+            },
+            (error) => {
+
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+            }
+          );
+      } else {
+        this.contratoService.postContrato(dataContrato)
+          .toPromise()
+          .then(
+            (data: Contrato) => {
+
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+              this.listOfDataContrato = [...this.listOfDataContrato, data];
+              this.limpiarFormContrato();
+            },
+            (error) => {
+
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+            }
+          );
+      }
     }
+
   }
 
   editarContrato(data) {
@@ -395,7 +412,24 @@ export class ContratosComponent implements OnInit {
     this.medidorService.getMedidoresPME()
       .toPromise()
       .then(
-        (data: MedidorPME[]) => this.listOfOption = data
+        (data: MedidorPME[]) => {
+          for (let x = 0; x < data.length; x++) {
+            this.listOfMedidores = [{
+              id: data[x].id,
+              codigo: data[x].codigo.substr(9)
+            }, ...this.listOfMedidores];
+          }
+        }
+      );
+
+    this.rangoFactura.getRangos()
+      .toPromise()
+      .then(
+        (data: any[]) => {
+          this.validarDia = data[data.length - 1].DiaInicio;
+          console.log(this.validarDia);
+
+        }
       );
 
     this.zonaService.getZonas()

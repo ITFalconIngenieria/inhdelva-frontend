@@ -15,7 +15,7 @@ export class RangoFechaService {
 
 
   getRangos() {
-    return this.http.get(`${apiUrl}config-facturas`);
+    return this.http.get(`${apiUrl}config-facturas?filter[where][Estado]=true`);
   }
 
   postRango(rango) {

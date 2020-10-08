@@ -58,7 +58,7 @@
 </div>
 
 <!-- Modal Formulario medidor-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Medidores" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Medidores" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical">
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
@@ -122,7 +122,7 @@
 </nz-modal>
 
 <!-- Modal Roolover -->
-<nz-modal [(nzVisible)]="isVisibleRollover" nzTitle="Rollover" nzWidth="740" (nzOnCancel)="handleCancelRollover()">
+<nz-modal [(nzVisible)]="isVisibleRollover" nzTitle="Configuración Rollover" nzWidth="740" (nzOnCancel)="handleCancelRollover()">
     <form style="width: 350px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <h5> Configuración del Rollover </h5>
         <nz-form-item>
