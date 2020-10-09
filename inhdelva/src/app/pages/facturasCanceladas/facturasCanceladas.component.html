@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
                 <th>Código</th>
                 <th>Contrato</th>
                 <th>Cliente</th>
@@ -21,6 +22,11 @@
                 <td style="width: 30px;">
                     <button nz-button nzType="primary" (click)="verFactura(data)" nzShape="circle" nzTooltipTitle="Ver factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="search" nzTheme="outline"></i>
+                    </button>
+                </td>
+                <td style="width: 30px;">
+                    <button nz-button nzType="primary" (click)="generarFactura(data)" nzShape="circle" nzTooltipTitle="Volver a generar" nzTooltipPlacement="top" nz-tooltip>
+                        <i nz-icon nzType="redo" nzTheme="outline"></i>
                     </button>
                 </td>
                 <td>{{ data.codigo }}</td>

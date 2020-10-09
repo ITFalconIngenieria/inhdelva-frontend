@@ -50,6 +50,9 @@ export class FacturasGeneradasComponent implements OnInit {
     private notification: NzNotificationService
   ) { }
 
+  parserValor = (value: string) => value.replace('L ', '');
+  formatterValor = (value: number) => `L ${value}`;
+
   submitForm(): void {
     // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
@@ -59,11 +62,17 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   verFactura(data) {
-    const navigationExtras: NavigationExtras = {
-      state: data
+
+    const dataNavegacion: any = {
+      ...data,
+      pag: 'G'
     };
+    const navigationExtras: NavigationExtras = {
+      state: dataNavegacion
+    };
+
     this.router.navigate(['factura'], navigationExtras);
-    this.facturaService.ejecutarNavegacion(data);
+    this.facturaService.ejecutarNavegacion(dataNavegacion);
   }
 
   ngOnInit() {
@@ -86,6 +95,18 @@ export class FacturasGeneradasComponent implements OnInit {
           console.log(error);
         }
       );
+
+
+    this.validateForm = this.fb.group({
+      cargoFinancionamiento: [0, [Validators.required]],
+      ajuste: [0, [Validators.required]],
+      cargoCorte: [0, [Validators.required]],
+      recargo: [0, [Validators.required]],
+      otros: [0, [Validators.required]],
+      subtotal: [0, [Validators.required]],
+      total: [0, [Validators.required]],
+    });
+
   }
 
   ShowNotification(type: string, titulo: string, mensaje: string): void {
