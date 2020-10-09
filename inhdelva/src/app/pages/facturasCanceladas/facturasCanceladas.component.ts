@@ -48,11 +48,16 @@ export class FacturasCanceladasComponent implements OnInit {
   ) { }
 
   verFactura(data) {
-    const navigationExtras: NavigationExtras = {
-      state: data
+    const dataNavegacion: any = {
+      ...data,
+      pag: 'C'
     };
+    const navigationExtras: NavigationExtras = {
+      state: dataNavegacion
+    };
+
     this.router.navigate(['factura'], navigationExtras);
-    this.facturaService.ejecutarNavegacion(data);
+    this.facturaService.ejecutarNavegacion(dataNavegacion);
   }
 
   ngOnInit() {
@@ -75,6 +80,10 @@ export class FacturasCanceladasComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  generarFactura(data) {
+
   }
 
   ShowNotification(type: string, titulo: string, mensaje: string): void {

@@ -2,7 +2,7 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas">
         <thead>
             <tr>
                 <th nzWidth="30px"></th>
@@ -12,8 +12,6 @@
                 <th>Fecha generación</th>
                 <th>Energia consumida</th>
                 <th>Total a pagar</th>
-                <th [nzSelections]="listOfSelection" [(nzChecked)]="checked" nzShowRowSelection="true" nzShowCheckbox="true" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">
-                    Emitir</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +27,6 @@
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
                 <td>{{ data.consumo | number }}</td>
                 <td>{{ data.total | number }}</td>
-                <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>
         </tbody>
     </nz-table>

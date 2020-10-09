@@ -24,6 +24,7 @@ export class FacturaComponent implements OnInit {
   resultadoPenalidad: number = 0;
   dataFactura;
   cargado: boolean;
+  pag;
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
   BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
@@ -136,14 +137,24 @@ export class FacturaComponent implements OnInit {
     this.dataFactura = this.router.getCurrentNavigation().extras.state || this.facturaService.getInfoNavegacion();
   }
 
+  volver() {
+
+    if (this.pag === 'G') {
+      this.facturaService.destroyInfo();
+      this.router.navigate(['facturasGeneradas']);
+    } else {
+      this.facturaService.destroyInfo();
+      this.router.navigate(['facturasCanceladas']);
+    }
+
+  }
+
   ngOnInit() {
     this.cargado = false;
     this.spinner.show();
     this.dataFactura = this.facturaService.getInfoNavegacion();
-    console.log(this.dataFactura);
-
     const { id } = this.dataFactura;
-    console.log(id);
+    this.pag = this.dataFactura.pag;
 
     this.dataSourceBarra = {
       chart: {
@@ -194,7 +205,6 @@ export class FacturaComponent implements OnInit {
           this.totalApagar = this.DetalleFacturaData[28].valor + this.DetalleFacturaData[11].valor;
 
           this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
-          console.log(this.resultadoFactorP);
 
           this.resultadoPenalidad = this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor;
           for (let x = 13; x < 28; x++) {
