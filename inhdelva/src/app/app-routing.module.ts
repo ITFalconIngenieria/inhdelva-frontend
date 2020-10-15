@@ -22,10 +22,12 @@ import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmit
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
   {
     path: '',
     component: WelcomeComponent,

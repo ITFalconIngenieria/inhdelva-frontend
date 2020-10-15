@@ -4,8 +4,11 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/cor
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { InterceptorService } from './servicios/interceptor.service';
+
 // import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -81,6 +84,7 @@ import { FacturasEmitidasComponent } from './pages/facturasEmitidas/facturasEmit
 import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGeneradas.component';
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 registerLocaleData(en);
 
@@ -106,7 +110,8 @@ registerLocaleData(en);
     FacturasEmitidasComponent,
     FacturasGeneradasComponent,
     FacturasCanceladasComponent,
-    RangoFacturaComponent
+    RangoFacturaComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -158,7 +163,14 @@ registerLocaleData(en);
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -333,7 +333,6 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
-          console.log(data);
 
           // this.listOfDataMedidores = data;
           // tslint:disable-next-line: prefer-for-of

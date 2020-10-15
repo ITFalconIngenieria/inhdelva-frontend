@@ -319,6 +319,19 @@ nz-spin {
     padding: 0px 12px 0px 12px;
 }
 
+.emisiones {
+    height: 3px;
+    width: 100%;
+    background-color: #5E7835;
+}
+
+
+/* .proveedores {
+    height: 3px;
+    width: 55%;
+    background-color: #E37D25;
+} */
+
 h1,
 h2,
 h3,
