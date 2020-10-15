@@ -427,8 +427,6 @@ export class ContratosComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.validarDia = data[data.length - 1].DiaInicio;
-          console.log(this.validarDia);
-
         }
       );
 

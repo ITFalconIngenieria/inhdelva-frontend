@@ -12,6 +12,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class FacturaComponent implements OnInit {
 
+  proveedores = {
+    height: '3px',
+    width: '55%',
+    'background-color': '#E37D25'
+  };
+
   dataSourceBarra: any;
   dataSourcePastelINH: any;
   dataSourcePastelHN: any;

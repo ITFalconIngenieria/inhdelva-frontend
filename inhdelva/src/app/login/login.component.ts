@@ -1,3 +1,4 @@
+import { UserService } from './../servicios/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,22 +18,42 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    this.route.navigate(['inicio']);
+    this.userService.validar(this.validateForm.value)
+      .toPromise()
+      .then(
+        (data: any) => {
+          localStorage.setItem('token', data.token);
+
+          console.log(data);
+
+          this.route.navigate(['inicio']);
+        }
+      );
+
   }
 
   constructor(
     private fb: FormBuilder,
-    private route: Router
-    ) { }
+    private route: Router,
+    private userService: UserService
+  ) { }
 
-  login() {
-  }
+  // {
+  //   "username": "string",
+  //   "password": "string",
+  //   "email": "string,"
+  //   "nombre": "string",
+  //   "apellido": "string",
+  //   "telefono": "string",
+  //   "observacion": "string",
+  //   "ad": bit(1 o 0),
+  //   "estado": bit(1 o 0)
+  // }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      remember: [true]
     });
   }
 }
