@@ -11,6 +11,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
 
+  constructor(
+    private fb: FormBuilder,
+    private route: Router,
+    private userService: UserService
+  ) { }
+
   submitForm(): void {
     // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
@@ -22,33 +28,13 @@ export class LoginComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
-          localStorage.setItem('token', data.token);
 
-          console.log(data);
-
+          this.userService.executeLogin(data)
           this.route.navigate(['inicio']);
         }
       );
 
   }
-
-  constructor(
-    private fb: FormBuilder,
-    private route: Router,
-    private userService: UserService
-  ) { }
-
-  // {
-  //   "username": "string",
-  //   "password": "string",
-  //   "email": "string,"
-  //   "nombre": "string",
-  //   "apellido": "string",
-  //   "telefono": "string",
-  //   "observacion": "string",
-  //   "ad": bit(1 o 0),
-  //   "estado": bit(1 o 0)
-  // }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

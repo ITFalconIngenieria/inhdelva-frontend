@@ -14,20 +14,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FacturasGeneradasComponent implements OnInit {
   listOfSelection = [
     {
-      text: 'Select All Row',
+      text: 'Selecciona todas la filas',
       onSelect: () => {
         this.onAllChecked(true);
       }
     },
     {
-      text: 'Select Odd Row',
+      text: 'Seleccionar fila impar',
       onSelect: () => {
         this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
         this.refreshCheckedStatus();
       }
     },
     {
-      text: 'Select Even Row',
+      text: 'Seleccionar fila par',
       onSelect: () => {
         this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
         this.refreshCheckedStatus();
@@ -42,6 +42,7 @@ export class FacturasGeneradasComponent implements OnInit {
   listOfCurrentPageData: ListadoFactura[] = [];
   listOfDataFacturas: ListadoFactura[] = [];
   setOfCheckedId = new Set<number>();
+  dataEditar: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -184,6 +185,25 @@ export class FacturasGeneradasComponent implements OnInit {
 
   editarFactura(data): void {
     this.isVisible = true;
+    console.log(data);
+
+    this.facturaService.getFacturaEditar(data.id)
+      .toPromise()
+      .then(
+        (res: []) => {
+          console.log(res);
+          this.dataEditar = res;
+          this.validateForm = this.fb.group({
+            cargoFinancionamiento: [0, [Validators.required]],
+            ajuste: [0, [Validators.required]],
+            cargoCorte: [0, [Validators.required]],
+            recargo: [0, [Validators.required]],
+            otros: [0, [Validators.required]],
+            subtotal: [0, [Validators.required]],
+            total: [0, [Validators.required]],
+          });
+        }
+      );
   }
 
   handleCancel(): void {

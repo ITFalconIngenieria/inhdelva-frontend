@@ -1,6 +1,7 @@
 import { UsuarioService } from './../../servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-registro',
@@ -13,6 +14,16 @@ export class RegistroComponent implements OnInit {
   password: string;
   dataUsuarios;
 
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService,
+    private message: NzMessageService
+  ) { }
+
+  createMessage(type: string, mensaje: string): void {
+    this.message.create(type, mensaje);
+  }
+
   submitForm(): void {
     // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
@@ -23,13 +34,18 @@ export class RegistroComponent implements OnInit {
     // debugger;
     this.dataUsuarios = {
       ...this.validateForm.value,
-      estado: true
+      ad: 0,
+      estado: 1
     };
+
+    console.log(this.dataUsuarios);
+
 
     this.usuarioService.postUsuarios(this.dataUsuarios)
       .toPromise()
       .then(
         (data) => {
+
           this.validateForm = this.fb.group({
             nombre: [null, [Validators.required]],
             apellido: [null, [Validators.required]],
@@ -37,25 +53,20 @@ export class RegistroComponent implements OnInit {
             email: [null, [Validators.email, Validators.required]],
             password: [null, [Validators.required]],
             telefono: [null, [Validators.required]],
-            observacion: [null, [Validators.required]]
+            observacion: [null]
           });
-          // this.createMessage('success', 'Registro creado con exito');
+          this.createMessage('success', 'Usuario creado con exito');
 
         },
         (error) => {
           console.log(error);
+          this.createMessage('error', 'No se pudo crear el usuario');
 
           // this.createMessage('error', 'Opps!!! Algo salio mal');
         }
       );
 
   }
-
-
-  constructor(
-    private fb: FormBuilder,
-    private usuarioService: UsuarioService
-  ) { }
 
   ngOnInit() {
 
@@ -66,7 +77,7 @@ export class RegistroComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required]],
       telefono: [null, [Validators.required]],
-      observacion: [null, [Validators.required]]
+      observacion: [null]
     });
   }
 

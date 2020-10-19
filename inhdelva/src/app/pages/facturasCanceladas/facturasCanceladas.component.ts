@@ -14,20 +14,20 @@ export class FacturasCanceladasComponent implements OnInit {
 
   listOfSelection = [
     {
-      text: 'Select All Row',
+      text: 'Selecciona todas la filas',
       onSelect: () => {
         this.onAllChecked(true);
       }
     },
     {
-      text: 'Select Odd Row',
+      text: 'Seleccionar fila impar',
       onSelect: () => {
         this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
         this.refreshCheckedStatus();
       }
     },
     {
-      text: 'Select Even Row',
+      text: 'Seleccionar fila par',
       onSelect: () => {
         this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
         this.refreshCheckedStatus();
