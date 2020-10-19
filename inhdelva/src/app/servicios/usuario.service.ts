@@ -18,15 +18,15 @@ export class UsuarioService {
   }
 
   postUsuarios(usuarios) {
-    return this.http.post(`${apiUrl}usuarios`, usuarios);
+    return this.http.post(`${apiUrl}signup`, usuarios);
   }
 
   putUsuarios(id, usuarios) {
-    return this.http.put(`${apiUrl}usuarios/${id}`, usuarios);
+    return this.http.put(`${apiUrl}signup/${id}`, usuarios);
   }
 
   deleteUsuarios(id, usuarios) {
-    return this.http.patch(`${apiUrl}usuarios/${id}`, usuarios);
+    return this.http.patch(`${apiUrl}signup/${id}`, usuarios);
   }
 
 }
