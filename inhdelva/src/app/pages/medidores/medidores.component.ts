@@ -69,7 +69,7 @@ export class MedidoresComponent implements OnInit {
       energia: (this.validateForm.controls.energia.value === 'false') ? false : true,
       lecturaAnterior: this.validateForm.controls.lecturaAnterior.value,
       lecturaNueva: this.validateForm.controls.lecturaNueva.value,
-      observacion: this.validateForm.controls.observacion.value,
+      observacion: (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A',
       estado: true
     };
 
@@ -92,14 +92,8 @@ export class MedidoresComponent implements OnInit {
               item.observacion = dataRollover.observacion;
               item.estado = dataRollover.estado;
             }
-
-            this.validateForm = this.fb.group({
-              fecha: [null, [Validators.required]],
-              energia: [null, [Validators.required]],
-              lecturaAnterior: [0, [Validators.required]],
-              lecturaNueva: [0, [Validators.required]],
-              observacion: [null]
-            });
+            this.accion = 'new';
+            this.limpiarRollover();
 
           },
           (error) => {
@@ -122,13 +116,7 @@ export class MedidoresComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
-            this.validateForm = this.fb.group({
-              fecha: [null, [Validators.required]],
-              energia: [null, [Validators.required]],
-              lecturaAnterior: [0, [Validators.required]],
-              lecturaNueva: [0, [Validators.required]],
-              observacion: [null]
-            });
+            this.limpiarRollover();
 
           },
           (error) => {
@@ -184,7 +172,7 @@ export class MedidoresComponent implements OnInit {
       codigo: this.codigo,
       lecturaMax: this.lecMax,
       multiplicador: this.multiplicador,
-      observacion: this.observacion,
+      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
       estado: true
     };
 
@@ -214,6 +202,8 @@ export class MedidoresComponent implements OnInit {
             this.lecMax = 0;
             this.multiplicador = 0;
             this.observacion = '';
+
+            this.accion = 'new';
           },
           (error) => {
             this.ShowNotification(
@@ -326,6 +316,16 @@ export class MedidoresComponent implements OnInit {
     );
   }
 
+  limpiarRollover() {
+    this.validateForm = this.fb.group({
+      fecha: [null, [Validators.required]],
+      energia: [null, [Validators.required]],
+      lecturaAnterior: [0, [Validators.required]],
+      lecturaNueva: [0, [Validators.required]],
+      observacion: ['']
+    });
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
 
@@ -395,13 +395,7 @@ export class MedidoresComponent implements OnInit {
         }
       );
 
-    this.validateForm = this.fb.group({
-      fecha: [null, [Validators.required]],
-      energia: [null, [Validators.required]],
-      lecturaAnterior: [0, [Validators.required]],
-      lecturaNueva: [0, [Validators.required]],
-      observacion: [null]
-    });
+    this.limpiarRollover();
   }
 
   showModal(): void {
@@ -409,6 +403,7 @@ export class MedidoresComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
   }
 
@@ -425,6 +420,7 @@ export class MedidoresComponent implements OnInit {
   }
 
   handleCancelRollover(): void {
+    this.accion = 'new';
     this.isVisibleRollover = false;
   }
 

@@ -63,7 +63,7 @@ export class ParametrosEntradaComponent implements OnInit {
       fechaInicio: this.validateForm.controls.fechaInicio[0].value,
       fechaFinal: this.validateForm.controls.fechaInicio[1].value,
       valor: this.validateForm.controls.valor.value,
-      observacion: this.validateForm.controls.observacion.value,
+      observacion: (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A',
       estado: true
     };
 
@@ -85,7 +85,7 @@ export class ParametrosEntradaComponent implements OnInit {
               item.observacion = dataParametro.observacion;
               item.estado = dataParametro.estado;
             }
-
+            this.accion = 'new';
             this.limpiarParametro();
           },
           (error) => {
@@ -164,7 +164,7 @@ export class ParametrosEntradaComponent implements OnInit {
       tipoCargoId: [null, [Validators.required]],
       fechaInicio: [null, [Validators.required]],
       valor: [1, [Validators.required]],
-      observacion: [null]
+      observacion: ['']
     });
   }
 
@@ -201,6 +201,7 @@ export class ParametrosEntradaComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
   }
 

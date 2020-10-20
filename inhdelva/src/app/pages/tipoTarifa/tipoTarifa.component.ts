@@ -91,7 +91,7 @@ export class TipoTarifaComponent implements OnInit {
               item.matrizHorariaId = dataTarifa.matrizHorariaId;
               item.estado = dataTarifa.estado;
             }
-
+            this.accion = 'new';
             this.limpiarTarifa();
           },
           (error) => {
@@ -176,7 +176,7 @@ export class TipoTarifaComponent implements OnInit {
       fechaInicio: this.validateFormParametro.value.fechaInicio[0],
       fechaFinal: this.validateFormParametro.value.fechaInicio[1],
       valor: this.validateFormParametro.value.valor,
-      observacion: this.validateFormParametro.value.observacion,
+      observacion: (this.validateFormParametro.value.observacion !== '') ? this.validateFormParametro.value.observacion : 'N/A',
       estado: true
     };
 
@@ -201,7 +201,7 @@ export class TipoTarifaComponent implements OnInit {
               item.observacion = dataParametro.observacion;
               item.estado = dataParametro.estado;
             }
-
+            this.accion = 'new';
             this.limpiarParametro();
           },
           (error) => {
@@ -246,7 +246,7 @@ export class TipoTarifaComponent implements OnInit {
     this.validateFormParametro = this.fb.group({
       tarifaId: [data.tarifaId, [Validators.required]],
       tipoCargoId: [data.tipoCargoId, [Validators.required]],
-      bloqueHorarioId: [data.bloqueHorarioId, [Validators.required]],
+      bloqueHorarioId: [data.bloqueHorarioId],
       fechaInicio: [[data.fechaInicio, data.fechaFinal]],
       valor: [data.valor, [Validators.required]],
       observacion: [data.observacion]
@@ -281,10 +281,9 @@ export class TipoTarifaComponent implements OnInit {
     this.validateFormTarifa = this.fb.group({
       codigo: [null, [Validators.required]],
       puntoMedicionId: [null, [Validators.required]],
-      descripcion: [null, [Validators.required]],
+      descripcion: [''],
       tipo: [null, [Validators.required]],
-      matrizHorariaId: [null, [Validators.required]],
-      observacion: [null]
+      matrizHorariaId: [null, [Validators.required]]
     });
   }
 
@@ -292,11 +291,11 @@ export class TipoTarifaComponent implements OnInit {
     this.validateFormParametro = this.fb.group({
       tarifaId: [null, [Validators.required]],
       tipoCargoId: [null, [Validators.required]],
-      bloqueHorarioId: [null, [Validators.required]],
+      bloqueHorarioId: [0],
       tipo: [null, [Validators.required]],
       fechaInicio: [null, [Validators.required]],
       valor: [0, [Validators.required]],
-      observacion: [null]
+      observacion: ['']
     });
   }
 
@@ -352,6 +351,7 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
   }
 
@@ -373,6 +373,7 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   handleCancelParametro(): void {
+    this.accion = 'new';
     this.isVisibleParametro = false;
   }
 

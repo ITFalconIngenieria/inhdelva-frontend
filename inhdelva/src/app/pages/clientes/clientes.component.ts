@@ -13,7 +13,7 @@ export class ClientesComponent implements OnInit {
   isVisible = false;
   actoresSap: ActoresSapSearch[] = [];
   listOfDataClientes: ClientesVista[] = [];
-  
+
   idCliente;
   codigo: string;
   nombreEmpresa: string;
@@ -58,7 +58,7 @@ export class ClientesComponent implements OnInit {
       codigo: this.codigo,
       tipoActor: false,
       imagen: (this.imagen) ? this.imagen : '',
-      observacion: (this.observacion) ? this.observacion : '',
+      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
       estado: true
     };
 
@@ -88,6 +88,8 @@ export class ClientesComponent implements OnInit {
             this.direccion = '';
             this.imagen = '';
             this.observacion = '';
+
+            this.accion = 'new';
           },
           (error) => {
 
@@ -209,6 +211,8 @@ export class ClientesComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
+
     this.isVisible = false;
   }
 

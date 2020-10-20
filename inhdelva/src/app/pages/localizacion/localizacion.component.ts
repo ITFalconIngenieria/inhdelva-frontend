@@ -48,6 +48,7 @@ export class LocalizacionComponent implements OnInit {
   }
 
   guardar() {
+    this.validateForm.value.observacion = (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A';
 
     this.dataZona = {
       ...this.validateForm.value,
@@ -72,11 +73,9 @@ export class LocalizacionComponent implements OnInit {
               item.estado = this.dataZona.estado;
             }
 
-            this.validateForm = this.fb.group({
-              codigo: [null, [Validators.required]],
-              descripcion: [null, [Validators.required]],
-              observacion: [null],
-            });
+            this.accion = 'new';
+
+            this.limpiar();
           },
           (error) => {
 
@@ -99,11 +98,7 @@ export class LocalizacionComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataZona = [...this.listOfDataZona, data];
-            this.validateForm = this.fb.group({
-              codigo: [null, [Validators.required]],
-              descripcion: [null, [Validators.required]],
-              observacion: [null],
-            });
+            this.limpiar();
           },
           (error) => {
 
@@ -119,6 +114,14 @@ export class LocalizacionComponent implements OnInit {
 
   }
 
+  limpiar() {
+    this.validateForm = this.fb.group({
+      codigo: [null, [Validators.required]],
+      descripcion: [''],
+      observacion: [''],
+    });
+  }
+
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,
@@ -129,7 +132,7 @@ export class LocalizacionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.accion = 'nuevo';
+    this.accion = 'new';
 
     this.zonaService.getZonas()
       .toPromise()
@@ -146,12 +149,7 @@ export class LocalizacionComponent implements OnInit {
           console.log(error);
         }
       );
-
-    this.validateForm = this.fb.group({
-      codigo: [null, [Validators.required]],
-      descripcion: [null, [Validators.required]],
-      observacion: [null],
-    });
+    this.limpiar();
   }
 
   showModal(): void {
@@ -160,11 +158,8 @@ export class LocalizacionComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    this.validateForm = this.fb.group({
-      codigo: [null, [Validators.required]],
-      descripcion: [null, [Validators.required]],
-      observacion: [null],
-    });
+    this.accion = 'new';
+    this.limpiar();
   }
 
   handleOk(): void {
@@ -178,8 +173,8 @@ export class LocalizacionComponent implements OnInit {
     this.zonaEdit = data.id;
     this.validateForm = this.fb.group({
       codigo: [data.codigo, [Validators.required]],
-      descripcion: [data.descripcion, [Validators.required]],
-      observacion: [data.observacion, [Validators.required]],
+      descripcion: [data.descripcion],
+      observacion: [data.observacion],
     });
 
   }

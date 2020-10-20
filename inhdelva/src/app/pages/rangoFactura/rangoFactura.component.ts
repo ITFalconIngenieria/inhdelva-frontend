@@ -75,6 +75,7 @@ export class RangoFacturaComponent implements OnInit {
             }
 
             this.limpiar();
+            this.accion = 'new';
 
           },
           (error) => {
@@ -161,6 +162,7 @@ export class RangoFacturaComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
     this.limpiar();
   }

@@ -379,11 +379,11 @@ export class ContratosComponent implements OnInit {
     this.validateFormContrato = this.fb.group({
       codigo: [null, [Validators.required]],
       clasificacion: [null, [Validators.required]],
-      descripcion: [null, [Validators.required]],
+      descripcion: [''],
       actorId: [null, [Validators.required]],
-      fechaCreacion: [null, [Validators.required]],
-      diaGeneracion: [1, [Validators.required]],
-      diasDisponibles: [1, [Validators.required]],
+      fechaCreacion: [null],
+      diaGeneracion: [1],
+      diasDisponibles: [1],
       observacion: ['']
     });
   }
@@ -393,14 +393,14 @@ export class ContratosComponent implements OnInit {
       medidorId: [null, [Validators.required]],
       fechaInicial: [null],
       zonaId: [null, [Validators.required]],
-      area: [1, [Validators.required]],
-      tipoServicioId: [null, [Validators.required]],
+      area: [0],
+      tipoServicioId: [0],
       trifasica: [null, [Validators.required]],
-      potencia: [1, [Validators.required]],
+      potencia: [0],
       iluminacionTC: [null, [Validators.required]],
-      iluminacionP: [1, [Validators.required]],
+      iluminacionP: [0],
       sComTC: [null, [Validators.required]],
-      sComP: [1, [Validators.required]],
+      sComP: [0],
       tarifaId: [null, [Validators.required]],
       observacion: ['']
     });
@@ -517,7 +517,7 @@ export class ContratosComponent implements OnInit {
     this.idContrato = data.id;
     console.log(data);
 
-    this.isVisibleServicio = (data.clasificacion === 'C') ? false : true;
+    this.isVisibleServicio = (data.clasificacion === 'I') ? false : true;
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
   }
 
