@@ -1,7 +1,9 @@
 import { UserService } from './../servicios/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: Router,
+    private message: NzMessageService,
     private userService: UserService
   ) { }
 
@@ -29,8 +32,13 @@ export class LoginComponent implements OnInit {
       .then(
         (data: any) => {
 
-          this.userService.executeLogin(data)
+          this.userService.executeLogin(data);
           this.route.navigate(['inicio']);
+          this.createMessage('success', `Bienvenido`);
+        },
+        (error) => {
+          console.log(error);
+          swal('Credenciales invalidas', 'Por favor revise sus credenciales', 'error');
         }
       );
 
@@ -41,5 +49,9 @@ export class LoginComponent implements OnInit {
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
+  }
+
+  createMessage(type: string, message: string): void {
+    this.message.create(type, message);
   }
 }

@@ -3,7 +3,7 @@
 <br>
 <div class="tabla">
     <button nz-button nzSize="small" style="width: 9%; margin-left: 90%;" (click)="emitirFactura()" nzType="primary">Emitir</button>
-    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <nz-table #rowSelectionTable nzShowSizeChanger nzPageSize="5" [nzData]="listOfDataFacturas" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
         <thead>
             <tr>
                 <th nzWidth="30px"></th>
@@ -50,6 +50,10 @@
 
 <!-- Modal Formulario editar Factura-->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
+    <div>
+        <label></label>
+
+    </div>
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <div class="container">
             <div class="row">

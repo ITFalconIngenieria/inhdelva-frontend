@@ -27,7 +27,7 @@ export class TarifaService {
   }
 
   deleteTarifa(id, tarifa) {
-    return this.http.patch(`${apiUrl}Tarifa/${id}`, tarifa);
+    return this.http.patch(`${apiUrl}tarifa/${id}`, tarifa);
   }
 
   getPuntoMedicion() {

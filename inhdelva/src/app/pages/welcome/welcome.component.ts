@@ -1,3 +1,4 @@
+import { UserService } from './../../servicios/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeComponent implements OnInit {
   isCollapsed = false;
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+  }
+
+  salir() {
+    this.userService.clearInfoLogin();
   }
 
 }

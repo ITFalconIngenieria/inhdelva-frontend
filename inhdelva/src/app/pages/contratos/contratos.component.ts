@@ -13,6 +13,7 @@ import { TarifaService } from '../../servicios/tarifa.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 import { RangoFechaService } from '../../servicios/rangoFecha.service';
+import * as moment from 'moment';
 
 interface Medidor {
   id: number;
@@ -29,6 +30,7 @@ export class ContratosComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleMedidor = false;
+  isVisibleServicio = false;
   validateFormContrato: FormGroup;
   validateFormMedidores: FormGroup;
   dateFormat = 'yyyy/MM/dd';
@@ -92,11 +94,11 @@ export class ContratosComponent implements OnInit {
         clasificacion: this.validateFormContrato.value.clasificacion,
         descripcion: this.validateFormContrato.value.descripcion,
         actorId: this.validateFormContrato.value.actorId,
-        fechaCreacion: this.validateFormContrato.value.fechaCreacion[0],
-        fechaVenc: this.validateFormContrato.value.fechaCreacion[1],
+        fechaCreacion: moment(this.validateFormContrato.value.fechaCreacion[0]).toISOString(),
+        fechaVenc: moment(this.validateFormContrato.value.fechaCreacion[1]).toISOString(),
         diaGeneracion: this.validateFormContrato.value.diaGeneracion,
         diasDisponibles: this.validateFormContrato.value.diasDisponibles,
-        observacion: this.validateFormContrato.value.observacion,
+        observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
 
@@ -125,8 +127,10 @@ export class ContratosComponent implements OnInit {
                 item.observacion = dataContrato.observacion;
                 item.estado = dataContrato.estado;
               }
-
+              this.accion = 'new';
               this.limpiarFormContrato();
+              console.log('editar');
+
             },
             (error) => {
 
@@ -143,7 +147,7 @@ export class ContratosComponent implements OnInit {
           .toPromise()
           .then(
             (data: Contrato) => {
-
+              console.log('post');
               this.ShowNotification(
                 'success',
                 'Guardado con éxito',
@@ -227,7 +231,7 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP: this.validateFormMedidores.value.sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: this.validateFormMedidores.value.observacion,
+        observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
     } else {
@@ -244,7 +248,7 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP: this.validateFormMedidores.value.sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: this.validateFormMedidores.value.observacion,
+        observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
     }
@@ -278,7 +282,10 @@ export class ContratosComponent implements OnInit {
                 item.tarifaId = dataMedidor.tarifaId,
                 item.observacion = dataMedidor.observacion,
                 item.estado = true;
+
             }
+
+            this.accion = 'new';
 
             this.limpiarFormMedidores();
           },
@@ -377,7 +384,7 @@ export class ContratosComponent implements OnInit {
       fechaCreacion: [null, [Validators.required]],
       diaGeneracion: [1, [Validators.required]],
       diasDisponibles: [1, [Validators.required]],
-      observacion: [null]
+      observacion: ['']
     });
   }
 
@@ -395,7 +402,7 @@ export class ContratosComponent implements OnInit {
       sComTC: [null, [Validators.required]],
       sComP: [1, [Validators.required]],
       tarifaId: [null, [Validators.required]],
-      observacion: [null]
+      observacion: ['']
     });
   }
 
@@ -408,7 +415,7 @@ export class ContratosComponent implements OnInit {
     this.radioValue = 'A';
     this.rangoFechas = true;
 
-    this.accion = 'nuevo';
+    this.accion = 'new';
     this.medidorService.getMedidoresPME()
       .toPromise()
       .then(
@@ -496,6 +503,7 @@ export class ContratosComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
     this.limpiarFormContrato();
   }
@@ -507,10 +515,14 @@ export class ContratosComponent implements OnInit {
   showModalMedidor(data): void {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
+    console.log(data);
+
+    this.isVisibleServicio = (data.clasificacion === 'C') ? false : true;
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
   }
 
   handleCancelMedidor(): void {
+    this.accion = 'new';
     this.isVisibleMedidor = false;
   }
 
