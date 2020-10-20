@@ -231,7 +231,7 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP: this.validateFormMedidores.value.sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
+        observacion: (this.validateFormContrato.value.observacion !== '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
     } else {
@@ -248,10 +248,13 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP: this.validateFormMedidores.value.sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
+        observacion: (this.validateFormContrato.value.observacion !== '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
     }
+
+    console.log(dataMedidor);
+
 
     if (this.accion === 'editar') {
 
@@ -395,7 +398,7 @@ export class ContratosComponent implements OnInit {
       zonaId: [null, [Validators.required]],
       area: [0],
       tipoServicioId: [0],
-      trifasica: [null, [Validators.required]],
+      trifasica: ['true', [Validators.required]],
       potencia: [0],
       iluminacionTC: [null, [Validators.required]],
       iluminacionP: [0],
@@ -515,7 +518,6 @@ export class ContratosComponent implements OnInit {
   showModalMedidor(data): void {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
-    console.log(data);
 
     this.isVisibleServicio = (data.clasificacion === 'I') ? false : true;
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
@@ -524,6 +526,7 @@ export class ContratosComponent implements OnInit {
   handleCancelMedidor(): void {
     this.accion = 'new';
     this.isVisibleMedidor = false;
+    this.limpiarFormMedidores();
   }
 
   handleOkMedidor(): void {
