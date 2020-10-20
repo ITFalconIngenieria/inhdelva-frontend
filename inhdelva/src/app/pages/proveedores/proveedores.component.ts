@@ -61,7 +61,7 @@ export class ProveedoresComponent implements OnInit {
       codigo: this.codigo,
       tipoActor: true,
       imagen: (this.imagen) ? this.imagen : '',
-      observacion: (this.observacion) ? this.observacion : '',
+      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
       estado: true
     };
 
@@ -81,7 +81,7 @@ export class ProveedoresComponent implements OnInit {
             //   item.Contacto = proveedorData.;
             //   item.Observacion = proveedorData.observacion;
             // }
-
+            this.accion = 'new';
             this.codigo = '';
             this.nombreEmpresa = '';
             this.rtn = '';
@@ -137,7 +137,7 @@ export class ProveedoresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accion = 'nuevo';
+    this.accion = 'new';
 
     this.actoresService.getProveedores()
       .toPromise()
@@ -190,6 +190,7 @@ export class ProveedoresComponent implements OnInit {
   }
 
   handleCancel(): void {
+    this.accion = 'new';
     this.isVisible = false;
   }
 

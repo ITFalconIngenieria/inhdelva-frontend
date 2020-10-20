@@ -49,82 +49,94 @@
 </div>
 
 <!-- Modal Formulario editar Factura-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
-    <div>
-        <label></label>
+<nz-modal [(nzVisible)]="isVisible" nzWidth="700" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
+    <div class="row">
+        <div class="col">
+            <p><span>Costo de energia</span> : <span>0.00</span></p>
+            <p><span>Demanda</span> : <span>0.00</span></p>
+            <p><span>Cargo reactivo</span> : <span>0.00</span></p>
+            <p><span>Cargo costos operativos</span> : <span>0.00</span></p>
+            <p><span>Cargo por perdida de distribucion</span> : <span>0.00</span></p>
+        </div>
+        <div class="col">
+            <p><span>Cargo por transformacion</span> : <span>0.00</span></p>
+            <p><span>Cargo iluminacion comunitaria</span> : <span>0.00</span></p>
+            <p><span>Cargo por servicios comunitrios</span> : <span>0.00</span></p>
+            <p><span>Cargo comercializacion</span> : <span>0.00</span></p>
+            <p><span>Cargo de regulacion</span> : <span>0.00</span></p>
+        </div>
 
     </div>
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Cargo por financiamiento</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Rectificación/Ajuste</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="w-100"></div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Cargo por corte</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Recargo por mora</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="w-100"></div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Otros conceptos</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Subtotal</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="subtotal" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="w-100"></div>
-                <div class="col">
-                    <nz-form-item>
-                        <nz-form-label>Total a pagar</nz-form-label>
-                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="total" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                            </nz-input-number>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Cargo por financiamiento</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Rectificación/Ajuste</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Cargo por corte</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Recargo por mora</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Otros conceptos</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Subtotal</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="subtotal" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Total a pagar</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="total" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
+                        </nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
             </div>
         </div>
+
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
