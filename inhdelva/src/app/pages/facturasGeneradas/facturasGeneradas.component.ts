@@ -43,6 +43,7 @@ export class FacturasGeneradasComponent implements OnInit {
   listOfDataFacturas: ListadoFactura[] = [];
   setOfCheckedId = new Set<number>();
   dataEditar: any[] = [];
+  total: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -194,14 +195,15 @@ export class FacturasGeneradasComponent implements OnInit {
           console.log(res);
           this.dataEditar = res;
           this.validateForm = this.fb.group({
-            cargoFinancionamiento: [data[22].valor, [Validators.required]],
-            ajuste: [data[23].valor, [Validators.required]],
-            cargoCorte: [data[24].valor, [Validators.required]],
-            recargo: [data[25].valor, [Validators.required]],
-            otros: [data[26].valor, [Validators.required]],
-            subtotal: [data[27].valor, [Validators.required]],
-            total: [data[28].valor, [Validators.required]],
+            cargoFinancionamiento: [Math.round(this.dataEditar[22].valor * 100) / 100, [Validators.required]],
+            ajuste: [Math.round(this.dataEditar[23].valor * 100) / 100, [Validators.required]],
+            cargoCorte: [Math.round(this.dataEditar[24].valor * 100) / 100, [Validators.required]],
+            recargo: [Math.round(this.dataEditar[25].valor * 100) / 100, [Validators.required]],
+            otros: [Math.round(this.dataEditar[26].valor * 100) / 100, [Validators.required]],
+            subtotal: [Math.round(this.dataEditar[27].valor * 100) / 100, [Validators.required]],
           });
+
+          this.total = Math.round(this.dataEditar[28].valor * 100) / 100;
         }
       );
   }

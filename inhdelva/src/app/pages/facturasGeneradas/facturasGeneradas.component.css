@@ -22,3 +22,16 @@ nz-select {
 nz-input-number {
     margin-right: 8px;
 }
+
+.valores {
+    color: black;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.total {
+    font-weight: bold;
+    background-color: #e4e4e4;
+    margin: 1px 1px 1px 1px;
+    padding: 3px 5px 5px 2px;
+}
