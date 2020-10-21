@@ -132,6 +132,15 @@
                 </div>
             </div>
         </nz-card>
+        <!-- <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>Exportación de Facturas</nz-form-label>
+                <nz-radio-group formControlName="iluminacionTC">
+                    <label nz-radio nzValue="false">Individuales</label>
+                    <label nz-radio nzValue="true">Por contrato</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item> -->
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
@@ -217,7 +226,6 @@
                                         <nz-option nzValue="4" nzLabel="Vigilancia"></nz-option>
                                         <nz-option nzValue="5" nzLabel="Iluminación"></nz-option>
                                         <nz-option nzValue="6" nzLabel="Aduanas"></nz-option>
-                                        <nz-option nzValue="6" nzLabel="Aduanas"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </nz-form-item>
@@ -254,15 +262,15 @@
                                 <nz-form-control>
                                     <nz-form-label>Tipo de cobro</nz-form-label>
                                     <nz-radio-group formControlName="iluminacionTC">
-                                        <label nz-radio nzValue="true">Energía activa(kWh)</label>
-                                        <label nz-radio nzValue="false">Área(m²)</label>
+                                        <label nz-radio nzValue="false">Energía activa(kWh)</label>
+                                        <label nz-radio nzValue="true">Área(m²)</label>
                                     </nz-radio-group>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="col">
                             <nz-form-item>
-                                <nz-form-label>Potencia contratada</nz-form-label>
+                                <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
                                     <nz-input-number formControlName="iluminacionP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>
@@ -281,15 +289,15 @@
                                 <nz-form-control>
                                     <nz-form-label>Tipo de cobro</nz-form-label>
                                     <nz-radio-group formControlName="sComTC">
-                                        <label nz-radio nzValue="true">Energía activa(kWh)</label>
-                                        <label nz-radio nzValue="false">Área(m²)</label>
+                                        <label nz-radio nzValue="false">Energía activa(kWh)</label>
+                                        <label nz-radio nzValue="true">Área(m²)</label>
                                     </nz-radio-group>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="col">
                             <nz-form-item>
-                                <nz-form-label>Potencia contratada</nz-form-label>
+                                <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
                                     <nz-input-number formControlName="sComP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>

@@ -214,6 +214,16 @@ export class ContratosComponent implements OnInit {
 
 
   guardarMedidor() {
+
+    // tslint:disable-next-line: max-line-length
+    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 1 : parseInt(this.validateFormMedidores.value.tipoServicioId);
+    const area = (this.validateFormMedidores.value.area === null) ? 0 : this.validateFormMedidores.value.area;
+    const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : this.validateFormMedidores.value.potencia;
+    const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : this.validateFormMedidores.value.iluminacionP;
+    const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : this.validateFormMedidores.value.sComP;
+
+    console.log(tipoServicio);
+
     let dataMedidor;
     if (this.validateFormMedidores.value.fechaInicial) {
       dataMedidor = {
@@ -222,16 +232,16 @@ export class ContratosComponent implements OnInit {
         fechaInicial: this.validateFormMedidores.value.fechaInicial[0],
         fechaFinal: this.validateFormMedidores.value.fechaInicial[1],
         zonaId: this.validateFormMedidores.value.zonaId,
-        area: this.validateFormMedidores.value.area,
-        tipoServicioId: parseInt(this.validateFormMedidores.value.tipoServicioId),
+        area,
+        tipoServicioId: tipoServicio,
         trifasica: this.validateFormMedidores.value.trifasica,
-        potencia: this.validateFormMedidores.value.potencia,
+        potencia,
         iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
-        iluminacionP: this.validateFormMedidores.value.iluminacionP,
+        iluminacionP,
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
-        sComP: this.validateFormMedidores.value.sComP,
+        sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormContrato.value.observacion !== '') ? this.validateFormContrato.value.observacion : 'N/A',
+        observacion: (this.validateFormMedidores.value.observacion !== '') ? this.validateFormMedidores.value.observacion : 'N/A',
         estado: true
       };
     } else {
@@ -239,26 +249,25 @@ export class ContratosComponent implements OnInit {
         contratoId: this.idContrato,
         medidorId: this.validateFormMedidores.value.medidorId,
         zonaId: this.validateFormMedidores.value.zonaId,
-        area: this.validateFormMedidores.value.area,
-        tipoServicioId: parseInt(this.validateFormMedidores.value.tipoServicioId),
+        area,
+        tipoServicioId: tipoServicio,
         trifasica: this.validateFormMedidores.value.trifasica,
-        potencia: this.validateFormMedidores.value.potencia,
-        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
-        iluminacionP: this.validateFormMedidores.value.iluminacionP,
+        potencia,
+        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'null') ? false : true,
+        iluminacionP,
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
-        sComP: this.validateFormMedidores.value.sComP,
+        sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormContrato.value.observacion !== '') ? this.validateFormContrato.value.observacion : 'N/A',
+        observacion: (this.validateFormMedidores.value.observacion !== '') ? this.validateFormMedidores.value.observacion : 'N/A',
         estado: true
       };
     }
 
     console.log(dataMedidor);
 
-
     if (this.accion === 'editar') {
 
-      this.contratoService.putContrato(this.idContrato, dataMedidor)
+      this.contratoService.putContratoMedidor(this.idContrato, dataMedidor)
         .toPromise()
         .then(
           () => {
@@ -334,6 +343,9 @@ export class ContratosComponent implements OnInit {
   editarMedidor(data) {
     this.accion = 'editar';
     this.idMedidorContrato = data.id;
+    const valor = (data.fechaFinal) ? 'B' : 'A';
+    this.radioValue = (data.fechaFinal) ? 'B' : 'A';
+    this.changeOpcion(valor);
 
     this.validateFormMedidores = this.fb.group({
       medidorId: [data.medidorId, [Validators.required]],
@@ -400,9 +412,9 @@ export class ContratosComponent implements OnInit {
       tipoServicioId: [0],
       trifasica: ['true', [Validators.required]],
       potencia: [0],
-      iluminacionTC: [null, [Validators.required]],
+      iluminacionTC: ['true', [Validators.required]],
       iluminacionP: [0],
-      sComTC: [null, [Validators.required]],
+      sComTC: ['true', [Validators.required]],
       sComP: [0],
       tarifaId: [null, [Validators.required]],
       observacion: ['']

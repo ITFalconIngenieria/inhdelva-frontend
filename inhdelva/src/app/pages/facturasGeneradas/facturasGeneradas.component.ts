@@ -194,13 +194,13 @@ export class FacturasGeneradasComponent implements OnInit {
           console.log(res);
           this.dataEditar = res;
           this.validateForm = this.fb.group({
-            cargoFinancionamiento: [0, [Validators.required]],
-            ajuste: [0, [Validators.required]],
-            cargoCorte: [0, [Validators.required]],
-            recargo: [0, [Validators.required]],
-            otros: [0, [Validators.required]],
-            subtotal: [0, [Validators.required]],
-            total: [0, [Validators.required]],
+            cargoFinancionamiento: [data[22].valor, [Validators.required]],
+            ajuste: [data[23].valor, [Validators.required]],
+            cargoCorte: [data[24].valor, [Validators.required]],
+            recargo: [data[25].valor, [Validators.required]],
+            otros: [data[26].valor, [Validators.required]],
+            subtotal: [data[27].valor, [Validators.required]],
+            total: [data[28].valor, [Validators.required]],
           });
         }
       );
