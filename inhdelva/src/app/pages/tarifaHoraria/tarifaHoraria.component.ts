@@ -15,7 +15,7 @@ export class TarifaHorariaComponent implements OnInit {
   dateFormat = 'yyyy/MM/dd';
 
   parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
+  formatterLectura = (value: number) => `${value} kW`;
 
   constructor(
     private fb: FormBuilder

@@ -39,7 +39,7 @@ export class ParametrosEntradaComponent implements OnInit {
   }
 
   parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
+  formatterLectura = (value: number) => `${value} kW`;
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {

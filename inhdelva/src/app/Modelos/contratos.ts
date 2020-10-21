@@ -9,6 +9,7 @@ export interface Contrato {
   diaGeneracion: number;
   diasDisponibles: number;
   observacion?: string;
+  exportacion: boolean;
   estado: boolean;
 }
 
