@@ -26,9 +26,9 @@
                 <p class="etiqueta-izq"> Número de factura: </p>
             </div>
             <div>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura }} </p>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.codigo }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura | date:'yyyy/M/dd' }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaEmision | date:'yyyy/M/dd' }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaVencimiento | date:'yyyy/M/dd' }} </p>
                 <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
                 <p class="etiqueta-der"> 30 </p>
                 <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
@@ -77,7 +77,7 @@
     </div> -->
         <div class="consumo">
             <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
-            <p class="etiqueta-valor"> L. {{ totalConsumo | number}} </p>
+            <p class="etiqueta-valor"> {{ totalConsumo | number}} </p>
         </div>
         <div class="consumo">
             <p class="etiqueta-consumo-total"> Total a pagar </p>
@@ -248,7 +248,7 @@
                     </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
                 <img class="img-formula" src="assets/raiz.svg">
                 <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
-                <p class="formula-penalidad"> 0.00 x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
+                <p class="formula-penalidad"> {{ factorRecargo | number }} x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
                         {{ resultadoPenalidad |number }} </span> </p>
             </div>
         </div>

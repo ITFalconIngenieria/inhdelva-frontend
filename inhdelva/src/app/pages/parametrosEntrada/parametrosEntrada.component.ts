@@ -58,12 +58,15 @@ export class ParametrosEntradaComponent implements OnInit {
   }
 
   guardarParametro() {
+    // tslint:disable-next-line: max-line-length
+    const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+
     const dataParametro = {
       tipoCargoId: this.validateForm.controls.tipoCargoId.value,
       fechaInicio: this.validateForm.controls.fechaInicio[0].value,
       fechaFinal: this.validateForm.controls.fechaInicio[1].value,
       valor: this.validateForm.controls.valor.value,
-      observacion: (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A',
+      observacion,
       estado: true
     };
 

@@ -63,13 +63,13 @@ export class ContratosComponent implements OnInit {
   ) { }
 
   parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `kW ${value}`;
+  formatterLectura = (value: number) => `${value} kW`;
   parserDias = (value: string) => value.replace('días ', '');
-  formatterDias = (value: number) => `días ${value}`;
+  formatterDias = (value: number) => `${value} días`;
   parserArea = (value: string) => value.replace('m² ', '');
-  formatterArea = (value: number) => `m² ${value}`;
+  formatterArea = (value: number) => `${value} m²`;
   parserPorcentaje = (value: string) => value.replace('% ', '');
-  formatterPorcentaje = (value: number) => `% ${value}`;
+  formatterPorcentaje = (value: number) => `${value} %`;
 
   submitForm(): void {
     // tslint:disable-next-line: forin
@@ -221,8 +221,10 @@ export class ContratosComponent implements OnInit {
     const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : this.validateFormMedidores.value.potencia;
     const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : this.validateFormMedidores.value.iluminacionP;
     const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : this.validateFormMedidores.value.sComP;
+    // tslint:disable-next-line: max-line-length
+    const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
 
-    console.log(tipoServicio);
+    console.log(this.validateFormMedidores.value.observacion);
 
     let dataMedidor;
     if (this.validateFormMedidores.value.fechaInicial) {
@@ -241,7 +243,7 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormMedidores.value.observacion !== '') ? this.validateFormMedidores.value.observacion : 'N/A',
+        observacion,
         estado: true
       };
     } else {
@@ -258,7 +260,7 @@ export class ContratosComponent implements OnInit {
         sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
         sComP,
         tarifaId: this.validateFormMedidores.value.tarifaId,
-        observacion: (this.validateFormMedidores.value.observacion !== '') ? this.validateFormMedidores.value.observacion : 'N/A',
+        observacion,
         estado: true
       };
     }
@@ -399,6 +401,7 @@ export class ContratosComponent implements OnInit {
       fechaCreacion: [null],
       diaGeneracion: [1],
       diasDisponibles: [1],
+      // Exportacion: ['true'],
       observacion: ['']
     });
   }

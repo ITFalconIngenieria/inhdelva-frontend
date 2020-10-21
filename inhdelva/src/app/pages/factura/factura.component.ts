@@ -34,6 +34,7 @@ export class FacturaComponent implements OnInit {
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
   BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
+  factorRecargo: number;
 
   chartDataPstelINH = [
     {
@@ -211,8 +212,14 @@ export class FacturaComponent implements OnInit {
           this.totalApagar = this.DetalleFacturaData[28].valor + this.DetalleFacturaData[11].valor;
 
           this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
+          console.log(this.resultadoFactorP);
 
-          this.resultadoPenalidad = this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor;
+
+          this.factorRecargo = (this.resultadoFactorP >= 0.9) ? 0 : ((0.9 / this.resultadoFactorP) - 1);
+          console.log(this.factorRecargo);
+
+
+          this.resultadoPenalidad = this.factorRecargo * (this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor);
           for (let x = 13; x < 28; x++) {
             this.clienteReguladoData.push(this.DetalleFacturaData[x]);
           }

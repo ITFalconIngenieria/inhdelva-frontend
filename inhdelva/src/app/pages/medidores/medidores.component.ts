@@ -63,13 +63,16 @@ export class MedidoresComponent implements OnInit {
   }
 
   guardarRollover() {
+    // tslint:disable-next-line: max-line-length
+    const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+
     const dataRollover = {
       medidorId: this.idMedidor,
       fecha: moment(this.validateForm.controls.fecha.value).toISOString(),
       energia: (this.validateForm.controls.energia.value === 'false') ? false : true,
       lecturaAnterior: this.validateForm.controls.lecturaAnterior.value,
       lecturaNueva: this.validateForm.controls.lecturaNueva.value,
-      observacion: (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A',
+      observacion,
       estado: true
     };
 
