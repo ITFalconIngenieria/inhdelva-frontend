@@ -30,7 +30,8 @@ export class ContratosComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleMedidor = false;
-  isVisibleServicio = false;
+  isVisibleInterno = false;
+  isVisibleOtro = false;
   validateFormContrato: FormGroup;
   validateFormMedidores: FormGroup;
   dateFormat = 'yyyy/MM/dd';
@@ -98,6 +99,7 @@ export class ContratosComponent implements OnInit {
         fechaVenc: moment(this.validateFormContrato.value.fechaCreacion[1]).toISOString(),
         diaGeneracion: this.validateFormContrato.value.diaGeneracion,
         diasDisponibles: this.validateFormContrato.value.diasDisponibles,
+        exportacion: (this.validateFormContrato.value.exportacion === 'false') ? false : true,
         observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
@@ -125,6 +127,7 @@ export class ContratosComponent implements OnInit {
                 item.diaGeneracion = dataContrato.diaGeneracion;
                 item.diasDisponibles = dataContrato.diasDisponibles;
                 item.observacion = dataContrato.observacion;
+                item.exportacion = dataContrato.exportacion;
                 item.estado = dataContrato.estado;
               }
               this.accion = 'new';
@@ -183,6 +186,7 @@ export class ContratosComponent implements OnInit {
       fechaCreacion: [[data.fechaCreacion, data.fechaVenc], [Validators.required]],
       diaGeneracion: [data.diaGeneracion, [Validators.required]],
       diasDisponibles: [data.diasDisponibles, [Validators.required]],
+      exportacion: [(data.exportacion === false) ? 'false' : 'true'],
       observacion: [data.observacion]
     });
   }
@@ -238,11 +242,12 @@ export class ContratosComponent implements OnInit {
         tipoServicioId: tipoServicio,
         trifasica: this.validateFormMedidores.value.trifasica,
         potencia,
-        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false') ? false : true,
+        // tslint:disable-next-line: max-line-length
+        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
         iluminacionP,
-        sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
+        sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
         sComP,
-        tarifaId: this.validateFormMedidores.value.tarifaId,
+        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 2007 : this.validateFormMedidores.value.tarifaId,
         observacion,
         estado: true
       };
@@ -255,11 +260,12 @@ export class ContratosComponent implements OnInit {
         tipoServicioId: tipoServicio,
         trifasica: this.validateFormMedidores.value.trifasica,
         potencia,
-        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'null') ? false : true,
+        // tslint:disable-next-line: max-line-length
+        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
         iluminacionP,
-        sComTC: (this.validateFormMedidores.value.sComTC === 'false') ? false : true,
+        sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
         sComP,
-        tarifaId: this.validateFormMedidores.value.tarifaId,
+        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 2007 : this.validateFormMedidores.value.tarifaId,
         observacion,
         estado: true
       };
@@ -349,21 +355,42 @@ export class ContratosComponent implements OnInit {
     this.radioValue = (data.fechaFinal) ? 'B' : 'A';
     this.changeOpcion(valor);
 
-    this.validateFormMedidores = this.fb.group({
-      medidorId: [data.medidorId, [Validators.required]],
-      fechaInicial: [[data.fechaInicial, data.fechaFinal], [Validators.required]],
-      zonaId: [data.zonaId, [Validators.required]],
-      area: [data.area, [Validators.required]],
-      tipoServicioId: [data.tipoServicioId, [Validators.required]],
-      trifasica: [data.trifasica, [Validators.required]],
-      potencia: [data.potencia, [Validators.required]],
-      iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true', [Validators.required]],
-      iluminacionP: [data.iluminacionP, [Validators.required]],
-      sComTC: [(data.sComTC === false) ? 'false' : 'true', [Validators.required]],
-      sComP: [data.sComP, [Validators.required]],
-      tarifaId: [data.tarifaId, [Validators.required]],
-      observacion: [data.observacion]
-    });
+    console.log(data);
+
+    if (data.fechaInicial) {
+      this.validateFormMedidores = this.fb.group({
+        medidorId: [data.medidorId, [Validators.required]],
+        fechaInicial: [[data.fechaInicial, data.fechaFinal]],
+        zonaId: [data.zonaId, [Validators.required]],
+        area: [data.area],
+        tipoServicioId: [data.tipoServicioId],
+        trifasica: [data.trifasica,],
+        potencia: [data.potencia],
+        iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
+        iluminacionP: [data.iluminacionP],
+        sComTC: [(data.sComTC === false) ? 'false' : 'true'],
+        sComP: [data.sComP],
+        tarifaId: [data.tarifaId],
+        observacion: [data.observacion]
+      });
+    } else {
+      this.validateFormMedidores = this.fb.group({
+        medidorId: [data.medidorId, [Validators.required]],
+        fechaInicial: [null],
+        zonaId: [data.zonaId, [Validators.required]],
+        area: [data.area],
+        tipoServicioId: [data.tipoServicioId],
+        trifasica: [data.trifasica,],
+        potencia: [data.potencia],
+        iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
+        iluminacionP: [data.iluminacionP],
+        sComTC: [(data.sComTC === false) ? 'false' : 'true'],
+        sComP: [data.sComP],
+        tarifaId: [data.tarifaId],
+        observacion: [data.observacion]
+      });
+    }
+
   }
 
   eliminarMedidor(data) {
@@ -401,7 +428,7 @@ export class ContratosComponent implements OnInit {
       fechaCreacion: [null],
       diaGeneracion: [1],
       diasDisponibles: [1],
-      // Exportacion: ['true'],
+      exportacion: ['false'],
       observacion: ['']
     });
   }
@@ -413,13 +440,13 @@ export class ContratosComponent implements OnInit {
       zonaId: [null, [Validators.required]],
       area: [0],
       tipoServicioId: [0],
-      trifasica: ['true', [Validators.required]],
+      trifasica: ['false'],
       potencia: [0],
-      iluminacionTC: ['true', [Validators.required]],
+      iluminacionTC: ['false'],
       iluminacionP: [0],
-      sComTC: ['true', [Validators.required]],
+      sComTC: ['false'],
       sComP: [0],
-      tarifaId: [null, [Validators.required]],
+      tarifaId: [null],
       observacion: ['']
     });
   }
@@ -534,7 +561,8 @@ export class ContratosComponent implements OnInit {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
 
-    this.isVisibleServicio = (data.clasificacion === 'I') ? false : true;
+    this.isVisibleInterno = (data.clasificacion === 'I') ? false : true;
+    this.isVisibleOtro = (data.clasificacion === 'C' || data.clasificacion === 'P') ? false : true;
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
   }
 

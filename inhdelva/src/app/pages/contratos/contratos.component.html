@@ -132,15 +132,15 @@
                 </div>
             </div>
         </nz-card>
-        <!-- <nz-form-item>
+        <nz-form-item>
             <nz-form-control>
                 <nz-form-label>Exportación de Facturas</nz-form-label>
-                <nz-radio-group formControlName="iluminacionTC">
+                <nz-radio-group formControlName="exportacion">
                     <label nz-radio nzValue="false">Individuales</label>
                     <label nz-radio nzValue="true">Por contrato</label>
                 </nz-radio-group>
             </nz-form-control>
-        </nz-form-item> -->
+        </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
@@ -187,14 +187,14 @@
                 <nz-form-item>
                     <nz-form-label>Área de localización</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number formControlName="area" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterArea" [nzParser]="parserArea">
+                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="area" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterArea" [nzParser]="parserArea">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Potencia contratada</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number formControlName="potencia" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="potencia" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
@@ -206,7 +206,7 @@
                         </div>
                         <div>
                             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                                <nz-switch formControlName="trifasica"></nz-switch>
+                                <nz-switch [nzDisabled]="isVisibleOtro" formControlName="trifasica"></nz-switch>
                             </nz-form-control>
                         </div>
                     </div>
@@ -219,7 +219,7 @@
                             <nz-form-item>
                                 <nz-form-label>Tipo de servicio</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select [nzDisabled]="isVisibleServicio" formControlName="tipoServicioId" nzShowSearch nzAllowClear>
+                                    <nz-select [nzDisabled]="isVisibleInterno" formControlName="tipoServicioId" nzShowSearch nzAllowClear>
                                         <nz-option nzValue="1" nzLabel="Banco"></nz-option>
                                         <nz-option nzValue="2" nzLabel="Administración"></nz-option>
                                         <nz-option nzValue="3" nzLabel="Agua potable"></nz-option>
@@ -234,7 +234,7 @@
                             <nz-form-item>
                                 <nz-form-label>Tarifa</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select formControlName="tarifaId" nzShowSearch nzAllowClear>
+                                    <nz-select [nzDisabled]="isVisibleOtro" formControlName="tarifaId" nzShowSearch nzAllowClear>
                                         <nz-option *ngFor="let tarifa of listaTarifas" [nzValue]="tarifa.id" [nzLabel]="tarifa.codigo"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
@@ -261,7 +261,7 @@
                             <nz-form-item>
                                 <nz-form-control>
                                     <nz-form-label>Tipo de cobro</nz-form-label>
-                                    <nz-radio-group formControlName="iluminacionTC">
+                                    <nz-radio-group [nzDisabled]="isVisibleOtro" formControlName="iluminacionTC">
                                         <label nz-radio nzValue="false">Energía activa(kWh)</label>
                                         <label nz-radio nzValue="true">Área(m²)</label>
                                     </nz-radio-group>
@@ -272,7 +272,7 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number formControlName="iluminacionP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
+                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="iluminacionP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>
                                 </nz-form-control>
                             </nz-form-item>
@@ -288,7 +288,7 @@
                             <nz-form-item>
                                 <nz-form-control>
                                     <nz-form-label>Tipo de cobro</nz-form-label>
-                                    <nz-radio-group formControlName="sComTC">
+                                    <nz-radio-group [nzDisabled]="isVisibleOtro" formControlName="sComTC">
                                         <label nz-radio nzValue="false">Energía activa(kWh)</label>
                                         <label nz-radio nzValue="true">Área(m²)</label>
                                     </nz-radio-group>
@@ -299,7 +299,7 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number formControlName="sComP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
+                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="sComP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>
                                 </nz-form-control>
                             </nz-form-item>
