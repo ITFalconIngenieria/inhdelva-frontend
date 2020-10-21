@@ -45,11 +45,10 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `${value} kW`;
+  formatterLectura = (value: number) => `${value} L/kWh`;
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
-      this.expandSet.add(id);
     } else {
       this.expandSet.delete(id);
     }

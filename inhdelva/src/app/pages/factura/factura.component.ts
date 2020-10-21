@@ -204,9 +204,6 @@ export class FacturaComponent implements OnInit {
           this.BloquesdeEnergiaFactura = data[1];
           this.DetalleFacturaData = { ...data[2] };
 
-          console.log(this.DetalleFacturaData );
-
-
           this.BloquesdeEnergiaFactura.forEach(x => {
             this.totalConsumo += x.valor;
           });
@@ -215,12 +212,7 @@ export class FacturaComponent implements OnInit {
           this.totalApagar = this.DetalleFacturaData[28].valor + this.DetalleFacturaData[11].valor;
 
           this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
-          console.log(this.resultadoFactorP);
-
-
           this.factorRecargo = (this.resultadoFactorP >= 0.9) ? 0 : ((0.9 / this.resultadoFactorP) - 1);
-          console.log(this.factorRecargo);
-
 
           this.resultadoPenalidad = this.factorRecargo * (this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor);
           for (let x = 12; x < 28; x++) {

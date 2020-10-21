@@ -50,7 +50,7 @@
 </div>
 
 <!-- Modal Formulario tarifa horario-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Parámetros de entrada" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzWidth="700" nzTitle="Configuración Parámetros de entrada" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <nz-form-item>
             <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
