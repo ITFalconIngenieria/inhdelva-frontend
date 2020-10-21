@@ -48,7 +48,8 @@ export class LocalizacionComponent implements OnInit {
   }
 
   guardar() {
-    this.validateForm.value.observacion = (this.validateForm.value.observacion !== '') ? this.validateForm.value.observacion : 'N/A';
+    // tslint:disable-next-line: max-line-length
+    this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
     this.dataZona = {
       ...this.validateForm.value,

@@ -169,6 +169,9 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   guardarParametro() {
+    // tslint:disable-next-line: max-line-length
+    const observacion = (this.validateFormParametro.value.observacion === '' || this.validateFormParametro.value.observacion === null) ? 'N/A' : this.validateFormParametro.value.observacion;
+
     const dataParametro = {
       tarifaId: this.idTarifa,
       tipoCargoId: this.validateFormParametro.value.tipoCargoId,
@@ -176,7 +179,7 @@ export class TipoTarifaComponent implements OnInit {
       fechaInicio: this.validateFormParametro.value.fechaInicio[0],
       fechaFinal: this.validateFormParametro.value.fechaInicio[1],
       valor: this.validateFormParametro.value.valor,
-      observacion: (this.validateFormParametro.value.observacion !== '') ? this.validateFormParametro.value.observacion : 'N/A',
+      observacion,
       estado: true
     };
 
