@@ -51,6 +51,10 @@ export class FacturaService {
 
   }
 
+  editarFactura(id, valor) {
+    return this.http.patch(`${apiUrl}detalle-facturas/${id}`, valor);
+  }
+
   changeFactura(id, emitir) {
     return this.http.patch(`${apiUrl}facturas/${id}`, emitir);
   }

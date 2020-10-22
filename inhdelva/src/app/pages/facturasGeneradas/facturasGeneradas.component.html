@@ -52,18 +52,18 @@
 <nz-modal [(nzVisible)]="isVisible" nzWidth="750" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
     <div class="row">
         <div class="col">
-            <p><span> {{ dataEditar[12]?.descripcion }} </span> : <span class="valores">{{ dataEditar[12]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[13]?.descripcion }} </span> : <span class="valores">{{ dataEditar[13]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[14]?.descripcion }} </span> : <span class="valores">{{ dataEditar[14]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[15]?.descripcion }} </span> : <span class="valores">{{ dataEditar[15]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[16]?.descripcion }} </span> : <span class="valores">{{ dataEditar[16]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[12]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[12]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[13]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[13]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[14]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[14]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[15]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[15]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[16]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[16]?.valor | number}}</span></p>
         </div>
         <div class="col">
-            <p><span> {{ dataEditar[17]?.descripcion }} </span> : <span class="valores">{{ dataEditar[17]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[18]?.descripcion }} </span> : <span class="valores">{{ dataEditar[18]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[19]?.descripcion }} </span> : <span class="valores">{{ dataEditar[19]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[20]?.descripcion }} </span> : <span class="valores">{{ dataEditar[20]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[21]?.descripcion }} </span> : <span class="valores">{{ dataEditar[21]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[17]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[17]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[18]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[18]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[19]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[19]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[20]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[20]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[21]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[21]?.valor | number}}</span></p>
         </div>
 
     </div>
@@ -74,8 +74,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[22]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -83,8 +86,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[23]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -93,8 +99,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[24]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -102,8 +111,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[25]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -112,8 +124,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[26]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -121,8 +136,11 @@
                 <nz-form-item>
                     <nz-form-label>{{ dataEditar[27]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="subtotal" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterValor" [nzParser]="parserValor">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="subtotal" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>

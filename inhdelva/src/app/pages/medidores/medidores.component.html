@@ -155,14 +155,14 @@
         <nz-form-item>
             <nz-form-label>Lectura antes del Rollover</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                 </nz-input-number>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Nueva lectura</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                 </nz-input-number>
             </nz-form-control>
         </nz-form-item>

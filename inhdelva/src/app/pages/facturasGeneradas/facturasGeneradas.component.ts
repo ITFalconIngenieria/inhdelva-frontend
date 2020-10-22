@@ -44,6 +44,8 @@ export class FacturasGeneradasComponent implements OnInit {
   setOfCheckedId = new Set<number>();
   dataEditar: any[] = [];
   total: number = 0;
+  idActualizar: any[] = [];
+  valoresActualizar: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -52,8 +54,8 @@ export class FacturasGeneradasComponent implements OnInit {
     private notification: NzNotificationService
   ) { }
 
-  parserValor = (value: string) => value.replace('L ', '');
-  formatterValor = (value: number) => `L ${value}`;
+  parserValor = (value: string) => value.replace('Lps ', '');
+  formatterValor = (value: number) => `${value} Lps`;
 
   submitForm(): void {
     // tslint:disable-next-line: forin
@@ -182,17 +184,39 @@ export class FacturasGeneradasComponent implements OnInit {
 
   guardar() {
 
+    // tslint:disable-next-line: max-line-length
+    this.total = this.validateForm.value.cargoFinancionamiento + this.validateForm.value.ajuste + this.validateForm.value.cargoCorte + this.validateForm.value.recargo + this.validateForm.value.otros + this.validateForm.value.subtotal;
+    this.valoresActualizar = [
+      this.validateForm.value.cargoFinancionamiento,
+      this.validateForm.value.ajuste,
+      this.validateForm.value.cargoCorte,
+      this.validateForm.value.recargo,
+      this.validateForm.value.otros,
+      this.validateForm.value.subtotal,
+      this.total
+    ];
+
+    console.log(this.valoresActualizar);
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let x = 0; x < this.idActualizar.length; x++) {
+      this.facturaService.editarFactura(this.idActualizar[x], { valor: this.valoresActualizar[x] })
+        .toPromise()
+        .then(
+          () => {
+            console.log('Actualizado');
+
+          }
+        );
+    }
   }
 
   editarFactura(data): void {
     this.isVisible = true;
-    console.log(data);
-
     this.facturaService.getFacturaEditar(data.id)
       .toPromise()
       .then(
         (res: []) => {
-          console.log(res);
           this.dataEditar = res;
           this.validateForm = this.fb.group({
             cargoFinancionamiento: [Math.round(this.dataEditar[22].valor * 100) / 100, [Validators.required]],
@@ -203,6 +227,15 @@ export class FacturasGeneradasComponent implements OnInit {
             subtotal: [Math.round(this.dataEditar[27].valor * 100) / 100, [Validators.required]],
           });
 
+          this.idActualizar = [
+            this.dataEditar[22].iddetalle,
+            this.dataEditar[23].iddetalle,
+            this.dataEditar[24].iddetalle,
+            this.dataEditar[25].iddetalle,
+            this.dataEditar[26].iddetalle,
+            this.dataEditar[27].iddetalle,
+            this.dataEditar[28].iddetalle
+          ]
           this.total = Math.round(this.dataEditar[28].valor * 100) / 100;
         }
       );

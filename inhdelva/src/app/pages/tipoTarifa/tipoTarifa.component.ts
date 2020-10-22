@@ -30,6 +30,8 @@ export class TipoTarifaComponent implements OnInit {
   matrizHoraria: MatrizHoraria[] = [];
   tipoCargo: TipoCargo[] = [];
   bloqueHorario: any[] = [];
+  unidad;
+
   constructor(
     private fb: FormBuilder,
     private tarifaService: TarifaService,
@@ -44,9 +46,6 @@ export class TipoTarifaComponent implements OnInit {
     );
   }
 
-  parserLectura = (value: string) => value.replace('kW ', '');
-  formatterLectura = (value: number) => `${value} L/kWh`;
-
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
     } else {
@@ -60,6 +59,12 @@ export class TipoTarifaComponent implements OnInit {
       this.validateFormTarifa.value[i].markAsDirty();
       this.validateFormTarifa.value[i].updateValueAndValidity();
     }
+  }
+
+  changeCargo(data) {
+    console.log(data);
+    const cargo = this.tipoCargo.filter(x => x.id === data);
+    this.unidad = cargo[0].unidad;
   }
 
   guardarTarifa() {

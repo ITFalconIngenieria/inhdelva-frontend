@@ -37,6 +37,7 @@ export interface TipoCargo {
   id: number;
   codigo: string;
   nombre: string;
+  unidad: string;
   estado: boolean;
 }
 

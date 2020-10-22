@@ -110,8 +110,8 @@
 </nz-modal>
 
 <!-- Modal Formulario Parametro-->
-<nz-modal [(nzVisible)]="isVisibleParametro" nzWidth="760" nzTitle="Configuración de parámetros" (nzOnCancel)="handleCancelParametro()">
-    <form nz-form nzLayout="vertical" style="width: 620px; margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateFormParametro">
+<nz-modal [(nzVisible)]="isVisibleParametro" nzWidth="750" nzTitle="Configuración de parámetros" (nzOnCancel)="handleCancelParametro()">
+    <form nz-form nzLayout="vertical" style="margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateFormParametro">
         <nz-form-item>
             <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
@@ -123,7 +123,7 @@
                 <nz-form-item>
                     <nz-form-label>Cargo</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoCargoId" nzShowSearch nzAllowClear>
+                        <nz-select (ngModelChange)="changeCargo($event)" formControlName="tipoCargoId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let cargo of tipoCargo" [nzValue]="cargo.id" [nzLabel]="cargo.nombre">
                             </nz-option>
                         </nz-select>
@@ -134,7 +134,11 @@
                 <nz-form-item>
                     <nz-form-label>Valor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%;" formControlName="valor" [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura"></nz-input-number>
+                        <div style="display: flex; justify-content: space-between;">
+                            <nz-input-number style="width: 100%;" formControlName="valor" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px;"> {{ unidad }}</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
