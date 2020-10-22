@@ -124,7 +124,7 @@
                         <nz-form-item>
                             <nz-form-label>Días disponibles para pago</nz-form-label>
                             <nz-form-control>
-                                <nz-input-number formControlName="diasDisponibles" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterDias" [nzParser]="parserDias">
+                                <nz-input-number formControlName="diasDisponibles" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterDias" [nzParser]="parserDias">
                                 </nz-input-number>
                             </nz-form-control>
                         </nz-form-item>
@@ -187,14 +187,14 @@
                 <nz-form-item>
                     <nz-form-label>Área de localización</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="area" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterArea" [nzParser]="parserArea">
+                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="area" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterArea" [nzParser]="parserArea">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Potencia contratada</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="potencia" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
+                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="potencia" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
                         </nz-input-number>
                     </nz-form-control>
                 </nz-form-item>
@@ -272,7 +272,7 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="iluminacionP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
+                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="iluminacionP" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>
                                 </nz-form-control>
                             </nz-form-item>
@@ -299,7 +299,7 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="sComP" [nzMin]="1" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
+                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="sComP" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
                                     </nz-input-number>
                                 </nz-form-control>
                             </nz-form-item>
