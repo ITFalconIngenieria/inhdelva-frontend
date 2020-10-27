@@ -10,7 +10,7 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataParametro" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDataParametro" nzTableLayout="fixed" nzPageSize="6">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -42,7 +42,7 @@
                     <td>{{ data.fechaFinal | date: 'yyyy/M/dd' }}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.observacion }}</td>
+                    <td colSpan="7">{{ data.observacion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -52,12 +52,14 @@
 <!-- Modal Formulario tarifa horario-->
 <nz-modal [(nzVisible)]="isVisible" nzWidth="700" nzTitle="Configuración Parámetros de entrada" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
-        <nz-form-item>
-            <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
-            </nz-form-control>
-        </nz-form-item>
+        <div style="display: flex; justify-content: center;">
+            <nz-form-item>
+                <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                    <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
         <div class="row">
             <div class="col-9">
                 <nz-form-item>
@@ -74,8 +76,11 @@
                 <nz-form-item>
                     <nz-form-label>Valor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>

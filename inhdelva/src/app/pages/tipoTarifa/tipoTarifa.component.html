@@ -112,12 +112,14 @@
 <!-- Modal Formulario Parametro-->
 <nz-modal [(nzVisible)]="isVisibleParametro" nzWidth="750" nzTitle="Configuración de parámetros" (nzOnCancel)="handleCancelParametro()">
     <form nz-form nzLayout="vertical" style="margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateFormParametro">
-        <nz-form-item>
-            <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
-            </nz-form-control>
-        </nz-form-item>
+        <div style="display: flex; justify-content: center;">
+            <nz-form-item>
+                <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                    <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
         <div class="row">
             <div class="col-9">
                 <nz-form-item>

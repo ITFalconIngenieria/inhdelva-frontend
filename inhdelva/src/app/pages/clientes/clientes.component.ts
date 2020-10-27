@@ -13,7 +13,7 @@ export class ClientesComponent implements OnInit {
   isVisible = false;
   actoresSap: ActoresSapSearch[] = [];
   listOfDataClientes: ClientesVista[] = [];
-
+  cantidad;
   idCliente;
   codigo: string;
   nombreEmpresa: string;
@@ -106,6 +106,8 @@ export class ClientesComponent implements OnInit {
         .toPromise()
         .then(
           (data) => {
+
+            this.cantidad = this.cantidad + 1;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -164,6 +166,7 @@ export class ClientesComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
+          this.cantidad = data.length;
           this.listOfDataClientes = data;
         },
         (error) => {

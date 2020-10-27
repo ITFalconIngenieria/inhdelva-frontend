@@ -38,7 +38,8 @@
                     <td>{{ data.descripcion }}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.observacion }}</td>
+                    <td colSpan="3"> <span style="color: black; font-weight: bold;"> Descripción: </span> {{ data.descripcion }}</td>
+                    <td colSpan="2"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
                 </tr>
             </ng-container>
         </tbody>
