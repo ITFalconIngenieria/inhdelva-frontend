@@ -115,6 +115,43 @@ export class LocalizacionComponent implements OnInit {
 
   }
 
+  editar(data) {
+    this.accion = 'editar';
+    this.isVisible = true;
+
+    this.zonaEdit = data.id;
+    this.validateForm = this.fb.group({
+      codigo: [data.codigo, [Validators.required]],
+      descripcion: [data.descripcion],
+      observacion: [data.observacion],
+    });
+
+  }
+
+  eliminar(data) {
+    this.zonaService.deleteZona(data.id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+          this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
+        }
+      );
+  }
+
   limpiar() {
     this.validateForm = this.fb.group({
       codigo: [null, [Validators.required]],
@@ -167,40 +204,5 @@ export class LocalizacionComponent implements OnInit {
     this.isVisible = false;
   }
 
-  editar(data) {
-    this.accion = 'editar';
-    this.isVisible = true;
 
-    this.zonaEdit = data.id;
-    this.validateForm = this.fb.group({
-      codigo: [data.codigo, [Validators.required]],
-      descripcion: [data.descripcion],
-      observacion: [data.observacion],
-    });
-
-  }
-
-  eliminar(data) {
-    this.zonaService.deleteZona(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
-        },
-        (error) => {
-
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
-        }
-      );
-  }
 }
