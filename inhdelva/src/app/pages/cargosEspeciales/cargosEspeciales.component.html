@@ -13,17 +13,18 @@
     <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed">
         <thead>
             <tr>
+                <th nzWidth="60px"></th>
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
-                <th>Codigo</th>
-                <th>Cargo</th>
                 <th>Fecha inicio</th>
                 <th>Fecha final</th>
+                <th>Total cargos</th>
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let data of nzTable.data">
                 <tr>
+                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
                         <button nz-button nzType="primary" nzShape="circle">
                           <i nz-icon nzType="edit" nzTheme="outline"></i>
@@ -34,10 +35,12 @@
                           <i nz-icon nzType="delete" nzTheme="outline"></i>
                       </button>
                     </td>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.address }}</td>
-                    <td>{{ data.address }}</td>
+                    <td>{{ data.fechaInicial | date:'yyyy/M/dd'}}</td>
+                    <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
+                    <td>{{ data.financiamiento }}</td>
+                </tr>
+                <tr [nzExpand]="expandSet.has(data.id)">
+                    <td colSpan="6">{{ data.observacion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -45,56 +48,81 @@
 </div>
 
 <!-- Modal Formulario -->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Localización" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzWidth="450" nzTitle="Configuración Cargos especiales" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
-        <nz-form-item>
-            <nz-form-label>Código</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Codigo" placeholder="Escribe aquí..." />
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label>Descripción</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input formControlName="Descripcion" placeholder="Escribe aquí..." />
-            </nz-form-control>
-        </nz-form-item>
+        <div style="display: flex; justify-content: center;">
+            <nz-form-item>
+                <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                    <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicial" [nzFormat]="dateFormat"></nz-range-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
         <div class="row">
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Zona</nz-form-label>
+                    <nz-form-label>Cargo por financiamiento</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-select style="width: 100%;" nzAllowClear nzPlaceHolder="Seleccione uno..." formControlName="Descripcion">
-                            <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                            <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                            <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-                        </nz-select>
+                        <div style="display: flex; justify-content: flex-start;">
+                            <label style="font-size: 17px; margin-right: 2%;"> Lps.</label>
+                            <nz-input-number style="margin: 0px;" formControlName="financiamiento" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Tipo de cobro para servicios</nz-form-label>
+                    <nz-form-label>Reactificación/Ajuste</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group ngModel="radioValue" formControlName="Descripcion">
-                            <label nz-radio nzValue="A">Energía activa (kWh)</label>
-                            <label nz-radio nzValue="B">Área (m²)</label>
-                        </nz-radio-group>
+                        <div style="display: flex; justify-content: flex-start;">
+                            <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
+                            <nz-input-number style="margin: 0px;" [nzMin]="0" formControlName="rectificacion" [nzStep]="1">
+                            </nz-input-number>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Cargo por corte</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
+                            <nz-input-number style="margin: 0px;" formControlName="corte" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Recargo por mora</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
+                            <nz-input-number style="margin: 0px;" formControlName="mora" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
         </div>
-
         <nz-form-item>
-            <nz-form-label>Área</nz-form-label>
+            <nz-form-label>Otros conceptos</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-number style="width: 100%;" [nzMin]="1" [nzMax]="100" [nzStep]="1" formControlName="Descripcion" ngModel="demoValue" [nzFormatter]="formatterArea" [nzParser]="parserArea"></nz-input-number>
+                <div style="display: flex; justify-content: flex-start;">
+                    <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
+                    <nz-input-number style="margin: 0px;" formControlName="otros" [nzMin]="0" [nzStep]="1">
+                    </nz-input-number>
+                </div>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <textarea nz-input formControlName="Observacion" placeholder="Escribe aquí..."></textarea>
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>
         </nz-form-item>
     </form>

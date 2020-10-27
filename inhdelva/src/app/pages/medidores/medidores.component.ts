@@ -17,7 +17,7 @@ export class MedidoresComponent implements OnInit {
   isVisibleRollover = false;
   validateForm: FormGroup;
   dateFormat = 'yyyy/MM/dd';
-
+  disabledLec: boolean;
   codigo: string;
   descripcion: string;
   serie: string;
@@ -32,6 +32,7 @@ export class MedidoresComponent implements OnInit {
   accion;
   idMedidor;
   idRollover;
+  cantidad;
   medidoresPME: any[] = [];
   listOfDataMedidores: MedidorPME[] = [];
   listOfDataRollover: RolloverModel[] = [];
@@ -68,10 +69,10 @@ export class MedidoresComponent implements OnInit {
 
     const dataRollover = {
       medidorId: this.idMedidor,
-      fecha: moment(this.validateForm.controls.fecha.value).toISOString(),
-      energia: (this.validateForm.controls.energia.value === 'false') ? false : true,
-      lecturaAnterior: this.validateForm.controls.lecturaAnterior.value,
-      lecturaNueva: this.validateForm.controls.lecturaNueva.value,
+      fecha: moment(this.validateForm.value.fecha).toISOString(),
+      energia: (this.validateForm.value.energia === 'false') ? false : true,
+      lecturaAnterior: this.validateForm.value.lecturaAnterior,
+      lecturaNueva: this.validateForm.value.lecturaNueva,
       observacion,
       estado: true
     };
@@ -175,7 +176,7 @@ export class MedidoresComponent implements OnInit {
       codigo: this.codigo,
       lecturaMax: this.lecMax,
       multiplicador: this.multiplicador,
-      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
+      observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
 
@@ -222,7 +223,7 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: RolloverModel) => {
-
+            this.cantidad = this.cantidad + 1;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -253,6 +254,8 @@ export class MedidoresComponent implements OnInit {
   }
 
   editarMedidor(data) {
+    this.disabledLec = false;
+    this.isVisible = true;
     this.idMedidor = data.id;
     this.accion = 'editar';
 
@@ -331,7 +334,7 @@ export class MedidoresComponent implements OnInit {
 
   ngOnInit() {
     this.accion = 'nuevo';
-
+    this.disabledLec = true;
     this.medidoresService.getMedidoresPME()
       .toPromise()
       .then(
@@ -339,6 +342,7 @@ export class MedidoresComponent implements OnInit {
 
           // this.listOfDataMedidores = data;
           // tslint:disable-next-line: prefer-for-of
+          this.cantidad = data.length;
           for (let x = 0; x < data.length; x++) {
             this.listOfDataMedidores = [{
               id: data[x].id,
@@ -408,6 +412,14 @@ export class MedidoresComponent implements OnInit {
   handleCancel(): void {
     this.accion = 'new';
     this.isVisible = false;
+    this.codigo = '';
+    this.descripcion = '';
+    this.serie = '';
+    this.modelo = '';
+    this.direccionIp = '';
+    this.lecMax = 0;
+    this.multiplicador = 0;
+    this.observacion = '';
   }
 
   handleOk(): void {

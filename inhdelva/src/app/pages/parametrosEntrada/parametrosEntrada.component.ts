@@ -62,10 +62,10 @@ export class ParametrosEntradaComponent implements OnInit {
     const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
     const dataParametro = {
-      tipoCargoId: this.validateForm.controls.tipoCargoId.value,
-      fechaInicio: this.validateForm.controls.fechaInicio[0].value,
-      fechaFinal: this.validateForm.controls.fechaInicio[1].value,
-      valor: this.validateForm.controls.valor.value,
+      tipoCargoId: this.validateForm.value.tipoCargoId,
+      fechaInicio: this.validateForm.value.fechaInicio[0],
+      fechaFinal: this.validateForm.value.fechaInicio[1],
+      valor: this.validateForm.value.valor,
       observacion,
       estado: true
     };
@@ -134,7 +134,7 @@ export class ParametrosEntradaComponent implements OnInit {
     this.validateForm = this.fb.group({
       tipoCargoId: [data.tipoCargoId, [Validators.required]],
       fechaInicio: [[data.fechaInicio, data.fechaFinal], [Validators.required]],
-      tipo: [data.valor, [Validators.required]],
+      valor: [data.valor, [Validators.required]],
       observacion: [data.observacion]
     });
   }

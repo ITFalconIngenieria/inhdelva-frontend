@@ -47,7 +47,8 @@
                     </td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.descripcion }}</td>
+                    <td colSpan="5"><span style="color: black; font-weight: bold;"> Descripción: </span> {{ data.descripcion }}</td>
+                    <td colSpan="3"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -124,8 +125,11 @@
                         <nz-form-item>
                             <nz-form-label>Días disponibles para pago</nz-form-label>
                             <nz-form-control>
-                                <nz-input-number formControlName="diasDisponibles" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterDias" [nzParser]="parserDias">
-                                </nz-input-number>
+                                <div style="display: flex; justify-content: flex-start;">
+                                    <nz-input-number formControlName="diasDisponibles" [nzMin]="0" [nzStep]="1">
+                                    </nz-input-number>
+                                    <label style="color: black; font-size: 17px; margin-left: 2%;"> Días</label>
+                                </div>
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -187,15 +191,21 @@
                 <nz-form-item>
                     <nz-form-label>Área de localización</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="area" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterArea" [nzParser]="parserArea">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="area" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;">m²</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Potencia contratada</nz-form-label>
                     <nz-form-control>
-                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="potencia" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterLectura" [nzParser]="parserLectura">
-                        </nz-input-number>
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="potencia" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -241,7 +251,7 @@
                             </nz-form-item>
                         </div>
                         <div class="w-100"></div>
-                        <div class="col">
+                        <div class="col" style="display: flex; justify-content: center;">
                             <nz-form-item>
                                 <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
                                 <nz-form-control>
@@ -272,8 +282,11 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="iluminacionP" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
-                                    </nz-input-number>
+                                    <div style="display: flex; justify-content: flex-start;">
+                                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="iluminacionP" [nzMin]="0" [nzStep]="1">
+                                        </nz-input-number>
+                                        <label style="color: black; font-size: 17px; margin-left: 2%;"> %</label>
+                                    </div>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -299,8 +312,11 @@
                             <nz-form-item>
                                 <nz-form-label>Potencia del cargo</nz-form-label>
                                 <nz-form-control>
-                                    <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="sComP" [nzMin]="0" [nzStep]="1" [nzFormatter]="formatterPorcentaje" [nzParser]="parserPorcentaje">
-                                    </nz-input-number>
+                                    <div style="display: flex; justify-content: flex-start;">
+                                        <nz-input-number [nzDisabled]="isVisibleOtro" formControlName="sComP" [nzMin]="0" [nzStep]="1">
+                                        </nz-input-number>
+                                        <label style="color: black; font-size: 17px; margin-left: 2%;"> %</label>
+                                    </div>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -335,6 +351,7 @@
         <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzTableLayout="fixed">
             <thead>
                 <tr>
+                    <th nzWidth="60px"></th>
                     <th>ID medidor</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
@@ -345,6 +362,7 @@
             <tbody>
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
+                        <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                         <td>{{ data.medidorId }}</td>
                         <td>{{ data.fechaInicial | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
@@ -358,6 +376,9 @@
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>
                         </td>
+                    </tr>
+                    <tr [nzExpand]="expandSet.has(data.id)">
+                        <td colSpan="6"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
                     </tr>
                 </ng-container>
             </tbody>

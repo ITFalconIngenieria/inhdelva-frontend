@@ -10,7 +10,6 @@ import { ProveedoresComponent } from './pages/proveedores/proveedores.component'
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { MedidoresComponent } from './pages/medidores/medidores.component';
 import { BloquesHorariosComponent } from './pages/bloquesHorarios/bloquesHorarios.component';
-import { TarifaHorariaComponent } from './pages/tarifaHoraria/tarifaHoraria.component';
 import { TipoTarifaComponent } from './pages/tipoTarifa/tipoTarifa.component';
 import { ParametrosEntradaComponent } from './pages/parametrosEntrada/parametrosEntrada.component';
 import { ContratosComponent } from './pages/contratos/contratos.component';
@@ -38,7 +37,6 @@ const routes: Routes = [
       { path: 'medidores', component: MedidoresComponent },
       { path: 'bloquesHorarios', component: BloquesHorariosComponent },
       { path: 'tipoTarifa', component: TipoTarifaComponent },
-      { path: 'tarifaHoraria', component: TarifaHorariaComponent },
       { path: 'parametrosEntrada', component: ParametrosEntradaComponent },
       { path: 'contratos', component: ContratosComponent },
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
