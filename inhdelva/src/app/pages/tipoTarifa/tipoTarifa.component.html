@@ -10,7 +10,7 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataTarifa" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDataTarifa" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -111,7 +111,7 @@
 
 <!-- Modal Formulario Parametro-->
 <nz-modal [(nzVisible)]="isVisibleParametro" nzWidth="750" nzTitle="Configuración de parámetros" (nzOnCancel)="handleCancelParametro()">
-    <form nz-form nzLayout="vertical" style="margin: auto;" (ngSubmit)="submitForm()" [formGroup]="validateFormParametro">
+    <form nz-form nzLayout="vertical" style="margin: auto;" (ngSubmit)="submitFormParametro()" [formGroup]="validateFormParametro">
         <div style="display: flex; justify-content: center;">
             <nz-form-item>
                 <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
@@ -139,7 +139,7 @@
                         <div style="display: flex; justify-content: space-between;">
                             <nz-input-number style="width: 100%;" formControlName="valor" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
-                            <label style="color: black; font-size: 17px;"> {{ unidad }}</label>
+                            <!-- <label style="color: black; font-size: 17px;"> {{ unidad }}</label> -->
                         </div>
                     </nz-form-control>
                 </nz-form-item>
@@ -175,7 +175,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado de parámetros </h6>
-        <nz-table #nzTableParametro [nzData]="listOfDataParametrosFiltrado" nzTableLayout="fixed">
+        <nz-table #nzTableParametro [nzData]="listOfDataParametrosFiltrado" nzTableLayout="fixed" nzPageSize="5">
             <thead>
                 <tr>
                     <th>Cargo</th>
@@ -190,7 +190,7 @@
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
                         <td>{{ data.tipoCargoId }}</td>
-                        <td>{{ data.valor }}</td>
+                        <td>{{ data.valor | number}}</td>
                         <td>{{ data.fechaInicio | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
                         <td style="width: 30px;">

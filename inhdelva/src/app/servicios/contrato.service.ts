@@ -52,4 +52,7 @@ export class ContratoService {
     return this.http.patch(`${apiUrl}contratos-medidores/${id}`, contrato);
   }
 
+  getTipoServicio() {
+    return this.http.get(`${apiUrl}tipo-servicios`);
+  }
 }

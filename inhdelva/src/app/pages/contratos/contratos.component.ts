@@ -50,6 +50,7 @@ export class ContratosComponent implements OnInit {
   listOfDataMedidores: ContratoMedidores[] = [];
   listaMedidoresFiltrado: ContratoMedidores[] = [];
   listOfMedidores: Medidor[] = [];
+  listaServicios: any[] = [];
   medidorId;
 
   constructor(
@@ -220,7 +221,7 @@ export class ContratosComponent implements OnInit {
   guardarMedidor() {
 
     // tslint:disable-next-line: max-line-length
-    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 1 : parseInt(this.validateFormMedidores.value.tipoServicioId);
+    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseInt(this.validateFormMedidores.value.tipoServicioId);
     const area = (this.validateFormMedidores.value.area === null) ? 0 : this.validateFormMedidores.value.area;
     const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : this.validateFormMedidores.value.potencia;
     const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : this.validateFormMedidores.value.iluminacionP;
@@ -270,8 +271,6 @@ export class ContratosComponent implements OnInit {
         estado: true
       };
     }
-
-    console.log(dataMedidor);
 
     if (this.accion === 'editar') {
 
@@ -479,6 +478,15 @@ export class ContratosComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.validarDia = data[data.length - 1].DiaInicio;
+        }
+      );
+
+    this.contratoService.getTipoServicio()
+      .toPromise()
+      .then(
+        (data: any[]) => {
+          this.listaServicios = data
+          console.log(this.listaServicios);
         }
       );
 
