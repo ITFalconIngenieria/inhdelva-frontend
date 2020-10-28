@@ -58,7 +58,7 @@ export class ClientesComponent implements OnInit {
       codigo: this.codigo,
       tipoActor: false,
       imagen: (this.imagen) ? this.imagen : '',
-      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
+      observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
 

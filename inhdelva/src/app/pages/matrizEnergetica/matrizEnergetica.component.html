@@ -1,3 +1,168 @@
-<p>
-  matrizEnergetica works!
-</p>
+<div class="row">
+    <div class="col">
+        <h2> Medidores </h2>
+    </div>
+    <div style="display: flex; justify-content: flex-end;" class="col">
+        <button nz-button nzType="primary" nzSize="large" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
+              nzTheme="outline"></i>Nuevo registro</button>
+    </div>
+</div>
+<br>
+<br>
+<div class="tabla">
+    <hr>
+    <nz-table #nzTable [nzData]="listOfDataMatriz" nzTableLayout="fixed" nzPageSize="5">
+        <thead>
+            <tr>
+                <th nzWidth="60px"></th>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
+                <th>Proveedor</th>
+                <th>Fecha inicio</th>
+                <th>Fecha final</th>
+                <th>Total energía</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="editarMedidor(data)" nzShape="circle">
+                          <i nz-icon nzType="edit" nzTheme="outline"></i>
+                      </button>
+                    </td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="eliminarMedidor(data)" nzShape="circle">
+                          <i nz-icon nzType="delete" nzTheme="outline"></i>
+                      </button>
+                    </td>
+                    <td>{{ data.actorId }}</td>
+                    <td>{{ data.fechaInicio | date:'yyyy/M/dd'}}</td>
+                    <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
+                    <td>{{ data.fechaFinal }}</td>
+                    <td>
+                        <button nz-button nzType="primary" nzSize="small" nzShape="round">Distribución</button>
+
+                    </td>
+                </tr>
+                <tr [nzExpand]="expandSet.has(data.id)">
+                    <td colSpan="8">{{ data.observacion }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
+
+<!-- Modal Formulario Matriz energetica-->
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Medidores" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical">
+        <div style="display: flex; justify-content: center;">
+            <nz-form-item>
+                <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                    <nz-range-picker style="width: 100%; margin: auto;" formControlName="fechaInicio" [nzFormat]="dateFormat"></nz-range-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <nz-form-item>
+            <nz-form-label>Proveedor</nz-form-label>
+            <nz-form-control>
+                <nz-select formControlName="actorId" nzShowSearch nzAllowClear>
+                    <nz-option *ngFor="let proveedor of proveedores" [nzValue]="proveedor.id" [nzLabel]="proveedor.nombre">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary" (click)="guardarMedidor()">Guardar</button>
+    </div>
+</nz-modal>
+
+<!-- Modal distribucion -->
+<nz-modal [(nzVisible)]="isVisibleDistribucion" nzTitle="Distribución de energía" nzWidth="740" (nzOnCancel)="handleCancelRollover()">
+    <form style="width: 350px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Tipo de origen</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="origenId" nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let origen of origenes" [nzValue]="origen.id" [nzLabel]="origen.nombre">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Valor</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <nz-form-item>
+            <nz-form-control>
+                <div class="row">
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelRollover()">Cancelar</button>
+                    </div>
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()">Guardar</button>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+    <br>
+    <div style="background-color: #f3f9ff; padding: 15px;">
+        <h6> Listado </h6>
+        <nz-table #nzTableDistribucion [nzData]="listOfDataRolloverMedidor" nzTableLayout="fixed" nzPageSize="5">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th nzWidth="30px"></th>
+                    <th nzWidth="30px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTableDistribucion.data">
+                    <tr>
+                        <td>{{ data.origenId }}</td>
+                        <td>{{ data.valor }}</td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">
+                              <i nz-icon nzType="edit" nzTheme="outline"></i>
+                          </button>
+                        </td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" (click)="eliminarRollover(data)" nzShape="circle">
+                              <i nz-icon nzType="delete" nzTheme="outline"></i>
+                          </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="primary" (click)="handleOkRollover()">OK</button>
+    </div>
+</nz-modal>

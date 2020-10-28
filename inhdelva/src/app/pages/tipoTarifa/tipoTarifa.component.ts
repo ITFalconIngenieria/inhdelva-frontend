@@ -61,6 +61,15 @@ export class TipoTarifaComponent implements OnInit {
     }
   }
 
+
+  submitFormParametro(): void {
+    // tslint:disable-next-line: forin
+    for (const i in this.validateFormParametro.value) {
+      this.validateFormParametro.value[i].markAsDirty();
+      this.validateFormParametro.value[i].updateValueAndValidity();
+    }
+  }
+
   changeCargo(data) {
     console.log(data);
     const cargo = this.tipoCargo.filter(x => x.id === data);
@@ -182,10 +191,12 @@ export class TipoTarifaComponent implements OnInit {
       bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
       fechaInicio: this.validateFormParametro.value.fechaInicio[0],
       fechaFinal: this.validateFormParametro.value.fechaInicio[1],
-      valor: this.validateFormParametro.value.valor,
+      valor: Math.round(this.validateFormParametro.value.valor * 100) / 100,
       observacion,
       estado: true
     };
+
+    console.log(dataParametro);
 
     if (this.accion === 'editar') {
       this.tarifaService.putTarifaParametro(this.idParametro, dataParametro)
@@ -209,6 +220,7 @@ export class TipoTarifaComponent implements OnInit {
               item.estado = dataParametro.estado;
             }
             this.accion = 'new';
+            this.unidad = null;
             this.limpiarParametro();
           },
           (error) => {
@@ -230,7 +242,10 @@ export class TipoTarifaComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
+            this.unidad = null;
+
             this.listOfDataParametrosFiltrado = [...this.listOfDataParametrosFiltrado, data];
+            this.listOfDataParametros = [...this.listOfDataParametros, data];
 
             this.limpiarParametro();
           },
@@ -250,12 +265,14 @@ export class TipoTarifaComponent implements OnInit {
     this.idParametro = data.id;
     this.accion = 'editar';
 
+    const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargoId);
+    this.unidad = cargo[0].unidad;
+
     this.validateFormParametro = this.fb.group({
-      tarifaId: [data.tarifaId, [Validators.required]],
       tipoCargoId: [data.tipoCargoId, [Validators.required]],
       bloqueHorarioId: [data.bloqueHorarioId],
       fechaInicio: [[data.fechaInicio, data.fechaFinal]],
-      valor: [data.valor, [Validators.required]],
+      valor: [data.valor],
       observacion: [data.observacion]
     });
   }
@@ -296,17 +313,19 @@ export class TipoTarifaComponent implements OnInit {
 
   limpiarParametro() {
     this.validateFormParametro = this.fb.group({
-      tarifaId: [null, [Validators.required]],
       tipoCargoId: [null, [Validators.required]],
-      bloqueHorarioId: [0],
-      tipo: [null, [Validators.required]],
+      bloqueHorarioId: [1],
       fechaInicio: [null, [Validators.required]],
-      valor: [0, [Validators.required]],
+      valor: [0],
       observacion: ['']
     });
+
   }
 
   ngOnInit() {
+
+    this.limpiarTarifa();
+    this.limpiarParametro();
 
     this.tarifaService.getTarifas()
       .toPromise()
@@ -327,7 +346,11 @@ export class TipoTarifaComponent implements OnInit {
     this.tarifaService.getTarifasParametro()
       .toPromise()
       .then(
-        (data: ParametroTarifaModel[]) => this.listOfDataParametros = data
+        (data: ParametroTarifaModel[]) => {
+          this.listOfDataParametros = data
+          console.log(this.listOfDataParametros);
+
+        }
       );
 
     this.tarifaService.getPuntoMedicion()
@@ -348,9 +371,6 @@ export class TipoTarifaComponent implements OnInit {
         (data: TipoCargo[]) => this.tipoCargo = data
       );
 
-    this.limpiarTarifa();
-    this.limpiarParametro();
-
   }
 
   showModal(): void {
@@ -360,10 +380,12 @@ export class TipoTarifaComponent implements OnInit {
   handleCancel(): void {
     this.accion = 'new';
     this.isVisible = false;
+    this.limpiarTarifa();
   }
 
   handleOk(): void {
     this.isVisible = false;
+    this.limpiarTarifa();
   }
 
   showModalParametro(data): void {
@@ -382,10 +404,12 @@ export class TipoTarifaComponent implements OnInit {
   handleCancelParametro(): void {
     this.accion = 'new';
     this.isVisibleParametro = false;
+    this.limpiarParametro();
   }
 
   handleOkParametro(): void {
     this.isVisibleParametro = false;
+    this.limpiarParametro();
   }
 
 }

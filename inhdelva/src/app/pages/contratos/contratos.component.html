@@ -10,7 +10,7 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataContrato" nzPageSize="5" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDataContrato" nzPageSize="5" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -230,12 +230,7 @@
                                 <nz-form-label>Tipo de servicio</nz-form-label>
                                 <nz-form-control>
                                     <nz-select [nzDisabled]="isVisibleInterno" formControlName="tipoServicioId" nzShowSearch nzAllowClear>
-                                        <nz-option nzValue="1" nzLabel="Banco"></nz-option>
-                                        <nz-option nzValue="2" nzLabel="Administración"></nz-option>
-                                        <nz-option nzValue="3" nzLabel="Agua potable"></nz-option>
-                                        <nz-option nzValue="4" nzLabel="Vigilancia"></nz-option>
-                                        <nz-option nzValue="5" nzLabel="Iluminación"></nz-option>
-                                        <nz-option nzValue="6" nzLabel="Aduanas"></nz-option>
+                                        <nz-option *ngFor="let servicio of listaServicios" [nzValue]="servicio.id" [nzLabel]="servicio.descripcion"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </nz-form-item>
@@ -348,7 +343,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado de medidores </h6>
-        <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzTableLayout="fixed">
+        <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzTableLayout="fixed" nzPageSize="6">
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>
