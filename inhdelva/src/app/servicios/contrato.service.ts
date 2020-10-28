@@ -53,6 +53,6 @@ export class ContratoService {
   }
 
   getTipoServicio() {
-    return this.http.get(`${apiUrl}tipo-servicios`);
+    return this.http.get(`${apiUrl}tipo-servicio`);
   }
 }

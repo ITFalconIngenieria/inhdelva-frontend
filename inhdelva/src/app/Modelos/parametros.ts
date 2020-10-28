@@ -5,7 +5,7 @@ export interface Parametro {
   bloqueHorarioId?: any;
   fechaInicio: string;
   fechaFinal: string;
-  valor: number;
+  valor: any;
   observacion?: string;
   estado: boolean;
 }

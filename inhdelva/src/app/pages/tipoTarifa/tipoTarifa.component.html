@@ -139,7 +139,7 @@
                         <div style="display: flex; justify-content: space-between;">
                             <nz-input-number style="width: 100%;" formControlName="valor" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
-                            <!-- <label style="color: black; font-size: 17px;"> {{ unidad }}</label> -->
+                            <label style="color: black; font-size: 17px;"> {{ unidad }}</label>
                         </div>
                     </nz-form-control>
                 </nz-form-item>
@@ -190,7 +190,7 @@
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
                         <td>{{ data.tipoCargoId }}</td>
-                        <td>{{ data.valor | number}}</td>
+                        <td>{{ data.valor }}</td>
                         <td>{{ data.fechaInicio | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
                         <td style="width: 30px;">

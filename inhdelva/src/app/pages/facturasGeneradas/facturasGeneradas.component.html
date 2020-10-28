@@ -132,21 +132,9 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col">
-                <nz-form-item>
-                    <nz-form-label>{{ dataEditar[27]?.descripcion }}</nz-form-label>
-                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="subtotal" [nzMin]="0" [nzStep]="1">
-                            </nz-input-number>
-                            <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
-                        </div>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
             <div class="w-100"></div>
             <div class="col">
-                <p style="color: black; font-size: 17px;"> <span> {{ dataEditar[28]?.descripcion }} :</span> <span class="total"> {{ total | number}} </span></p>
+                <p style="color: black; font-size: 17px;"> <span> {{ dataEditar[27]?.descripcion }} :</span> <span class="total"> {{ total | number}} </span></p>
             </div>
         </div>
 

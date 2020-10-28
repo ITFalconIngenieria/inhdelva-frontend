@@ -55,23 +55,22 @@ export class TipoTarifaComponent implements OnInit {
 
   submitForm(): void {
     // tslint:disable-next-line: forin
-    for (const i in this.validateFormTarifa.value) {
-      this.validateFormTarifa.value[i].markAsDirty();
-      this.validateFormTarifa.value[i].updateValueAndValidity();
-    }
+    // for (const i in this.validateFormTarifa.value) {
+    //   this.validateFormTarifa.value[i].markAsDirty();
+    //   this.validateFormTarifa.value[i].updateValueAndValidity();
+    // }
   }
 
 
   submitFormParametro(): void {
     // tslint:disable-next-line: forin
-    for (const i in this.validateFormParametro.value) {
-      this.validateFormParametro.value[i].markAsDirty();
-      this.validateFormParametro.value[i].updateValueAndValidity();
-    }
+    // for (const i in this.validateFormParametro.value) {
+    //   this.validateFormParametro.value[i].markAsDirty();
+    //   this.validateFormParametro.value[i].updateValueAndValidity();
+    // }
   }
 
   changeCargo(data) {
-    console.log(data);
     const cargo = this.tipoCargo.filter(x => x.id === data);
     this.unidad = cargo[0].unidad;
   }
@@ -191,7 +190,7 @@ export class TipoTarifaComponent implements OnInit {
       bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
       fechaInicio: this.validateFormParametro.value.fechaInicio[0],
       fechaFinal: this.validateFormParametro.value.fechaInicio[1],
-      valor: Math.round(this.validateFormParametro.value.valor * 100) / 100,
+      valor: `${this.validateFormParametro.value.valor}`,
       observacion,
       estado: true
     };
@@ -346,11 +345,7 @@ export class TipoTarifaComponent implements OnInit {
     this.tarifaService.getTarifasParametro()
       .toPromise()
       .then(
-        (data: ParametroTarifaModel[]) => {
-          this.listOfDataParametros = data
-          console.log(this.listOfDataParametros);
-
-        }
+        (data: ParametroTarifaModel[]) => this.listOfDataParametros = data
       );
 
     this.tarifaService.getPuntoMedicion()
