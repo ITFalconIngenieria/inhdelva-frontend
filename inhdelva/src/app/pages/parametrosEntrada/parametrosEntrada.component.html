@@ -65,7 +65,7 @@
                 <nz-form-item>
                     <nz-form-label>Cargo</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="tipoCargoId" nzShowSearch nzAllowClear>
+                        <nz-select (ngModelChange)="changeCargo($event)" formControlName="tipoCargoId" nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let cargo of tipoCargo" [nzValue]="cargo.id" [nzLabel]="cargo.nombre">
                             </nz-option>
                         </nz-select>
@@ -79,7 +79,7 @@
                         <div style="display: flex; justify-content: flex-start;">
                             <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
-                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                            <label style="color: black; font-size: 17px;"> {{ unidad }}</label>
                         </div>
                     </nz-form-control>
                 </nz-form-item>

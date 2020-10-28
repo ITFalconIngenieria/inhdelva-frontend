@@ -23,7 +23,7 @@ export class MedidoresComponent implements OnInit {
   serie: string;
   modelo: string;
   direccionIp: string;
-  lecMax: number;
+  lecMax: any;
   multiplicador: number;
   observacion: string;
 
@@ -71,8 +71,8 @@ export class MedidoresComponent implements OnInit {
       medidorId: this.idMedidor,
       fecha: moment(this.validateForm.value.fecha).toISOString(),
       energia: (this.validateForm.value.energia === 'false') ? false : true,
-      lecturaAnterior: this.validateForm.value.lecturaAnterior,
-      lecturaNueva: this.validateForm.value.lecturaNueva,
+      lecturaAnterior: `${this.validateForm.value.lecturaAnterior}`,
+      lecturaNueva: `${this.validateForm.value.lecturaNueva}`,
       observacion,
       estado: true
     };
@@ -174,7 +174,7 @@ export class MedidoresComponent implements OnInit {
   guardarMedidor() {
     const dataMedidor = {
       codigo: this.codigo,
-      lecturaMax: this.lecMax,
+      lecturaMax: `${this.lecMax}`,
       multiplicador: this.multiplicador,
       observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
@@ -325,7 +325,7 @@ export class MedidoresComponent implements OnInit {
   limpiarRollover() {
     this.validateForm = this.fb.group({
       fecha: [null, [Validators.required]],
-      energia: [null, [Validators.required]],
+      energia: ['false', [Validators.required]],
       lecturaAnterior: [0, [Validators.required]],
       lecturaNueva: [0, [Validators.required]],
       observacion: ['']

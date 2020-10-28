@@ -20,14 +20,14 @@ export interface ContratoMedidores {
   fechaInicial: any;
   fechaFinal: any;
   zonaId: number;
-  area: number;
+  area: any;
   tipoServicioId: number;
   trifasica: boolean;
-  potencia: number;
+  potencia: any;
   iluminacionTC: boolean;
-  iluminacionP: number;
+  iluminacionP: any;
   sComTC: boolean;
-  sComP: number;
+  sComP: any;
   tarifaId: number;
   observacion: string;
   estado: boolean;

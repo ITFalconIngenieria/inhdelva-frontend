@@ -222,14 +222,12 @@ export class ContratosComponent implements OnInit {
 
     // tslint:disable-next-line: max-line-length
     const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseInt(this.validateFormMedidores.value.tipoServicioId);
-    const area = (this.validateFormMedidores.value.area === null) ? 0 : this.validateFormMedidores.value.area;
-    const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : this.validateFormMedidores.value.potencia;
-    const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : this.validateFormMedidores.value.iluminacionP;
-    const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : this.validateFormMedidores.value.sComP;
+    const area = (this.validateFormMedidores.value.area === null) ? 0 : `${this.validateFormMedidores.value.area}`;
+    const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : `${this.validateFormMedidores.value.potencia}`;
+    const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : `${this.validateFormMedidores.value.iluminacionP}`;
+    const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : `${this.validateFormMedidores.value.sComP}`;
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
-
-    console.log(this.validateFormMedidores.value.observacion);
 
     let dataMedidor;
     if (this.validateFormMedidores.value.fechaInicial) {

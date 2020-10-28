@@ -1,7 +1,7 @@
 
 export interface Medidor {
   codigo: string;
-  lecturaMax: number;
+  lecturaMax: any;
   multiplicador: number;
   observacion: string;
   estado: boolean;
@@ -25,8 +25,8 @@ export interface RolloverModel {
   medidorId: number;
   fecha: string;
   energia: boolean;
-  lecturaAnterior: number;
-  lecturaNueva: number;
+  lecturaAnterior: any;
+  lecturaNueva: any;
   observacion: string;
   estado: boolean;
 }

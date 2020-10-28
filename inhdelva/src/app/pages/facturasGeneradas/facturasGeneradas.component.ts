@@ -102,13 +102,12 @@ export class FacturasGeneradasComponent implements OnInit {
 
 
     this.validateForm = this.fb.group({
-      cargoFinancionamiento: [0, [Validators.required]],
-      ajuste: [0, [Validators.required]],
-      cargoCorte: [0, [Validators.required]],
-      recargo: [0, [Validators.required]],
-      otros: [0, [Validators.required]],
-      subtotal: [0, [Validators.required]],
-      total: [0, [Validators.required]],
+      cargoFinancionamiento: [0],
+      ajuste: [0],
+      cargoCorte: [0],
+      recargo: [0],
+      otros: [0],
+      total: [0],
     });
 
   }
@@ -185,15 +184,14 @@ export class FacturasGeneradasComponent implements OnInit {
   guardar() {
 
     // tslint:disable-next-line: max-line-length
-    this.total = this.validateForm.value.cargoFinancionamiento + this.validateForm.value.ajuste + this.validateForm.value.cargoCorte + this.validateForm.value.recargo + this.validateForm.value.otros + this.validateForm.value.subtotal;
+    this.total = this.validateForm.value.cargoFinancionamiento + this.validateForm.value.ajuste + this.validateForm.value.cargoCorte + this.validateForm.value.recargo + this.validateForm.value.otros;
     this.valoresActualizar = [
-      this.validateForm.value.cargoFinancionamiento,
-      this.validateForm.value.ajuste,
-      this.validateForm.value.cargoCorte,
-      this.validateForm.value.recargo,
-      this.validateForm.value.otros,
-      this.validateForm.value.subtotal,
-      this.total
+      `${this.validateForm.value.cargoFinancionamiento}`,
+      `${this.validateForm.value.ajuste}`,
+      `${this.validateForm.value.cargoCorte}`,
+      `${this.validateForm.value.recargo}`,
+      `${this.validateForm.value.otros}`,
+      `${this.total}`
     ];
 
     console.log(this.valoresActualizar);
@@ -219,12 +217,11 @@ export class FacturasGeneradasComponent implements OnInit {
         (res: []) => {
           this.dataEditar = res;
           this.validateForm = this.fb.group({
-            cargoFinancionamiento: [Math.round(this.dataEditar[22].valor * 100) / 100, [Validators.required]],
-            ajuste: [Math.round(this.dataEditar[23].valor * 100) / 100, [Validators.required]],
-            cargoCorte: [Math.round(this.dataEditar[24].valor * 100) / 100, [Validators.required]],
-            recargo: [Math.round(this.dataEditar[25].valor * 100) / 100, [Validators.required]],
-            otros: [Math.round(this.dataEditar[26].valor * 100) / 100, [Validators.required]],
-            subtotal: [Math.round(this.dataEditar[27].valor * 100) / 100, [Validators.required]],
+            cargoFinancionamiento: [this.dataEditar[22].valor],
+            ajuste: [this.dataEditar[23].valor],
+            cargoCorte: [this.dataEditar[24].valor],
+            recargo: [this.dataEditar[25].valor],
+            otros: [this.dataEditar[26].valor],
           });
 
           this.idActualizar = [
@@ -233,10 +230,9 @@ export class FacturasGeneradasComponent implements OnInit {
             this.dataEditar[24].iddetalle,
             this.dataEditar[25].iddetalle,
             this.dataEditar[26].iddetalle,
-            this.dataEditar[27].iddetalle,
-            this.dataEditar[28].iddetalle
+            this.dataEditar[27].iddetalle
           ]
-          this.total = Math.round(this.dataEditar[28].valor * 100) / 100;
+          this.total = this.dataEditar[27].valor;
         }
       );
   }

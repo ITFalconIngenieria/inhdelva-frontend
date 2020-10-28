@@ -15,7 +15,7 @@ export interface ParametroTarifaModel {
     bloqueHorarioId?: number;
     fechaInicio: string;
     fechaFinal: string;
-    valor: number;
+    valor: any;
     observacion?: string;
     estado: boolean;
 }

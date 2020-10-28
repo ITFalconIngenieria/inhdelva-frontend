@@ -22,6 +22,7 @@ export class ParametrosEntradaComponent implements OnInit {
   idParametro;
   listOfDataParametro: Parametro[] = [];
   tipoCargo: TipoCargo[] = [];
+  unidad;
 
   constructor(
     private fb: FormBuilder,
@@ -65,7 +66,7 @@ export class ParametrosEntradaComponent implements OnInit {
       tipoCargoId: this.validateForm.value.tipoCargoId,
       fechaInicio: this.validateForm.value.fechaInicio[0],
       fechaFinal: this.validateForm.value.fechaInicio[1],
-      valor: this.validateForm.value.valor,
+      valor: `${this.validateForm.value.valor}`,
       observacion,
       estado: true
     };
@@ -89,6 +90,7 @@ export class ParametrosEntradaComponent implements OnInit {
               item.estado = dataParametro.estado;
             }
             this.accion = 'new';
+            this.unidad = null;
             this.limpiarParametro();
           },
           (error) => {
@@ -111,7 +113,7 @@ export class ParametrosEntradaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataParametro = [...this.listOfDataParametro, data];
-
+            this.unidad = null;
             this.limpiarParametro();
           },
           (error) => {
@@ -130,6 +132,9 @@ export class ParametrosEntradaComponent implements OnInit {
     this.idParametro = data.id;
     this.accion = 'editar';
     this.isVisible = true;
+
+    const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargoId);
+    this.unidad = cargo[0].unidad;
 
     this.validateForm = this.fb.group({
       tipoCargoId: [data.tipoCargoId, [Validators.required]],
@@ -197,6 +202,11 @@ export class ParametrosEntradaComponent implements OnInit {
       );
 
     this.limpiarParametro();
+  }
+
+  changeCargo(data) {
+    const cargo = this.tipoCargo.filter(x => x.id === data);
+    this.unidad = cargo[0].unidad;
   }
 
   showModal(): void {
