@@ -18,6 +18,12 @@ export class FacturaComponent implements OnInit {
     'background-color': '#E37D25'
   };
 
+  inh = {
+    height: '3px',
+    width: '55%',
+    'background-color': '#F9D32A'
+  };
+
   dataSourceBarra: any;
   dataSourcePastelINH: any;
   dataSourcePastelHN: any;

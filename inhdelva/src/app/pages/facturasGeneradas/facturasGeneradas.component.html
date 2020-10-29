@@ -40,8 +40,8 @@
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
-                <td>{{ data.consumo | number }}</td>
-                <td>{{ data.total | number}}</td>
+                <td>{{ data.consumo | number : '1.2-2' }}</td>
+                <td>{{ data.total | number : '1.2-2'}}</td>
                 <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>
         </tbody>
@@ -75,7 +75,7 @@
                     <nz-form-label>{{ dataEditar[22]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoFinancionamiento" [nzStep]="1">
                             </nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
                         </div>
@@ -87,7 +87,7 @@
                     <nz-form-label>{{ dataEditar[23]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="ajuste" [nzStep]="1">
                             </nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
                         </div>
@@ -100,7 +100,7 @@
                     <nz-form-label>{{ dataEditar[24]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="cargoCorte" [nzStep]="1">
                             </nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
                         </div>
@@ -112,7 +112,7 @@
                     <nz-form-label>{{ dataEditar[25]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="recargo" [nzStep]="1">
                             </nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
                         </div>
@@ -125,7 +125,7 @@
                     <nz-form-label>{{ dataEditar[26]?.descripcion }}</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: space-between;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="otros" [nzStep]="1">
                             </nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> Lps</label>
                         </div>

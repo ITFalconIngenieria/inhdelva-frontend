@@ -223,7 +223,7 @@ export class ContratosComponent implements OnInit {
   guardarMedidor() {
 
     // tslint:disable-next-line: max-line-length
-    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseInt(this.validateFormMedidores.value.tipoServicioId);
+    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseFloat(this.validateFormMedidores.value.tipoServicioId);
     const area = (this.validateFormMedidores.value.area === null) ? 0 : `${this.validateFormMedidores.value.area}`;
     const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : `${this.validateFormMedidores.value.potencia}`;
     const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : `${this.validateFormMedidores.value.iluminacionP}`;
@@ -520,10 +520,14 @@ export class ContratosComponent implements OnInit {
         (data: TarifaModel[]) => this.listaTarifas = data
       );
 
-    this.actoresService.getClientes()
+    this.actoresService.getActores()
       .toPromise()
       .then(
-        (data: ClientesVista[]) => this.listaClientes = data
+        (data: ClientesVista[]) => {
+          this.listaClientes = data;
+          console.log(this.listaClientes);
+
+        }
       );
 
     this.contratoService.getContratos()

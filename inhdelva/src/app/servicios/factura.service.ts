@@ -45,10 +45,8 @@ export class FacturaService {
     );
   }
 
-
   getFacturaEditar(id) {
-    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`);
-
+    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`);10
   }
 
   editarFactura(id, valor) {

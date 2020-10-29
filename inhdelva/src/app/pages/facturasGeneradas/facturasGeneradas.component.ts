@@ -44,6 +44,7 @@ export class FacturasGeneradasComponent implements OnInit {
   setOfCheckedId = new Set<number>();
   dataEditar: any[] = [];
   total: number = 0;
+  idFactura;
   idActualizar: any[] = [];
   valoresActualizar: any[] = [];
 
@@ -86,7 +87,6 @@ export class FacturasGeneradasComponent implements OnInit {
       .then(
         (data: ListadoFactura[]) => {
           this.listOfDataFacturas = data;
-
         },
         (error) => {
 
@@ -182,9 +182,9 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   guardar() {
-
     // tslint:disable-next-line: max-line-length
-    this.total = this.validateForm.value.cargoFinancionamiento + this.validateForm.value.ajuste + this.validateForm.value.cargoCorte + this.validateForm.value.recargo + this.validateForm.value.otros;
+    this.total = this.total + parseFloat(this.validateForm.value.cargoFinancionamiento) + parseFloat(this.validateForm.value.ajuste) + parseFloat(this.validateForm.value.cargoCorte) + parseFloat(this.validateForm.value.recargo) + parseFloat(this.validateForm.value.otros);
+
     this.valoresActualizar = [
       `${this.validateForm.value.cargoFinancionamiento}`,
       `${this.validateForm.value.ajuste}`,
@@ -194,43 +194,59 @@ export class FacturasGeneradasComponent implements OnInit {
       `${this.total}`
     ];
 
-    console.log(this.valoresActualizar);
-
     // tslint:disable-next-line: prefer-for-of
     for (let x = 0; x < this.idActualizar.length; x++) {
       this.facturaService.editarFactura(this.idActualizar[x], { valor: this.valoresActualizar[x] })
         .toPromise()
         .then(
           () => {
-            console.log('Actualizado');
+            for (const item of this.listOfDataFacturas.filter(y => y.id === this.idFactura)) {
+              item.total = this.total;
+            }
+
           }
         );
     }
+
+    this.validateForm = this.fb.group({
+      cargoFinancionamiento: [0],
+      ajuste: [0],
+      cargoCorte: [0],
+      recargo: [0],
+      otros: [0],
+    });
+    
+    this.ShowNotification(
+      'success',
+      'Actualizado con éxito',
+      'La factura fue actualizada con éxito'
+    );
   }
 
   editarFactura(data): void {
     this.isVisible = true;
+    this.idFactura = data.id;
     this.facturaService.getFacturaEditar(data.id)
       .toPromise()
       .then(
         (res: []) => {
           this.dataEditar = res;
           this.validateForm = this.fb.group({
-            cargoFinancionamiento: [this.dataEditar[22].valor],
-            ajuste: [this.dataEditar[23].valor],
-            cargoCorte: [this.dataEditar[24].valor],
-            recargo: [this.dataEditar[25].valor],
-            otros: [this.dataEditar[26].valor],
+            cargoFinancionamiento: [parseFloat(this.dataEditar[22].valor)],
+            ajuste: [parseFloat(this.dataEditar[23].valor)],
+            cargoCorte: [parseFloat(this.dataEditar[24].valor)],
+            recargo: [parseFloat(this.dataEditar[25].valor)],
+            otros: [parseFloat(this.dataEditar[26].valor)],
           });
 
           this.idActualizar = [
-            this.dataEditar[22].iddetalle,
-            this.dataEditar[23].iddetalle,
-            this.dataEditar[24].iddetalle,
-            this.dataEditar[25].iddetalle,
-            this.dataEditar[26].iddetalle,
-            this.dataEditar[27].iddetalle
-          ]
+            this.dataEditar[22].id,
+            this.dataEditar[23].id,
+            this.dataEditar[24].id,
+            this.dataEditar[25].id,
+            this.dataEditar[26].id,
+            this.dataEditar[27].id
+          ];
           this.total = this.dataEditar[27].valor;
         }
       );

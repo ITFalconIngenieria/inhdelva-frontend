@@ -45,6 +45,10 @@ export class ActoresService {
     return this.http.patch(`${apiUrl}actores/${id}`, data);
   }
 
+  getActores() {
+    return this.http.get(`${apiUrl}actores-sap`);
+  }
+
   busquedad() {
     return this.http.get(`${apiUrl}actor-sap`);
   }
