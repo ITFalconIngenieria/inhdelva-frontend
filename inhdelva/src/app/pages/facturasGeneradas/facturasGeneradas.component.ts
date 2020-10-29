@@ -47,6 +47,7 @@ export class FacturasGeneradasComponent implements OnInit {
   idFactura;
   idActualizar: any[] = [];
   valoresActualizar: any[] = [];
+  valoresAnteriores: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -183,7 +184,7 @@ export class FacturasGeneradasComponent implements OnInit {
 
   guardar() {
     // tslint:disable-next-line: max-line-length
-    this.total = this.total + parseFloat(this.validateForm.value.cargoFinancionamiento) + parseFloat(this.validateForm.value.ajuste) + parseFloat(this.validateForm.value.cargoCorte) + parseFloat(this.validateForm.value.recargo) + parseFloat(this.validateForm.value.otros);
+    this.total = this.total + (this.validateForm.value.cargoFinancionamiento - this.valoresAnteriores[0]) + (this.validateForm.value.ajuste - this.valoresAnteriores[1]) + (this.validateForm.value.cargoCorte - this.valoresAnteriores[2]) + (this.validateForm.value.recargo - this.valoresAnteriores[3]) + (this.validateForm.value.otros - this.valoresAnteriores[4]);
 
     this.valoresActualizar = [
       `${this.validateForm.value.cargoFinancionamiento}`,
@@ -215,7 +216,7 @@ export class FacturasGeneradasComponent implements OnInit {
       recargo: [0],
       otros: [0],
     });
-    
+
     this.ShowNotification(
       'success',
       'Actualizado con éxito',
@@ -246,6 +247,14 @@ export class FacturasGeneradasComponent implements OnInit {
             this.dataEditar[25].id,
             this.dataEditar[26].id,
             this.dataEditar[27].id
+          ];
+
+          this.valoresAnteriores = [
+            this.dataEditar[22].valor,
+            this.dataEditar[23].valor,
+            this.dataEditar[24].valor,
+            this.dataEditar[25].valor,
+            this.dataEditar[26].valor,
           ];
           this.total = this.dataEditar[27].valor;
         }
