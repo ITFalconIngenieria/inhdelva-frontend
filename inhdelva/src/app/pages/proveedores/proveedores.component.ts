@@ -136,6 +136,47 @@ export class ProveedoresComponent implements OnInit {
     }
   }
 
+  editar(data) {
+    this.accion = 'editar';
+    this.isVisible = true;
+
+    this.idProveedor = data.Id;
+    this.codigo = data.Codigo;
+    this.nombreEmpresa = data.Nombre;
+    this.rtn = data.RTN;
+    this.contacto = data.Contacto;
+    this.tel = data.Telefono;
+    this.email = data.Email;
+    this.direccion = data.Direccion;
+    this.imagen = data.Imagen;
+    this.observacion = data.Observacion;
+
+  }
+
+  eliminar(data) {
+    this.actoresService.delteProveedor(data.Id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+          this.listOfDataProveedores = this.listOfDataProveedores.filter(x => x.Id !== data.Id);
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
+        }
+      );
+  }
+
   ngOnInit() {
     this.accion = 'new';
 
@@ -144,6 +185,7 @@ export class ProveedoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataProveedores = data;
+
         },
         (error) => {
 
@@ -195,10 +237,30 @@ export class ProveedoresComponent implements OnInit {
   handleCancel(): void {
     this.accion = 'new';
     this.isVisible = false;
+    this.accion = 'new';
+    this.codigo = '';
+    this.nombreEmpresa = '';
+    this.rtn = '';
+    this.contacto = '';
+    this.tel = '';
+    this.email = '';
+    this.direccion = '';
+    this.imagen = '';
+    this.observacion = '';
   }
 
   handleOk(): void {
     this.isVisible = false;
+    this.accion = 'new';
+    this.codigo = '';
+    this.nombreEmpresa = '';
+    this.rtn = '';
+    this.contacto = '';
+    this.tel = '';
+    this.email = '';
+    this.direccion = '';
+    this.imagen = '';
+    this.observacion = '';
   }
 
 }

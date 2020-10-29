@@ -102,8 +102,9 @@
                         <nz-form-item>
                             <nz-form-label>Creación</nz-form-label>
                             <nz-form-control>
-                                <nz-range-picker formControlName="fechaCreacion" [nzFormat]="dateFormat">
-                                </nz-range-picker>
+                                <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="fechaCreacion" (nzOnOk)="onOk($event)"></nz-range-picker>
+                                <!-- <nz-range-picker formControlName="fechaCreacion" [nzFormat]="dateFormat">
+                                </nz-range-picker> -->
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -250,8 +251,7 @@
                             <nz-form-item>
                                 <nz-form-label>Fecha inicial - Fecha final</nz-form-label>
                                 <nz-form-control>
-                                    <nz-range-picker [nzDisabled]="rangoFechas" formControlName="fechaInicial" [nzFormat]="dateFormat">
-                                    </nz-range-picker>
+                                    <nz-range-picker [nzDisabled]="rangoFechas" [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="fechaInicial" (nzOnOk)="onOk($event)"></nz-range-picker>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
