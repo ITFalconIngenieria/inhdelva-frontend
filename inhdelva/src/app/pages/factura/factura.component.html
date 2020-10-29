@@ -437,14 +437,14 @@
                     <span style=" margin-top: -3%; color: #5e7835;font-size: 15px;"> EMISIONES 0 kg CO2 </span>
                 </div>
                 <!-- <br> -->
-                <span class="badge badge-pill" style="background-color: #CAD62B;
+                <!-- <span class="badge badge-pill" style="background-color: #CAD62B;
             font-size: 16px;
             color: white;
             text-align: start;
             width: 35%;
             margin: 0% 0% 1% 1%;">
                     C PROPANO
-                </span>
+                </span> -->
                 <br>
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #F9D32A;
@@ -455,6 +455,13 @@
                 margin: 0% 0% 1% 1%;">
                         D DIESEL
                     </span>
+
+                </div>
+                <div style="display: flex; flex-direction: column;">
+
+                    <p style="color: #000000;font-size: 15px;"> MEDIA INHDELVA </p>
+                    <hr [ngStyle]="inh">
+                    <p style="color: #000000;font-size: 15px;"> 0.25 kg CO2/KwH </p>
 
                 </div>
                 <div class="div-etiquetas-medioambiente">
@@ -472,10 +479,12 @@
                 color: #E37D25;
                 font-weight: bold;">----------------------------</span> -->
                 </div>
-                <div>
-                    <span style="margin: 5% 0% -3% 0%; color: #000000;font-size: 15px;"> MEDIA PROVEEDORES </span>
+                <div style="display: flex; flex-direction: column;">
+
+                    <p style="color: #000000;font-size: 15px;"> MEDIA PROVEEDORES </p>
                     <hr [ngStyle]="proveedores">
-                    <span style=" margin-top: -3%; color: #000000;font-size: 15px;"> 0.27 kg CO2/KwH </span>
+                    <p style="color: #000000;font-size: 15px;"> 0.27 kg CO2/KwH </p>
+
                 </div>
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #E05E26;

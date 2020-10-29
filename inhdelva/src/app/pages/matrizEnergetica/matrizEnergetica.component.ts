@@ -168,10 +168,10 @@ export class MatrizEnergeticaComponent implements OnInit {
   }
 
   ////////////////////////////////////////////////////////
-  guardarMedidor() {
+  guardarMatriz() {
 
     // tslint:disable-next-line: max-line-length
-    // const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+   // const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
     // const dataMedidor = {
     //   codigo: this.codigo,

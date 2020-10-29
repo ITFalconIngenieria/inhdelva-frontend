@@ -85,7 +85,8 @@ export class CargosEspecialesComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
 
-            const total = dataCargo.financiamiento + dataCargo.rectificacion + dataCargo.corte + dataCargo.mora + dataCargo.otros;
+            // tslint:disable-next-line: max-line-length
+            const total = this.validateForm.value.financiamiento + this.validateForm.value.rectificacion + this.validateForm.value.corte + this.validateForm.value.mora + this.validateForm.value.otros;
             for (const item of this.listOfData.filter(x => x.id === this.cargoEdit)) {
               item.fechaInicial = dataCargo.fechaInicial;
               item.fechaFinal = dataCargo.fechaFinal;
@@ -157,15 +158,16 @@ export class CargosEspecialesComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
+    console.log(data);
 
     this.cargoEdit = data.id;
     this.validateForm = this.fb.group({
       fechaInicial: [[data.fechaInicial, data.fechaFinal], [Validators.required]],
-      financiamiento: [data.financiamiento],
-      rectificacion: [data.rectificacion],
-      corte: [data.corte],
-      mora: [data.mora],
-      otros: [data.otros],
+      financiamiento: [parseFloat(data.financiamiento)],
+      rectificacion: [parseFloat(data.rectificacion)],
+      corte: [parseFloat(data.corte)],
+      mora: [parseFloat(data.mora)],
+      otros: [parseFloat(data.otros)],
       observacion: [data.observacion]
     });
 
