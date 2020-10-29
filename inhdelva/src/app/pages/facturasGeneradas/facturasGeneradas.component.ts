@@ -203,7 +203,6 @@ export class FacturasGeneradasComponent implements OnInit {
         .then(
           () => {
             console.log('Actualizado');
-
           }
         );
     }

@@ -67,7 +67,7 @@ export class CargosEspecialesComponent implements OnInit {
       fechaFinal: moment(this.validateForm.value.fechaInicial[1]).toISOString(),
       financiamiento: `${this.validateForm.value.financiamiento}`,
       rectificacion: `${this.validateForm.value.rectificacion}`,
-      corte: this.validateForm.value.corte,
+      corte: `${this.validateForm.value.corte}`,
       mora: `${this.validateForm.value.mora}`,
       otros: `${this.validateForm.value.otros}`,
       observacion: this.validateForm.value.observacion,
