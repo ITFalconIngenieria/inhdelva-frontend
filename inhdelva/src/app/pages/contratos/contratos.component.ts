@@ -52,6 +52,8 @@ export class ContratosComponent implements OnInit {
   listOfMedidores: Medidor[] = [];
   listaServicios: any[] = [];
   medidorId;
+  fechaInicial: any;
+  fechaFinal: any;
 
   constructor(
     private fb: FormBuilder,
@@ -228,14 +230,15 @@ export class ContratosComponent implements OnInit {
     const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : `${this.validateFormMedidores.value.sComP}`;
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
+    console.log(this.idContrato);
 
     let dataMedidor;
     if (this.validateFormMedidores.value.fechaInicial) {
       dataMedidor = {
         contratoId: this.idContrato,
         medidorId: this.validateFormMedidores.value.medidorId,
-        fechaInicial: this.validateFormMedidores.value.fechaInicial[0],
-        fechaFinal: this.validateFormMedidores.value.fechaInicial[1],
+        fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).toISOString(),
+        fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).toISOString(),
         zonaId: this.validateFormMedidores.value.zonaId,
         area,
         tipoServicioId: tipoServicio,
@@ -247,7 +250,7 @@ export class ContratosComponent implements OnInit {
         iluminacionP,
         sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
         sComP,
-        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 2007 : this.validateFormMedidores.value.tarifaId,
+        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
         observacion,
         estado: true
       };
@@ -255,6 +258,8 @@ export class ContratosComponent implements OnInit {
       dataMedidor = {
         contratoId: this.idContrato,
         medidorId: this.validateFormMedidores.value.medidorId,
+        fechaInicial: moment(this.fechaInicial).toISOString(),
+        fechaFinal: moment(this.fechaFinal).toISOString(),
         zonaId: this.validateFormMedidores.value.zonaId,
         area,
         tipoServicioId: tipoServicio,
@@ -266,7 +271,7 @@ export class ContratosComponent implements OnInit {
         iluminacionP,
         sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
         sComP,
-        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 2007 : this.validateFormMedidores.value.tarifaId,
+        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
         observacion,
         estado: true
       };
@@ -276,7 +281,7 @@ export class ContratosComponent implements OnInit {
 
     if (this.accion === 'editar') {
 
-      this.contratoService.putContratoMedidor(this.idContrato, dataMedidor)
+      this.contratoService.putContratoMedidor(this.idMedidorContrato, dataMedidor)
         .toPromise()
         .then(
           () => {
@@ -421,6 +426,18 @@ export class ContratosComponent implements OnInit {
       );
   }
 
+  onChange(result: Date): void {
+    console.log('Selected Time: ', result);
+  }
+
+  onOk(result: Date | Date[] | null): void {
+    console.log('onOk', result);
+  }
+
+  onCalendarChange(result: Array<Date | null>): void {
+    console.log('onCalendarChange', result);
+  }
+
   limpiarFormContrato() {
     this.validateFormContrato = this.fb.group({
       codigo: [null, [Validators.required]],
@@ -467,6 +484,7 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
+          // tslint:disable-next-line: prefer-for-of
           for (let x = 0; x < data.length; x++) {
             this.listOfMedidores = [{
               id: data[x].id,
@@ -568,6 +586,8 @@ export class ContratosComponent implements OnInit {
   showModalMedidor(data): void {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
+    this.fechaInicial = data.fechaCreacion;
+    this.fechaFinal = data.fechaVenc;
 
     this.isVisibleInterno = (data.clasificacion === 'I') ? false : true;
     this.isVisibleOtro = (data.clasificacion === 'C' || data.clasificacion === 'P') ? false : true;

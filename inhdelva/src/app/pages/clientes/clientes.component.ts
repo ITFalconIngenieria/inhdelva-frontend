@@ -159,6 +159,30 @@ export class ClientesComponent implements OnInit {
 
   }
 
+  eliminar(data) {
+    this.actoresService.delteProveedor(data.Id, { estado: false })
+      .toPromise()
+      .then(
+        () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+          this.listOfDataClientes = this.listOfDataClientes.filter(x => x.Id !== data.Id);
+        },
+        (error) => {
+
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
+        }
+      );
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
 

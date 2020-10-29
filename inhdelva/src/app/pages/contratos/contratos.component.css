@@ -62,3 +62,8 @@ div.ant-card-head.ng-star-inserted {
     width: 30%;
     margin-bottom: 3%;
 }
+
+nz-date-picker,
+nz-range-picker {
+    margin: 0 8px 12px 0;
+}

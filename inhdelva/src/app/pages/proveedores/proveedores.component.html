@@ -24,13 +24,13 @@
                                 <img src="assets/project.png" class="img-cliente">
                             </div>
                             <div class="col-9 div-border" style="position: relative;">
-                                <h6>Atlantic {{data.key}}</h6>
-                                <label>Norte-Consumo Energia INHDELVA</label>
+                                <h6> {{ data.Nombre }} </h6>
+                                <label> {{ data.Direccion ? data.Direccion : '---'  }} </label>
                                 <br>
-                                <label>Telefono: +504 9845-3257</label>
+                                <label>Telefono: {{ data.Telefono ? data.Telefono : '---' }} </label>
                                 <div style="position: absolute; top: 0%; left: 81%;">
-                                    <i nz-icon nzType="edit" (click)="showModal()" nzTheme="fill" class="icon-tabla"></i>
-                                    <i nz-icon nzType="close" nzTheme="outline" class="icon-tabla"></i>
+                                    <i nz-icon nzType="edit" (click)="editar(data)" nzTheme="fill" class="icon-tabla"></i>
+                                    <i nz-icon nzType="close" nzTheme="outline" (click)="eliminar(data)" class="icon-tabla"></i>
                                 </div>
                             </div>
                             <div class="w-100"></div>
@@ -118,6 +118,6 @@
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="handleOk()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
     </div>
 </nz-modal>
