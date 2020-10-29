@@ -61,7 +61,7 @@ export class ProveedoresComponent implements OnInit {
       codigo: this.codigo,
       tipoActor: true,
       imagen: (this.imagen) ? this.imagen : '',
-      observacion: (this.observacion !== '') ? this.observacion : 'N/A',
+      observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
 
@@ -162,6 +162,9 @@ export class ProveedoresComponent implements OnInit {
       .then(
         (data: ActoresSapSearch[]) => {
           this.actoresSap = data;
+
+          console.log(this.actoresSap);
+
         },
         (error) => {
 

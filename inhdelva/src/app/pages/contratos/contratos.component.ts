@@ -239,7 +239,8 @@ export class ContratosComponent implements OnInit {
         zonaId: this.validateFormMedidores.value.zonaId,
         area,
         tipoServicioId: tipoServicio,
-        trifasica: this.validateFormMedidores.value.trifasica,
+        // tslint:disable-next-line: max-line-length
+        trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
         potencia,
         // tslint:disable-next-line: max-line-length
         iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -257,7 +258,8 @@ export class ContratosComponent implements OnInit {
         zonaId: this.validateFormMedidores.value.zonaId,
         area,
         tipoServicioId: tipoServicio,
-        trifasica: this.validateFormMedidores.value.trifasica,
+        // tslint:disable-next-line: max-line-length
+        trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
         potencia,
         // tslint:disable-next-line: max-line-length
         iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -269,6 +271,8 @@ export class ContratosComponent implements OnInit {
         estado: true
       };
     }
+
+    console.log(dataMedidor);
 
     if (this.accion === 'editar') {
 
@@ -299,7 +303,6 @@ export class ContratosComponent implements OnInit {
                 item.tarifaId = dataMedidor.tarifaId,
                 item.observacion = dataMedidor.observacion,
                 item.estado = true;
-
             }
 
             this.accion = 'new';
@@ -329,6 +332,7 @@ export class ContratosComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listaMedidoresFiltrado = [...this.listaMedidoresFiltrado, data];
+            this.listOfDataMedidores = [...this.listOfDataMedidores, data];
             this.limpiarFormMedidores();
           },
           (error) => {
@@ -361,7 +365,7 @@ export class ContratosComponent implements OnInit {
         zonaId: [data.zonaId, [Validators.required]],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
-        trifasica: [data.trifasica,],
+        trifasica: [(data.trifasica === false) ? 'false' : 'true'],
         potencia: [data.potencia],
         iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
         iluminacionP: [data.iluminacionP],
@@ -377,7 +381,7 @@ export class ContratosComponent implements OnInit {
         zonaId: [data.zonaId, [Validators.required]],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
-        trifasica: [data.trifasica,],
+        trifasica: [(data.trifasica === false) ? 'false' : 'true'],
         potencia: [data.potencia],
         iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
         iluminacionP: [data.iluminacionP],
@@ -403,6 +407,7 @@ export class ContratosComponent implements OnInit {
           );
 
           this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
+          this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
         },
         (error) => {
           this.ShowNotification(
@@ -482,10 +487,7 @@ export class ContratosComponent implements OnInit {
     this.contratoService.getTipoServicio()
       .toPromise()
       .then(
-        (data: any[]) => {
-          this.listaServicios = data
-          console.log(this.listaServicios);
-        }
+        (data: any[]) => this.listaServicios = data
       );
 
     this.zonaService.getZonas()
