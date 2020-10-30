@@ -13,15 +13,21 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class FacturaComponent implements OnInit {
 
   proveedores = {
-    height: '3px',
-    width: '55%',
-    'background-color': '#E37D25'
+    height: '2px',
+    width: '54%',
+    'background-color': '#E37D25',
+    position: 'absolute',
+    right: 0,
+    top: '57%'
   };
 
   inh = {
-    height: '3px',
-    width: '55%',
-    'background-color': '#F9D32A'
+    height: '2px',
+    width: '59%',
+    'background-color': '#F9D32A',
+    position: 'absolute',
+    right: 0,
+    top: '37%'
   };
 
   dataSourceBarra: any;
