@@ -19,7 +19,9 @@
             <nz-form-item>
                 <nz-form-control>
                     <a class="login-form-forgot" class="login-form-forgot">Olvidó su contraseña</a>
-                    <button nz-button class="login-form-button" [nzType]="'primary'">Iniciar sesión</button> O
+                    <button *ngIf="loading" class="login-form-button" nz-button nzType="primary" nzLoading nzBlock><i
+                        nz-icon nzType="poweroff"></i>Comprobando</button>
+                    <button nz-button *ngIf="formulario" [disabled]="!validateForm.valid" class="login-form-button" [nzType]="'primary'">Iniciar sesión</button> O
                     <a routerLink="/registro">regístrate ahora!</a>
                 </nz-form-control>
             </nz-form-item>

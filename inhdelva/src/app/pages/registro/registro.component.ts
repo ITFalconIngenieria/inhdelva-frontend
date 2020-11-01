@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+  styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
   validateForm: FormGroup;
