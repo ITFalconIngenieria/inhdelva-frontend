@@ -180,6 +180,12 @@ export class MedidoresComponent implements OnInit {
       estado: true
     };
 
+<<<<<<< Updated upstream
+=======
+    console.log(dataMedidor);
+
+
+>>>>>>> Stashed changes
     if (this.accion === 'editar') {
       this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
         .toPromise()
@@ -195,6 +201,10 @@ export class MedidoresComponent implements OnInit {
               item.codigo = dataMedidor.codigo;
               item.lecturaMax = dataMedidor.lecturaMax;
               item.multiplicador = dataMedidor.multiplicador;
+<<<<<<< Updated upstream
+=======
+              item.puntoMedicionId = dataMedidor.puntoMedicionId;
+>>>>>>> Stashed changes
               item.observacion = dataMedidor.observacion;
             }
 
@@ -204,6 +214,10 @@ export class MedidoresComponent implements OnInit {
             this.modelo = '';
             this.direccionIp = '';
             this.lecMax = 0;
+<<<<<<< Updated upstream
+=======
+            this.conexion = 1;
+>>>>>>> Stashed changes
             this.multiplicador = 0;
             this.observacion = '';
 
@@ -237,6 +251,10 @@ export class MedidoresComponent implements OnInit {
             this.modelo = '';
             this.direccionIp = '';
             this.lecMax = 0;
+<<<<<<< Updated upstream
+=======
+            this.conexion = 1;
+>>>>>>> Stashed changes
             this.multiplicador = 0;
             this.observacion = '';
 

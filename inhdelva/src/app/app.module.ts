@@ -85,6 +85,8 @@ import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturas
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 
+  // "@angular/cdk": "^10.2.6",
+
 registerLocaleData(en);
 
 @NgModule({
@@ -109,7 +111,16 @@ registerLocaleData(en);
     FacturasGeneradasComponent,
     FacturasCanceladasComponent,
     RangoFacturaComponent,
+<<<<<<< Updated upstream
     RegistroComponent
+=======
+    RegistroComponent,
+    ProduccionComponent,
+    FacUsuariosComponent,
+    GeneracionDiariaComponent,
+    GeneracionNavesComponent,
+    ProveedoresEnergiaComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
