@@ -12,8 +12,6 @@ import swal from 'sweetalert';
 })
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
-  loading: boolean = true;
-  formulario: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -23,8 +21,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   submitForm(): void {
-    this.formulario = false;
-    this.loading = true;
     // tslint:disable-next-line: forin
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -43,22 +39,12 @@ export class LoginComponent implements OnInit {
         (error) => {
           console.log(error);
           swal('Credenciales invalidas', 'Por favor revise sus credenciales', 'error');
-          this.validateForm = this.fb.group({
-            username: [null, [Validators.required]],
-            password: [null, [Validators.required]],
-          });
-          this.formulario = true;
-          this.loading = false;
         }
       );
 
   }
 
   ngOnInit(): void {
-
-    this.formulario = true;
-    this.loading = false;
-    
     this.validateForm = this.fb.group({
       username: [null, [Validators.required]],
       password: [null, [Validators.required]],

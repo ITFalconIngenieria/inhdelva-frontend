@@ -84,11 +84,6 @@ import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGe
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 import { RegistroComponent } from './pages/registro/registro.component';
-import { ProduccionComponent } from './reportes/produccion/produccion.component';
-import { ProveedoresEnergiaComponent } from './reportes/proveedores-energia/proveedores-energia.component';
-import { GeneracionNavesComponent } from './reportes/generacion-naves/generacion-naves.component';
-import { GeneracionDiariaComponent } from './reportes/generacion-diaria/generacion-diaria.component';
-import { FacUsuariosComponent } from './reportes/fac-usuarios/fac-usuarios.component';
 
 registerLocaleData(en);
 
@@ -114,17 +109,8 @@ registerLocaleData(en);
     FacturasGeneradasComponent,
     FacturasCanceladasComponent,
     RangoFacturaComponent,
-    RegistroComponent,
-    ////// Reportes
-    ProduccionComponent,
-    FacUsuariosComponent,
-    GeneracionDiariaComponent,
-    GeneracionNavesComponent,
-    ProveedoresEnergiaComponent
+    RegistroComponent
   ],
-
-  // "@angular/cdk": "^10.2.6",
-
   imports: [
     BrowserModule,
     AppRoutingModule,
