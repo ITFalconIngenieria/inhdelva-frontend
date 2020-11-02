@@ -22,11 +22,6 @@ import { FacturasGeneradasComponent } from './pages/facturasGeneradas/facturasGe
 import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturasCanceladas.component';
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 import { RegistroComponent } from './pages/registro/registro.component';
-import { ProduccionComponent } from './reportes/produccion/produccion.component';
-import { ProveedoresEnergiaComponent } from './reportes/proveedores-energia/proveedores-energia.component';
-import { GeneracionNavesComponent } from './reportes/generacion-naves/generacion-naves.component';
-import { GeneracionDiariaComponent } from './reportes/generacion-diaria/generacion-diaria.component';
-import { FacUsuariosComponent } from './reportes/fac-usuarios/fac-usuarios.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -52,13 +47,7 @@ const routes: Routes = [
       { path: 'facturasGeneradas', component: FacturasGeneradasComponent },
       { path: 'facturasEmitidas', component: FacturasEmitidasComponent },
       { path: 'facturasCanceladas', component: FacturasCanceladasComponent },
-      { path: 'rangoFactura', component: RangoFacturaComponent },
-      //// Reportes
-      { path: 'produccion', component: ProduccionComponent },
-      { path: 'generacion-diaria', component: GeneracionDiariaComponent },
-      { path: 'generacion-naves', component: GeneracionNavesComponent },
-      { path: 'facturacion-usuarios', component: FacUsuariosComponent },
-      { path: 'proveedores-energia', component: ProveedoresEnergiaComponent },
+      { path: 'rangoFactura', component: RangoFacturaComponent }
 
     ]
   },
