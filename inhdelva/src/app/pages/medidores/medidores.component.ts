@@ -24,7 +24,6 @@ export class MedidoresComponent implements OnInit {
   modelo: string;
   direccionIp: string;
   lecMax: any;
-  conexion: number = 1;
   multiplicador: number;
   observacion: string;
 
@@ -177,88 +176,99 @@ export class MedidoresComponent implements OnInit {
       codigo: this.codigo,
       lecturaMax: `${this.lecMax}`,
       multiplicador: this.multiplicador,
-      puntoMedicionId: this.conexion,
       observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
 
+<<<<<<< Updated upstream
+=======
     console.log(dataMedidor);
 
 
-    // if (this.accion === 'editar') {
-    //   this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
-    //     .toPromise()
-    //     .then(
-    //       () => {
+>>>>>>> Stashed changes
+    if (this.accion === 'editar') {
+      this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
+        .toPromise()
+        .then(
+          () => {
 
-    //         this.ShowNotification(
-    //           'success',
-    //           'Guardado con éxito',
-    //           'El registro fue guardado con éxito'
-    //         );
-    //         for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidor)) {
-    //           item.codigo = dataMedidor.codigo;
-    //           item.lecturaMax = dataMedidor.lecturaMax;
-    //           item.multiplicador = dataMedidor.multiplicador;
-    //           item.puntoMedicionId = dataMedidor.puntoMedicionId;
-    //           item.observacion = dataMedidor.observacion;
-    //         }
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+            for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidor)) {
+              item.codigo = dataMedidor.codigo;
+              item.lecturaMax = dataMedidor.lecturaMax;
+              item.multiplicador = dataMedidor.multiplicador;
+<<<<<<< Updated upstream
+=======
+              item.puntoMedicionId = dataMedidor.puntoMedicionId;
+>>>>>>> Stashed changes
+              item.observacion = dataMedidor.observacion;
+            }
 
-    //         this.codigo = '';
-    //         this.descripcion = '';
-    //         this.serie = '';
-    //         this.modelo = '';
-    //         this.direccionIp = '';
-    //         this.lecMax = 0;
-    //         this.conexion = 1;
-    //         this.multiplicador = 0;
-    //         this.observacion = '';
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+<<<<<<< Updated upstream
+=======
+            this.conexion = 1;
+>>>>>>> Stashed changes
+            this.multiplicador = 0;
+            this.observacion = '';
 
-    //         this.accion = 'new';
-    //       },
-    //       (error) => {
-    //         this.ShowNotification(
-    //           'error',
-    //           'No se pudo guardar',
-    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-    //         );
-    //         console.log(error);
-    //       }
-    //     );
-    // } else {
-    //   this.medidoresService.postMedidores(dataMedidor)
-    //     .toPromise()
-    //     .then(
-    //       (data: RolloverModel) => {
-    //         this.cantidad = this.cantidad + 1;
-    //         this.ShowNotification(
-    //           'success',
-    //           'Guardado con éxito',
-    //           'El registro fue guardado con éxito'
-    //         );
-    //         this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+            this.accion = 'new';
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+    } else {
+      this.medidoresService.postMedidores(dataMedidor)
+        .toPromise()
+        .then(
+          (data: RolloverModel) => {
+            this.cantidad = this.cantidad + 1;
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
 
-    //         this.codigo = '';
-    //         this.descripcion = '';
-    //         this.serie = '';
-    //         this.modelo = '';
-    //         this.direccionIp = '';
-    //         this.lecMax = 0;
-    //         this.conexion = 1;
-    //         this.multiplicador = 0;
-    //         this.observacion = '';
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+<<<<<<< Updated upstream
+=======
+            this.conexion = 1;
+>>>>>>> Stashed changes
+            this.multiplicador = 0;
+            this.observacion = '';
 
-    //       },
-    //       (error) => {
-    //         this.ShowNotification(
-    //           'error',
-    //           'No se pudo guardar',
-    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-    //         );
-    //         console.log(error);
-    //       }
-    //     );
-    // }
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+    }
   }
 
   editarMedidor(data) {
@@ -273,7 +283,6 @@ export class MedidoresComponent implements OnInit {
     this.modelo = data.modelo;
     this.direccionIp = data.ip;
     this.lecMax = data.lecturaMax;
-    this.conexion = data.puntoMedicionId;
     this.multiplicador = data.multiplicador;
     this.observacion = data.observacion;
   }
@@ -310,7 +319,6 @@ export class MedidoresComponent implements OnInit {
       this.serie = medidor[0].serie;
       this.modelo = medidor[0].modelo;
       this.direccionIp = medidor[0].ip;
-      this.conexion = medidor[0].puntoMedicionId;
       this.lecMax = medidor[0].lecturaMax;
       this.observacion = medidor[0].observacion;
 
@@ -345,13 +353,10 @@ export class MedidoresComponent implements OnInit {
   ngOnInit() {
     this.accion = 'nuevo';
     this.disabledLec = true;
-    this.conexion = 1;
     this.medidoresService.getMedidoresPME()
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
-
-          console.log(data);
 
           // this.listOfDataMedidores = data;
           // tslint:disable-next-line: prefer-for-of
@@ -365,7 +370,6 @@ export class MedidoresComponent implements OnInit {
               modelo: data[x].modelo,
               ip: data[x].ip,
               lecturaMax: data[x].lecturaMax,
-              puntoMedicionId: data[x].puntoMedicionId,
               multiplicador: data[x].multiplicador,
               observacion: data[x].observacion,
               contrato: (data[x].contrato)
@@ -407,7 +411,6 @@ export class MedidoresComponent implements OnInit {
               modelo: data[x].modelo,
               ip: data[x].ip,
               lecturaMax: data[x].lecturaMax,
-              puntoMedicionId: data[0].puntoMedicionId,
               multiplicador: data[x].multiplicador,
               observacion: data[x].observacion,
               contrato: (data[x].contrato)
@@ -433,7 +436,6 @@ export class MedidoresComponent implements OnInit {
     this.modelo = '';
     this.direccionIp = '';
     this.lecMax = 0;
-    this.conexion = 0;
     this.multiplicador = 0;
     this.observacion = '';
   }

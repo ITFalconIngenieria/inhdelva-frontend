@@ -22,15 +22,15 @@ export class MatrizEnergeticaComponent implements OnInit {
   codigoMedidor;
 
   accion;
-  idMatriz;
-  idDistribucion;
+  idMedidor;
+  idRollover;
+  origenes: any[] = [];
   proveedores: any[] = [];
 
   medidoresPME: any[] = [];
   listOfDataMatriz: any[] = [];
   listOfDataDistribucion: any[] = [];
   listOfDataRolloverMedidor: any[] = [];
-  listaOrigenes: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -60,210 +60,228 @@ export class MatrizEnergeticaComponent implements OnInit {
     }
   }
 
-  guardarDistribucion() {
+  guardarRollover() {
+    // tslint:disable-next-line: max-line-length
+    // const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
-    const dataDistribucion = {
-      origenId: this.validateForm.value.origenId,
-      matrizId: this.idMatriz,
-      valor: `${this.validateForm.value.valor}`,
-      estado: true
-    };
+    // const dataRollover = {
+    //   medidorId: this.idMedidor,
+    //   fecha: moment(this.validateForm.value.fecha).toISOString(),
+    //   energia: (this.validateForm.value.energia === 'false') ? false : true,
+    //   lecturaAnterior: this.validateForm.value.lecturaAnterior,
+    //   lecturaNueva: this.validateForm.value.lecturaNueva,
+    //   observacion,
+    //   estado: true
+    // };
 
-    if (this.accion === 'editar') {
-      this.matrizService.putDistribucion(this.idDistribucion, dataDistribucion)
-        .toPromise()
-        .then(
-          () => {
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            for (const item of this.listOfDataDistribucion.filter(x => x.id === this.idDistribucion)) {
-              item.origenId = dataDistribucion.origenId;
-              item.matrizId = dataDistribucion.matrizId;
-              item.valor = dataDistribucion.valor;
-              item.estado = dataDistribucion.estado;
-            }
-            this.accion = 'new';
-            this.limpiarDistribucion();
+    // if (this.accion === 'editar') {
+    //   this.matrizService.putRollovers(this.idRollover, dataRollover)
+    //     .toPromise()
+    //     .then(
+    //       () => {
+    //         this.ShowNotification(
+    //           'success',
+    //           'Guardado con éxito',
+    //           'El registro fue guardado con éxito'
+    //         );
+    //         for (const item of this.listOfDataRolloverMedidor.filter(x => x.id === this.idRollover)) {
+    //           item.medidorId = dataRollover.medidorId;
+    //           item.fecha = dataRollover.fecha;
+    //           item.energia = dataRollover.energia;
+    //           item.lecturaAnterior = dataRollover.lecturaAnterior;
+    //           item.lecturaNueva = dataRollover.lecturaNueva;
+    //           item.observacion = dataRollover.observacion;
+    //           item.estado = dataRollover.estado;
+    //         }
+    //         this.accion = 'new';
+    //         this.limpiarRollover();
 
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
-    } else {
-      this.matrizService.postDistribucion(dataDistribucion)
-        .toPromise()
-        .then(
-          (data: any) => {
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            this.listOfDataDistribucion = [...this.listOfDataDistribucion, data];
-            ////////
-            this.limpiarDistribucion();
+    //       },
+    //       (error) => {
+    //         this.ShowNotification(
+    //           'error',
+    //           'No se pudo guardar',
+    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+    //         );
+    //         console.log(error);
+    //       }
+    //     );
+    // } else {
+    //   this.matrizService.postRollovers(dataRollover)
+    //     .toPromise()
+    //     .then(
+    //       (data: RolloverModel) => {
+    //         this.ShowNotification(
+    //           'success',
+    //           'Guardado con éxito',
+    //           'El registro fue guardado con éxito'
+    //         );
+    //         this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+    //         this.limpiarRollover();
 
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
-    }
+    //       },
+    //       (error) => {
+    //         this.ShowNotification(
+    //           'error',
+    //           'No se pudo guardar',
+    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+    //         );
+    //         console.log(error);
+    //       }
+    //     );
+    // }
   }
 
-  editarDistribucion(data) {
-    this.idDistribucion = data.id;
+  editarRollover(data) {
+    this.idRollover = data.id;
     this.accion = 'editar';
-
     this.validateForm = this.fb.group({
-      origenId: [data.origenId, [Validators.required]],
-      valor: [data.valor, [Validators.required]],
+      fecha: [data.fecha],
+      energia: [(data.energia === false) ? 'false' : 'true'],
+      lecturaAnterior: [data.lecturaAnterior],
+      lecturaNueva: [data.lecturaNueva],
+      observacion: [data.observacion]
     });
   }
 
-  eliminarDistribucion(data) {
-    this.matrizService.deleteDistribucion(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataDistribucion = this.listOfDataDistribucion.filter(x => x.id !== data.id);
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
-        }
-      );
+  eliminarRollover(data) {
+    // this.matrizService.deleteRollovers(data.id, { estado: false })
+    //   .toPromise()
+    //   .then(
+    //     () => {
+    //       this.ShowNotification(
+    //         'success',
+    //         'Eliminado',
+    //         'El registro fue eliminado con éxito'
+    //       );
+    //       this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
+    //     },
+    //     (error) => {
+    //       this.ShowNotification(
+    //         'error',
+    //         'No se pudo eliminar',
+    //         'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+    //       );
+    //       console.log(error);
+    //     }
+    //   // );
   }
 
   ////////////////////////////////////////////////////////
   guardarMatriz() {
+
     // tslint:disable-next-line: max-line-length
-    this.validateFormMatriz.value.observacion = (this.validateFormMatriz.value.observacion === '' || this.validateFormMatriz.value.observacion === null) ? 'N/A' : this.validateFormMatriz.value.observacion;
+   // const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
-    const dataMatriz = {
-      fechaInicio: this.validateFormMatriz.value.fechaInicio[0],
-      fechaFinal: this.validateFormMatriz.value.fechaInicio[1],
-      actorId: this.validateFormMatriz.value.actorId,
-      observacion: this.validateFormMatriz.value.observacion,
-      estado: true
-    };
+    // const dataMedidor = {
+    //   codigo: this.codigo,
+    //   lecturaMax: this.lecMax,
+    //   multiplicador: this.multiplicador,
+    //   observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
+    //   estado: true
+    // };
 
-    if (this.accion === 'editar') {
-      this.matrizService.putMatriz(this.idMatriz, dataMatriz)
-        .toPromise()
-        .then(
-          () => {
+    // if (this.accion === 'editar') {
+    //   this.matrizService.putMedidores(this.idMedidor, dataMedidor)
+    //     .toPromise()
+    //     .then(
+    //       () => {
 
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            for (const item of this.listOfDataMatriz.filter(x => x.id === this.idMatriz)) {
-              item.fechaInicio = dataMatriz.fechaInicio;
-              item.fechaFinal = dataMatriz.fechaFinal;
-              item.actorId = dataMatriz.actorId;
-              item.observacion = dataMatriz.observacion;
-            }
+    //         this.ShowNotification(
+    //           'success',
+    //           'Guardado con éxito',
+    //           'El registro fue guardado con éxito'
+    //         );
+    //         for (const item of this.listOfDataMatriz.filter(x => x.id === this.idMedidor)) {
+    //           item.codigo = dataMedidor.codigo;
+    //           item.lecturaMax = dataMedidor.lecturaMax;
+    //           item.multiplicador = dataMedidor.multiplicador;
+    //           item.observacion = dataMedidor.observacion;
+    //         }
 
-            this.limpiarMatrizEnergetica();
+    //         this.codigo = '';
+    //         this.descripcion = '';
+    //         this.serie = '';
+    //         this.modelo = '';
+    //         this.direccionIp = '';
+    //         this.lecMax = 0;
+    //         this.multiplicador = 0;
+    //         this.observacion = '';
 
-            this.accion = 'new';
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
-    } else {
-      this.matrizService.postMatriz(dataMatriz)
-        .toPromise()
-        .then(
-          (data: any) => {
+    //         this.accion = 'new';
+    //       },
+    //       (error) => {
+    //         this.ShowNotification(
+    //           'error',
+    //           'No se pudo guardar',
+    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+    //         );
+    //         console.log(error);
+    //       }
+    //     );
+    // } else {
+    //   this.matrizService.postMedidores(dataMedidor)
+    //     .toPromise()
+    //     .then(
+    //       (data: RolloverModel) => {
+    //         this.cantidad = this.cantidad + 1;
+    //         this.ShowNotification(
+    //           'success',
+    //           'Guardado con éxito',
+    //           'El registro fue guardado con éxito'
+    //         );
+    //         this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
 
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            this.listOfDataMatriz = [...this.listOfDataMatriz, data];
+    //         this.codigo = '';
+    //         this.descripcion = '';
+    //         this.serie = '';
+    //         this.modelo = '';
+    //         this.direccionIp = '';
+    //         this.lecMax = 0;
+    //         this.multiplicador = 0;
+    //         this.observacion = '';
 
-            this.limpiarMatrizEnergetica();
-
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
-    }
+    //       },
+    //       (error) => {
+    //         this.ShowNotification(
+    //           'error',
+    //           'No se pudo guardar',
+    //           'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+    //         );
+    //         console.log(error);
+    //       }
+    //     );
+    // }
   }
 
-  editarMatriz(data) {
+  editarMedidor(data) {
     this.isVisible = true;
-    this.idMatriz = data.id;
+    this.idMedidor = data.id;
     this.accion = 'editar';
 
-    this.validateFormMatriz = this.fb.group({
-      fechaInicio: [[data.fechaInicio, data.fechaFinal], [Validators.required]],
-      actorId: [data.actorId, [Validators.required]],
-      observacion: ['']
-    });
-
   }
 
-  eliminarMatriz(data) {
-    this.matrizService.deleteMatriz(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
-        }
-      );
+  eliminarMedidor(data) {
+    // this.matrizService.deleteMedidores(data.id, { estado: false })
+    //   .toPromise()
+    //   .then(
+    //     () => {
+    //       this.ShowNotification(
+    //         'success',
+    //         'Eliminado',
+    //         'El registro fue eliminado con éxito'
+    //       );
+    //       this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
+    //     },
+    //     (error) => {
+    //       this.ShowNotification(
+    //         'error',
+    //         'No se pudo eliminar',
+    //         'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+    //       );
+    //       console.log(error);
+    //     }
+    //   );
   }
 
   limpiarMatrizEnergetica() {
@@ -285,26 +303,7 @@ export class MatrizEnergeticaComponent implements OnInit {
   ngOnInit() {
     this.accion = 'new';
 
-    this.matrizService.getOrigenes()
-      .toPromise()
-      .then(
-        (data: any[]) => this.listaOrigenes = data
-      );
 
-    this.matrizService.getMatriz()
-      .toPromise()
-      .then(
-        (data: any[]) => this.listOfDataMatriz = data
-      );
-
-    this.matrizService.getDistribucion()
-      .toPromise()
-      .then(
-        (data: any[]) => this.listOfDataDistribucion = data
-      );
-
-    this.limpiarMatrizEnergetica();
-    this.limpiarDistribucion();
 
   }
 
@@ -323,18 +322,17 @@ export class MatrizEnergeticaComponent implements OnInit {
   handleCancel(): void {
     this.accion = 'new';
     this.isVisible = false;
-
-    this.limpiarMatrizEnergetica();
   }
 
   handleOk(): void {
     this.isVisible = false;
   }
 
-  showModalDistribucion(data): void {
+  showModalRollover(data): void {
     this.isVisibleDistribucion = true;
-    this.idMatriz = data.id;
-    //  this.listOfDataRolloverMedidor = this.listOfDataDistribucion.filter(x => x.matrizId === this.idMatriz);
+    this.codigoMedidor = data.codigo;
+    this.idMedidor = data.id;
+    this.listOfDataRolloverMedidor = this.listOfDataDistribucion.filter(x => x.medidorId === this.idMedidor);
 
   }
 

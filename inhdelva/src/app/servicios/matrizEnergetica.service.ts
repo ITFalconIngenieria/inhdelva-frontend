@@ -47,8 +47,4 @@ export class MatrizEnergeticaService {
     return this.http.patch(`${apiUrl}distribucion-energias/${id}`, distribucion);
   }
 
-  getOrigenes() {
-    return this.http.get(`${apiUrl}origen`);
-  }
-
 }
