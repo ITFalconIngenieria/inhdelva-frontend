@@ -111,16 +111,7 @@ registerLocaleData(en);
     FacturasGeneradasComponent,
     FacturasCanceladasComponent,
     RangoFacturaComponent,
-<<<<<<< Updated upstream
     RegistroComponent
-=======
-    RegistroComponent,
-    ProduccionComponent,
-    FacUsuariosComponent,
-    GeneracionDiariaComponent,
-    GeneracionNavesComponent,
-    ProveedoresEnergiaComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
