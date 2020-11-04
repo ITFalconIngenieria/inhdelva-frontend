@@ -96,6 +96,9 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.accion = 'new';
+            this.limpiarDistribucion();
+
           }
         );
     } else {
@@ -120,6 +123,8 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarDistribucion();
+
           }
         );
     }
@@ -190,7 +195,6 @@ export class MatrizEnergeticaComponent implements OnInit {
             }
 
             this.limpiarMatrizEnergetica();
-
             this.accion = 'new';
           },
           (error) => {
@@ -200,6 +204,8 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarMatrizEnergetica();
+            this.accion = 'new';
           }
         );
     } else {
@@ -214,7 +220,6 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataMatriz = [...this.listOfDataMatriz, data];
-
             this.limpiarMatrizEnergetica();
 
           },
@@ -225,6 +230,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarMatrizEnergetica();
           }
         );
     }

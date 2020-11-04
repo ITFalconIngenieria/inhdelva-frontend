@@ -1,0 +1,106 @@
+<nz-table #basicTable [nzData]="listOfData">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a>Action 一 </a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a>Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<br>
+<button nz-button (click)="exportPdf()" nzType="primary">PDF</button>
+<button nz-button (click)="exportExcel()" nzType="primary">Excel</button>
+<br>
+<br>
+<nz-table #headerTable [nzData]="listOfData2" [nzPageSize]="25" [nzScroll]="{y: '400px', x: '4000px' }">
+    <thead>
+        <tr>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 340px;">Año de operación</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 340px;">Mes de operación</th>
+            <th class="tdAzul" nzWidth="600px">Mes calendario</th>
+            <th class="tdAzul" nzWidth="600px">Año calendario</th>
+            <th class="tdAzul" nzWidth="700px">Producción total Energía Solar (kWh/mes)</th>
+            <th class="tdAzul" nzWidth="700px">Energía exportada hacia la red (kWh/mes)</th>
+            <th class="tdVerde" nzWidth="600px">Energía en autoconsumo en INHDELVA (kWh/mes)</th>
+            <th class="tdGris" nzWidth="600px">Energía consumida de la red (kWh/mes)</th>
+            <th class="tdGris" nzWidth="600px">Consumo de energía total INHDELVA (kWh/mes)</th>
+            <th class="tdVerde" nzWidth="600px">Fraccion de energía solar en autoconsumo (%)</th>
+            <th class="tdAzul" nzWidth="600px">Fraccion de energía solar total (%)</th>
+            <th class="tdNaranja" nzWidth="600px">Costo de Energia INHDELVA (Lps/kWh)</th>
+            <th class="tdNaranja" nzWidth="600px">Energia total INHDELVA (kWh/año)</th>
+            <th class="tdNaranja" nzWidth="600px">Costo total de energía INHDELVA (Lps)</th>
+            <th class="tdNaranja" nzWidth="600px">Consumo actual de energía de la red (kWh/año)</th>
+            <th class="tdNaranja" nzWidth="600px">Costo energía consumida de la red (Lps)</th>
+            <th class="tdNaranja" nzWidth="600px">Ahorro en energía por sistema solar (kWh/año)</th>
+            <th class="tdNaranja" nzWidth="600px">Ahorro por sistema solar (Lps)</th>
+            <th class="tdAzul" nzWidth="600px">Producción real Energia Solar (kWh/mes)</th>
+            <th class="tdAzul" nzWidth="600px">Producción estimada energía solar P50 (kWh/mes)</th>
+            <th class="tdAzul" nzWidth="600px">Degradacion maxima según garantia de modulos (%)</th>
+            <th class="tdAzul" nzWidth="600px">Porcentaje de cumplimiento (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 400px;" nzAlign="center">1</td>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 400px;" nzAlign="center">1</td>
+            <td class="tdBlanco" nzAlign="center" nzWidth="600px">Enero</td>
+            <td class="tdBlanco" nzAlign="center" nzWidth="600px">2020</td>
+            <td class="tdBlanco" nzAlign="center" nzWidth="700px">0</td>
+            <td class="tdBlanco" nzAlign="center" nzWidth="700px">0</td>
+            <td class="tdVerde" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdBlanco" nzAlign="center" nzWidth="600px">0</td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdVerde" nzAlign="center" nzWidth="600px">0.00 %</td>
+            <td class="tdAzul" nzAlign="center" nzWidth="600px"> 0.00 %</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">0</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">L -</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">L -</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdNaranja" nzAlign="center" nzWidth="600px">L -</td>
+            <td class="tdAzul" nzAlign="center" nzWidth="600px">0.00 kWh/mes</td>
+            <td class="tdAzul" nzAlign="center" nzWidth="600px">632,400.00 kWh/mes</td>
+            <td class="tdAzul" nzAlign="center" nzWidth="600px">3.5 %</td>
+            <td class="tdAzul" nzAlign="center" nzWidth="600px">0.00 %</td>
+        </tr>
+
+        <tr>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 400px;" nzAlign="center"><span style="font-weight: bold; color: black;">Total</span></td>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 400px;" nzAlign="center"><span style="font-weight: bold; color: black;">Año 1</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">-</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">-</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="700px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="700px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 %</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 %</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">-</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">L -</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">L -</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">L -</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">6,645,632.23 kWh/mes</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">-</span></td>
+            <td class="tdGris" nzAlign="center" nzWidth="600px"><span style="font-weight: bold; color: black;">0.00 %</span></td>
+        </tr>
+    </tbody>
+</nz-table>

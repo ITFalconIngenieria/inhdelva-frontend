@@ -135,7 +135,6 @@ export class ContratosComponent implements OnInit {
               }
               this.accion = 'new';
               this.limpiarFormContrato();
-              console.log('editar');
 
             },
             (error) => {
@@ -146,6 +145,8 @@ export class ContratosComponent implements OnInit {
                 'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
               );
               console.log(error);
+              this.limpiarFormContrato();
+              this.accion = 'new';
             }
           );
       } else {
@@ -170,6 +171,8 @@ export class ContratosComponent implements OnInit {
                 'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
               );
               console.log(error);
+              this.limpiarFormContrato();
+
             }
           );
       }
@@ -277,8 +280,6 @@ export class ContratosComponent implements OnInit {
       };
     }
 
-    console.log(dataMedidor);
-
     if (this.accion === 'editar') {
 
       this.contratoService.putContratoMedidor(this.idMedidorContrato, dataMedidor)
@@ -309,7 +310,24 @@ export class ContratosComponent implements OnInit {
                 item.observacion = dataMedidor.observacion,
                 item.estado = true;
             }
-
+            for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
+              item.contratoId = dataMedidor.contratoId,
+                item.medidorId = dataMedidor.medidorId,
+                item.fechaInicial = dataMedidor.fechaInicial,
+                item.fechaFinal = dataMedidor.fechaFinal,
+                item.zonaId = dataMedidor.zonaId,
+                item.area = dataMedidor.area,
+                item.tipoServicioId = dataMedidor.tipoServicioId,
+                item.trifasica = dataMedidor.trifasica,
+                item.potencia = dataMedidor.potencia,
+                item.iluminacionTC = dataMedidor.iluminacionTC,
+                item.iluminacionP = dataMedidor.iluminacionP,
+                item.sComTC = dataMedidor.sComTC,
+                item.sComP = dataMedidor.sComP,
+                item.tarifaId = dataMedidor.tarifaId,
+                item.observacion = dataMedidor.observacion,
+                item.estado = true;
+            }
             this.accion = 'new';
 
             this.limpiarFormMedidores();
@@ -322,6 +340,9 @@ export class ContratosComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarFormMedidores();
+            this.accion = 'new';
+
           }
 
         );
@@ -348,6 +369,8 @@ export class ContratosComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarFormMedidores();
+
           }
 
         );

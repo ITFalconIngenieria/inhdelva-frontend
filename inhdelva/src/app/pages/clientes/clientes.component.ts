@@ -99,6 +99,18 @@ export class ClientesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            
+            this.codigo = '';
+            this.nombreEmpresa = '';
+            this.rtn = '';
+            this.contacto = '';
+            this.tel = '';
+            this.email = '';
+            this.direccion = '';
+            this.imagen = '';
+            this.observacion = '';
+
+            this.accion = 'new';
           }
         );
     } else {
@@ -132,14 +144,20 @@ export class ClientesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            
+            this.codigo = '';
+            this.nombreEmpresa = '';
+            this.rtn = '';
+            this.contacto = '';
+            this.tel = '';
+            this.email = '';
+            this.direccion = '';
+            this.imagen = '';
+            this.observacion = '';
+
           }
-
         );
-
-
     }
-
-
   }
 
   editar(data) {
