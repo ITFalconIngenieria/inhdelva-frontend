@@ -113,6 +113,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarTarifa();
           }
         );
     } else {
@@ -136,6 +137,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarTarifa();
           }
         );
     }
@@ -218,6 +220,16 @@ export class TipoTarifaComponent implements OnInit {
               item.observacion = dataParametro.observacion;
               item.estado = dataParametro.estado;
             }
+            for (const item of this.listOfDataParametros.filter(x => x.id === this.idParametro)) {
+              item.tarifaId = dataParametro.tarifaId;
+              item.tipoCargoId = dataParametro.tipoCargoId;
+              item.bloqueHorarioId = dataParametro.bloqueHorarioId;
+              item.fechaInicio = dataParametro.fechaInicio;
+              item.fechaFinal = dataParametro.fechaFinal;
+              item.valor = dataParametro.valor;
+              item.observacion = dataParametro.observacion;
+              item.estado = dataParametro.estado;
+            }
             this.accion = 'new';
             this.unidad = null;
             this.limpiarParametro();
@@ -229,6 +241,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarParametro();
           }
         );
     } else {
@@ -255,6 +268,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiarParametro();
           }
         );
     }
@@ -288,6 +302,8 @@ export class TipoTarifaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataParametrosFiltrado = this.listOfDataParametrosFiltrado.filter(x => x.id !== data.id);
+          this.listOfDataParametros = this.listOfDataParametros.filter(x => x.id !== data.id);
+
         },
         (error) => {
           this.ShowNotification(

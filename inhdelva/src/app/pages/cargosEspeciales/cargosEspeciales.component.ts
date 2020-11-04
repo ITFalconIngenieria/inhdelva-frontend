@@ -112,6 +112,9 @@ export class CargosEspecialesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiar();
+            this.accion = 'new';
+
           }
         );
     } else {
@@ -149,6 +152,7 @@ export class CargosEspecialesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.limpiar();
           }
         );
     }

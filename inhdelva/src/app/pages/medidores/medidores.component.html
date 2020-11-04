@@ -143,7 +143,7 @@
 
 <!-- Modal Roolover -->
 <nz-modal [(nzVisible)]="isVisibleRollover" nzTitle="Configuración Rollover" nzWidth="740" (nzOnCancel)="handleCancelRollover()">
-    <form style="width: 350px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form style="width: 500px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <h5> Configuración del Rollover </h5>
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
@@ -156,7 +156,7 @@
                 <nz-form-item>
                     <nz-form-label>Fecha de Rollover</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-date-picker style="margin: 0px;" formControlName="fecha" nzPlaceHolder="Seleccione la fecha" [nzFormat]="dateFormat"></nz-date-picker>
+                        <nz-date-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" formControlName="fecha" nzFormat="yyyy-MM-dd HH:mm"></nz-date-picker>
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -172,26 +172,32 @@
                 </nz-form-item>
             </div>
         </div>
-        <nz-form-item>
-            <nz-form-label>Lectura antes del Rollover</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <div style="display: flex; justify-content: flex-start;">
-                    <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="0" [nzStep]="1">
-                    </nz-input-number>
-                    <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
-                </div>
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label>Nueva lectura</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <div style="display: flex; justify-content: flex-start;">
-                    <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="0" [nzStep]="1">
-                    </nz-input-number>
-                    <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
-                </div>
-            </nz-form-control>
-        </nz-form-item>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Lectura antes del Rollover</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="lecturaAnterior" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Nueva lectura</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number formControlName="lecturaNueva" style="width: 100%; margin: 0px;" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
         <nz-form-item>
             <nz-form-label>Observación</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">

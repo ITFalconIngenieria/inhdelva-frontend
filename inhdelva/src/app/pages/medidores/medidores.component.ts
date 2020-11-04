@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedidoresService } from '../../servicios/medidores.service';
-import { MedidorPME, RolloverModel } from '../../Modelos/medidor';
+import { MedidorPME, RolloverModel, Medidor } from '../../Modelos/medidor';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
@@ -97,6 +97,16 @@ export class MedidoresComponent implements OnInit {
               item.observacion = dataRollover.observacion;
               item.estado = dataRollover.estado;
             }
+            for (const item of this.listOfDataRollover.filter(x => x.id === this.idRollover)) {
+              item.medidorId = dataRollover.medidorId;
+              item.fecha = dataRollover.fecha;
+              item.energia = dataRollover.energia;
+              item.lecturaAnterior = dataRollover.lecturaAnterior;
+              item.lecturaNueva = dataRollover.lecturaNueva;
+              item.observacion = dataRollover.observacion;
+              item.estado = dataRollover.estado;
+            }
+
             this.accion = 'new';
             this.limpiarRollover();
 
@@ -107,6 +117,8 @@ export class MedidoresComponent implements OnInit {
               'No se pudo guardar',
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
+            this.accion = 'new';
+            this.limpiarRollover();
             console.log(error);
           }
         );
@@ -121,6 +133,7 @@ export class MedidoresComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+            this.listOfDataRollover = [...this.listOfDataRollover, data];
             this.limpiarRollover();
 
           },
@@ -130,6 +143,7 @@ export class MedidoresComponent implements OnInit {
               'No se pudo guardar',
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
+            this.limpiarRollover();
             console.log(error);
           }
         );
@@ -159,6 +173,8 @@ export class MedidoresComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
+          this.listOfDataRollover = this.listOfDataRollover.filter(x => x.id !== data.id);
+
         },
         (error) => {
           this.ShowNotification(
@@ -181,9 +197,6 @@ export class MedidoresComponent implements OnInit {
       observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
-
-    console.log(dataMedidor);
-
 
     if (this.accion === 'editar') {
       this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
@@ -223,20 +236,32 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+            this.conexion = 1;
+            this.multiplicador = 0;
+            this.observacion = '';
+
+            this.accion = 'new';
           }
         );
     } else {
       this.medidoresService.postMedidores(dataMedidor)
         .toPromise()
         .then(
-          (data: RolloverModel) => {
+          (data: Medidor) => {
             this.cantidad = this.cantidad + 1;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
+            // this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
 
             this.codigo = '';
             this.descripcion = '';
@@ -256,6 +281,16 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            
+            this.codigo = '';
+            this.descripcion = '';
+            this.serie = '';
+            this.modelo = '';
+            this.direccionIp = '';
+            this.lecMax = 0;
+            this.conexion = 1;
+            this.multiplicador = 0;
+            this.observacion = '';
           }
         );
     }
@@ -350,8 +385,6 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
-
-          console.log(data);
 
           // this.listOfDataMedidores = data;
           // tslint:disable-next-line: prefer-for-of
