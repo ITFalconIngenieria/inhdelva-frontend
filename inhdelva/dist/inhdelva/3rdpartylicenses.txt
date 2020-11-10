@@ -703,8 +703,6 @@ ng-zorro-antd/checkbox
 
 ng-zorro-antd/date-picker
 
-ng-zorro-antd/divider
-
 ng-zorro-antd/drawer
 
 ng-zorro-antd/dropdown
