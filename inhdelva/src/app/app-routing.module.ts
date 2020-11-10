@@ -23,6 +23,7 @@ import { FacturasCanceladasComponent } from './pages/facturasCanceladas/facturas
 import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { ProduccionComponent } from './reportes/produccion/produccion.component';
+import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -50,7 +51,8 @@ const routes: Routes = [
       { path: 'facturasCanceladas', component: FacturasCanceladasComponent },
       { path: 'rangoFactura', component: RangoFacturaComponent },
       ///// Reportes
-      { path: 'reporteProduccion', component: ProduccionComponent }
+      { path: 'reporteProduccion', component: ProduccionComponent },
+      { path: 'reporteProveedores', component: ProveedoresEnergiaComponent }
 
 
     ]

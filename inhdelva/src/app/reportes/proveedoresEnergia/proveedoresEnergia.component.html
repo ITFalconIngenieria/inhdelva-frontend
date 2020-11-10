@@ -1,0 +1,95 @@
+<!-- <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <a>Action 一 </a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a>Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<br>
+<button nz-button (click)="exportPdf()" nzType="primary">PDF</button>
+<button nz-button (click)="exportExcel()" nzType="primary">Excel</button> -->
+<!-- <br> -->
+<h4>PROVEEDORES DE ENERGIA </h4>
+<h5>INHDELVA, CHOLOMA, HONDURAS.</h5>
+<br>
+<div style="width: 50%; margin: auto;">
+    <label style="font-size: 16px; color: black; font-weight: bold;"> Proveddor: </label>
+    <nz-select [(ngModel)]="multipleValue" nzSize="default" nzMode="multiple" nzPlaceHolder="Please select">
+        <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+    </nz-select>
+</div>
+<hr>
+<nz-table [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '350px', x: '2900px' }">
+    <thead>
+        <tr>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 350px;">PROVEEDOR</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 133px;">Año</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 133px;">Mes</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;">Consumo Energia activa (kWh/mes)</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Energia activa exportada (kWh/mes)</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Demanda potencia maxima (kW)</th>
+            <th style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Consumo Energia reactiva (kVArh/mes)</th>
+            <th style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 140px;">Factor de Potencia</th>
+            <th style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Costo de la Energia (L/kWh)</th>
+            <th style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Costo de la Demanda (L/kW-mes)</th>
+            <th style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Costo de la Energia (L)</th>
+            <th style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Alumbrado Público (L)</th>
+            <th style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Cargo de Comercialización (L)</th>
+            <th style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Cargo de Regulación (L)</th>
+            <th style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">Demanda (L)</th>
+            <th style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;">TOTAL (L)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center">PROVEEDOR_1</td>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center">2020</td>
+            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center">Enero</td>
+            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 700px;" nzAlign="center">2,093,000.00 kWh/mes</td>
+            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center">2,093,000.00 kWh/mes</td>
+            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">4,825.00 kW</td>
+            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center">685,300.00 kVArh/mes</td>
+            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">0.95</td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">2.8755 Lps/kWh</td>
+            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">219.9100 Lps/kW-mes</td>
+            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center">L 6,018,785.25</td>
+            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">L 7,418.25</td>
+            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L 5,495.25</td>
+            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L 17,776.59</td>
+            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L 1,061,153.24</td>
+            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L 7,113,086.25</td>
+        </tr>
+        <tr>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center"><span style="font-weight: bold; color: black;">PROVEEDOR_1</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center" colSpan="2"><span style="font-weight: bold; color: black;">TOTAL</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 700px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center"><span style="font-weight: bold; color: black;">4,563.00 kW</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center"><span style="font-weight: bold; color: black;">8,685,300.00 kVArh/mes</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">0.95</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 9,452,086.25</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 89,113,086.25</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 7,113,086.25</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 45,785.25</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 212,113.25</span></td>
+            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 85,478,569.21</span></td>
+        </tr>
+    </tbody>
+</nz-table>

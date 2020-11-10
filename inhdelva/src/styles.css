@@ -16,3 +16,11 @@
 div.ant-card-head.ng-star-inserted {
     background-color: #dbeeff;
 }
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #334d7c;
+    border-color: #334d7c;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
