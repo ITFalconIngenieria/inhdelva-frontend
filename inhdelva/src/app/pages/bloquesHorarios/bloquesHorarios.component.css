@@ -37,3 +37,13 @@ nz-form-control {
     width: 100%;
     height: 40px;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas: ". . .";
+    width: 80%;
+    margin: auto;
+}

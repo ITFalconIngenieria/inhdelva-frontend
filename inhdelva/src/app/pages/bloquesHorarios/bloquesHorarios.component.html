@@ -16,25 +16,21 @@
 </div>
 <br>
 <br>
-<div class="tabla">
-    <div class="row">
-        <div class="col-sm-2 form-group">
-            <label for="Codigo">Codigo</label>
-            <nz-input-group nzSize="large">
-                <input type="text" nz-Escribe aquí...="Ingrese el Codigo" name="Codigo" />
-            </nz-input-group>
-        </div>
-        <div class="col-sm-3 form-group">
-            <label for="FechaCreacion">Fecha Creacion</label>
-            <nz-date-picker nzSize="large" [(ngModel)]="date" (ngModelChange)="onChange($event)" nzPlaceHolder="Seleccione una Fecha" name="FechaCreacion"></nz-date-picker>
-        </div>
-        <div class="col-sm-7 form-group">
-            <label for="Descripcion">Descripcion</label>
-            <nz-input-group nzSize="large">
-                <input type="text" nz-Escribe aquí...="Ingrese la Descrpcion" name="Descripcion" />
-            </nz-input-group>
-        </div>
+<div class="grid-container">
+    <div style="width: 65%; margin: auto;">
+        <label>Codigo</label>
+        <input nz-input type="text" style="width: 100%;" />
     </div>
+    <div style="width: 60%; margin: auto;">
+        <label>Fecha Creacion</label>
+        <nz-date-picker nzSize="large" [(ngModel)]="date" style="width: 100%;" (ngModelChange)="onChange($event)" nzPlaceHolder="Seleccione una Fecha"></nz-date-picker>
+    </div>
+    <div style="width: 80%; margin: auto;">
+        <label>Descripcion</label>
+        <input nz-input type="text" style="width: 100%;" />
+    </div>
+</div>
+<div class="tabla">
     <nz-table #nzTable [nzData]="listOfData" nzTableLayout="fixed" nzBordered nzShowSizeChanger nzPageSize="5">
         <thead>
             <tr>
