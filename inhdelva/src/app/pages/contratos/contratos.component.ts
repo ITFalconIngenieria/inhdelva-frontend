@@ -233,7 +233,7 @@ export class ContratosComponent implements OnInit {
     const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : `${this.validateFormMedidores.value.sComP}`;
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
-    console.log(this.idContrato);
+    const zonaId = (this.validateFormMedidores.value.zonaId === null) ? 0 : this.validateFormMedidores.value.zonaId;
 
     let dataMedidor;
     if (this.validateFormMedidores.value.fechaInicial) {
@@ -242,7 +242,7 @@ export class ContratosComponent implements OnInit {
         medidorId: this.validateFormMedidores.value.medidorId,
         fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).toISOString(),
         fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).toISOString(),
-        zonaId: this.validateFormMedidores.value.zonaId,
+        zonaId,
         area,
         tipoServicioId: tipoServicio,
         // tslint:disable-next-line: max-line-length
@@ -263,7 +263,7 @@ export class ContratosComponent implements OnInit {
         medidorId: this.validateFormMedidores.value.medidorId,
         fechaInicial: moment(this.fechaInicial).toISOString(),
         fechaFinal: moment(this.fechaFinal).toISOString(),
-        zonaId: this.validateFormMedidores.value.zonaId,
+        zonaId,
         area,
         tipoServicioId: tipoServicio,
         // tslint:disable-next-line: max-line-length
@@ -390,7 +390,7 @@ export class ContratosComponent implements OnInit {
       this.validateFormMedidores = this.fb.group({
         medidorId: [data.medidorId, [Validators.required]],
         fechaInicial: [[data.fechaInicial, data.fechaFinal]],
-        zonaId: [data.zonaId, [Validators.required]],
+        zonaId: [data.zonaId],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
         trifasica: [(data.trifasica === false) ? 'false' : 'true'],
@@ -406,7 +406,7 @@ export class ContratosComponent implements OnInit {
       this.validateFormMedidores = this.fb.group({
         medidorId: [data.medidorId, [Validators.required]],
         fechaInicial: [null],
-        zonaId: [data.zonaId, [Validators.required]],
+        zonaId: [data.zonaId],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
         trifasica: [(data.trifasica === false) ? 'false' : 'true'],
@@ -479,7 +479,7 @@ export class ContratosComponent implements OnInit {
     this.validateFormMedidores = this.fb.group({
       medidorId: [null, [Validators.required]],
       fechaInicial: [null],
-      zonaId: [null, [Validators.required]],
+      zonaId: [null],
       area: [0],
       tipoServicioId: [0],
       trifasica: ['false'],
@@ -616,8 +616,26 @@ export class ContratosComponent implements OnInit {
     this.fechaInicial = data.fechaCreacion;
     this.fechaFinal = data.fechaVenc;
 
-    this.isVisibleInterno = (data.clasificacion === 'I') ? false : true;
-    this.isVisibleOtro = (data.clasificacion === 'C' || data.clasificacion === 'P') ? false : true;
+    switch (data.clasificacion) {
+      case 'I': {
+        this.isVisibleInterno = false;
+        this.isVisibleOtro = true;
+        break;
+      }
+      case 'C': {
+        this.isVisibleInterno = true;
+        this.isVisibleOtro = false;
+        break;
+      }
+      case 'P': {
+        this.isVisibleInterno = true;
+        this.isVisibleOtro = true;
+        break;
+      }
+      default:
+        break;
+    }
+
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
   }
 

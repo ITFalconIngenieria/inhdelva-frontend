@@ -24,7 +24,7 @@ export class MedidoresComponent implements OnInit {
   modelo: string;
   direccionIp: string;
   lecMax: any;
-  conexion: number = 1;
+  conexion: any;
   multiplicador: number;
   observacion: string;
 
@@ -236,7 +236,7 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-            
+
             this.codigo = '';
             this.descripcion = '';
             this.serie = '';
@@ -281,7 +281,7 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-            
+
             this.codigo = '';
             this.descripcion = '';
             this.serie = '';
@@ -297,6 +297,7 @@ export class MedidoresComponent implements OnInit {
   }
 
   editarMedidor(data) {
+
     this.disabledLec = false;
     this.isVisible = true;
     this.idMedidor = data.id;
@@ -308,7 +309,7 @@ export class MedidoresComponent implements OnInit {
     this.modelo = data.modelo;
     this.direccionIp = data.ip;
     this.lecMax = data.lecturaMax;
-    this.conexion = data.puntoMedicionId;
+    this.conexion = (data.puntoMedicionId === 1) ? '1' : '2';
     this.multiplicador = data.multiplicador;
     this.observacion = data.observacion;
   }
