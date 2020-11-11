@@ -225,156 +225,168 @@ export class ContratosComponent implements OnInit {
 
   guardarMedidor() {
 
-    // tslint:disable-next-line: max-line-length
-    const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseFloat(this.validateFormMedidores.value.tipoServicioId);
-    const area = (this.validateFormMedidores.value.area === null) ? 0 : `${this.validateFormMedidores.value.area}`;
-    const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : `${this.validateFormMedidores.value.potencia}`;
-    const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : `${this.validateFormMedidores.value.iluminacionP}`;
-    const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : `${this.validateFormMedidores.value.sComP}`;
-    // tslint:disable-next-line: max-line-length
-    const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
-    const zonaId = (this.validateFormMedidores.value.zonaId === null) ? 0 : this.validateFormMedidores.value.zonaId;
-
-    let dataMedidor;
-    if (this.validateFormMedidores.value.fechaInicial) {
-      dataMedidor = {
-        contratoId: this.idContrato,
-        medidorId: this.validateFormMedidores.value.medidorId,
-        fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).toISOString(),
-        fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).toISOString(),
-        zonaId,
-        area,
-        tipoServicioId: tipoServicio,
-        // tslint:disable-next-line: max-line-length
-        trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
-        potencia,
-        // tslint:disable-next-line: max-line-length
-        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
-        iluminacionP,
-        sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
-        sComP,
-        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
-        observacion,
-        estado: true
-      };
+    if (this.validateFormMedidores.value.iluminacionTC === 'true' || this.validateFormMedidores.value.sComTC === 'true') {
+      if (this.validateFormMedidores.value.iluminacionP === 0 || this.validateFormMedidores.value.sComP === 0) {
+        swal({
+          icon: 'error',
+          title: 'Error al guardar',
+          text: 'Debe ingresar un valor mayor que 0 en "Potencia cargo"'
+        });
+      }
     } else {
-      dataMedidor = {
-        contratoId: this.idContrato,
-        medidorId: this.validateFormMedidores.value.medidorId,
-        fechaInicial: moment(this.fechaInicial).toISOString(),
-        fechaFinal: moment(this.fechaFinal).toISOString(),
-        zonaId,
-        area,
-        tipoServicioId: tipoServicio,
-        // tslint:disable-next-line: max-line-length
-        trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
-        potencia,
-        // tslint:disable-next-line: max-line-length
-        iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
-        iluminacionP,
-        sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
-        sComP,
-        tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
-        observacion,
-        estado: true
-      };
+      // tslint:disable-next-line: max-line-length
+      const tipoServicio = (this.validateFormMedidores.value.tipoServicioId === null) ? 0 : parseFloat(this.validateFormMedidores.value.tipoServicioId);
+      const area = (this.validateFormMedidores.value.area === null) ? 0 : `${this.validateFormMedidores.value.area}`;
+      const potencia = (this.validateFormMedidores.value.potencia === null) ? 0 : `${this.validateFormMedidores.value.potencia}`;
+      // tslint:disable-next-line: max-line-length
+      const iluminacionP = (this.validateFormMedidores.value.iluminacionP === null) ? 0 : `${this.validateFormMedidores.value.iluminacionP}`;
+      const sComP = (this.validateFormMedidores.value.sComP === null) ? 0 : `${this.validateFormMedidores.value.sComP}`;
+      // tslint:disable-next-line: max-line-length
+      const observacion = (this.validateFormMedidores.value.observacion === '' || this.validateFormMedidores.value.observacion === null) ? 'N/A' : this.validateFormMedidores.value.observacion;
+      const zonaId = (this.validateFormMedidores.value.zonaId === null) ? 0 : this.validateFormMedidores.value.zonaId;
+
+      let dataMedidor;
+      if (this.validateFormMedidores.value.fechaInicial) {
+        dataMedidor = {
+          contratoId: this.idContrato,
+          medidorId: this.validateFormMedidores.value.medidorId,
+          fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).toISOString(),
+          fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).toISOString(),
+          zonaId,
+          area,
+          tipoServicioId: tipoServicio,
+          // tslint:disable-next-line: max-line-length
+          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          potencia,
+          // tslint:disable-next-line: max-line-length
+          iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
+          iluminacionP,
+          sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
+          sComP,
+          tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
+          observacion,
+          estado: true
+        };
+      } else {
+        dataMedidor = {
+          contratoId: this.idContrato,
+          medidorId: this.validateFormMedidores.value.medidorId,
+          fechaInicial: moment(this.fechaInicial).toISOString(),
+          fechaFinal: moment(this.fechaFinal).toISOString(),
+          zonaId,
+          area,
+          tipoServicioId: tipoServicio,
+          // tslint:disable-next-line: max-line-length
+          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          potencia,
+          // tslint:disable-next-line: max-line-length
+          iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
+          iluminacionP,
+          sComTC: (this.validateFormMedidores.value.sComTC === 'false' || this.validateFormMedidores.value.sComTC === null) ? false : true,
+          sComP,
+          tarifaId: (this.validateFormMedidores.value.tarifaId === null) ? 0 : this.validateFormMedidores.value.tarifaId,
+          observacion,
+          estado: true
+        };
+      }
+
+      if (this.accion === 'editar') {
+
+        this.contratoService.putContratoMedidor(this.idMedidorContrato, dataMedidor)
+          .toPromise()
+          .then(
+            () => {
+
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+              for (const item of this.listaMedidoresFiltrado.filter(x => x.id === this.idMedidorContrato)) {
+                item.contratoId = dataMedidor.contratoId,
+                  item.medidorId = dataMedidor.medidorId,
+                  item.fechaInicial = dataMedidor.fechaInicial,
+                  item.fechaFinal = dataMedidor.fechaFinal,
+                  item.zonaId = dataMedidor.zonaId,
+                  item.area = dataMedidor.area,
+                  item.tipoServicioId = dataMedidor.tipoServicioId,
+                  item.trifasica = dataMedidor.trifasica,
+                  item.potencia = dataMedidor.potencia,
+                  item.iluminacionTC = dataMedidor.iluminacionTC,
+                  item.iluminacionP = dataMedidor.iluminacionP,
+                  item.sComTC = dataMedidor.sComTC,
+                  item.sComP = dataMedidor.sComP,
+                  item.tarifaId = dataMedidor.tarifaId,
+                  item.observacion = dataMedidor.observacion,
+                  item.estado = true;
+              }
+              for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
+                item.contratoId = dataMedidor.contratoId,
+                  item.medidorId = dataMedidor.medidorId,
+                  item.fechaInicial = dataMedidor.fechaInicial,
+                  item.fechaFinal = dataMedidor.fechaFinal,
+                  item.zonaId = dataMedidor.zonaId,
+                  item.area = dataMedidor.area,
+                  item.tipoServicioId = dataMedidor.tipoServicioId,
+                  item.trifasica = dataMedidor.trifasica,
+                  item.potencia = dataMedidor.potencia,
+                  item.iluminacionTC = dataMedidor.iluminacionTC,
+                  item.iluminacionP = dataMedidor.iluminacionP,
+                  item.sComTC = dataMedidor.sComTC,
+                  item.sComP = dataMedidor.sComP,
+                  item.tarifaId = dataMedidor.tarifaId,
+                  item.observacion = dataMedidor.observacion,
+                  item.estado = true;
+              }
+              this.accion = 'new';
+
+              this.limpiarFormMedidores();
+            },
+            (error) => {
+
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+              this.limpiarFormMedidores();
+              this.accion = 'new';
+
+            }
+
+          );
+      } else {
+        this.contratoService.postContratoMedidor(dataMedidor)
+          .toPromise()
+          .then(
+            (data: ContratoMedidores) => {
+
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+              this.listaMedidoresFiltrado = [...this.listaMedidoresFiltrado, data];
+              this.listOfDataMedidores = [...this.listOfDataMedidores, data];
+              this.limpiarFormMedidores();
+            },
+            (error) => {
+
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+              this.limpiarFormMedidores();
+
+            }
+
+          );
+      }
     }
 
-    if (this.accion === 'editar') {
-
-      this.contratoService.putContratoMedidor(this.idMedidorContrato, dataMedidor)
-        .toPromise()
-        .then(
-          () => {
-
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            for (const item of this.listaMedidoresFiltrado.filter(x => x.id === this.idMedidorContrato)) {
-              item.contratoId = dataMedidor.contratoId,
-                item.medidorId = dataMedidor.medidorId,
-                item.fechaInicial = dataMedidor.fechaInicial,
-                item.fechaFinal = dataMedidor.fechaFinal,
-                item.zonaId = dataMedidor.zonaId,
-                item.area = dataMedidor.area,
-                item.tipoServicioId = dataMedidor.tipoServicioId,
-                item.trifasica = dataMedidor.trifasica,
-                item.potencia = dataMedidor.potencia,
-                item.iluminacionTC = dataMedidor.iluminacionTC,
-                item.iluminacionP = dataMedidor.iluminacionP,
-                item.sComTC = dataMedidor.sComTC,
-                item.sComP = dataMedidor.sComP,
-                item.tarifaId = dataMedidor.tarifaId,
-                item.observacion = dataMedidor.observacion,
-                item.estado = true;
-            }
-            for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
-              item.contratoId = dataMedidor.contratoId,
-                item.medidorId = dataMedidor.medidorId,
-                item.fechaInicial = dataMedidor.fechaInicial,
-                item.fechaFinal = dataMedidor.fechaFinal,
-                item.zonaId = dataMedidor.zonaId,
-                item.area = dataMedidor.area,
-                item.tipoServicioId = dataMedidor.tipoServicioId,
-                item.trifasica = dataMedidor.trifasica,
-                item.potencia = dataMedidor.potencia,
-                item.iluminacionTC = dataMedidor.iluminacionTC,
-                item.iluminacionP = dataMedidor.iluminacionP,
-                item.sComTC = dataMedidor.sComTC,
-                item.sComP = dataMedidor.sComP,
-                item.tarifaId = dataMedidor.tarifaId,
-                item.observacion = dataMedidor.observacion,
-                item.estado = true;
-            }
-            this.accion = 'new';
-
-            this.limpiarFormMedidores();
-          },
-          (error) => {
-
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-            this.limpiarFormMedidores();
-            this.accion = 'new';
-
-          }
-
-        );
-    } else {
-      this.contratoService.postContratoMedidor(dataMedidor)
-        .toPromise()
-        .then(
-          (data: ContratoMedidores) => {
-
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            this.listaMedidoresFiltrado = [...this.listaMedidoresFiltrado, data];
-            this.listOfDataMedidores = [...this.listOfDataMedidores, data];
-            this.limpiarFormMedidores();
-          },
-          (error) => {
-
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
-            this.limpiarFormMedidores();
-
-          }
-
-        );
-    }
   }
 
   editarMedidor(data) {
