@@ -616,8 +616,26 @@ export class ContratosComponent implements OnInit {
     this.fechaInicial = data.fechaCreacion;
     this.fechaFinal = data.fechaVenc;
 
-    this.isVisibleInterno = (data.clasificacion === 'I') ? false : true;
-    this.isVisibleOtro = (data.clasificacion === 'C' || data.clasificacion === 'P') ? false : true;
+    switch (data.clasificacion) {
+      case 'I': {
+        this.isVisibleInterno = false;
+        this.isVisibleOtro = true;
+        break;
+      }
+      case 'C': {
+        this.isVisibleInterno = true;
+        this.isVisibleOtro = false;
+        break;
+      }
+      case 'P': {
+        this.isVisibleInterno = true;
+        this.isVisibleOtro = true;
+        break;
+      }
+      default:
+        break;
+    }
+
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
   }
 

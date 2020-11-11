@@ -183,7 +183,7 @@
                 <nz-form-item>
                     <nz-form-label>Zona</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="zonaId" nzShowSearch nzAllowClear>
+                        <nz-select formControlName="zonaId" nzShowSearch nzAllowClear [nzDisabled]="isVisibleOtro">
                             <nz-option *ngFor="let zona of listaZonas" [nzValue]="zona.id" [nzLabel]="zona.codigo">
                             </nz-option>
                         </nz-select>
