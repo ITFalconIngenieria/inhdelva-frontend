@@ -40,17 +40,17 @@
 
 .sidebar-logo img {
     display: inline-block;
-    height: 32px;
-    width: 32px;
+    height: 74px;
+    width: 54px;
     vertical-align: middle;
 }
 
 .sidebar-logo h1 {
     display: inline-block;
-    margin: 0 0 0 20px;
+    margin: 2%;
     color: #fff;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 33px;
     font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     vertical-align: middle;
 }

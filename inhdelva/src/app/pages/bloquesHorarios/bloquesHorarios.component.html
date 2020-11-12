@@ -115,167 +115,147 @@
     </div>
 </div>
 
-<nz-modal nzMaskClosable="false" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
-    <ng-template #modalTitle>
-        Nueva Empresa
-    </ng-template>
-
-    <ng-template #modalContent>
-        <form nz-form>
-            <div class="row">
-                <div class="col-sm-12 form-group">
-                    <label for="Descripcion">Descripcion</label>
-                    <nz-input-group nzSize="large">
-                        <input type="text" nz-Escribe aquí...="Ingrese la Descrpcion" name="Descripcion" />
-                    </nz-input-group>
-                </div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración bloque horario" nzWidth="900" (nzOnCancel)="handleCancel()">
+    <form nz-form nzLayout="vertical" style="width: 870px; margin: auto;">
+        <nz-form-item>
+            <nz-form-label>Descripcion</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input nz-input type="text" placeholder="Escribe aquí..." name="Descripcion" />
+            </nz-form-control>
+        </nz-form-item>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Periodo</nz-form-label>
+                    <div style="display: flex; flex-direction: row;">
+                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                            <nz-select class="lista" nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opcion">
+                                <nz-option nzLabel="Activo" nzValue="true"></nz-option>
+                                <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                        <i nz-icon nzType="edit" style="margin: 2%;" nzTheme="fill"></i>
+                    </div>
+                </nz-form-item>
             </div>
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                    <label for="Periodo">Periodo</label>
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opcion:">
-                        <nz-option nzLabel="Activo" nzValue="true"></nz-option>
-                        <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
-                    </nz-select>
-                </div>
-                <div class="col-sm-6 form-group">
-                    <label for="ClaseDias">Clase Dias</label>
-                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccione una opcion:">
-                        <nz-option nzLabel="Activo" nzValue="true"></nz-option>
-                        <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
-                    </nz-select>
-                </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Clase Dias</nz-form-label>
+                    <div style="display: flex; flex-direction: row;">
+                        <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                            <nz-select nzShowSearch class="lista" nzAllowClear nzPlaceHolder="Seleccione una opcion">
+                                <nz-option nzLabel="Activo" nzValue="true"></nz-option>
+                                <nz-option nzLabel="Inactivo" nzValue="false"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                        <i nz-icon nzType="edit" style="margin: 2%;" nzTheme="fill"></i>
+                    </div>
+                </nz-form-item>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <nz-tabset>
-                        <nz-tab nzTitle="Horarios">
-                            <div nz-row>
-                                <div nz-col nzSpan="24">
-                                    Seleccione el rango de horarios a utilizar:
-                                </div>
-                            </div>
-                            <br/>
-                            <div nz-row>
-                                <a (click)="handleCancel()">
-                                    <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
-                                        00:00<br/>a<br>08:00
-                                    </div>
-                                </a>
-                                <a (click)="handleCancel()">
-                                    <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
-                                        08:00<br/>a<br>10:00
-                                    </div>
-                                </a>
-                                <a (click)="handleCancel()">
-                                    <div nz-col nzSpan="4" style="background-color: #e64040; text-align: center;">
-                                        10:00<br/>a<br>15:00
-                                    </div>
-                                </a>
-                                <a (click)="handleCancel()">
-                                    <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
-                                        15:00<br/>a<br>17:00
-                                    </div>
-                                </a>
-                                <a (click)="handleCancel()">
-                                    <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
-                                        17:00<br/>a<br>24:00
-                                    </div>
-                                </a>
-                            </div>
-                            <br/>
-                            <div nz-row>
-                                <nz-badge nzStatus="success" nzText="Nuevo"></nz-badge>
-                                <br />
-                                <nz-badge nzStatus="error" nzText="Otro Bloque Horario"></nz-badge>
-                                <br />
-                                <nz-badge nzStatus="default" nzText="Disponible"></nz-badge>
-                                <br />
-
-                            </div>
-                        </nz-tab>
-                        <nz-tab nzTitle="Periodo">
-                            <br/>
-                            <div class="row">
-                                <div class="col-sm-12 form-group">
-                                    <label for="Descripcion">Nombre Periodo:</label>
-                                    <nz-input-group>
-                                        <input type="text" nz-Escribe aquí...="Nombre del Periodo" name="Descripcion" />
-                                    </nz-input-group>
-                                </div>
-                            </div>
-                        </nz-tab>
-                        <nz-tab nzTitle="Clase de Dia">
-                            <div class="row">
-                                <div class="col-sm-4 form-group">
-                                    <label for="Descripcion">Nombre de la Clase:</label>
-                                    <nz-input-group>
-                                        <input type="text" nz-Escribe aquí...="Nombre de la clase" />
-                                    </nz-input-group>
-                                </div>
-                                <div class="col-sm-5">
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4 form-group">
-                                    <label for="Descripcion">Dias de la Semana</label>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Lunes</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Martes</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Miercoles</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Jueves</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Viernes</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Sabado</label>
-                                    </nz-input-group>
-                                    <nz-input-group>
-                                        <label nz-checkbox>Domingo</label>
-                                    </nz-input-group>
-                                </div>
-                            </div>
-
-                        </nz-tab>
-                    </nz-tabset>
+        </div>
+        <nz-tabset>
+            <nz-tab nzTitle="Horarios">
+                <h6>Seleccione el rango de horarios a utilizar</h6>
+                <br/>
+                <div nz-row>
+                    <a (click)="handleCancel()">
+                        <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
+                            00:00<br/>a<br>08:00
+                        </div>
+                    </a>
+                    <a (click)="handleCancel()">
+                        <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
+                            08:00<br/>a<br>10:00
+                        </div>
+                    </a>
+                    <a (click)="handleCancel()">
+                        <div nz-col nzSpan="4" style="background-color: #e64040; text-align: center;">
+                            10:00<br/>a<br>15:00
+                        </div>
+                    </a>
+                    <a (click)="handleCancel()">
+                        <div nz-col nzSpan="5" style="background-color: #5cb85c; text-align: center;">
+                            15:00<br/>a<br>17:00
+                        </div>
+                    </a>
+                    <a (click)="handleCancel()">
+                        <div nz-col nzSpan="5" style="background-color: #eceeef; text-align: center;">
+                            17:00<br/>a<br>24:00
+                        </div>
+                    </a>
                 </div>
-            </div>
-            <br/>
-            <br/>
-            <div class="row">
-                <div class="col-sm-5">
-                    <button nz-button nzType="primary" nzSize="large">Registrar uno Nuevo</button>
-                </div>
-                <div style="display: flex; justify-content: flex-end;" class="col-sm-4">
-                    <button nz-button nzType="primary" nzSize="large">Guardar Cambios</button>
-                </div>
-            </div>
-            <hr/>
-            <br/>
-            <div class="row">
-                <div class="col-sm-12 form-group">
-                    <label for="Observacion">Observacion</label>
-                    <textarea rows="5" nz-input [(ngModel)]="inputValue" placeholder="Ingrese su observacion" name="Observacion"></textarea>
-                </div>
-            </div>
-            <nz-form-item>
-                <nz-form-control>
-                    <button nz-button nzType="primary">Guardar</button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
-    </ng-template>
+                <br/>
+                <div nz-row>
+                    <nz-badge nzStatus="success" nzText="Nuevo"></nz-badge>
+                    <br />
+                    <nz-badge nzStatus="error" nzText="Otro Bloque Horario"></nz-badge>
+                    <br />
+                    <nz-badge nzStatus="default" nzText="Disponible"></nz-badge>
+                    <br />
 
-    <ng-template #modalFooter>
-        <button nz-button nzType="default" (click)="handleCancel()">Cerrar</button>
-    </ng-template>
+                </div>
+            </nz-tab>
+            <nz-tab nzTitle="Periodo">
+                <br/>
+                <div style="width: 80%; margin: auto;">
+                    <label for="Descripcion">Nombre Periodo:</label>
+                    <input nz-input type="text" placeholder="Escriba aquí" name="Descripcion" />
+                </div>
+            </nz-tab>
+            <nz-tab nzTitle="Clase de Dia">
+                <div class="row">
+                    <div class="col">
+                        <label for="Descripcion">Nombre de la Clase:</label>
+                        <nz-input-group>
+                            <input nz-input placeholder="Escriba aquí" type="text" />
+                        </nz-input-group>
+                        <div>
+                            <label for="Descripcion">Dias de la Semana</label>
+                            <nz-input-group>
+                                <label nz-checkbox>Lunes</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Martes</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Miercoles</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Jueves</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Viernes</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Sabado</label>
+                            </nz-input-group>
+                            <nz-input-group>
+                                <label nz-checkbox>Domingo</label>
+                            </nz-input-group>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p>Calendario</p>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
+        <br/>
+        <br/>
+        <div style="display: flex; justify-content: flex-end;">
+            <button nz-button nzType="primary" style="margin-right: 1%;" nzSize="large">Registrar uno Nuevo</button>
+            <button nz-button nzType="primary" style="margin-right: 1%;" nzSize="large">Guardar Cambios</button>
+        </div>
+        <br/>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
+        <button nz-button nzType="primary">Guardar</button>
+    </div>
 </nz-modal>
