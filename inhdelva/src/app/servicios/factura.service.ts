@@ -37,16 +37,21 @@ export class FacturaService {
     return this.http.get(`${apiUrl}vlistado-facturas?filter[where][Estado]=${id}`);
   }
 
-  getDetalleFactura(id): Observable<any> {
+  getDetalleFactura(id, fechaInicio, fechaFin, idContrato, idMedidor): Observable<any> {
+
+    console.log(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`);
+
     return forkJoin(
       this.http.get(`${apiUrl}facturas/${id}`),
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":${id}}}`),
-      this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`)
+      this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`),
+      // tslint:disable-next-line: max-line-length
+      this.http.get(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`)
     );
   }
 
   getFacturaEditar(id) {
-    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`);10
+    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`); 10
   }
 
   editarFactura(id, valor) {

@@ -4,6 +4,8 @@ import { FacturaService } from '../../servicios/factura.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
+moment.locale('es');
 
 @Component({
   selector: 'app-factura',
@@ -33,8 +35,9 @@ export class FacturaComponent implements OnInit {
   dataSourceBarra: any;
   dataSourcePastelINH: any;
   dataSourcePastelHN: any;
-
+  chartDataBarra: any[] = [];
   clienteReguladoData: any[] = [];
+
   totalConsumo: number = 0;
   totalApagar: number = 0;
   energiaReactiva: number = 0;
@@ -59,55 +62,55 @@ export class FacturaComponent implements OnInit {
     }
   ];
 
-  chartDataBarra = [
-    {
-      label: 'Enero',
-      value: '270'
-    },
-    {
-      label: 'Febrero',
-      value: '285'
-    },
-    {
-      label: 'Marzo',
-      value: '320'
-    },
-    {
-      label: 'Abril',
-      value: '312'
-    },
-    {
-      label: 'Mayo',
-      value: '300'
-    },
-    {
-      label: 'Junio',
-      value: '290'
-    },
-    {
-      label: 'Julio',
-      value: '310'
-    },
-    {
-      label: 'Agosto',
-      value: '300'
-    },
-    {
-      label: 'Septiembre',
-      value: '280'
-    }, {
-      label: 'Octubre',
-      value: '293'
-    },
-    {
-      label: 'Noviembre',
-      value: '298'
-    },
-    {
-      label: 'Diciembre',
-      value: '325'
-    },
-  ];
+  // chartDataBarra = [
+  //   {
+  //     label: 'Enero',
+  //     value: '270'
+  //   },
+  //   {
+  //     label: 'Febrero',
+  //     value: '285'
+  //   },
+  //   {
+  //     label: 'Marzo',
+  //     value: '320'
+  //   },
+  //   {
+  //     label: 'Abril',
+  //     value: '312'
+  //   },
+  //   {
+  //     label: 'Mayo',
+  //     value: '300'
+  //   },
+  //   {
+  //     label: 'Junio',
+  //     value: '290'
+  //   },
+  //   {
+  //     label: 'Julio',
+  //     value: '310'
+  //   },
+  //   {
+  //     label: 'Agosto',
+  //     value: '300'
+  //   },
+  //   {
+  //     label: 'Septiembre',
+  //     value: '280'
+  //   }, {
+  //     label: 'Octubre',
+  //     value: '293'
+  //   },
+  //   {
+  //     label: 'Noviembre',
+  //     value: '298'
+  //   },
+  //   {
+  //     label: 'Diciembre',
+  //     value: '325'
+  //   },
+  // ];
 
   chartDataPstelHN = [
     {
@@ -172,19 +175,10 @@ export class FacturaComponent implements OnInit {
     this.cargado = false;
     this.spinner.show();
     this.dataFactura = this.facturaService.getInfoNavegacion();
-    const { id } = this.dataFactura;
-    this.pag = this.dataFactura.pag;
+    console.log(this.dataFactura);
 
-    this.dataSourceBarra = {
-      chart: {
-        caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
-        rotateLabels: '0',
-        labelDisplay: 'rotate',
-        palettecolors: '334d7c,b9b9b9',
-        theme: 'fusion' // Set the theme for your chart
-      },
-      data: this.chartDataBarra
-    };
+    const { id, contratoid, fechaInicio, medidorId, fechaLectura } = this.dataFactura;
+    this.pag = this.dataFactura.pag;
 
     this.dataSourcePastelINH = {
       chart: {
@@ -208,13 +202,40 @@ export class FacturaComponent implements OnInit {
       data: this.chartDataPstelHN
     };
 
-    this.facturaService.getDetalleFactura(id)
+    this.facturaService.getDetalleFactura(
+      id,
+      `${moment(fechaInicio).subtract(12, 'month').format('YYYY-MM-DD')}T00:00:00.000Z`,
+      `${moment(fechaInicio).add(1, 'day').format('YYYY-MM-DD')}T00:00:00.000Z`,
+      contratoid,
+      medidorId
+    )
       .toPromise()
       .then(
         (data: any) => {
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];
           this.DetalleFacturaData = { ...data[2] };
+          console.log(data[3]);
+
+          const consumoHistorico: any[] = data[3];
+          // tslint:disable-next-line: prefer-for-of
+          for (let x = 0; x < consumoHistorico.length; x++) {
+            this.chartDataBarra = [{
+              label: moment(consumoHistorico[x].Fecha).format('MMMM'),
+              value: consumoHistorico[x].Energia
+            }, ...this.chartDataBarra];
+
+          }
+          this.dataSourceBarra = {
+            chart: {
+              caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
+              rotateLabels: '0',
+              labelDisplay: 'rotate',
+              palettecolors: '334d7c,b9b9b9',
+              theme: 'fusion' // Set the theme for your chart
+            },
+            data: this.chartDataBarra
+          };
 
           this.BloquesdeEnergiaFactura.forEach(x => {
             this.totalConsumo += x.valor;

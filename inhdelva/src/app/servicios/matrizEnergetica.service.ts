@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { forkJoin, Observable } from 'rxjs';
 
 const apiUrl = environment.apiUrl;
 
@@ -49,6 +50,13 @@ export class MatrizEnergeticaService {
 
   getOrigenes() {
     return this.http.get(`${apiUrl}origen`);
+  }
+
+  getArregloDatos(): Observable<any> {
+    return forkJoin(
+      this.http.get(`${apiUrl}matriz-energeticas`),
+      this.http.get(`${apiUrl}distribucion-energias`)
+    );
   }
 
 }

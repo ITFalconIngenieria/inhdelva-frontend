@@ -8,10 +8,12 @@ import { ActoresService } from '../../servicios/actores.service';
 
 interface Matriz {
   id: number;
-  proveedorId: number;
+  actorId: number;
   proveedor: string;
   fechaInicio: any;
   fechaFinal: any;
+  observacion: string;
+  estado: boolean;
   total: number;
 }
 
@@ -35,8 +37,10 @@ export class MatrizEnergeticaComponent implements OnInit {
 
   listOfDataMatriz: any[] = [];
   listOfDataDistribucion: any[] = [];
-  listOfDataRolloverMedidor: any[] = [];
+  listOfDataDistribucionFiltrado: any[] = [];
   listaOrigenes: any[] = [];
+  total: number = 0;
+  dataMatrizEnergetica: Matriz[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -94,6 +98,26 @@ export class MatrizEnergeticaComponent implements OnInit {
               item.emisiones = dataDistribucion.emisiones;
               item.estado = dataDistribucion.estado;
             }
+
+            for (const item of this.listOfDataDistribucionFiltrado.filter(x => x.id === this.idDistribucion)) {
+              item.origenId = dataDistribucion.origenId;
+              item.matrizId = dataDistribucion.matrizId;
+              item.valor = dataDistribucion.valor;
+              item.emisiones = dataDistribucion.emisiones;
+              item.estado = dataDistribucion.estado;
+            }
+
+            this.total = 0;
+            const arrayTest: any[] = this.listOfDataDistribucion.filter(t => t.matrizId === this.idMatriz);
+            // tslint:disable-next-line: prefer-for-of
+            for (let y = 0; y < arrayTest.length; y++) {
+              this.total += parseFloat(arrayTest[y].valor);
+            }
+
+            for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
+              item.total = this.total;
+            }
+            this.total = 0;
             this.accion = 'new';
             this.limpiarDistribucion();
 
@@ -121,7 +145,20 @@ export class MatrizEnergeticaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataDistribucion = [...this.listOfDataDistribucion, data];
-            ////////
+            this.listOfDataDistribucionFiltrado = [...this.listOfDataDistribucionFiltrado, data];
+
+            this.total = 0;
+            const arrayTest: any[] = this.listOfDataDistribucion.filter(t => t.matrizId === this.idMatriz);
+            // tslint:disable-next-line: prefer-for-of
+            for (let y = 0; y < arrayTest.length; y++) {
+              this.total += parseFloat(arrayTest[y].valor);
+            }
+
+            for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
+              item.total = this.total;
+            }
+            this.total = 0;
+
             this.limpiarDistribucion();
 
           },
@@ -145,8 +182,8 @@ export class MatrizEnergeticaComponent implements OnInit {
 
     this.validateForm = this.fb.group({
       origenId: [data.origenId, [Validators.required]],
-      valor: [data.valor, [Validators.required]],
-      emisiones: [data.emisiones, [Validators.required]],
+      valor: [data.valor],
+      emisiones: [data.emisiones],
     });
   }
 
@@ -294,8 +331,8 @@ export class MatrizEnergeticaComponent implements OnInit {
   limpiarDistribucion() {
     this.validateForm = this.fb.group({
       origenId: [null, [Validators.required]],
-      valor: [0, [Validators.required]],
-      emisiones: [0, [Validators.required]]
+      valor: [0],
+      emisiones: [0]
     });
   }
 
@@ -310,26 +347,55 @@ export class MatrizEnergeticaComponent implements OnInit {
         (data: any[]) => this.listaOrigenes = data
       );
 
-    this.matrizService.getMatriz()
+    this.matrizService.getArregloDatos()
       .toPromise()
       .then(
-        (data: any[]) => this.listOfDataMatriz = data
+        (data: any[]) => {
+          this.listOfDataMatriz = data[0];
+          this.listOfDataDistribucion = data[1];
+
+          // tslint:disable-next-line: prefer-for-of
+          for (let x = 0; x < this.listOfDataMatriz.length; x++) {
+            const arrayTest: any[] = this.listOfDataDistribucion.filter(t => t.matrizId === this.listOfDataMatriz[x].id);
+            // tslint:disable-next-line: prefer-for-of
+            for (let y = 0; y < arrayTest.length; y++) {
+
+              this.total += arrayTest[y].valor;
+            }
+
+            this.dataMatrizEnergetica = [{
+              id: this.listOfDataMatriz[x].id,
+              actorId: this.listOfDataMatriz[x].actorId,
+              proveedor: '',
+              fechaInicio: this.listOfDataMatriz[x].fechaInicio,
+              fechaFinal: this.listOfDataMatriz[x].fechaFinal,
+              observacion: this.listOfDataMatriz[x].observacion,
+              estado: this.listOfDataMatriz[x].estado,
+              total: this.total
+            }, ...this.dataMatrizEnergetica];
+            this.total = 0;
+          }
+
+        }
       );
 
-    this.matrizService.getDistribucion()
-      .toPromise()
-      .then(
-        (data: any[]) => this.listOfDataDistribucion = data
-      );
+
+    // this.matrizService.getMatriz()
+    //   .toPromise()
+    //   .then(
+    //     (data: any[]) => this.listOfDataMatriz = data
+    //   );
+
+    // this.matrizService.getDistribucion()
+    //   .toPromise()
+    //   .then(
+    //     (data: any[]) => this.listOfDataDistribucion = data
+    //   );
 
     this.actoresService.getProveedores()
       .toPromise()
       .then(
-        (data: any[]) => {
-          this.proveedores = data
-          console.log(data);
-        }
-
+        (data: any[]) => this.proveedores = data
       );
 
   }
@@ -358,9 +424,11 @@ export class MatrizEnergeticaComponent implements OnInit {
   }
 
   showModalDistribucion(data): void {
+    console.log(data);
+
     this.isVisibleDistribucion = true;
     this.idMatriz = data.id;
-    //  this.listOfDataRolloverMedidor = this.listOfDataDistribucion.filter(x => x.matrizId === this.idMatriz);
+    this.listOfDataDistribucionFiltrado = this.listOfDataDistribucion.filter(x => x.matrizId === this.idMatriz);
 
   }
 
