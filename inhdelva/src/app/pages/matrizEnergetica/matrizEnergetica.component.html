@@ -11,7 +11,7 @@
 <br>
 <div class="tabla">
     <hr>
-    <nz-table #nzTable [nzData]="listOfDataMatriz" nzTableLayout="fixed" nzPageSize="5">
+    <nz-table #nzTable [nzData]="dataMatrizEnergetica" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -41,7 +41,7 @@
                     <td>{{ data.actorId }}</td>
                     <td>{{ data.fechaInicio | date:'yyyy/M/dd'}}</td>
                     <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
-                    <td>{{ data.fechaFinal }}</td>
+                    <td>{{ data.total }}</td>
                     <td>
                         <button nz-button nzType="primary" nzSize="small" (click)="showModalDistribucion(data)" nzShape="round">Distribución</button>
 
@@ -143,7 +143,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado </h6>
-        <nz-table #nzTableDistribucion [nzData]="listOfDataRolloverMedidor" nzSize="small" nzTableLayout="fixed" nzPageSize="5">
+        <nz-table #nzTableDistribucion [nzData]="listOfDataDistribucionFiltrado" nzSize="small" nzTableLayout="fixed" nzPageSize="5">
             <thead>
                 <tr>
                     <th>Tipo</th>
