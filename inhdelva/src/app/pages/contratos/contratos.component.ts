@@ -32,6 +32,7 @@ export class ContratosComponent implements OnInit {
   isVisibleMedidor = false;
   isVisibleInterno = false;
   isVisibleOtro = false;
+  isVisibleZona = false;
   validateFormContrato: FormGroup;
   validateFormMedidores: FormGroup;
   dateFormat = 'yyyy/MM/dd';
@@ -519,13 +520,15 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: MedidorPME[]) => {
+
+          this.listOfMedidores = data;
           // tslint:disable-next-line: prefer-for-of
-          for (let x = 0; x < data.length; x++) {
-            this.listOfMedidores = [{
-              id: data[x].id,
-              codigo: data[x].codigo.substr(9)
-            }, ...this.listOfMedidores];
-          }
+          // for (let x = 0; x < data.length; x++) {
+          //   this.listOfMedidores = [{
+          //     id: data[x].id,
+          //     codigo: data[x].codigo.substr(9)
+          //   }, ...this.listOfMedidores];
+          // }
         }
       );
 
@@ -632,16 +635,21 @@ export class ContratosComponent implements OnInit {
       case 'I': {
         this.isVisibleInterno = false;
         this.isVisibleOtro = true;
+        this.isVisibleZona = false;
         break;
       }
       case 'C': {
         this.isVisibleInterno = true;
         this.isVisibleOtro = false;
+        this.isVisibleZona = false;
+
         break;
       }
       case 'P': {
         this.isVisibleInterno = true;
         this.isVisibleOtro = true;
+        this.isVisibleZona = true;
+
         break;
       }
       default:

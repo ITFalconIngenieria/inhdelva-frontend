@@ -56,7 +56,7 @@
 </div>
 
 <!-- Modal Formulario Matriz energetica-->
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Medidores" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateFormMatriz">
         <div style="display: flex; justify-content: center;">
             <nz-form-item>
@@ -70,7 +70,7 @@
             <nz-form-label>Proveedor</nz-form-label>
             <nz-form-control>
                 <nz-select formControlName="actorId" nzShowSearch nzAllowClear>
-                    <nz-option *ngFor="let proveedor of proveedores" [nzValue]="proveedor.id" [nzLabel]="proveedor.nombre">
+                    <nz-option *ngFor="let proveedor of proveedores" [nzValue]="proveedor.Id" [nzLabel]="proveedor.Nombre">
                     </nz-option>
                 </nz-select>
             </nz-form-control>
@@ -90,27 +90,37 @@
 
 <!-- Modal distribucion -->
 <nz-modal [(nzVisible)]="isVisibleDistribucion" nzTitle="Distribución de energía" nzWidth="740" (nzOnCancel)="handleCancelRollover()">
-    <form style="width: 350px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+    <form style="width: 450px; margin: auto;" nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
+        <nz-form-item>
+            <nz-form-label>Tipo de origen</nz-form-label>
+            <nz-form-control>
+                <nz-select formControlName="origenId" nzShowSearch nzAllowClear>
+                    <nz-option *ngFor="let origen of listaOrigenes" [nzValue]="origen.id" [nzLabel]="origen.descripcion">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
         <div class="row">
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Tipo de origen</nz-form-label>
-                    <nz-form-control>
-                        <nz-select formControlName="origenId" nzShowSearch nzAllowClear>
-                            <nz-option *ngFor="let origen of listaOrigenes" [nzValue]="origen.id" [nzLabel]="origen.descripcion">
-                            </nz-option>
-                        </nz-select>
+                    <nz-form-label>Consumo energía</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <div style="display: flex; justify-content: flex-start;">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzStep]="1">
+                            </nz-input-number>
+                            <label style="color: black; font-size: 14px; margin-left: 2%;"> GWh/año</label>
+                        </div>
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Valor</nz-form-label>
+                    <nz-form-label>Emisiones CO2</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
-                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="valor" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="width: 100%; margin: 0px;" formControlName="emisiones" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
-                            <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
+                            <label style="color: black; font-size: 14px; margin-left: 2%;"> Kg CO2/Kwh</label>
                         </div>
                     </nz-form-control>
                 </nz-form-item>
@@ -133,11 +143,12 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado </h6>
-        <nz-table #nzTableDistribucion [nzData]="listOfDataRolloverMedidor" nzTableLayout="fixed" nzPageSize="5">
+        <nz-table #nzTableDistribucion [nzData]="listOfDataRolloverMedidor" nzSize="small" nzTableLayout="fixed" nzPageSize="5">
             <thead>
                 <tr>
                     <th>Tipo</th>
-                    <th>Valor</th>
+                    <th>Consumo energía</th>
+                    <th>Emisiones CO2</th>
                     <th nzWidth="30px"></th>
                     <th nzWidth="30px"></th>
                 </tr>
@@ -147,6 +158,7 @@
                     <tr>
                         <td>{{ data.origenId }}</td>
                         <td>{{ data.valor }}</td>
+                        <td>{{ data.emisiones }}</td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" (click)="editarDistribucion(data)" nzShape="circle">
                               <i nz-icon nzType="edit" nzTheme="outline"></i>
