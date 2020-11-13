@@ -183,7 +183,7 @@
                 <nz-form-item>
                     <nz-form-label>Zona</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="zonaId" nzShowSearch nzAllowClear [nzDisabled]="isVisibleOtro">
+                        <nz-select formControlName="zonaId" nzShowSearch nzAllowClear [nzDisabled]="isVisibleZona">
                             <nz-option *ngFor="let zona of listaZonas" [nzValue]="zona.id" [nzLabel]="zona.codigo">
                             </nz-option>
                         </nz-select>
@@ -343,7 +343,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado de medidores </h6>
-        <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzTableLayout="fixed" nzPageSize="4">
+        <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzSize="small" nzTableLayout="fixed" nzPageSize="4">
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>

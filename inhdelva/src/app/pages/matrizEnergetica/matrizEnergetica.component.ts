@@ -4,6 +4,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
+import { ActoresService } from '../../servicios/actores.service';
+
+interface Matriz {
+  id: number;
+  proveedorId: number;
+  proveedor: string;
+  fechaInicio: any;
+  fechaFinal: any;
+  total: number;
+}
 
 @Component({
   selector: 'app-matrizEnergetica',
@@ -18,15 +28,11 @@ export class MatrizEnergeticaComponent implements OnInit {
   validateFormMatriz: FormGroup;
   dateFormat = 'yyyy/MM/dd';
 
-
-  codigoMedidor;
-
   accion;
   idMatriz;
   idDistribucion;
   proveedores: any[] = [];
 
-  medidoresPME: any[] = [];
   listOfDataMatriz: any[] = [];
   listOfDataDistribucion: any[] = [];
   listOfDataRolloverMedidor: any[] = [];
@@ -35,7 +41,8 @@ export class MatrizEnergeticaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
-    private matrizService: MatrizEnergeticaService
+    private matrizService: MatrizEnergeticaService,
+    private actoresService: ActoresService
   ) { }
 
   onExpandChange(id: number, checked: boolean): void {
@@ -66,6 +73,7 @@ export class MatrizEnergeticaComponent implements OnInit {
       origenId: this.validateForm.value.origenId,
       matrizId: this.idMatriz,
       valor: `${this.validateForm.value.valor}`,
+      emisiones: `${this.validateForm.value.emisiones}`,
       estado: true
     };
 
@@ -83,6 +91,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               item.origenId = dataDistribucion.origenId;
               item.matrizId = dataDistribucion.matrizId;
               item.valor = dataDistribucion.valor;
+              item.emisiones = dataDistribucion.emisiones;
               item.estado = dataDistribucion.estado;
             }
             this.accion = 'new';
@@ -137,6 +146,7 @@ export class MatrizEnergeticaComponent implements OnInit {
     this.validateForm = this.fb.group({
       origenId: [data.origenId, [Validators.required]],
       valor: [data.valor, [Validators.required]],
+      emisiones: [data.emisiones, [Validators.required]],
     });
   }
 
@@ -285,6 +295,7 @@ export class MatrizEnergeticaComponent implements OnInit {
     this.validateForm = this.fb.group({
       origenId: [null, [Validators.required]],
       valor: [0, [Validators.required]],
+      emisiones: [0, [Validators.required]]
     });
   }
 
@@ -309,6 +320,16 @@ export class MatrizEnergeticaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => this.listOfDataDistribucion = data
+      );
+
+    this.actoresService.getProveedores()
+      .toPromise()
+      .then(
+        (data: any[]) => {
+          this.proveedores = data
+          console.log(data);
+        }
+
       );
 
   }
