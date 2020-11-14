@@ -32,10 +32,13 @@ export class FacturaComponent implements OnInit {
     top: '37%'
   };
 
-  dataSourceBarra: any;
-  dataSourcePastelINH: any;
-  dataSourcePastelHN: any;
-  chartDataBarra: any[] = [];
+  dataSourceConsumo: any;
+  chartDataConsumo: any[] = [];
+  dataSourceMatrizProveedores;
+  chatDataMatrizProvee: any[] = [];
+  dataSourceMatrizInh: any;
+  chatDataMatrizInh: any[] = [];
+
   clienteReguladoData: any[] = [];
 
   totalConsumo: number = 0;
@@ -50,106 +53,8 @@ export class FacturaComponent implements OnInit {
   BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
   factorRecargo: number;
-
-  chartDataPstelINH = [
-    {
-      label: 'Fracción energía concencional',
-      value: '70'
-    },
-    {
-      label: 'Fracción energía solar fotovoltaica',
-      value: '30'
-    }
-  ];
-
-  // chartDataBarra = [
-  //   {
-  //     label: 'Enero',
-  //     value: '270'
-  //   },
-  //   {
-  //     label: 'Febrero',
-  //     value: '285'
-  //   },
-  //   {
-  //     label: 'Marzo',
-  //     value: '320'
-  //   },
-  //   {
-  //     label: 'Abril',
-  //     value: '312'
-  //   },
-  //   {
-  //     label: 'Mayo',
-  //     value: '300'
-  //   },
-  //   {
-  //     label: 'Junio',
-  //     value: '290'
-  //   },
-  //   {
-  //     label: 'Julio',
-  //     value: '310'
-  //   },
-  //   {
-  //     label: 'Agosto',
-  //     value: '300'
-  //   },
-  //   {
-  //     label: 'Septiembre',
-  //     value: '280'
-  //   }, {
-  //     label: 'Octubre',
-  //     value: '293'
-  //   },
-  //   {
-  //     label: 'Noviembre',
-  //     value: '298'
-  //   },
-  //   {
-  //     label: 'Diciembre',
-  //     value: '325'
-  //   },
-  // ];
-
-  chartDataPstelHN = [
-    {
-      label: 'Hidro embalse',
-      value: '20'
-    },
-    {
-      label: 'Hidro pasada',
-      value: '15'
-    },
-    {
-      label: 'Eólica',
-      value: '8'
-    },
-    {
-      label: 'Solar',
-      value: '15'
-    },
-    {
-      label: 'Biogás',
-      value: '8'
-    },
-    {
-      label: 'Diesél',
-      value: '10'
-    },
-    {
-      label: 'Bunker',
-      value: '9'
-    },
-    {
-      label: 'Carbón',
-      value: '9'
-    },
-    {
-      label: 'Gás',
-      value: '19'
-    }
-  ];
+  matrizEnergetica: any[] = [];
+  totalMatriz: number = 0;
 
   constructor(
     private facturaService: FacturaService,
@@ -180,28 +85,6 @@ export class FacturaComponent implements OnInit {
     const { id, contratoid, fechaInicio, medidorId, fechaLectura } = this.dataFactura;
     this.pag = this.dataFactura.pag;
 
-    this.dataSourcePastelINH = {
-      chart: {
-        caption: 'Matriz energética de INHDELVA', // Set the chart caption
-        valuePosition: 'inside',
-        palettecolors: '0E9679,F3931F',
-        showLabels: '0',
-        theme: 'fusion' // Set the theme for your chart
-      },
-      data: this.chartDataPstelINH
-    };
-
-    this.dataSourcePastelHN = {
-      chart: {
-        caption: 'Matriz energética de INHDELVA', // Set the chart caption
-        valuePosition: 'inside',
-        showLabels: '0',
-        palettecolors: '8BB53A,0E9679,2CB8C5,F2921F,929133,7E5025,E65124,4D4E4D,1D1D1B',
-        theme: 'fusion' // Set the theme for your chart
-      },
-      data: this.chartDataPstelHN
-    };
-
     this.facturaService.getDetalleFactura(
       id,
       `${moment(fechaInicio).subtract(12, 'month').format('YYYY-MM-DD')}T00:00:00.000Z`,
@@ -215,18 +98,78 @@ export class FacturaComponent implements OnInit {
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];
           this.DetalleFacturaData = { ...data[2] };
-          console.log(data[3]);
+          console.log(data[2]);
+          console.log(data[5]);
+
+          const matrisInh = data[5];
+
+          this.chatDataMatrizInh = [
+            {
+              label: 'Fracción energía concencional',
+              value: Math.round(matrisInh[0].Convencional * 100) / 100
+            },
+            {
+              label: 'Fracción energía solar fotovoltaica',
+              value: Math.round(matrisInh[1].Solar * 100) / 100
+            }
+          ];
+
+          this.dataSourceMatrizInh = {
+            chart: {
+              caption: 'Matriz energética de INHDELVA', // Set the chart caption
+              valuePosition: 'inside',
+              palettecolors: '0E9679,F3931F',
+              showLabels: '0',
+              theme: 'fusion' // Set the theme for your chart
+            },
+            data: this.chatDataMatrizInh
+          };
+
+          this.matrizEnergetica = data[4].reduce((acumulador, valorActual) => {
+            const elementoYaExiste = acumulador.find(elemento => elemento.Id === valorActual.Id);
+            if (elementoYaExiste) {
+              return acumulador.map((elemento) => {
+                if (elemento.Id === valorActual.Id) {
+                  return {
+                    ...elemento,
+                    Energia: elemento.Energia + valorActual.Energia
+                  };
+                }
+                return elemento;
+              });
+            }
+            return [...acumulador, valorActual];
+          }, []);
+
+          this.matrizEnergetica.forEach(element => {
+            this.totalMatriz += element.Energia;
+            this.chatDataMatrizProvee = [{
+              label: element.Origen,
+              value: element.Energia
+            }, ...this.chatDataMatrizProvee];
+          });
+
+          this.dataSourceMatrizProveedores = {
+            chart: {
+              caption: 'Matriz energética de Proveedoes', // Set the chart caption
+              valuePosition: 'inside',
+              showLabels: '0',
+              palettecolors: '8BB53A,0E9679,2CB8C5,F2921F,929133,7E5025,E65124,4D4E4D,1D1D1B',
+              theme: 'fusion' // Set the theme for your chart
+            },
+            data: this.chatDataMatrizProvee
+          };
 
           const consumoHistorico: any[] = data[3];
           // tslint:disable-next-line: prefer-for-of
           for (let x = 0; x < consumoHistorico.length; x++) {
-            this.chartDataBarra = [{
+            this.chartDataConsumo = [{
               label: moment(consumoHistorico[x].Fecha).format('MMMM'),
               value: consumoHistorico[x].Energia
-            }, ...this.chartDataBarra];
+            }, ...this.chartDataConsumo];
 
           }
-          this.dataSourceBarra = {
+          this.dataSourceConsumo = {
             chart: {
               caption: 'Consumo de energia electrica (kWh)', // Set the chart caption
               rotateLabels: '0',
@@ -234,7 +177,7 @@ export class FacturaComponent implements OnInit {
               palettecolors: '334d7c,b9b9b9',
               theme: 'fusion' // Set the theme for your chart
             },
-            data: this.chartDataBarra
+            data: this.chartDataConsumo
           };
 
           this.BloquesdeEnergiaFactura.forEach(x => {
