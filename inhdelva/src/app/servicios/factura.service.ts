@@ -46,7 +46,11 @@ export class FacturaService {
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":${id}}}`),
       this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`),
       // tslint:disable-next-line: max-line-length
-      this.http.get(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`)
+      this.http.get(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`),
+      // tslint:disable-next-line: max-line-length
+      this.http.get(`${apiUrl}v-matriz-energia-pros?filter={ "where":{"and":[ {"FechaInicio":{"lt":"2020-12-01T00:00:00.000Z"}},{ "FechaFinal":{"gt":"2020-12-01T00:00:00.000Z"}}] }, "fields":{ "FechaInicio":false, "FechaFinal":false },"order":["Id ASC"] }`),
+      this.http.get(`${apiUrl}grafico?fechai=2020-10-01%2006%3A00%3A00&fechaf=2020-11-01%2006%3A00%3A00`)
+
     );
   }
 
