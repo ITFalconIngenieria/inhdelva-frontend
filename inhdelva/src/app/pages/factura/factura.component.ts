@@ -145,7 +145,7 @@ export class FacturaComponent implements OnInit {
             this.totalMatriz += element.Energia;
             this.chatDataMatrizProvee = [{
               label: element.Origen,
-              value: element.Energia
+              value: Math.round(element.Energia)
             }, ...this.chatDataMatrizProvee];
           });
 
@@ -154,6 +154,7 @@ export class FacturaComponent implements OnInit {
               caption: 'Matriz energética de Proveedoes', // Set the chart caption
               valuePosition: 'inside',
               showLabels: '0',
+              decimals: '0',
               palettecolors: '8BB53A,0E9679,2CB8C5,F2921F,929133,7E5025,E65124,4D4E4D,1D1D1B',
               theme: 'fusion' // Set the theme for your chart
             },

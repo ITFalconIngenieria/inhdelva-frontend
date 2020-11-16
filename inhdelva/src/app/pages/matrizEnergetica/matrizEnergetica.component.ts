@@ -40,6 +40,7 @@ export class MatrizEnergeticaComponent implements OnInit {
   listOfDataDistribucionFiltrado: any[] = [];
   listaOrigenes: any[] = [];
   total: number = 0;
+  totalEditar: number = 0;
   dataMatrizEnergetica: Matriz[] = [];
 
   constructor(
@@ -111,7 +112,7 @@ export class MatrizEnergeticaComponent implements OnInit {
             const arrayTest: any[] = this.listOfDataDistribucion.filter(t => t.matrizId === this.idMatriz);
             // tslint:disable-next-line: prefer-for-of
             for (let y = 0; y < arrayTest.length; y++) {
-              this.total += parseFloat(arrayTest[y].valor);
+              this.total += Math.round(parseFloat(arrayTest[y].valor) * 100) / 100;
             }
 
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
@@ -151,7 +152,7 @@ export class MatrizEnergeticaComponent implements OnInit {
             const arrayTest: any[] = this.listOfDataDistribucion.filter(t => t.matrizId === this.idMatriz);
             // tslint:disable-next-line: prefer-for-of
             for (let y = 0; y < arrayTest.length; y++) {
-              this.total += parseFloat(arrayTest[y].valor);
+              this.total += Math.round(parseFloat(arrayTest[y].valor) * 100) / 100;
             }
 
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
@@ -234,11 +235,12 @@ export class MatrizEnergeticaComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            for (const item of this.listOfDataMatriz.filter(x => x.id === this.idMatriz)) {
+            for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.fechaInicio = dataMatriz.fechaInicio;
               item.fechaFinal = dataMatriz.fechaFinal;
               item.actorId = dataMatriz.actorId;
               item.observacion = dataMatriz.observacion;
+              item.total = this.totalEditar;
             }
 
             this.limpiarMatrizEnergetica();
@@ -266,7 +268,17 @@ export class MatrizEnergeticaComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            this.listOfDataMatriz = [...this.listOfDataMatriz, data];
+            this.dataMatrizEnergetica = [...this.dataMatrizEnergetica,
+            {
+              id: data.id,
+              actorId: data.actorId,
+              proveedor: '',
+              fechaInicio: data.fechaInicio,
+              fechaFinal: data.fechaFinal,
+              observacion: data.observacion,
+              estado: data.estado,
+              total: 0
+            }];
             this.limpiarMatrizEnergetica();
 
           },
@@ -287,6 +299,9 @@ export class MatrizEnergeticaComponent implements OnInit {
     this.isVisible = true;
     this.idMatriz = data.id;
     this.accion = 'editar';
+    this.totalEditar = data.total;
+    console.log(this.totalEditar);
+
 
     this.validateFormMatriz = this.fb.group({
       fechaInicio: [[data.fechaInicio, data.fechaFinal], [Validators.required]],
@@ -371,7 +386,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               fechaFinal: this.listOfDataMatriz[x].fechaFinal,
               observacion: this.listOfDataMatriz[x].observacion,
               estado: this.listOfDataMatriz[x].estado,
-              total: this.total
+              total: Math.round(this.total * 100) / 100
             }, ...this.dataMatrizEnergetica];
             this.total = 0;
           }
