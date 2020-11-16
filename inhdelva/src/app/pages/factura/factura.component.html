@@ -336,8 +336,8 @@
                             <td style="background-color: #717171; color: white;">
                                 {{ matriz.Origen }}
                             </td>
-                            <td> {{ matriz.Energia }} </td>
-                            <td> {{ (( matriz.Energia / totalMatriz ))*100 | number}} </td>
+                            <td> {{ matriz.Energia | number}} </td>
+                            <td> {{ (( matriz.Energia / totalMatriz ))*100 | number: '1.0-0'}} </td>
                         </tr>
                         <!-- <tr>
                             <td style="background-color: #717171; color: white;">
