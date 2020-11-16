@@ -10,11 +10,22 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control nzErrorTip="Por favor digite una contraseña">
+                <!-- <nz-form-control nzErrorTip="Por favor digite una contraseña">
                     <nz-input-group nzPrefixIcon="lock">
                         <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
                     </nz-input-group>
+                </nz-form-control> -->
+                <nz-form-control nzErrorTip="Por favor digite una contraseña">
+                    <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                        <input [type]="passwordVisible ? 'text' : 'password'" placeholder="Contraseña" nz-input id="password" formControlName="password" />
+                    </nz-input-group>
+                    <ng-template #suffixTemplate>
+                        <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                    </ng-template>
                 </nz-form-control>
+                <ng-template #suffixTemplate>
+                    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                </ng-template>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-control>

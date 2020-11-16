@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
   loading: boolean = true;
   formulario: boolean = true;
+  passwordVisible = false;
 
   constructor(
     private fb: FormBuilder,

@@ -36,7 +36,7 @@
                 </nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El dato es incorrecto!">
                     <nz-input-group [nzSuffix]="suffixTemplate">
-                        <input [type]="passwordVisible ? 'text' : 'password'" nz-input nz-input id="password" formControlName="password" />
+                        <input [type]="passwordVisible ? 'text' : 'password'" nz-input id="password" formControlName="password" />
                     </nz-input-group>
                     <ng-template #suffixTemplate>
                         <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
