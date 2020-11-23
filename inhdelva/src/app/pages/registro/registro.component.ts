@@ -34,7 +34,7 @@ export class RegistroComponent implements OnInit {
     // debugger;
     this.dataUsuarios = {
       ...this.validateForm.value,
-      ad: 0,
+      ad: 1,
       estado: 1
     };
 

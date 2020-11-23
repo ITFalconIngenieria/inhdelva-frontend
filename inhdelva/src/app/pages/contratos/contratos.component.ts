@@ -33,6 +33,7 @@ export class ContratosComponent implements OnInit {
   isVisibleInterno = false;
   isVisibleOtro = false;
   isVisibleZona = false;
+  isVisibleTarifa = false;
   validateFormContrato: FormGroup;
   validateFormMedidores: FormGroup;
   dateFormat = 'yyyy/MM/dd';
@@ -636,12 +637,15 @@ export class ContratosComponent implements OnInit {
         this.isVisibleInterno = false;
         this.isVisibleOtro = true;
         this.isVisibleZona = false;
+        this.isVisibleTarifa = true;
+
         break;
       }
       case 'C': {
         this.isVisibleInterno = true;
         this.isVisibleOtro = false;
         this.isVisibleZona = false;
+        this.isVisibleTarifa = false;
 
         break;
       }
@@ -649,6 +653,7 @@ export class ContratosComponent implements OnInit {
         this.isVisibleInterno = true;
         this.isVisibleOtro = true;
         this.isVisibleZona = true;
+        this.isVisibleTarifa = false;
 
         break;
       }
