@@ -337,7 +337,7 @@
                                 {{ matriz.Origen }}
                             </td>
                             <td> {{ matriz.Energia | number}} </td>
-                            <td> {{ (( matriz.Energia / totalMatriz ))*100 | number: '1.0-0'}} </td>
+                            <td> {{ (( matriz.Energia / totalMatriz ))*100 | number: '1.0-0'}} %</td>
                         </tr>
                         <!-- <tr>
                             <td style="background-color: #717171; color: white;">
@@ -450,9 +450,9 @@
 
                 </div>
 
-                <p style="color: #000000;font-size: 13px; position: absolute; right: 0; top: 35%;"> MEDIA INHDELVA </p>
-                <hr [ngStyle]="inh">
-                <p style="color: #000000;font-size: 13px; position: absolute; right: 0; top: 45%;"> 0.25 kg CO2/KwH </p>
+                <p [ngStyle]="EtiquetaInh"> MEDIA INHDELVA </p>
+                <hr [ngStyle]="HRinh">
+                <p [ngStyle]="ValorIhn"> 0.25 kg CO2/KwH </p>
 
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #E37D25;
@@ -464,10 +464,10 @@
                         E BUNKER
                     </span>
                 </div>
-                <p style="color: #000000;font-size: 13px; position: absolute; right: 0; top: 55%;"> MEDIA PROVEEDORES
-                </p>
-                <hr [ngStyle]="proveedores">
-                <p style="color: #000000;font-size: 13px; position: absolute; right: 0; top: 64%;"> 0.27 kg CO2/KwH </p>
+                <p [ngStyle]="EtiquetaProveedores"> MEDIA PROVEEDORES </p>
+                <hr [ngStyle]="HRproveedores">
+                <p [ngStyle]="ValorProveedores"> 0.27 kg CO2/KwH </p>
+
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #E05E26;
                 font-size: 16px;

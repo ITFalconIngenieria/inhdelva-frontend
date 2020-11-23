@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { forkJoin, Observable } from 'rxjs';
-
+import * as moment from 'moment';
+moment.locale('es');
 const apiUrl = environment.apiUrl;
 
 @Injectable({
@@ -37,9 +38,12 @@ export class FacturaService {
     return this.http.get(`${apiUrl}vlistado-facturas?filter[where][Estado]=${id}`);
   }
 
-  getDetalleFactura(id, fechaInicio, fechaFin, idContrato, idMedidor): Observable<any> {
+  getDetalleFactura(id, fechaInicio, fechaFin, fechaInicioFac, fechaFinFac, idContrato, idMedidor): Observable<any> {
 
-    console.log(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`);
+    // tslint:disable-next-line: max-line-length
+    console.log(`${apiUrl}v-matriz-energia-pros?filter={"where":{"and":[{"or":[{"FechaInicio":{"lt":"${fechaInicioFac}"}},{"FechaInicio":"${fechaInicioFac}"}]},{"or":[{ "FechaFinal":{"gt":${fechaInicioFac}"}},{"FechaFinal":"${fechaInicioFac}"}]}]},"fields":{"FechaInicio":false,"FechaFinal":false},"order":["Id ASC"]}`);
+    console.log(`${apiUrl}grafico?fechai=${fechaInicioFac}&fechaf=${fechaFinFac}`);
+
 
     return forkJoin(
       this.http.get(`${apiUrl}facturas/${id}`),
@@ -48,14 +52,23 @@ export class FacturaService {
       // tslint:disable-next-line: max-line-length
       this.http.get(`${apiUrl}v-historico-energias?filter={ "where":{ "Fecha":{ "between":["${fechaInicio}","${fechaFin}"] }, "Contrato": ${idContrato}, "Medidor": ${idMedidor} }, "fields":{ "Fecha":true, "Energia":true },"order":["Fecha DESC"] }`),
       // tslint:disable-next-line: max-line-length
-      this.http.get(`${apiUrl}v-matriz-energia-pros?filter={ "where":{"and":[ {"FechaInicio":{"lt":"2020-12-01T00:00:00.000Z"}},{ "FechaFinal":{"gt":"2020-12-01T00:00:00.000Z"}}] }, "fields":{ "FechaInicio":false, "FechaFinal":false },"order":["Id ASC"] }`),
-      this.http.get(`${apiUrl}grafico?fechai=2020-10-01%2006%3A00%3A00&fechaf=2020-11-01%2006%3A00%3A00`)
+      this.http.get(`${apiUrl}v-matriz-energia-pros?filter={
+        "where":{"and":[
+             {"or":[{"FechaInicio":{"lt":"${fechaInicioFac}"}},{"FechaInicio":"${fechaInicioFac}"}]},{"or":[{ "FechaFinal":{"gt":"${fechaInicioFac}"}},{"FechaFinal":"${fechaInicioFac}"}]}]
+         },
+         "fields":{
+             "FechaInicio":false,
+             "FechaFinal":false
+         },"order":["Id ASC"]
+     }`),
+      // tslint:disable-next-line: max-line-length
+      this.http.get(`${apiUrl}grafico?fechai=${moment(fechaInicioFac).add(6, 'hour').format('YYYY-MM-DD HH:mm:ss')}&fechaf=${fechaFinFac}`)
 
     );
   }
 
   getFacturaEditar(id) {
-    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`); 10
+    return this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`);
   }
 
   editarFactura(id, valor) {

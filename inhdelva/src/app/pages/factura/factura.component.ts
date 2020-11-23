@@ -14,7 +14,15 @@ moment.locale('es');
 })
 export class FacturaComponent implements OnInit {
 
-  proveedores = {
+  EtiquetaProveedores = {
+    color: '#000000',
+    'font-size': '13px',
+    position: 'absolute',
+    right: 0,
+    top: '55%'
+  };
+
+  HRproveedores = {
     height: '2px',
     width: '54%',
     'background-color': '#E37D25',
@@ -23,7 +31,23 @@ export class FacturaComponent implements OnInit {
     top: '57%'
   };
 
-  inh = {
+  ValorProveedores = {
+    color: '#000000',
+    'font-size': '13px',
+    position: 'absolute',
+    right: 0,
+    top: '64%'
+  };
+
+  EtiquetaInh = {
+    color: '#000000',
+    'font-size': '13px',
+    position: 'absolute',
+    right: 0,
+    top: '35%'
+  };
+
+  HRinh = {
     height: '2px',
     width: '59%',
     'background-color': '#F9D32A',
@@ -31,6 +55,16 @@ export class FacturaComponent implements OnInit {
     right: 0,
     top: '37%'
   };
+
+  ValorIhn = {
+    color: '#000000',
+    'font-size': '13px',
+    position: 'absolute',
+    right: 0,
+    top: '45%'
+  };
+
+
 
   dataSourceConsumo: any;
   chartDataConsumo: any[] = [];
@@ -82,13 +116,15 @@ export class FacturaComponent implements OnInit {
     this.dataFactura = this.facturaService.getInfoNavegacion();
     console.log(this.dataFactura);
 
-    const { id, contratoid, fechaInicio, medidorId, fechaLectura } = this.dataFactura;
+    const { id, contratoid, fechaInicio, medidorId, fechaLectura, fechaFin } = this.dataFactura;
     this.pag = this.dataFactura.pag;
 
     this.facturaService.getDetalleFactura(
       id,
       `${moment(fechaInicio).subtract(12, 'month').format('YYYY-MM-DD')}T00:00:00.000Z`,
       `${moment(fechaInicio).add(1, 'day').format('YYYY-MM-DD')}T00:00:00.000Z`,
+      `${moment(fechaInicio).format('YYYY-MM-DD')}T00:00:00.000Z`,
+      `${moment(fechaFin).format('YYYY-MM-DD')}T06:00:00.000Z`,
       contratoid,
       medidorId
     )
