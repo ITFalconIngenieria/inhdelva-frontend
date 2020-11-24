@@ -337,7 +337,7 @@
                                 {{ matriz.Origen }}
                             </td>
                             <td> {{ matriz.Energia | number}} </td>
-                            <td> {{ (( matriz.Energia / totalMatriz ))*100 | number: '1.0-0'}} %</td>
+                            <td> {{ (( matriz.Energia / totalMatrizEnergia ))*100 | number: '1.0-0'}} %</td>
                         </tr>
                         <!-- <tr>
                             <td style="background-color: #717171; color: white;">
@@ -415,8 +415,8 @@
                margin: 0% 0% 3% 1%;">
                         A RENOVABLE
                     </span>
-                    <hr class="emisiones">
-                    <span style=" margin-top: -3%; color: #5e7835;font-size: 13px; position: absolute; right: 0; top: 15%;">
+                    <hr *ngIf="emesionesVisible" class="emisiones">
+                    <span *ngIf="emesionesVisible" style=" margin-top: -3%; color: #5e7835;font-size: 13px; position: absolute; right: 0; top: 15%;">
                         EMISIONES 0 kg CO2 </span>
                 </div>
                 <div class="div-etiquetas-medioambiente">
@@ -452,7 +452,7 @@
 
                 <p [ngStyle]="EtiquetaInh"> MEDIA INHDELVA </p>
                 <hr [ngStyle]="HRinh">
-                <p [ngStyle]="ValorIhn"> 0.25 kg CO2/KwH </p>
+                <p [ngStyle]="ValorIhn"> {{ mediaInhdelva }} kg CO2/KwH </p>
 
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #E37D25;
@@ -466,7 +466,7 @@
                 </div>
                 <p [ngStyle]="EtiquetaProveedores"> MEDIA PROVEEDORES </p>
                 <hr [ngStyle]="HRproveedores">
-                <p [ngStyle]="ValorProveedores"> 0.27 kg CO2/KwH </p>
+                <p [ngStyle]="ValorProveedores"> {{ mediaProveedores }} kg CO2/KwH </p>
 
                 <div class="div-etiquetas-medioambiente">
                     <span class="badge badge-pill" style="background-color: #E05E26;

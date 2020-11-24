@@ -39,30 +39,30 @@ export class FacturaComponent implements OnInit {
     top: '64%'
   };
 
-  EtiquetaInh = {
-    color: '#000000',
-    'font-size': '13px',
-    position: 'absolute',
-    right: 0,
-    top: '35%'
-  };
+  // EtiquetaInh = {
+  //   color: '#000000',
+  //   'font-size': '13px',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '35%'
+  // };
 
-  HRinh = {
-    height: '2px',
-    width: '59%',
-    'background-color': '#F9D32A',
-    position: 'absolute',
-    right: 0,
-    top: '37%'
-  };
+  // HRinh = {
+  //   height: '2px',
+  //   width: '59%',
+  //   'background-color': '#F9D32A',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '37%'
+  // };
 
-  ValorIhn = {
-    color: '#000000',
-    'font-size': '13px',
-    position: 'absolute',
-    right: 0,
-    top: '45%'
-  };
+  // ValorIhn = {
+  //   color: '#000000',
+  //   'font-size': '13px',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '45%'
+  // };
 
 
 
@@ -88,7 +88,18 @@ export class FacturaComponent implements OnInit {
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
   factorRecargo: number;
   matrizEnergetica: any[] = [];
-  totalMatriz: number = 0;
+  totalMatrizEnergia: number = 0;
+  totalMatrizEmisiones: number = 0;
+
+  mediaInhdelva: any;
+  mediaProveedores: any;
+  EtiquetaInh;
+  HRinh;
+  ValorIhn;
+  emesionesVisible = false;
+  // EtiquetaProveedores;
+  // HRproveedores;
+  // ValorProveedores;
 
   constructor(
     private facturaService: FacturaService,
@@ -134,8 +145,8 @@ export class FacturaComponent implements OnInit {
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];
           this.DetalleFacturaData = { ...data[2] };
-          console.log(data[2]);
-          console.log(data[5]);
+          // console.log(data[2]);
+          // console.log(data[5]);
 
           const matrisInh = data[5];
 
@@ -178,12 +189,273 @@ export class FacturaComponent implements OnInit {
           }, []);
 
           this.matrizEnergetica.forEach(element => {
-            this.totalMatriz += element.Energia;
+            this.totalMatrizEnergia += element.Energia;
+            this.totalMatrizEmisiones += element.Emisiones;
+
             this.chatDataMatrizProvee = [{
               label: element.Origen,
               value: Math.round(element.Energia)
             }, ...this.chatDataMatrizProvee];
           });
+
+          console.log(this.matrizEnergetica);
+
+          // totalMatrizEmisiones Seria la media de proveedores
+          // (matrisInh[0].Convencional / totalMatrizEnergia ) * this.totalMatrizEmisiones Media inhdelva
+
+          this.mediaInhdelva = ((matrisInh[0].Convencional / this.totalMatrizEnergia) * this.totalMatrizEmisiones).toFixed(3);
+          this.mediaProveedores = (this.totalMatrizEmisiones).toFixed(3);
+
+          console.log(matrisInh[0].Convencional, this.totalMatrizEnergia, this.totalMatrizEmisiones);
+
+          console.log(this.mediaInhdelva, this.mediaProveedores);
+
+          if (this.mediaInhdelva >= 0.000 && this.mediaInhdelva < 0.481) {
+            this.emesionesVisible = false;
+            this.EtiquetaInh = {
+              color: 'rgb(0, 0, 0)',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '-5%',
+            };
+
+            this.HRinh = {
+              height: '2px',
+              width: '72%',
+              'background-color': 'rgb(94 120 53)',
+              position: 'absolute',
+              right: 0,
+              top: '-3%',
+            };
+
+            this.ValorIhn = {
+              color: 'rgb(0, 0, 0)',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '5%'
+            };
+
+          } else if (this.mediaInhdelva >= 0.481 && this.mediaInhdelva < 0.569) {
+            this.emesionesVisible = true;
+            this.EtiquetaInh = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '16%'
+            };
+
+            this.HRinh = {
+              height: '2px',
+              width: '69%',
+              'background-color': 'rgb(142 178 62)',
+              position: 'absolute',
+              right: 0,
+              top: '17%',
+            };
+
+            this.ValorIhn = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '25%'
+            };
+
+          } else if (this.mediaInhdelva >= 0.569 && this.mediaInhdelva < 0.635) {
+            this.emesionesVisible = true;
+            this.EtiquetaInh = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '35%'
+            };
+
+            this.HRinh = {
+              height: '2px',
+              width: ' 59%',
+              'background-color': 'rgb(249, 211, 42)',
+              position: 'absolute',
+              right: 0,
+              top: '37%'
+            };
+
+            this.ValorIhn = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '45%'
+            };
+
+          } else if (this.mediaInhdelva >= 0.635 && this.mediaInhdelva < 0.851) {
+            this.emesionesVisible = true;
+            this.EtiquetaInh = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '55%'
+            };
+
+            this.HRinh = {
+              height: '2px',
+              width: '54%',
+              'background-color': 'rgb(227, 125, 37)',
+              position: 'absolute',
+              right: 0,
+              top: ' 57%',
+            };
+
+            this.ValorIhn = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '64%',
+            };
+
+          } else if (this.mediaInhdelva >= 0.851) {
+            this.emesionesVisible = true;
+            this.EtiquetaInh = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '74%'
+            };
+
+            this.HRinh = {
+              height: '2px',
+              width: '49%',
+              'background-color': 'rgb(224 94 38)',
+              position: 'absolute',
+              right: 0,
+              top: '76%'
+            };
+
+            this.ValorIhn = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '83%'
+            };
+
+          }
+
+          // if (this.mediaProveedores >= 0.481 && this.mediaProveedores < 0.569) {
+
+          //   this.EtiquetaProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '16%'
+          //   };
+
+          //   this.HRproveedores = {
+          //     height: '2px',
+          //     width: '69%',
+          //     'background-color': 'rgb(142 178 62)',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '17%',
+          //   };
+
+          //   this.ValorProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '25%'
+          //   };
+
+          // } else if (this.mediaProveedores >= 0.569 && this.mediaProveedores < 0.635) {
+
+          //   this.EtiquetaProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '35%'
+          //   };
+
+          //   this.HRproveedores = {
+          //     height: '2px',
+          //     width: ' 59%',
+          //     'background-color': 'rgb(249, 211, 42)',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '37%'
+          //   };
+
+          //   this.ValorProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '45%'
+          //   };
+
+          // } else if (this.mediaProveedores >= 0.635 && this.mediaProveedores < 0.851) {
+
+          //   this.EtiquetaProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '55%'
+          //   };
+
+          //   this.HRproveedores = {
+          //     height: '2px',
+          //     width: '54%',
+          //     'background-color': 'rgb(227, 125, 37)',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: ' 57%',
+          //   };
+
+          //   this.ValorProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '64%',
+          //   };
+
+          // } else if (this.mediaProveedores >= 0.851) {
+
+          //   this.EtiquetaProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '74%'
+          //   };
+
+          //   this.HRproveedores = {
+          //     height: '2px',
+          //     width: '49%',
+          //     'background-color': 'rgb(224 94 38)',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '76%'
+          //   };
+
+          //   this.ValorProveedores = {
+          //     color: '#000000',
+          //     'font-size': '13px',
+          //     position: 'absolute',
+          //     right: 0,
+          //     top: '83%'
+          //   };
+
+          // }
 
           this.dataSourceMatrizProveedores = {
             chart: {

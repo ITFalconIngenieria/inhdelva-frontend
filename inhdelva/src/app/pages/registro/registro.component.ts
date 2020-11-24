@@ -2,6 +2,7 @@ import { UsuarioService } from './../../servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { max } from 'moment';
 
 @Component({
   selector: 'app-registro',
@@ -34,7 +35,7 @@ export class RegistroComponent implements OnInit {
     // debugger;
     this.dataUsuarios = {
       ...this.validateForm.value,
-      ad: 1,
+      ad: 0,
       estado: 1
     };
 
@@ -51,7 +52,7 @@ export class RegistroComponent implements OnInit {
             apellido: [null, [Validators.required]],
             username: [null, [Validators.required]],
             email: [null, [Validators.email, Validators.required]],
-            password: [null, [Validators.required]],
+            password: [null, [Validators.required, Validators.minLength(5)]],
             telefono: [null, [Validators.required]],
             observacion: [null]
           });
