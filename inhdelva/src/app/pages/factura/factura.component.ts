@@ -14,30 +14,30 @@ moment.locale('es');
 })
 export class FacturaComponent implements OnInit {
 
-  EtiquetaProveedores = {
-    color: '#000000',
-    'font-size': '13px',
-    position: 'absolute',
-    right: 0,
-    top: '55%'
-  };
+  // EtiquetaProveedores = {
+  //   color: '#000000',
+  //   'font-size': '13px',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '55%'
+  // };
 
-  HRproveedores = {
-    height: '2px',
-    width: '54%',
-    'background-color': '#E37D25',
-    position: 'absolute',
-    right: 0,
-    top: '57%'
-  };
+  // HRproveedores = {
+  //   height: '2px',
+  //   width: '54%',
+  //   'background-color': '#E37D25',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '57%'
+  // };
 
-  ValorProveedores = {
-    color: '#000000',
-    'font-size': '13px',
-    position: 'absolute',
-    right: 0,
-    top: '64%'
-  };
+  // ValorProveedores = {
+  //   color: '#000000',
+  //   'font-size': '13px',
+  //   position: 'absolute',
+  //   right: 0,
+  //   top: '64%'
+  // };
 
   // EtiquetaInh = {
   //   color: '#000000',
@@ -97,9 +97,9 @@ export class FacturaComponent implements OnInit {
   HRinh;
   ValorIhn;
   emesionesVisible = false;
-  // EtiquetaProveedores;
-  // HRproveedores;
-  // ValorProveedores;
+  EtiquetaProveedores;
+  HRproveedores;
+  ValorProveedores;
 
   constructor(
     private facturaService: FacturaService,
@@ -347,115 +347,281 @@ export class FacturaComponent implements OnInit {
 
           }
 
-          // if (this.mediaProveedores >= 0.481 && this.mediaProveedores < 0.569) {
+          if (this.mediaProveedores >= 0.000 && this.mediaProveedores < 0.481) {
+            this.emesionesVisible = false;
+            this.EtiquetaProveedores = {
+              color: 'rgb(0, 0, 0)',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '-5%',
+            };
 
-          //   this.EtiquetaProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '16%'
-          //   };
+            this.HRproveedores = {
+              height: '2px',
+              width: '72%',
+              'background-color': 'rgb(94 120 53)',
+              position: 'absolute',
+              right: 0,
+              top: '-3%',
+            };
 
-          //   this.HRproveedores = {
-          //     height: '2px',
-          //     width: '69%',
-          //     'background-color': 'rgb(142 178 62)',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '17%',
-          //   };
+            this.ValorProveedores = {
+              color: 'rgb(0, 0, 0)',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '5%'
+            };
 
-          //   this.ValorProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '25%'
-          //   };
+            // tslint:disable-next-line: max-line-length
+            if ((this.mediaProveedores >= 0.000 && this.mediaProveedores < 0.481) && (this.mediaInhdelva >= 0.000 && this.mediaInhdelva < 0.481)) {
+              this.EtiquetaProveedores = {
+                color: 'rgb(0, 0, 0)',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '140px',
+                top: '-5%',
+              };
 
-          // } else if (this.mediaProveedores >= 0.569 && this.mediaProveedores < 0.635) {
+              this.HRproveedores = {
+                height: '2px',
+                width: '72%',
+                'background-color': 'rgb(94 120 53)',
+                position: 'absolute',
+                right: 0,
+                top: '-3%',
+              };
 
-          //   this.EtiquetaProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '35%'
-          //   };
+              this.ValorProveedores = {
+                color: 'rgb(0, 0, 0)',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '150px',
+                top: '5%'
+              };
+            }
 
-          //   this.HRproveedores = {
-          //     height: '2px',
-          //     width: ' 59%',
-          //     'background-color': 'rgb(249, 211, 42)',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '37%'
-          //   };
+          } else if (this.mediaProveedores >= 0.481 && this.mediaProveedores < 0.569) {
 
-          //   this.ValorProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '45%'
-          //   };
+            this.EtiquetaProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '16%'
+            };
 
-          // } else if (this.mediaProveedores >= 0.635 && this.mediaProveedores < 0.851) {
+            this.HRproveedores = {
+              height: '2px',
+              width: '69%',
+              'background-color': 'rgb(142 178 62)',
+              position: 'absolute',
+              right: 0,
+              top: '17%',
+            };
 
-          //   this.EtiquetaProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '55%'
-          //   };
+            this.ValorProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '25%'
+            };
 
-          //   this.HRproveedores = {
-          //     height: '2px',
-          //     width: '54%',
-          //     'background-color': 'rgb(227, 125, 37)',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: ' 57%',
-          //   };
+            // tslint:disable-next-line: max-line-length
+            if ((this.mediaProveedores >= 0.481 && this.mediaProveedores < 0.569) && (this.mediaInhdelva >= 0.481 && this.mediaInhdelva < 0.569)) {
+              this.EtiquetaProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '140px',
+                top: '16%'
+              };
 
-          //   this.ValorProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '64%',
-          //   };
+              this.HRproveedores = {
+                height: '2px',
+                width: '69%',
+                'background-color': 'rgb(142 178 62)',
+                position: 'absolute',
+                right: 0,
+                top: '17%',
+              };
 
-          // } else if (this.mediaProveedores >= 0.851) {
+              this.ValorProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '150px',
+                top: '25%'
+              };
+            }
+          } else if (this.mediaProveedores >= 0.569 && this.mediaProveedores < 0.635) {
 
-          //   this.EtiquetaProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '74%'
-          //   };
+            this.EtiquetaProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '35%'
+            };
 
-          //   this.HRproveedores = {
-          //     height: '2px',
-          //     width: '49%',
-          //     'background-color': 'rgb(224 94 38)',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '76%'
-          //   };
+            this.HRproveedores = {
+              height: '2px',
+              width: ' 59%',
+              'background-color': 'rgb(249, 211, 42)',
+              position: 'absolute',
+              right: 0,
+              top: '37%'
+            };
 
-          //   this.ValorProveedores = {
-          //     color: '#000000',
-          //     'font-size': '13px',
-          //     position: 'absolute',
-          //     right: 0,
-          //     top: '83%'
-          //   };
+            this.ValorProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '45%'
+            };
 
-          // }
+            // tslint:disable-next-line: max-line-length
+            if ((this.mediaProveedores >= 0.569 && this.mediaProveedores < 0.635) && (this.mediaInhdelva >= 0.569 && this.mediaInhdelva < 0.635)) {
+              this.EtiquetaProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '140px',
+                top: '35%'
+              };
+
+              this.HRproveedores = {
+                height: '2px',
+                width: ' 59%',
+                'background-color': 'rgb(249, 211, 42)',
+                position: 'absolute',
+                right: 0,
+                top: '37%'
+              };
+
+              this.ValorProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '150px',
+                top: '45%'
+              };
+            }
+
+          } else if (this.mediaProveedores >= 0.635 && this.mediaProveedores < 0.851) {
+
+            this.EtiquetaProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '55%'
+            };
+
+            this.HRproveedores = {
+              height: '2px',
+              width: '54%',
+              'background-color': 'rgb(227, 125, 37)',
+              position: 'absolute',
+              right: 0,
+              top: ' 57%',
+            };
+
+            this.ValorProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '64%',
+            };
+
+            // tslint:disable-next-line: max-line-length
+            if ((this.mediaProveedores >= 0.635 && this.mediaProveedores < 0.851) && (this.mediaInhdelva >= 0.635 && this.mediaInhdelva < 0.851)) {
+              this.EtiquetaProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '140px',
+                top: '55%'
+              };
+
+              this.HRproveedores = {
+                height: '2px',
+                width: '54%',
+                'background-color': 'rgb(227, 125, 37)',
+                position: 'absolute',
+                right: 0,
+                top: ' 57%',
+              };
+
+              this.ValorProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '150px',
+                top: '64%',
+              };
+            }
+
+          } else if (this.mediaProveedores >= 0.851) {
+
+            this.EtiquetaProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '74%'
+            };
+
+            this.HRproveedores = {
+              height: '2px',
+              width: '49%',
+              'background-color': 'rgb(224 94 38)',
+              position: 'absolute',
+              right: 0,
+              top: '76%'
+            };
+
+            this.ValorProveedores = {
+              color: '#000000',
+              'font-size': '13px',
+              position: 'absolute',
+              right: 0,
+              top: '83%'
+            };
+
+            if ((this.mediaProveedores >= 0.851) && (this.mediaInhdelva >= 0.851)) {
+
+              this.EtiquetaProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '140px',
+                top: '74%'
+              };
+
+              this.HRproveedores = {
+                height: '2px',
+                width: '49%',
+                'background-color': 'rgb(224 94 38)',
+                position: 'absolute',
+                right: 0,
+                top: '76%'
+              };
+
+              this.ValorProveedores = {
+                color: '#000000',
+                'font-size': '13px',
+                position: 'absolute',
+                right: '150px',
+                top: '83%'
+              };
+
+            }
+          }
 
           this.dataSourceMatrizProveedores = {
             chart: {
