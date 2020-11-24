@@ -24,6 +24,7 @@ import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.compone
 import { RegistroComponent } from './pages/registro/registro.component';
 import { ProduccionComponent } from './reportes/produccion/produccion.component';
 import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'facturasEmitidas', component: FacturasEmitidasComponent },
       { path: 'facturasCanceladas', component: FacturasCanceladasComponent },
       { path: 'rangoFactura', component: RangoFacturaComponent },
+      { path: 'usuarios', component: UsuariosComponent },
       ///// Reportes
       { path: 'reporteProduccion', component: ProduccionComponent },
       { path: 'reporteProveedores', component: ProveedoresEnergiaComponent }

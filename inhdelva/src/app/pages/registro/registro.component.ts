@@ -51,9 +51,9 @@ export class RegistroComponent implements OnInit {
             nombre: [null, [Validators.required]],
             apellido: [null, [Validators.required]],
             username: [null, [Validators.required]],
-            email: [null, [Validators.email, Validators.required]],
+            email: [null, [Validators.email]],
             password: [null, [Validators.required, Validators.minLength(5)]],
-            telefono: [null, [Validators.required]],
+            telefono: [null],
             observacion: [null]
           });
           this.createMessage('success', 'Usuario creado con exito');

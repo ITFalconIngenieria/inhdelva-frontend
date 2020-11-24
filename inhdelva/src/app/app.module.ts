@@ -86,8 +86,9 @@ import { RangoFacturaComponent } from './pages/rangoFactura/rangoFactura.compone
 import { RegistroComponent } from './pages/registro/registro.component';
 import { ProduccionComponent } from './reportes/produccion/produccion.component';
 import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
-  // "@angular/cdk": "^10.2.6",
+// "@angular/cdk": "^10.2.6",
 
 registerLocaleData(en);
 
@@ -114,8 +115,9 @@ registerLocaleData(en);
     FacturasCanceladasComponent,
     RangoFacturaComponent,
     RegistroComponent,
-    ProduccionComponent, 
-    ProveedoresEnergiaComponent
+    ProduccionComponent,
+    ProveedoresEnergiaComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
