@@ -125,6 +125,7 @@ export class UsuariosComponent implements OnInit {
       apellido: [data.apellido, [Validators.required]],
       username: [data.username, [Validators.required]],
       email: [data.email, [Validators.email]],
+      ad: [data.ad],
       password: [data.password, [Validators.required, Validators.minLength(5)]],
       telefono: [data.telefono],
       observacion: [data.observacion]

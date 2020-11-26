@@ -32,10 +32,14 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
+    console.log(this.validateForm.value);
+
     this.userService.validar(this.validateForm.value)
       .toPromise()
       .then(
         (data: any) => {
+
+          console.log(data);
 
           this.userService.executeLogin(data);
           this.route.navigate(['inicio']);

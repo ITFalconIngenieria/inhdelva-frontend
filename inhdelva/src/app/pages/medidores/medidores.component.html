@@ -238,8 +238,8 @@
                     <tr>
                         <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                         <td>{{ data.fecha | date:'yyyy/M/dd'}}</td>
-                        <td>{{ data.lecturaAnterior }}</td>
-                        <td>{{ data.lecturaNueva }}</td>
+                        <td>{{ data.lecturaAnterior | number}}</td>
+                        <td>{{ data.lecturaNueva | number}}</td>
                         <td>{{ data.energia && 'Reactiva' || 'Activa'}}</td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">

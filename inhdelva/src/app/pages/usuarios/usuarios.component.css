@@ -27,6 +27,6 @@ nz-input-number {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 10px 10px;
+    gap: 0px 00px;
     grid-template-areas: ". ." ". .";
 }

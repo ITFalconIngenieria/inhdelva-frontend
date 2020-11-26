@@ -16,7 +16,6 @@ export class MedidoresComponent implements OnInit {
   isVisible = false;
   isVisibleRollover = false;
   validateForm: FormGroup;
-  dateFormat = 'yyyy/MM/dd';
   disabledLec: boolean;
   codigo: string;
   descripcion: string;
@@ -67,7 +66,7 @@ export class MedidoresComponent implements OnInit {
   guardarRollover() {
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
-
+    // this.validateForm.value.fecha = moment(this.validateForm.value.fecha).format('YYYY-MM-DD HH:mm:ss')
     const dataRollover = {
       medidorId: this.idMedidor,
       fecha: moment(this.validateForm.value.fecha).toISOString(),
@@ -77,6 +76,9 @@ export class MedidoresComponent implements OnInit {
       observacion,
       estado: true
     };
+
+    console.log(dataRollover);
+
 
     if (this.accion === 'editar') {
       this.medidoresService.putRollovers(this.idRollover, dataRollover)
@@ -387,24 +389,24 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: MedidorPME[]) => {
 
-          // this.listOfDataMedidores = data;
+          this.listOfDataMedidores = data;
           // tslint:disable-next-line: prefer-for-of
           this.cantidad = data.length;
-          for (let x = 0; x < data.length; x++) {
-            this.listOfDataMedidores = [{
-              id: data[x].id,
-              codigo: data[x].codigo.substr(9),
-              descripcion: data[x].descripcion,
-              serie: data[x].serie,
-              modelo: data[x].modelo,
-              ip: data[x].ip,
-              lecturaMax: data[x].lecturaMax,
-              puntoMedicionId: data[x].puntoMedicionId,
-              multiplicador: data[x].multiplicador,
-              observacion: data[x].observacion,
-              contrato: (data[x].contrato)
-            }, ...this.listOfDataMedidores];
-          }
+          // for (let x = 0; x < data.length; x++) {
+          //   this.listOfDataMedidores = [{
+          //     id: data[x].id,
+          //     codigo: data[x].codigo.substr(9),
+          //     descripcion: data[x].descripcion,
+          //     serie: data[x].serie,
+          //     modelo: data[x].modelo,
+          //     ip: data[x].ip,
+          //     lecturaMax: data[x].lecturaMax,
+          //     puntoMedicionId: data[x].puntoMedicionId,
+          //     multiplicador: data[x].multiplicador,
+          //     observacion: data[x].observacion,
+          //     contrato: (data[x].contrato)
+          //   }, ...this.listOfDataMedidores];
+          // }
 
         },
         (error) => {
@@ -430,23 +432,23 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          // this.medidoresPME = data
+          this.medidoresPME = data;
           // tslint:disable-next-line: prefer-for-of
-          for (let x = 0; x < data.length; x++) {
-            this.medidoresPME = [{
-              id: data[x].id,
-              codigo: data[x].codigo.substr(9),
-              descripcion: data[x].descripcion,
-              serie: data[x].serie,
-              modelo: data[x].modelo,
-              ip: data[x].ip,
-              lecturaMax: data[x].lecturaMax,
-              puntoMedicionId: data[0].puntoMedicionId,
-              multiplicador: data[x].multiplicador,
-              observacion: data[x].observacion,
-              contrato: (data[x].contrato)
-            }, ...this.medidoresPME];
-          }
+          // for (let x = 0; x < data.length; x++) {
+          //   this.medidoresPME = [{
+          //     id: data[x].id,
+          //     codigo: data[x].codigo.substr(9),
+          //     descripcion: data[x].descripcion,
+          //     serie: data[x].serie,
+          //     modelo: data[x].modelo,
+          //     ip: data[x].ip,
+          //     lecturaMax: data[x].lecturaMax,
+          //     puntoMedicionId: data[0].puntoMedicionId,
+          //     multiplicador: data[x].multiplicador,
+          //     observacion: data[x].observacion,
+          //     contrato: (data[x].contrato)
+          //   }, ...this.medidoresPME];
+          // }
 
         }
       );

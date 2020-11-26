@@ -157,8 +157,8 @@
                 <ng-container *ngFor="let data of nzTableDistribucion.data">
                     <tr>
                         <td>{{ data.origenId }}</td>
-                        <td>{{ data.valor }}</td>
-                        <td>{{ data.emisiones }}</td>
+                        <td>{{ data.valor | number}}</td>
+                        <td>{{ data.emisiones | number}}</td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" (click)="editarDistribucion(data)" nzShape="circle">
                               <i nz-icon nzType="edit" nzTheme="outline"></i>
