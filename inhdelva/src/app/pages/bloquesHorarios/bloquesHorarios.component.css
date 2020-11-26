@@ -61,3 +61,21 @@ nz-form-control {
     grid-template-areas: ". .";
     justify-content: flex-end;
 }
+
+.dias {
+    display: grid;
+    grid-template-columns: 1fr 0.2fr 0.2fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas: ". . .";
+}
+
+.demo-infinite-container {
+    height: 300px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+}
+
+nz-list {
+    padding: 24px;
+}
