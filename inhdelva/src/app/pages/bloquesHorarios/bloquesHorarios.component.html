@@ -11,7 +11,7 @@
         </ng-template>
     </div> -->
     <div style="display: flex; justify-content: flex-end;" class="col">
-        <button nz-button nzType="primary" nzSize="large" nzShape="round" (click)="showModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
+        <button nz-button nzType="primary" nzShape="round" (click)="showModal()"><i nz-icon nzType="plus" nzTheme="outline"></i>Nuevo Registro</button>
     </div>
 </div>
 <br>
@@ -23,7 +23,7 @@
     </div>
     <div style="width: 60%; margin: auto;">
         <label>Fecha Creacion</label>
-        <nz-date-picker nzSize="large" [(ngModel)]="date" style="width: 100%;" (ngModelChange)="onChange($event)" nzPlaceHolder="Seleccione una Fecha"></nz-date-picker>
+        <nz-date-picker [(ngModel)]="date" style="width: 100%;" (ngModelChange)="onChange($event)" nzPlaceHolder="Seleccione una Fecha"></nz-date-picker>
     </div>
     <div style="width: 100%; margin: auto;">
         <label>Descripcion</label>
@@ -110,7 +110,7 @@
     </div>
     <div class="row">
         <div style="display: flex; justify-content: flex-end;" class="col">
-            <button nz-button nzType="primary" nzSize="large"><i nz-icon nzType="save" nzTheme="outline"></i>Guardar Cambios</button>
+            <button nz-button nzType="primary"><i nz-icon nzType="save" nzTheme="outline"></i>Guardar Cambios</button>
         </div>
     </div>
 </div>
@@ -207,9 +207,8 @@
                 <div class="row">
                     <div class="col">
                         <p style="color: black; font-size: 18px; text-align: center;">Nombre de la Clase</p>
-                        <nz-input-group>
-                            <input nz-input placeholder="Escriba aquí" type="text" />
-                        </nz-input-group>
+                        <hr>
+                        <input nz-input placeholder="Escriba aquí" type="text" />
                         <div>
                             <label>Dias de la Semana</label>
                             <nz-input-group>
@@ -237,6 +236,7 @@
                     </div>
                     <div class="col">
                         <p style="color: black; font-size: 18px; text-align: center;">Dias especificos</p>
+                        <hr>
                         <div class="dias">
                             <div>
                                 <nz-date-picker (ngModelChange)="onChange($event)"></nz-date-picker>
@@ -247,9 +247,25 @@
                             <div style="display: flex; justify-content: flex-end;">
                                 <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="save"></i></button>
                             </div>
-
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <label> Descripcion</label>
+                            <input nz-input placeholder="Escriba aquí" nzSize="small" />
                         </div>
                         <hr>
+                        <div>
+                            <cdk-virtual-scroll-viewport itemSize="73" class="demo-infinite-container">
+                                <nz-list>
+                                    <nz-list-item *cdkVirtualFor="let item of ds">
+                                        <!-- <nz-list-item-meta *ngIf="item" nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" [nzDescription]="item.email">
+                                            <nz-list-item-meta-title> -->
+                                        <a href="https://ng.ant.design">{{ item.name.last }}</a>
+                                        <!-- </nz-list-item-meta-title>
+                                        </nz-list-item-meta> -->
+                                    </nz-list-item>
+                                </nz-list>
+                            </cdk-virtual-scroll-viewport>
+                        </div>
                     </div>
                 </div>
             </nz-tab>
@@ -257,8 +273,8 @@
         <br/>
         <br/>
         <div style="display: flex; justify-content: flex-end;">
-            <button nz-button nzType="default" style="margin-right: 1%;" nzSize="large">Registrar uno Nuevo</button>
-            <button nz-button nzType="primary" style="margin-right: 1%;" nzSize="large">Guardar Cambios</button>
+            <button nz-button nzType="default" style="margin-right: 1%;">Registrar uno Nuevo</button>
+            <button nz-button nzType="primary" style="margin-right: 1%;">Guardar Cambios</button>
         </div>
         <br/>
         <nz-form-item>
@@ -273,18 +289,3 @@
         <button nz-button nzType="primary">Guardar</button>
     </div>
 </nz-modal>
-
-<!-- <div>
-    <cdk-virtual-scroll-viewport itemSize="73" class="demo-infinite-container">
-        <nz-list>
-            <nz-list-item *cdkVirtualFor="let item of ds">
-                <nz-skeleton *ngIf="!item" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
-                <nz-list-item-meta *ngIf="item" nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" [nzDescription]="item.email">
-                    <nz-list-item-meta-title>
-                        <a href="https://ng.ant.design">{{ item.name.last }}</a>
-                    </nz-list-item-meta-title>
-                </nz-list-item-meta>
-            </nz-list-item>
-        </nz-list>
-    </cdk-virtual-scroll-viewport>
-</div> -->
