@@ -47,62 +47,46 @@
 
 </div>
 <hr>
-<nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '350px', x: '2900px' }">
+<nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '350px', x: '4400px' }">
     <thead>
         <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 350px;">
-                PROVEEDOR</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 133px;">
-                Año</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 133px;">
-                Mes</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 500px;">
-                Consumo Energia activa (kWh/mes)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Energia activa exportada (kWh/mes)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Demanda potencia maxima (kW)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Consumo Energia reactiva (kVArh/mes)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 140px;">
-                Factor de Potencia</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Costo de la Energia (L/kWh)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Costo de la Demanda (L/kW-mes)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Costo de la Energia (L)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Alumbrado Público (L)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Cargo de Comercialización (L)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Cargo de Regulación (L)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                Demanda (L)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;">
-                TOTAL (L)</th>
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> PROVEEDOR</th>
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Año</th>
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Mes</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Consumo Energia activa (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Energia activa exportada (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Demanda potencia maxima (kW)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Consumo Energia reactiva (kVArh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Factor de Potencia</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Costo de la Energia (L/kWh)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Costo de la Demanda (L/kW-mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Costo de la Energia (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Alumbrado Público (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Cargo de Comercialización (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Cargo de Regulación (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> Demanda (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; "> TOTAL (L)</th>
         </tr>
     </thead>
     <tbody>
         <ng-container *ngFor="let data of nzTable.data">
             <tr>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center"> {{ data.proveedor }} </td>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center">{{ data.fecha | date:'yyyy'}}</td>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 700px;" nzAlign="center"> {{ data.consumoEnergiaActiva | number:'':'en_US' }} kWh/mes</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center"> {{ data.energiaActivaExportada | number:'':'en_US' }} kWh/mes</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">{{ data.demandaPotenciaMaxima | number:'':'en_US' }} kW</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'':'en_US' }} kVArh/mes</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">{{ data.factorPotencia | number:'':'en_US' }}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">{{ data.costoEnergia | number:'':'en_US' }} Lps/kWh</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">{{ data.costoDemanda | number:'':'en_US' }} Lps/kW-mes</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center">L {{ data.precioEnergia | number:'':'en_US' }}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">L {{ data.alumbradoPublico | number:'':'en_US' }}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L {{ data.cargoComercializacion | number:'':'en_US' }}</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L {{ data.cargoRegulacion | number:'':'en_US' }}</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L {{ data.precioDemanda | number:'':'en_US' }}</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center">L {{ data.total | number:'':'en_US' }}</td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center"> {{ data.proveedor }} </td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center">{{ data.fecha | date:'yyyy'}}</td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.consumoEnergiaActiva | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.energiaActivaExportada | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.demandaPotenciaMaxima | number:'':'en_US' }} kW</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'':'en_US' }} kVArh/mes</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.factorPotencia | number:'':'en_US' }}</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.costoEnergia | number:'':'en_US' }} Lps/kWh</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.costoDemanda | number:'':'en_US' }} Lps/kW-mes</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.precioEnergia | number:'':'en_US' }}</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center">L {{ data.alumbradoPublico | number:'':'en_US' }}</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.cargoComercializacion | number:'':'en_US' }}</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.cargoRegulacion | number:'':'en_US' }}</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.precioDemanda | number:'':'en_US' }}</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.total | number:'':'en_US' }}</td>
             </tr>
 
         </ng-container>
@@ -112,16 +96,16 @@
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 700px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center"><span style="font-weight: bold; color: black;">4,563.00 kW</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center"><span style="font-weight: bold; color: black;">8,685,300.00 kVArh/mes</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">0.95</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">8,685,300.00 kVArh/mes</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">0.95</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 9,452,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 89,113,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 7,113,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 45,785.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 212,113.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 300px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 85,478,569.21</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 89,113,086.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 7,113,086.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 45,785.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 212,113.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 85,478,569.21</span></td>
         </tr> -->
     </tbody>
 </nz-table>
