@@ -40,8 +40,8 @@
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
-                <td>{{ data.consumo | number : '1.2-2' }}</td>
-                <td>{{ data.total | number : '1.2-2'}}</td>
+                <td>{{ data.consumo | number:'':'en_US' }}</td>
+                <td>{{ data.total | number:'':'en_US'}}</td>
                 <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>
         </tbody>
@@ -52,18 +52,18 @@
 <nz-modal [(nzVisible)]="isVisible" nzWidth="750" nzTitle="Editar factura" (nzOnCancel)="handleCancel()">
     <div class="row">
         <div class="col">
-            <p><span> {{ dataEditar[12]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[12]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[13]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[13]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[14]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[14]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[15]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[15]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[16]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[16]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[12]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[12]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[13]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[13]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[14]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[14]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[15]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[15]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[16]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[16]?.valor | number:'':'en_US'}}</span></p>
         </div>
         <div class="col">
-            <p><span> {{ dataEditar[17]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[17]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[18]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[18]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[19]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[19]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[20]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[20]?.valor | number}}</span></p>
-            <p><span> {{ dataEditar[21]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[21]?.valor | number}}</span></p>
+            <p><span> {{ dataEditar[17]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[17]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[18]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[18]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[19]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[19]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[20]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[20]?.valor | number:'':'en_US'}}</span></p>
+            <p><span> {{ dataEditar[21]?.descripcion }} (L.) </span> : <span class="valores">{{ dataEditar[21]?.valor | number:'':'en_US'}}</span></p>
         </div>
 
     </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col">
-                <p style="color: black; font-size: 17px;"> <span> {{ dataEditar[27]?.descripcion }} :</span> <span class="total"> {{ total | number}} </span></p>
+                <p style="color: black; font-size: 17px;"> <span> {{ dataEditar[27]?.descripcion }} :</span> <span class="total"> {{ total | number:'':'en_US'}} </span></p>
             </div>
         </div>
 

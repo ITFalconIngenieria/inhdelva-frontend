@@ -37,7 +37,7 @@
                     </td>
                     <td>{{ data.fechaInicial | date:'yyyy/M/dd'}}</td>
                     <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
-                    <td>{{ data.total | number}}</td>
+                    <td>{{ data.total | number:'':'en_US'}}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
                     <td colSpan="6">{{ data.observacion }}</td>

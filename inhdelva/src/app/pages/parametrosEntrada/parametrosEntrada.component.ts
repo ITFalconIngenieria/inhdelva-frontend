@@ -6,6 +6,7 @@ import { TarifaService } from '../../servicios/tarifa.service';
 import { TipoCargo } from '../../Modelos/tarifa';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-parametrosEntrada',
@@ -61,15 +62,19 @@ export class ParametrosEntradaComponent implements OnInit {
   guardarParametro() {
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+    // this.validateForm.value.fechaInicio[0] = `${moment(this.validateForm.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`;
+    // this.validateForm.value.fechaInicio[1] = `${moment(this.validateForm.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`;
 
     const dataParametro = {
       tipoCargoId: this.validateForm.value.tipoCargoId,
-      fechaInicio: this.validateForm.value.fechaInicio[0],
-      fechaFinal: this.validateForm.value.fechaInicio[1],
+      fechaInicio: moment(this.validateForm.value.fechaInicio[0]).toISOString(),
+      fechaFinal: moment(this.validateForm.value.fechaInicio[1]).toISOString(),
       valor: `${this.validateForm.value.valor}`,
       observacion,
       estado: true
     };
+
+    console.log(dataParametro);
 
     if (this.accion === 'editar') {
       this.parametroServce.putParametro(this.idParametro, dataParametro)
