@@ -47,136 +47,102 @@
 
 </div>
 <hr>
-<nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '400px', x: '6000px' }">
+<nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '400px', x: '13200px' }">
     <thead>
         <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 462px;">
-                Nave</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 1281px;">
-                Empresa</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 616px;">
-                Cuenta</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 1420px;">
-                Codigo medidor</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Codigo tarifa</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energia Activa (EA)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energia reactiva (ER) </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 140px;">
-                Potencia maxima (PM)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Factor potencia (FP)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Fraccion de energia solar en autoocnsumo (FS) </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Precio base de energia (PBE)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por energia(CPE)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Promedio potencia 11 meses (P11)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Precio base potencia (PBP)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por potencia (CPC) </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Factor de recargo (FR)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por energia reactiva (CER)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Costo operativo sistema solar (COS)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Costo operativo mantenimiento red de distribucion (COR)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Costo operativo de mantenimiento de equipos auxiliares (COE)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Costos administrativos (COA)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por costos operativos (CCO)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Punto de medida</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Perdidas internas (PI)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por perdidas internas (CPI)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energia activa consumida en Alumbrado Público (EAAP)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Precio de la energia tarifa Alumbrado Público (EAP)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energía total consumida por los usuarios (ETCU)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por iluminación comunitaria (CIC)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energia activa consumida en servicios comunitarios (EASC)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Precio de la energia tarifa Servicio General de Baja Tensión (EBT)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Energía total consumida por los usuarios (ETCU)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                Cargo por servicios comunitarios (CSC)</th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;">
-                CARGOS TOTALES TARIFA</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Nave</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Empresa</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cuenta</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Codigo medidor</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Codigo tarifa</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energia Activa (EA)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energia reactiva (ER) </th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Potencia maxima (PM)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Factor potencia (FP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Fraccion de energia solar en autoocnsumo (FS) </th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Precio base de energia (PBE)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por energia(CPE)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Promedio potencia 11 meses (P11)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Precio base potencia (PBP)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por potencia (CPC) </th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Factor de recargo (FR)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por energia reactiva (CER)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Costo operativo sistema solar (COS)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Costo operativo mantenimiento red de distribucion (COR)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Costo operativo de mantenimiento de equipos auxiliares (COE)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Costos administrativos (COA)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por costos operativos (CCO)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Punto de medida</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Perdidas internas (PI)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por perdidas internas (CPI)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energia activa consumida en Alumbrado Público (EAAP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Precio de la energia tarifa Alumbrado Público (EAP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energía total consumida por los usuarios (ETCU)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por iluminación comunitaria (CIC)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energia activa consumida en servicios comunitarios (EASC)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Precio de la energia tarifa Servicio General de Baja Tensión (EBT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Energía total consumida por los usuarios (ETCU)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">Cargo por servicios comunitarios (CSC)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; ">CARGOS TOTALES TARIFA</th>
         </tr>
     </thead>
     <tbody>
         <ng-container *ngFor="let data of nzTable.data">
             <tr>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center"> {{ data.nave }} </td>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">{{ data.empresa }}</td>
-                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">{{ data.cuenta }}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.medidor }} </td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center"> {{ data.tarifa }} </td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">{{ data.EA | number:'':'en_US'}} kWh/mes</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center"> {{ data.ER | number:'':'en_US' }} kVArh/mes</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">{{ data.PM | number:'':'en_US' }} kW</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">{{ data.FP | number:'':'en_US' }} </td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">{{ data.FS | number:'':'en_US' }} </td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center">L {{ data.PBE | number:'':'en_US' }} Lps/kWh</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center"> {{ data.CPE | number:'':'en_US' }} Lps</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.P11 | number:'':'en_US' }} kW</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.PBP | number:'':'en_US' }} Lps/kW-mes</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CPC | number:'':'en_US' }} Lps</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ (data.FP
-                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '1.2-2': 'en_US' }} ****</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CER | number:'':'en_US' }} Lps</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} ******</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} *******</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CCO | number:'':'en_US' }} Lps/kWh</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.PuntoMedida }}</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.PI | number:'':'en_US' }}</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CPI | number:'':'en_US' }} Lps</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.EAAP | number:'':'en_US' }} kWh/mes</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.EAP | number:'':'en_US' }}Lps/kWh</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CIC | number:'':'en_US' }} Lps/kWh</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.EASC | number:'':'en_US' }} kWh/mes</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.EASC | number:'':'en_US' }} ******</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CSC | number:'':'en_US' }} Lps/kWh</td>
-                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.TOTAL | number:'':'en_US' }} Lps</td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.nave }} </td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.empresa }}</td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.cuenta }}</td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.medidor }} </td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center"> {{ data.tarifa }} </td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center">{{ data.EA | number:'':'en_US'}} kWh/mes</td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center"> {{ data.ER | number:'':'en_US' }} kVArh/mes</td>
+                <td style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.PM | number:'':'en_US' }} kW</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.FP | number:'':'en_US' }} </td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.FS | number:'':'en_US' }} </td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.PBE | number:'':'en_US' }} Lps/kWh</td>
+                <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CPE | number:'':'en_US' }} Lps</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.P11 | number:'':'en_US' }} kW</td>
+                <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.PBP | number:'':'en_US' }} Lps/kW-mes</td>
+                <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CPC | number:'':'en_US' }} Lps</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ (data.FP
+                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '': 'en_US' }} </td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CER | number:'':'en_US' }} Lps</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} ******</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *******</td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CCO | number:'':'en_US' }} Lps/kWh</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.PuntoMedida }}</td>
+                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.PI | number:'':'en_US' }}</td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CPI | number:'':'en_US' }} Lps</td>
+                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EAAP | number:'':'en_US' }} kWh/mes</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EAP | number:'':'en_US' }}Lps/kWh</td>
+                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CIC | number:'':'en_US' }} Lps/kWh</td>
+                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EASC | number:'':'en_US' }} kWh/mes</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EASC | number:'':'en_US' }} ******</td>
+                        <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CSC | number:'':'en_US' }} Lps/kWh</td>
+                        <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.TOTAL | number:'':'en_US' }} Lps</td>
             </tr>
 
         </ng-container>
         <!-- <tr>
             <td style="background-color: #dadada; border: rgb(128, 128, 128); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center"><span style="font-weight: bold; color: black;">PROVEEDOR_1</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center" colSpan="2"><span style="font-weight: bold; color: black;">TOTAL</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 440px;" nzAlign="center"><span style="font-weight: bold; color: black;">25,116,000.00 kWh/mes</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center"><span style="font-weight: bold; color: black;">4,563.00 kW</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 420px;" nzAlign="center"><span style="font-weight: bold; color: black;">8,685,300.00 kVArh/mes</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">0.95</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">0.95</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 9,452,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 89,113,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 7,113,086.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 45,785.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 212,113.25</span></td>
-            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"><span style="font-weight: bold; color: black;">L 85,478,569.21</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 89,113,086.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 7,113,086.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 45,785.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 212,113.25</span></td>
+            <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"><span style="font-weight: bold; color: black;">L 85,478,569.21</span></td>
         </tr> -->
     </tbody>
 </nz-table>
