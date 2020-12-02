@@ -63,7 +63,7 @@
         <div class="consumo" *ngFor="let item of BloquesdeEnergiaFactura">
             <p class="etiqueta-consumo"> Consumo en kWh </p>
             <p class="etiqueta-bloque"> *Bloque de horario punta </p>
-            <p class="etiqueta-valor"> {{ item.valor | number}} </p>
+            <p class="etiqueta-valor"> {{ item.valor | number:'':'en_US'}} </p>
         </div>
         <!-- <div class="consumo">
         <p class="etiqueta-consumo"> Consumo en kWh </p>
@@ -77,11 +77,11 @@
     </div> -->
         <div class="consumo">
             <p class="etiqueta-consumo-total"> Consumo total en kWh </p>
-            <p class="etiqueta-valor"> {{ totalConsumo | number}} </p>
+            <p class="etiqueta-valor"> {{ totalConsumo | number:'':'en_US'}} </p>
         </div>
         <div class="consumo">
             <p class="etiqueta-consumo-total"> Total a pagar </p>
-            <p class="etiqueta-valor"> L. {{ DetalleFacturaData[27]?.valor | number}} </p>
+            <p class="etiqueta-valor"> L. {{ DetalleFacturaData[27]?.valor | number:'':'en_US'}} </p>
         </div>
     </div>
     <br>
@@ -106,21 +106,21 @@
         </div>
         <div>
             <p class="etiqueta-detalle">{{EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number:'':'en_US'}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number:'':'en_US'}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number:'':'en_US'}}</p>
         </div>
         <div>
             <p class="etiqueta-detalle">{{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number:'':'en_US'}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number:'':'en_US'}}</p>
             <p class="etiqueta-detalle">-</p>
         </div>
         <div>
             <p class="etiqueta-detalle">-</p>
-            <p class="etiqueta-detalle">{{ totalConsumo | number}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[33]?.valor | number}}</p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number}}</p>
+            <p class="etiqueta-detalle">{{ totalConsumo | number:'':'en_US'}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[33]?.valor | number:'':'en_US'}}</p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number:'':'en_US'}}</p>
         </div>
         <div>
             <p class="etiqueta-detalle">-</p>
@@ -130,9 +130,9 @@
         </div>
         <div>
             <p class="etiqueta-detalle">-</p>
-            <p class="etiqueta-detalle"> {{ totalConsumo | number}} </p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[33]?.valor | number}} </p>
-            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number}}</p>
+            <p class="etiqueta-detalle"> {{ totalConsumo | number:'':'en_US'}} </p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[33]?.valor | number:'':'en_US'}} </p>
+            <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number:'':'en_US'}}</p>
         </div>
         <div>
             <p class="etiqueta-detalle">-</p>
@@ -164,9 +164,9 @@
                                 <p style="margin: 0px;">Activa</p>
                                 <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }} </p>
                             </td>
-                            <td> {{ item.lps | number}} </td>
-                            <td> {{ item.valor | number}} </td>
-                            <td> {{ item.lps * item.valor | number}} </td>
+                            <td> {{ item.lps | number:'':'en_US'}} </td>
+                            <td> {{ item.valor | number:'':'en_US'}} </td>
+                            <td> {{ item.lps * item.valor | number:'':'en_US'}} </td>
                             <!-- </tr>
                     <tr>
                         <td>
@@ -204,9 +204,9 @@
                             <td>
                                 <p style="margin: 0px;">Demanda</p>
                             </td>
-                            <td> {{ DetalleFacturaData[9]?.valor | number}} </td>
-                            <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
-                            <td> {{ DetalleFacturaData[9]?.valor * DetalleFacturaData[8]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[9]?.valor | number:'':'en_US'}} </td>
+                            <td> {{ DetalleFacturaData[8]?.valor | number:'':'en_US'}} </td>
+                            <td> {{ DetalleFacturaData[9]?.valor * DetalleFacturaData[8]?.valor | number:'':'en_US'}} </td>
                         </tr>
                     </tbody>
                 </table>
@@ -223,10 +223,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td> {{ DetalleFacturaData[5]?.valor | number}} </td>
-                            <td> {{ DetalleFacturaData[6]?.valor | number}} </td>
-                            <td> {{ DetalleFacturaData[7]?.valor | number}} </td>
-                            <td> {{ DetalleFacturaData[8]?.valor | number}} </td>
+                            <td> {{ DetalleFacturaData[5]?.valor | number:'':'en_US'}} </td>
+                            <td> {{ DetalleFacturaData[6]?.valor | number:'':'en_US'}} </td>
+                            <td> {{ DetalleFacturaData[7]?.valor | number:'':'en_US'}} </td>
+                            <td> {{ DetalleFacturaData[8]?.valor | number:'':'en_US'}} </td>
                         </tr>
                     </tbody>
                 </table>
@@ -237,14 +237,14 @@
                 </div>
                 <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia
                 </p>
-                <label> <span class="formula-dividendo"> {{ totalConsumo | number}} kWh</span> <span
+                <label> <span class="formula-dividendo"> {{ totalConsumo | number:'':'en_US'}} kWh</span> <span
                         class="formula-divisor1">
-                        ( {{ totalConsumo | number}} kWh)^2 </span> <span class="formula-divisor2"> + (
-                        {{ energiaReactiva  | number}} kWh)^2 =
-                    </span> <span class="resultado-factor"> {{ resultadoFactorP | number }} </span> </label>
+                        ( {{ totalConsumo | number:'':'en_US'}} kWh)^2 </span> <span class="formula-divisor2"> + (
+                        {{ energiaReactiva  | number:'':'en_US'}} kWh)^2 =
+                    </span> <span class="resultado-factor"> {{ resultadoFactorP | number:'':'en_US' }} </span> </label>
                 <img class="img-formula" src="assets/raiz.svg">
                 <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
-                <p class="formula-penalidad"> {{ factorRecargo | number }} x ( {{ DetalleFacturaData[12]?.valor | number}} + {{ DetalleFacturaData[11]?.valor | number }} ) = <span class="resultado-penalidad"> L.
+                <p class="formula-penalidad"> {{ factorRecargo | number:'':'en_US' }} x ( {{ DetalleFacturaData[12]?.valor | number:'':'en_US'}} + {{ DetalleFacturaData[11]?.valor | number:'':'en_US' }} ) = <span class="resultado-penalidad"> L.
                         {{ resultadoPenalidad |number }} </span> </p>
             </div>
         </div>
@@ -256,19 +256,19 @@
             <!-- <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
                 <p class="totales-historico">
                     <span>Total del mes (L.):</span>
-                    <span> {{ DetalleFacturaData[27]?.valor | number}} </span>
+                    <span> {{ DetalleFacturaData[27]?.valor | number:'':'en_US'}} </span>
                 </p>
             </div>
             <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
                 <p class="totales-historico">
                     <span> Saldo pendiente (L.): </span>
-                    <span> {{ DetalleFacturaData[10]?.valor | number}} </span>
+                    <span> {{ DetalleFacturaData[10]?.valor | number:'':'en_US'}} </span>
                 </p>
             </div> -->
             <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
                 <p class="totales-historico">
                     <span> Total a pagar (L.):</span>
-                    <span> {{ DetalleFacturaData[27]?.valor + DetalleFacturaData[10]?.valor | number}} </span>
+                    <span> {{ DetalleFacturaData[27]?.valor + DetalleFacturaData[10]?.valor | number:'':'en_US'}} </span>
                 </p>
             </div>
             <div style="text-align: end; margin: 1% 3% 1% 3%;">
@@ -287,7 +287,7 @@
             <div class="contenedor-cliente-regulado">
                 <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span>
                         {{ item.descripcion }}:
-                    </span> <span> {{ item.valor | number }} </span> </p>
+                    </span> <span> {{ item.valor | number:'':'en_US' }} </span> </p>
                 <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
@@ -315,7 +315,7 @@
                     </span>
                     <span style="color: black;
                 font-weight: bold;
-                font-size: 16px;"> {{ DetalleFacturaData[27]?.valor | number}}
+                font-size: 16px;"> {{ DetalleFacturaData[27]?.valor | number:'':'en_US'}}
                     </span>
                 </p>
             </div>
@@ -336,8 +336,8 @@
                             <td style="background-color: #717171; color: white;">
                                 {{ matriz.Origen }}
                             </td>
-                            <td> {{ matriz.Energia | number}} </td>
-                            <td> {{ (( matriz.Energia / totalMatrizEnergia ))*100 | number: '1.0-0'}} %</td>
+                            <td> {{ matriz.Energia | number:'':'en_US'}} </td>
+                            <td> {{ (( matriz.Energia / totalMatrizEnergia ))*100 | number:'':'en_US'}} %</td>
                         </tr>
                         <!-- <tr>
                             <td style="background-color: #717171; color: white;">

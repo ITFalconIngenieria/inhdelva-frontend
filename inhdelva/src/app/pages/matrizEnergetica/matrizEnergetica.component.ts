@@ -217,9 +217,9 @@ export class MatrizEnergeticaComponent implements OnInit {
     this.validateFormMatriz.value.observacion = (this.validateFormMatriz.value.observacion === '' || this.validateFormMatriz.value.observacion === null) ? 'N/A' : this.validateFormMatriz.value.observacion;
 
     // tslint:disable-next-line: max-line-length
-    this.validateFormMatriz.value.fechaInicio[0] = `${moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`;
+    // this.validateFormMatriz.value.fechaInicio[0] = moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD');
     // tslint:disable-next-line: max-line-length
-    this.validateFormMatriz.value.fechaInicio[1] = `${moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`;
+    // this.validateFormMatriz.value.fechaInicio[1] = moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD');
     const dataMatriz = {
       fechaInicio: moment(this.validateFormMatriz.value.fechaInicio[0]).toISOString(),
       fechaFinal: moment(this.validateFormMatriz.value.fechaInicio[1]).toISOString(),

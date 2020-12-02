@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import swal from 'sweetalert';
+import { ReportesService } from '../../servicios/reportes.service';
 
 interface Person {
   key: string;
@@ -13,7 +16,8 @@ interface Person {
   styleUrls: ['./produccion.component.scss']
 })
 export class ProduccionComponent implements OnInit {
-  listOfData2: any[] =[];
+  listOfDataProduccion: any[] = [];
+  date = null;
   listOfData: any[] = [
     {
       key: '1',
@@ -35,23 +39,27 @@ export class ProduccionComponent implements OnInit {
     }
   ];
 
+  inicio = null;
+  fin = null;
+  isVisible = false;
+
   cols: any[];
   exportColumns: any[];
   products: any[];
   selectedProducts: any[];
-  constructor() { }
+  constructor(private reporteService: ReportesService) { }
 
   ngOnInit() {
 
-    const data = [];
-    for (let i = 0; i < 100; i++) {
-      data.push({
-        name: `Edward King ${i}`,
-        age: 32,
-        address: `London, Park Lane no. ${i}`
-      });
-    }
-    this.listOfData2 = data;
+    // const data = [];
+    // for (let i = 0; i < 100; i++) {
+    //   data.push({
+    //     name: `Edward King ${i}`,
+    //     age: 32,
+    //     address: `London, Park Lane no. ${i}`
+    //   });
+    // }
+    // this.listOfDataProduccion = data;
 
 
     this.products = [
@@ -78,6 +86,40 @@ export class ProduccionComponent implements OnInit {
     this.cols = [['ID', 'Country', 'Rank', 'Capital']];
 
     this.exportColumns = this.cols.map(col => ({ title: col.header, datakey: col.field }));
+
+  }
+
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
+  }
+
+  consultar() {
+    if (this.inicio === null || this.fin === null) {
+      swal({
+        icon: 'warning',
+        title: 'No se puede consultar',
+        text: 'Debe seleccionar un rango de fechas'
+      });
+      this.isVisible = false;
+    } else {
+
+      console.log(this.inicio, this.fin);
+
+      this.reporteService.produccion(
+        moment(moment(this.inicio).format('YYYY-MM-DD')).toISOString(),
+        moment(moment(this.fin).format('YYYY-MM-DD')).toISOString()
+      )
+        .toPromise()
+        .then(
+          (data: any[]) => {
+            this.isVisible = true;
+            console.log(data);
+            this.listOfDataProduccion = data;
+          }
+        );
+    }
+
+
 
   }
 

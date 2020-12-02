@@ -25,8 +25,8 @@
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
                 <td>{{ data.fechaLectura | date:'yyyy/M/dd' }}</td>
-                <td>{{ data.consumo | number }}</td>
-                <td>{{ data.total | number }}</td>
+                <td>{{ data.consumo | number:'':'en_US' }}</td>
+                <td>{{ data.total | number:'':'en_US' }}</td>
             </tr>
         </tbody>
     </nz-table>

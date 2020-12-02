@@ -27,44 +27,62 @@
 <h4>INFORME DE PRODUCCION MENSUAL</h4>
 <h5>INSTALACIÓN SOLAR FOTOVOLTAICA INHDELVA, CHOLOMA, HONDURAS.</h5>
 <br>
-<nz-table style="width: 30%;" nzSize="small" #basicTable [nzData]="listOfData" nzShowPagination="false">
-    <tbody>
-        <tr>
-            <td class="infoCelda">Proyecto:</td>
-            <td class="dataCelda">INHDELVA</td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Cliente:</td>
-            <td class="dataCelda">INHDELVA</td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Potencia Pico total:</td>
-            <td class="dataCelda">4,125,214.23 kWp</td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Potencia Nominal total:</td>
-            <td class="dataCelda">458,145.32 kWn</td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Localidad:</td>
-            <td class="dataCelda">CHOLOMA, HONDURAS.</td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Fecha de inicio de operación:</td>
-            <td class="dataCelda"></td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Mes/Año inicio informe:</td>
-            <td class="dataCelda"></td>
-        </tr>
-        <tr>
-            <td class="infoCelda">Mes/Año finalización informe:</td>
-            <td class="dataCelda"></td>
-        </tr>
-    </tbody>
-</nz-table>
+<div class="row" style="width: 76%; margin: auto;">
+    <div class="col">
+        <nz-table style="width: 80%;" nzSize="small" #basicTable [nzData]="listOfData" nzShowPagination="false">
+            <tbody>
+                <tr>
+                    <td class="infoCelda">Proyecto:</td>
+                    <td class="dataCelda">INHDELVA</td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Cliente:</td>
+                    <td class="dataCelda">INHDELVA</td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Potencia Pico total:</td>
+                    <td class="dataCelda">4,125,214.23 kWp</td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Potencia Nominal total:</td>
+                    <td class="dataCelda">458,145.32 kWn</td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Localidad:</td>
+                    <td class="dataCelda">CHOLOMA, HONDURAS.</td>
+                </tr>
+                <!-- <tr>
+                    <td class="infoCelda">Fecha de inicio de operación:</td>
+                    <td class="dataCelda"></td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Mes/Año inicio informe:</td>
+                    <td class="dataCelda"></td>
+                </tr>
+                <tr>
+                    <td class="infoCelda">Mes/Año finalización informe:</td>
+                    <td class="dataCelda"></td>
+                </tr> -->
+            </tbody>
+        </nz-table>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <p style="font-size: 16px; color: black; font-weight: bold;"> Mes inicio: </p>
+                <nz-date-picker nzMode="month" nzPlaceHolder="Inicio" [(ngModel)]="inicio" (ngModelChange)="onChange($event)"></nz-date-picker>
+            </div>
+            <div class="col">
+                <p style="font-size: 16px; color: black; font-weight: bold;"> Mes fin: </p>
+                <nz-date-picker nzMode="month" nzPlaceHolder="Fin" [(ngModel)]="fin" (ngModelChange)="onChange($event)"></nz-date-picker>
+            </div>
+        </div>
+        <button nz-button nzType="primary" (click)="consultar()"><i nz-icon nzType="search"></i>Consultar</button>
+    </div>
+</div>
+
 <hr>
-<nz-table #headerTable [nzData]="listOfData2" nzSize="small" [nzPageSize]="25" [nzScroll]="{y: '350px', x: '4800px' }">
+<nz-table #nzTable *ngIf="isVisible" [nzData]="listOfDataProduccion" nzSize="small" [nzPageSize]="25" [nzScroll]="{y: '350px', x: '4800px' }">
     <thead>
         <tr>
             <th colspan="11" style="background-color: #ffffff;"></th>
@@ -97,295 +115,34 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">1</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Enero</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">2</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Febrero</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">3</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Marzo</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">4</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Abril</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">5</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Mayo</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">6</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Junio</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">7</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Julio</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">8</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Agosto</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">9</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Septiembre</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">10</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Octubre</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">11</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Noviembre</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">12</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">Diciembre</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">2020</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">0</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center">0</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0</td>
-            <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-            <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> 0.00 %</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center">0</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L -</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">632,250.00 kWh/mes</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">3.5 %</td>
-            <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">0.00 %</td>
-        </tr>
-        <tr>
+        <ng-container *ngFor="let data of nzTable.data">
+            <tr>
+                <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center">1</td>
+                <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center">{{ data.fecha | date:'M'}}</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 258px;" nzAlign="center">{{ data.fecha | date:'yyyy' }}</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 505px;" nzAlign="center">{{ data.produccionTotalEnergiaSolar | number:'':'en_US' }}</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 495px;" nzAlign="center"> {{ data.energiaExportadaHaciaRed | number:'':'en_US' }} </td>
+                <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 535px;" nzAlign="center"> {{ data.energiaAutoconsumoINH | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center"> {{ data.energiaConsumidaRed | number:'':'en_US' }} </td>
+                <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 500px;" nzAlign="center"> {{ data.consumoEnergiaTotalINH | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: #d7ffd9; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} %</td>
+                <td style="background-color: #aae0ff; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 640px;" nzAlign="center"> {{ data.fraccionEnergiaSolarTotal | number:'':'en_US' }} %</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 520px;" nzAlign="center"> {{ data.costoEnergiaINH | number:'':'en_US' }} </td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.energiaTotalINH | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L {{ data.costoTotalEnergiaINH | number:'':'en_US' }}</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L {{ data.costoEnergiaConsumidaRed | number:'':'en_US' }}</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.ahorroEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: #f7d8b8; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">L {{ data.ahorroSolar | number:'':'en_US' }}</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.degradacionMaxima | number:'':'en_US' }} %</td>
+                <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center">{{ data.porcentajeCumplimiento | number:'':'en_US' }} %</td>
+            </tr>
+        </ng-container>
+
+        <!-- <tr>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 247px;" nzAlign="center"><span style="font-weight: bold; color: black;">Total</span></td>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 257px;" nzAlign="center"><span style="font-weight: bold; color: black;">Año 1</span></td>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 185px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
@@ -408,6 +165,9 @@
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center"><span style="font-weight: bold; color: black;">6,645,632.23 kWh/mes</span></td>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center"><span style="font-weight: bold; color: black;">-</span></td>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; width: 550px;" nzAlign="center"><span style="font-weight: bold; color: black;">0.00 %</span></td>
-        </tr>
+        </tr> -->
     </tbody>
 </nz-table>
+<div *ngIf="!isVisible" style="display: flex; justify-content: center;">
+    <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">
+</div>

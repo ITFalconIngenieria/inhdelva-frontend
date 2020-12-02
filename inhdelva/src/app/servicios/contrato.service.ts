@@ -19,6 +19,11 @@ export class ContratoService {
     return this.http.get(`${apiUrl}contrato?filter[where][estado]=true`);
   }
 
+  getAllContratos() {
+    // return this.http.get(`${apiUrl}contrato`);
+    return this.http.get(`${apiUrl}contrato`);
+  }
+
   postContrato(contrato) {
     return this.http.post(`${apiUrl}contrato`, contrato);
   }

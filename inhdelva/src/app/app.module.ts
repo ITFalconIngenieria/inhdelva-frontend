@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA,LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,12 +13,12 @@ import { InterceptorService } from './servicios/interceptor.service';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 
-import { FusionChartsModule } from "angular-fusioncharts";
+import { FusionChartsModule } from 'angular-fusioncharts';
 
 // Import FusionCharts library and chart modules
-import * as FusionCharts from "fusioncharts";
-import * as charts from "fusioncharts/fusioncharts.charts";
-import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import * as FusionCharts from 'fusioncharts';
+import * as charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
 // Pass the fusioncharts library and chart modules
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
@@ -27,7 +27,11 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 import { registerLocaleData, CommonModule } from '@angular/common';
 import en from '@angular/common/locales/en';
 
-import { NgxSpinnerModule } from "ngx-spinner";
+import localeEsAr from '@angular/common/locales/es-AR';
+
+registerLocaleData(localeEsAr, 'es-Ar');
+
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Importaciones de componentes ng-zorro
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -89,10 +93,11 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { ProduccionComponent } from './reportes/produccion/produccion.component';
 import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { FacturacionComponent } from './reportes/facturacion/facturacion.component';
 
-// "@angular/cdk": "^10.2.6",
+// '@angular/cdk': '^10.2.6',
 
-registerLocaleData(en);
+// registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -119,6 +124,7 @@ registerLocaleData(en);
     RegistroComponent,
     ProduccionComponent,
     ProveedoresEnergiaComponent,
+    FacturacionComponent,
     UsuariosComponent
   ],
   imports: [
@@ -174,6 +180,7 @@ registerLocaleData(en);
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
+    { provide: LOCALE_ID, useValue: 'es-Ar' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
