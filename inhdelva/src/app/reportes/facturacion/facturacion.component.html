@@ -139,7 +139,7 @@
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.PBP | number:'':'en_US' }} Lps/kW-mes</td>
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CPC | number:'':'en_US' }} Lps</td>
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ (data.FP
-                    < 0.9) ? (0.9/data.FP)-1 : 0 | number: '1.2-2': 'en_US' }} ****</td>
+                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '1.2-2': 'en_US' }} ****</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center"> {{ data.CER | number:'':'en_US' }} Lps</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 900px;" nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
