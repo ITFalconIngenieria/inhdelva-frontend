@@ -119,8 +119,6 @@ export class ProduccionComponent implements OnInit {
         );
     }
 
-
-
   }
 
   exportPdf() {
@@ -142,10 +140,10 @@ export class ProduccionComponent implements OnInit {
 
   exportExcel() {
     import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.products);
+      const worksheet = xlsx.utils.json_to_sheet(this.listOfDataProduccion);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'products');
+      this.saveAsExcelFile(excelBuffer, 'Produccion ');
     });
   }
 
@@ -156,7 +154,7 @@ export class ProduccionComponent implements OnInit {
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
-      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
     });
   }
 
