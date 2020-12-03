@@ -12,12 +12,13 @@ import { ContratoService } from '../../servicios/contrato.service';
 export class FacturacionComponent implements OnInit {
   listOfData: any[] = [];
   date = null;
-
+  abrir = false;
   isVisible = false;
   contratos: any[] = [];
   listOfOption: Array<{ label: string; value: string }> = [];
   fechas = null;
   listOfContratos: any[] = [];
+  listaIDContratos: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -31,19 +32,31 @@ export class FacturacionComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfContratos = data;
+
+          data.forEach(x => {
+            this.listaIDContratos = [x.id, ...this.listaIDContratos];
+          });
+
         }
       );
   }
 
-  onChange(result: Date[]): void {
-    // console.log('onChange: ', result);
-    // console.log(this.fechas);
+  contratosChange(event: any[]) {
+
+    if (event.includes('0')) {
+      this.abrir = false;
+      this.contratos = ['0'];
+    } else {
+      this.abrir = true;
+    }
+
+    if (event.length === 0) {
+      this.contratos = null;
+    }
 
   }
 
   consultar() {
-
-    console.log(this.contratos, this.fechas);
 
     if (this.contratos.length === 0 || this.fechas === null) {
       swal({
@@ -53,6 +66,8 @@ export class FacturacionComponent implements OnInit {
       });
       this.isVisible = false;
     } else {
+      this.contratos = (this.contratos.includes('0')) ? this.listaIDContratos : this.contratos;
+
       this.reporteService.facturacion(
         this.contratos,
         moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
@@ -67,9 +82,26 @@ export class FacturacionComponent implements OnInit {
           }
         );
     }
+  }
 
+  exportExcel() {
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listOfData);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
+    });
+  }
 
-
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    import('file-saver').then(FileSaver => {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+    });
   }
 
 }

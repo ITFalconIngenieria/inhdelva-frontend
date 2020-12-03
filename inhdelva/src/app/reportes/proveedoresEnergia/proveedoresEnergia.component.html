@@ -30,7 +30,7 @@
 <div class="opciones">
     <div style="margin: 2%;">
         <p style="font-size: 16px; color: black; font-weight: bold;"> Proveedor: </p>
-        <nz-select [(ngModel)]="proveedores" nzPlaceHolder="Seccione uno o varios" nzSize="default" nzMode="multiple" nzPlaceHolder="Please select">
+        <nz-select [(ngModel)]="proveedores" [nzOpen]="abrir" (ngModelChange)="proveedoresChange($event)" nzPlaceHolder="Seccione uno o varios" nzSize="default" nzMode="multiple" nzPlaceHolder="Please select">
             <nz-option nzLabel="Todos" nzValue="0">
             </nz-option>
             <nz-option *ngFor="let option of listOfProveedores" [nzLabel]="option.Nombre" [nzValue]="option.Id">
@@ -39,7 +39,7 @@
     </div>
     <div style="margin: 2%;">
         <p style="font-size: 16px; color: black; font-weight: bold;"> Fechas: </p>
-        <nz-range-picker [(ngModel)]="fechas" (ngModelChange)="onChange($event)"></nz-range-picker>
+        <nz-range-picker [(ngModel)]="fechas"></nz-range-picker>
     </div>
     <div style="width: 100%; margin: auto;">
         <button nz-button nzType="primary" (click)="consultar()"><i nz-icon nzType="search"></i>Consultar</button>
@@ -47,6 +47,9 @@
 
 </div>
 <hr>
+<div>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" nz-button nzType="primary" style="margin: 2%;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-excel"></i></button>
+</div>
 <nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '350px', x: '4400px' }">
     <thead>
         <tr>

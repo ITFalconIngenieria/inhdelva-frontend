@@ -12,11 +12,12 @@ import swal from 'sweetalert';
 export class ProveedoresEnergiaComponent implements OnInit {
   listOfData: any[] = [];
   date = null;
-
+  abrir = false;
   isVisible = false;
   proveedores: any[] = [];
   fechas = null;
   listOfProveedores: any[] = [];
+  listaIDProveedores: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -29,22 +30,53 @@ export class ProveedoresEnergiaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          console.log(data);
           this.listOfProveedores = data;
+
+          data.forEach(x => {
+            this.listaIDProveedores = [x.Id, ...this.listaIDProveedores];
+          });
+
         }
       );
 
   }
 
-  onChange(result: Date[]): void {
-    // console.log('onChange: ', result);
-    // console.log(this.fechas);
+  exportExcel() {
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.listOfData);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    import('file-saver').then(FileSaver => {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+    });
+  }
+
+  proveedoresChange(event: any[]) {
+
+    if (event.includes('0')) {
+      this.abrir = false;
+      this.proveedores = ['0'];
+    } else {
+      this.abrir = true;
+    }
+
+    if (event.length === 0) {
+      this.proveedores = null;
+    }
 
   }
 
   consultar() {
-
-    console.log(this.proveedores, this.fechas);
 
     if (this.proveedores.length === 0 || this.fechas === null) {
       swal({
@@ -54,6 +86,9 @@ export class ProveedoresEnergiaComponent implements OnInit {
       });
       this.isVisible = false;
     } else {
+
+      this.proveedores = (this.proveedores.includes('0')) ? this.listaIDProveedores : this.proveedores;
+
       this.reporteService.proveedoresEnergia(
         this.proveedores,
         moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
