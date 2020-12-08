@@ -130,6 +130,12 @@
             </tr>
 
         </ng-container>
+
+        <tr>
+            <td colSpan="5" style="background-color: #d7ffd9; border: rgb(102, 102, 102); border-style: solid; border-width: 1px; color: black; " nzAlign="right"> TOTAL CLIENTES </td>
+            <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'':'en_US' }} </td>
+        </tr>
+
         <!-- <tr>
             <td style="background-color: #dadada; border: rgb(128, 128, 128); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center"><span style="font-weight: bold; color: black;">PROVEEDOR_1</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center" colSpan="2"><span style="font-weight: bold; color: black;">TOTAL</span></td>

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           console.log(error);
           swal('Credenciales invalidas', 'Por favor revise sus credenciales', 'error');
           this.validateForm = this.fb.group({
-            username: [null, [Validators.required]],
+            email: [null, [Validators.required]],
             password: [null, [Validators.required]],
           });
           this.formulario = true;
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     this.loading = false;
 
     this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
+      email: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
   }

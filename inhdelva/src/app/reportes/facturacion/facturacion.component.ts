@@ -4,6 +4,10 @@ import * as moment from 'moment';
 import swal from 'sweetalert';
 import { ContratoService } from '../../servicios/contrato.service';
 
+interface Totales {
+  ea: number;
+  er: number;
+}
 @Component({
   selector: 'app-facturacion',
   templateUrl: './facturacion.component.html',
@@ -19,6 +23,7 @@ export class FacturacionComponent implements OnInit {
   fechas = null;
   listOfContratos: any[] = [];
   listaIDContratos: any[] = [];
+  listaTotales: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   constructor(
     private reporteService: ReportesService,
@@ -79,6 +84,48 @@ export class FacturacionComponent implements OnInit {
             this.isVisible = true;
             console.log(data);
             this.listOfData = data;
+
+            // tslint:disable-next-line: prefer-for-of
+            for (let y = 0; y < this.listOfData.length; y++) {
+
+              console.log(this.listOfData[y].EA, 'p');
+              console.log(this.listaTotales[0], 'oo');
+
+              this.listaTotales = [
+                this.listaTotales[0] + this.listOfData[y].EA,
+                this.listaTotales[1] + this.listOfData[y].ER,
+                this.listaTotales[2] + this.listOfData[y].PM,
+                this.listaTotales[3] + this.listOfData[y].FP,
+                this.listaTotales[4] + this.listOfData[y].FS,
+                '-',
+                this.listaTotales[6] + this.listOfData[y].CPE,
+                this.listaTotales[7] + this.listOfData[y].P11,
+                '-',
+                this.listaTotales[9] + this.listOfData[y].CPC,
+                '-',
+                this.listaTotales[11] + this.listOfData[y].CER,
+                '-',
+                '-',
+                '-',
+                '-',
+                this.listaTotales[16] + this.listOfData[y].CCO,
+                '',
+                '-',
+                this.listaTotales[19] + this.listOfData[y].CPI,
+                '-',
+                '-',
+                '-',
+                this.listaTotales[23] + this.listOfData[y].CIC,
+                '-',
+                '-',
+                '-',
+                this.listaTotales[27] + this.listOfData[y].CSC,
+                this.listaTotales[28] + this.listOfData[y].TOTAL
+              ];
+            }
+
+            console.log(this.listaTotales);
+
           }
         );
     }
