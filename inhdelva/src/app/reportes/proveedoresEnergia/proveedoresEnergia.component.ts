@@ -80,6 +80,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   consultar() {
 
+    this.spinner.show();
     if (this.proveedores.length === 0 || this.fechas === null) {
       swal({
         icon: 'warning',
@@ -101,6 +102,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
           (data: any[]) => {
             this.isVisible = true;
             this.listOfData = data;
+            console.log(this.listOfData);
 
             if (this.listOfData.length === 0) {
               this.spinner.hide();
