@@ -110,10 +110,10 @@
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ (data.FP
                     < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '': 'en_US' }} </td>
                         <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CER | number:'':'en_US' }} Lps</td>
-                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
-                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *****</td>
-                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} ******</td>
-                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.CER | number:'':'en_US' }} *******</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.COS | number:'':'en_US' }} Lps/KwH</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.COR | number:'':'en_US' }} Lps/KwH</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.COE | number:'':'en_US' }} Lps/KwH</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.COA | number:'':'en_US' }} Lps/KwH</td>
                         <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CCO | number:'':'en_US' }} Lps/kWh</td>
                         <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.PuntoMedida }}</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.PI | number:'':'en_US' }}</td>
@@ -123,7 +123,7 @@
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
                         <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CIC | number:'':'en_US' }} Lps/kWh</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EASC | number:'':'en_US' }} kWh/mes</td>
-                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EASC | number:'':'en_US' }} ******</td>
+                        <td style="background-color: #ffffff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.EBT | number:'':'en_US' }} Lps/kWh</td>
                         <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
                         <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.CSC | number:'':'en_US' }} Lps/kWh</td>
                         <td style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.TOTAL | number:'':'en_US' }} Lps</td>
@@ -157,4 +157,7 @@
 </nz-table>
 <div *ngIf="!isVisible" style="display: flex; justify-content: center;">
     <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">
+</div>
+<div>
+    <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>

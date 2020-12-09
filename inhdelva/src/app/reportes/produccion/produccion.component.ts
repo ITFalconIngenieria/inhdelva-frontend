@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import swal from 'sweetalert';
 import { ReportesService } from '../../servicios/reportes.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 interface Person {
   key: string;
@@ -47,7 +48,10 @@ export class ProduccionComponent implements OnInit {
   exportColumns: any[];
   products: any[];
   selectedProducts: any[];
-  constructor(private reporteService: ReportesService) { }
+  constructor(
+    private reporteService: ReportesService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnInit() {
 
@@ -94,6 +98,7 @@ export class ProduccionComponent implements OnInit {
   }
 
   consultar() {
+    this.spinner.show();
     if (this.inicio === null || this.fin === null) {
       swal({
         icon: 'warning',
@@ -103,8 +108,6 @@ export class ProduccionComponent implements OnInit {
       this.isVisible = false;
     } else {
 
-      console.log(this.inicio, this.fin);
-
       this.reporteService.produccion(
         moment(moment(this.inicio).format('YYYY-MM-DD')).toISOString(),
         moment(moment(this.fin).format('YYYY-MM-DD')).toISOString()
@@ -113,8 +116,28 @@ export class ProduccionComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.isVisible = true;
-            console.log(data);
             this.listOfDataProduccion = data;
+            if (this.listOfDataProduccion.length === 0) {
+              this.spinner.hide();
+              this.isVisible = false;
+              swal({
+                icon: 'warning',
+                title: 'No se pudo encontrar información'
+                // text: 'Por verifique las opciones seleccionadas.'
+              });
+            }
+            this.spinner.hide();
+          },
+          (error) => {
+            this.spinner.hide();
+            this.isVisible = false;
+            swal({
+              icon: 'warning',
+              title: 'No se pudo encontrar información',
+              text: 'Por verifique las opciones seleccionadas.'
+            });
+
+            console.log(error);
           }
         );
     }

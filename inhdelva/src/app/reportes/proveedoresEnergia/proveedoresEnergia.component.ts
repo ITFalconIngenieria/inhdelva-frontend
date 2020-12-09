@@ -3,6 +3,7 @@ import { ReportesService } from '../../servicios/reportes.service';
 import { ActoresService } from '../../servicios/actores.service';
 import * as moment from 'moment';
 import swal from 'sweetalert';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-proveedoresEnergia',
@@ -21,7 +22,8 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   constructor(
     private reporteService: ReportesService,
-    private proveedoresService: ActoresService
+    private proveedoresService: ActoresService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -98,8 +100,30 @@ export class ProveedoresEnergiaComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.isVisible = true;
-            console.log(data);
             this.listOfData = data;
+
+            if (this.listOfData.length === 0) {
+              this.spinner.hide();
+              this.isVisible = false;
+              swal({
+                icon: 'warning',
+                title: 'No se pudo encontrar información'
+                // text: 'Por verifique las opciones seleccionadas.'
+              });
+            }
+
+            this.spinner.hide();
+          },
+          (error) => {
+            this.spinner.hide();
+            this.isVisible = false;
+            swal({
+              icon: 'warning',
+              title: 'No se pudo encontrar información',
+              text: 'Por verifique las opciones seleccionadas.'
+            });
+
+            console.log(error);
           }
         );
     }

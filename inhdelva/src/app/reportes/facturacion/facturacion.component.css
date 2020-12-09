@@ -88,3 +88,12 @@ nz-range-picker {
     font-size: 18px;
     font-weight: bold;
 }
+
+.cargando {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 150px;
+    /* margin: 20px 0; */
+}

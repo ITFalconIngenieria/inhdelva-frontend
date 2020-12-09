@@ -82,9 +82,9 @@
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.demandaPotenciaMaxima | number:'':'en_US' }} kW</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'':'en_US' }} kVArh/mes</td>
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.factorPotencia | number:'':'en_US' }}</td>
-                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.costoEnergia | number:'':'en_US' }} Lps/kWh</td>
+                <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.precioEnergia | number:'':'en_US' }} Lps/kWh</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.costoDemanda | number:'':'en_US' }} Lps/kW-mes</td>
-                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.precioEnergia | number:'':'en_US' }}</td>
+                <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.costoEnergia| number:'':'en_US' }}</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;" nzAlign="center">L {{ data.alumbradoPublico | number:'':'en_US' }}</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.cargoComercializacion | number:'':'en_US' }}</td>
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.cargoRegulacion | number:'':'en_US' }}</td>
@@ -114,4 +114,7 @@
 </nz-table>
 <div *ngIf="!isVisible" style="display: flex; justify-content: center;">
     <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">
+</div>
+<div>
+    <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>

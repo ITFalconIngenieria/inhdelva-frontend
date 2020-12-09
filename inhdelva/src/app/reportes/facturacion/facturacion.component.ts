@@ -3,6 +3,7 @@ import { ReportesService } from '../../servicios/reportes.service';
 import * as moment from 'moment';
 import swal from 'sweetalert';
 import { ContratoService } from '../../servicios/contrato.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 interface Totales {
   ea: number;
@@ -18,6 +19,7 @@ export class FacturacionComponent implements OnInit {
   date = null;
   abrir = false;
   isVisible = false;
+  cargando = false;
   contratos: any[] = [];
   listOfOption: Array<{ label: string; value: string }> = [];
   fechas = null;
@@ -27,7 +29,8 @@ export class FacturacionComponent implements OnInit {
 
   constructor(
     private reporteService: ReportesService,
-    private contratoService: ContratoService
+    private contratoService: ContratoService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -62,6 +65,7 @@ export class FacturacionComponent implements OnInit {
   }
 
   consultar() {
+    this.spinner.show();
 
     if (this.contratos.length === 0 || this.fechas === null) {
       swal({
@@ -81,15 +85,22 @@ export class FacturacionComponent implements OnInit {
         .toPromise()
         .then(
           (data: any[]) => {
-            this.isVisible = true;
-            console.log(data);
+
             this.listOfData = data;
+            this.isVisible = true;
+
+            if (this.listOfData.length === 0) {
+              this.isVisible = false;
+              this.spinner.hide();
+              swal({
+                icon: 'warning',
+                title: 'No se pudo encontrar información'
+                // text: 'Por verifique las opciones seleccionadas.'
+              });
+            }
 
             // tslint:disable-next-line: prefer-for-of
             for (let y = 0; y < this.listOfData.length; y++) {
-
-              console.log(this.listOfData[y].EA, 'p');
-              console.log(this.listaTotales[0], 'oo');
 
               this.listaTotales = [
                 this.listaTotales[0] + this.listOfData[y].EA,
@@ -97,35 +108,44 @@ export class FacturacionComponent implements OnInit {
                 this.listaTotales[2] + this.listOfData[y].PM,
                 this.listaTotales[3] + this.listOfData[y].FP,
                 this.listaTotales[4] + this.listOfData[y].FS,
-                '-',
+                '',
                 this.listaTotales[6] + this.listOfData[y].CPE,
                 this.listaTotales[7] + this.listOfData[y].P11,
-                '-',
+                '',
                 this.listaTotales[9] + this.listOfData[y].CPC,
-                '-',
+                '',
                 this.listaTotales[11] + this.listOfData[y].CER,
-                '-',
-                '-',
-                '-',
-                '-',
+                '',
+                '',
+                '',
+                '',
                 this.listaTotales[16] + this.listOfData[y].CCO,
                 '',
-                '-',
+                '',
                 this.listaTotales[19] + this.listOfData[y].CPI,
-                '-',
-                '-',
-                '-',
+                '',
+                '',
+                '',
                 this.listaTotales[23] + this.listOfData[y].CIC,
-                '-',
-                '-',
-                '-',
+                '',
+                '',
+                '',
                 this.listaTotales[27] + this.listOfData[y].CSC,
                 this.listaTotales[28] + this.listOfData[y].TOTAL
               ];
+              this.spinner.hide();
             }
+          },
+          (error) => {
+            this.spinner.hide();
+            this.isVisible = false;
+            swal({
+              icon: 'warning',
+              title: 'No se pudo encontrar información',
+              text: 'Por verifique las opciones seleccionadas.'
+            });
 
-            console.log(this.listaTotales);
-
+            console.log(error);
           }
         );
     }
