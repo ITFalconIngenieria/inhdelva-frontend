@@ -198,17 +198,11 @@ export class FacturaComponent implements OnInit {
             }, ...this.chatDataMatrizProvee];
           });
 
-          console.log(this.matrizEnergetica);
-
           // totalMatrizEmisiones Seria la media de proveedores
           // (matrisInh[0].Convencional / totalMatrizEnergia ) * this.totalMatrizEmisiones Media inhdelva
 
           this.mediaInhdelva = ((matrisInh[0].Convencional / this.totalMatrizEnergia) * this.totalMatrizEmisiones).toFixed(3);
           this.mediaProveedores = (this.totalMatrizEmisiones).toFixed(3);
-
-          console.log(matrisInh[0].Convencional, this.totalMatrizEnergia, this.totalMatrizEmisiones);
-
-          console.log(this.mediaInhdelva, this.mediaProveedores);
 
           if (this.mediaInhdelva >= 0.000 && this.mediaInhdelva < 0.481) {
             this.emesionesVisible = false;
