@@ -118,6 +118,9 @@ export class ProduccionComponent implements OnInit {
             this.isVisible = true;
             this.listOfDataProduccion = data;
 
+            console.log(this.listOfDataProduccion);
+
+
             if (this.listOfDataProduccion.length === 0) {
               this.spinner.hide();
               this.isVisible = false;

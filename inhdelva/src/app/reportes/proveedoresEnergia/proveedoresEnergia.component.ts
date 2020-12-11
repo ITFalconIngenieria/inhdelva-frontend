@@ -19,6 +19,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
   fechas = null;
   listOfProveedores: any[] = [];
   listaIDProveedores: any[] = [];
+  listaTotales: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -103,6 +104,35 @@ export class ProveedoresEnergiaComponent implements OnInit {
             this.isVisible = true;
             this.listOfData = data;
             console.log(this.listOfData);
+
+
+            this.listaTotales = this.listOfData.reduce((acumulador, valorActual) => {
+              const elementoYaExiste = acumulador.find(elemento => elemento.proveedor === valorActual.proveedor);
+              if (elementoYaExiste) {
+                return acumulador.map((elemento) => {
+                  if (elemento.proveedor === valorActual.proveedor) {
+                    return {
+                      ...elemento,
+                      consumoEnergiaActiva: elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva,
+                      energiaActivaExportada: elemento.energiaActivaExportada + valorActual.energiaActivaExportada,
+                      demandaPotenciaMaxima: elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima,
+                      consumoEnergiaReactiva: elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva,
+                      factorPotencia: elemento.factorPotencia + valorActual.factorPotencia,
+                      precioEnergia: elemento.precioEnergia + valorActual.precioEnergia,
+                      costoDemanda: elemento.costoDemanda + valorActual.costoDemanda,
+                      costoEnergia: elemento.costoEnergia + valorActual.costoEnergia,
+                      alumbradoPublico: elemento.alumbradoPublico + valorActual.alumbradoPublico,
+                      cargoComercializacion: elemento.consumoEnergiaActiva + valorActual.cargoComercializacion,
+                      cargoRegulacion: elemento.cargoRegulacion + valorActual.cargoRegulacion,
+                      precioDemanda: elemento.precioDemanda + valorActual.precioDemanda,
+                      total: elemento.total + valorActual.total
+                    };
+                  }
+                  return elemento;
+                });
+              }
+              return [...acumulador, valorActual];
+            }, []);
 
             if (this.listOfData.length === 0) {
               this.spinner.hide();
