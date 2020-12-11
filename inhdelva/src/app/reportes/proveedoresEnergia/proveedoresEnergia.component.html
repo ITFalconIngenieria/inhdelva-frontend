@@ -91,8 +91,24 @@
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.precioDemanda | number:'':'en_US' }}</td>
                 <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; " nzAlign="center">L {{ data.total | number:'':'en_US' }}</td>
             </tr>
-
         </ng-container>
+        <tr>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.proveedor }} </td>
+            <td colSpan="2" class="totales" nzAlign="center"> TOTAL </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.consumoEnergiaActiva | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.energiaActivaExportada | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.demandaPotenciaMaxima | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.consumoEnergiaReactiva | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.factorPotencia | number:'':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.precioEnergia | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.costoDemanda | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.costoEnergia | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.alumbradoPublico | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.cargoComercializacion | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.cargoRegulacion | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.precioDemanda | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ listaTotales[0]?.total | number:'':'en_US' }} </td>
+        </tr>
         <!-- <tr>
             <td style="background-color: #dadada; border: rgb(128, 128, 128); border-style: solid; border-width: 1px; color: black; width: 542px;" nzAlign="center"><span style="font-weight: bold; color: black;">PROVEEDOR_1</span></td>
             <td style="background-color: #dadada; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 206px;" nzAlign="center" colSpan="2"><span style="font-weight: bold; color: black;">TOTAL</span></td>
