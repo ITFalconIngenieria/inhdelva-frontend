@@ -26,6 +26,7 @@ import { ProduccionComponent } from './reportes/produccion/produccion.component'
 import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { FacturacionComponent } from './reportes/facturacion/facturacion.component';
+import { ValidacionComponent } from './reportes/validacion/validacion.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -56,8 +57,8 @@ const routes: Routes = [
       ///// Reportes
       { path: 'reporteFacturacion', component: FacturacionComponent },
       { path: 'reporteProduccion', component: ProduccionComponent },
-      { path: 'reporteProveedores', component: ProveedoresEnergiaComponent }
-
+      { path: 'reporteProveedores', component: ProveedoresEnergiaComponent },
+      { path: 'reporteValidacion', component: ProveedoresEnergiaComponent }
 
     ]
   },
