@@ -103,8 +103,6 @@ export class ProveedoresEnergiaComponent implements OnInit {
           (data: any[]) => {
             this.isVisible = true;
             this.listOfData = data;
-            console.log(this.listOfData);
-
 
             this.listaTotales = this.listOfData.reduce((acumulador, valorActual) => {
               const elementoYaExiste = acumulador.find(elemento => elemento.proveedor === valorActual.proveedor);

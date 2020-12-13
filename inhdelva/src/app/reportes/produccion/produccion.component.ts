@@ -17,7 +17,9 @@ interface Person {
   styleUrls: ['./produccion.component.scss']
 })
 export class ProduccionComponent implements OnInit {
+
   listOfDataProduccion: any[] = [];
+  listaTotales: any[] = [];
   date = null;
   listOfData: any[] = [
     {
@@ -48,6 +50,7 @@ export class ProduccionComponent implements OnInit {
   exportColumns: any[];
   products: any[];
   selectedProducts: any[];
+
   constructor(
     private reporteService: ReportesService,
     private spinner: NgxSpinnerService
@@ -120,6 +123,47 @@ export class ProduccionComponent implements OnInit {
 
             console.log(this.listOfDataProduccion);
 
+            this.listaTotales = this.listOfDataProduccion.reduce((acumulador, valorActual) => {
+              let x = 1;
+              const elementoYaExiste = acumulador.find(elemento => elemento.proveedor === valorActual.proveedor);
+              if (elementoYaExiste) {
+                return acumulador.map((elemento) => {
+                  if (moment(elemento.fecha).get('year') === moment(valorActual.fecha).get('year')) {
+                    return {
+                      ...elemento,
+                      x: x,
+                      produccionTotalEnergiaSolar: elemento.produccionTotalEnergiaSolar + valorActual.produccionTotalEnergiaSolar,
+                      energiaExportadaHaciaRed: elemento.energiaExportadaHaciaRed + valorActual.energiaExportadaHaciaRed,
+                      energiaAutoconsumoINH: elemento.energiaAutoconsumoINH + valorActual.energiaAutoconsumoINH,
+                      energiaConsumidaRed: elemento.energiaConsumidaRed + valorActual.energiaConsumidaRed,
+                      consumoEnergiaTotalINH: elemento.consumoEnergiaTotalINH + valorActual.consumoEnergiaTotalINH,
+                      fraccionEnergiaSolarAutoconsumo: elemento.fraccionEnergiaSolarAutoconsumo + valorActual.fraccionEnergiaSolarAutoconsumo,
+                      fraccionEnergiaSolarTotal: elemento.fraccionEnergiaSolarTotal + valorActual.fraccionEnergiaSolarTotal,
+                      costoEnergiaINH: elemento.costoEnergiaINH + valorActual.costoEnergiaINH,
+                      energiaTotalINH: elemento.energiaTotalINH + valorActual.energiaTotalINH,
+                      costoTotalEnergiaINH: elemento.costoTotalEnergiaINH + valorActual.costoTotalEnergiaINH,
+                      consumoActualEnergiaRed: elemento.consumoActualEnergiaRed + valorActual.consumoActualEnergiaRed,
+                      costoEnergiaConsumidaRed: elemento.costoEnergiaConsumidaRed + valorActual.costoEnergiaConsumidaRed,
+                      ahorroEnergiaSolar: elemento.ahorroEnergiaSolar + valorActual.ahorroEnergiaSolar,
+                      ahorroSolar: elemento.ahorroSolar + valorActual.ahorroSolar,
+                      produccionRealEnergiaSolar: elemento.produccionRealEnergiaSolar + valorActual.produccionRealEnergiaSolar,
+                      produccionEstimadaEnergiaSolar: elemento.produccionEstimadaEnergiaSolar + valorActual.produccionEstimadaEnergiaSolar,
+                      degradacionMaxima: elemento.degradacionMaxima + valorActual.degradacionMaxima,
+                      porcentajeCumplimiento: elemento.porcentajeCumplimiento + valorActual.porcentajeCumplimiento
+                    };
+                  }
+                  x += 1;
+
+                  return elemento;
+                });
+              }
+
+              console.log(x);
+              x += 1;
+              return [...acumulador, valorActual];
+            }, []);
+
+            console.log(this.listaTotales);
 
             if (this.listOfDataProduccion.length === 0) {
               this.spinner.hide();

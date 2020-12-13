@@ -143,6 +143,29 @@
                 <td style="background-color: white; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black; " nzAlign="center">{{ data.porcentajeCumplimiento | number:'':'en_US' }} %</td>
             </tr>
         </ng-container>
+        <tr *ngFor="let total of listaTotales">
+            <td class="totales" nzAlign="center"> TOTAL </td>
+            <td colSpan="3" class="totales" nzAlign="center"> AÑO {{ total.x }} </td>
+            <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaExportadaHaciaRed | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaAutoconsumoINH | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaConsumidaRed | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.consumoEnergiaTotalINH | number:'':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarTotal | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.costoEnergiaINH | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaTotalINH | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.costoTotalEnergiaINH | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.consumoActualEnergiaRed | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.costoEnergiaConsumidaRed | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.ahorroEnergiaSolar | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.ahorroSolar | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.produccionRealEnergiaSolar | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.degradacionMaxima | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento | number:'':'en_US' }} </td>
+
+        </tr>
 
         <!-- <tr>
             <td style="background-color: #efefef; border: rgb(201, 201, 201); border-style: solid; border-width: 1px; color: black;" nzAlign="center"><span style="font-weight: bold; color: black;">Total</span></td>

@@ -94,6 +94,7 @@ import { ProduccionComponent } from './reportes/produccion/produccion.component'
 import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/proveedoresEnergia.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { FacturacionComponent } from './reportes/facturacion/facturacion.component';
+import { ValidacionComponent } from './reportes/validacion/validacion.component';
 
 // '@angular/cdk': '^10.2.6',
 
@@ -125,6 +126,7 @@ import { FacturacionComponent } from './reportes/facturacion/facturacion.compone
     ProduccionComponent,
     ProveedoresEnergiaComponent,
     FacturacionComponent,
+    ValidacionComponent,
     UsuariosComponent
   ],
   imports: [
