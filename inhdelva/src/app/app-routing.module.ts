@@ -58,7 +58,7 @@ const routes: Routes = [
       { path: 'reporteFacturacion', component: FacturacionComponent },
       { path: 'reporteProduccion', component: ProduccionComponent },
       { path: 'reporteProveedores', component: ProveedoresEnergiaComponent },
-      { path: 'reporteValidacion', component: ProveedoresEnergiaComponent }
+      { path: 'reporteValidacion', component: ValidacionComponent }
 
     ]
   },

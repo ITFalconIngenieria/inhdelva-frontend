@@ -1,3 +1,86 @@
-<p>
-  validacion works!
-</p>
+<h4>PROVEEDORES DE ENERGIA </h4>
+<h5>INHDELVA, CHOLOMA, HONDURAS.</h5>
+<br>
+<div class="opciones">
+    <div style="width: 60%; margin: auto;">
+        <p style="font-size: 16px; color: black; font-weight: bold;"> Fechas: </p>
+        <nz-range-picker [(ngModel)]="fechas"></nz-range-picker>
+    </div>
+    <div style="width: 60%; margin: auto;">
+        <button nz-button nzType="primary" style="width: 100%;" (click)="consultar()"><i nz-icon nzType="search"></i>Consultar</button>
+    </div>
+</div>
+<hr>
+<div>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" nz-button nzType="primary" style="margin: 2%;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-excel"></i></button>
+</div>
+<nz-table *ngIf="isVisible" #nzTavleINH [nzPageSize]="25" [nzData]="listOfData" nzSize="small">
+    <thead>
+        <tr>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> INFORMACIÓN GLOBAL DE INHDELVA </th>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> MES/AÑO </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container>
+            <tr>
+                <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdVerde"> TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdAzul"> TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdVerde"> TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdVerde"> FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR ENERGIA A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR POTENCIA A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR ENERGIA REACTIVA A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR COMERCIALIZACION A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO POR REGULACION A INHDELVA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$) </td>
+                <td class="tdBlanco"> 0 </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</nz-table>
+<div *ngIf="!isVisible" style="display: flex; justify-content: center;">
+    <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">
+</div>
+<div>
+    <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
+</div>
