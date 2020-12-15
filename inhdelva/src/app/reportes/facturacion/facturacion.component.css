@@ -1,6 +1,6 @@
 .tdAzul {
     background-color: #aae0ff;
-    border: rgb(201, 201, 201);
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
@@ -8,7 +8,7 @@
 
 .tdVerde {
     background-color: #d7ffd9;
-    border: rgb(201, 201, 201);
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
@@ -16,23 +16,31 @@
 
 .tdNaranja {
     background-color: #f7d8b8;
-    border: rgb(201, 201, 201);
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
 }
 
 .tdBlanco {
-    background-color: white;
-    border: rgb(201, 201, 201);
+    background-color: #ffffff;
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
 }
 
-.tdGris {
-    background-color: #efefef;
-    border: rgb(201, 201, 201);
+.tdGrisOscuro {
+    background-color: #c0c0c0;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdGrisClaro {
+    background-color: #c0c0c0;
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
@@ -40,7 +48,7 @@
 
 .infoCelda {
     background-color: #bdbdbd;
-    border: rgb(201, 201, 201);
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;
@@ -49,7 +57,7 @@
 
 .dataCelda {
     background-color: #ffffff;
-    border: rgb(201, 201, 201);
+    border: rgb(121, 121, 121);
     border-style: solid;
     border-width: 1px;
     color: black;

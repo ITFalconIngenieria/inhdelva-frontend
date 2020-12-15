@@ -1,0 +1,99 @@
+tr,
+.tdAzul {
+    background-color: #aae0ff;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdVerde {
+    background-color: #d7ffd9;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdNaranja {
+    background-color: #f7d8b8;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdBlanco {
+    background-color: #ffffff;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdGrisOscuro {
+    background-color: #c0c0c0;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.tdGrisClaro {
+    background-color: #efefef;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+.infoCelda {
+    background-color: #bdbdbd;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+    font-weight: 500;
+}
+
+.dataCelda {
+    background-color: #ffffff;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    color: black;
+}
+
+nz-select {
+    width: 100%;
+}
+
+nz-range-picker {
+    margin: 0 8px 12px 0;
+}
+
+.opciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas: ". . ";
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #334d7c;
+    border-color: #334d7c;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+}
+
+.totales {
+    background-color: #dfdfdf;
+    border: rgb(121, 121, 121);
+    border-style: solid;
+    border-width: 1px;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+}

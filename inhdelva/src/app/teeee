@@ -1,0 +1,16 @@
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> PROVEEDOR</th>
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Año</th>
+            <th nzWidth="200px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Mes</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Consumo Energia activa (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Energia activa exportada (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Demanda potencia maxima (kW)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Consumo Energia reactiva (kVArh/mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Factor de Potencia</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Costo de la Energia (L/kWh)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Costo de la Demanda (L/kW-mes)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Costo de la Energia (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Alumbrado Público (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Cargo de Comercialización (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Cargo de Regulación (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Demanda (L)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> TOTAL (L)</th>
