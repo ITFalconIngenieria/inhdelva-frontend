@@ -53,7 +53,7 @@
 <nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '400px', x: '13200px' }">
     <thead>
         <tr>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Nave</th>"
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Nave</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Empresa</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cuenta</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Codigo medidor</th>
@@ -132,7 +132,7 @@
         </ng-container>
 
         <tr>
-            <td colSpan="5" style="background-color: #d7ffd9; border: rgb(102, 102, 102); border-style: solid; border-width: 1px; color: black; " nzAlign="right"> TOTAL CLIENTES </td>
+            <td colSpan="5" style="background-color: #d7ffd9; border: rgb(102, 102, 102); border-style: solid; border-width: 1px; color: black; font-weight: bold;" nzAlign="right"> TOTAL CLIENTES </td>
             <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'':'en_US' }} </td>
         </tr>
     </tbody>
