@@ -86,6 +86,9 @@ export class FacturacionComponent implements OnInit {
         .then(
           (data: any[]) => {
 
+            console.log(data);
+
+
             this.listOfData = data;
             this.isVisible = true;
 
