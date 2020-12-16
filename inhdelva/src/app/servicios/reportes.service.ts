@@ -26,4 +26,8 @@ export class ReportesService {
     return this.http.get(`${apiUrl}reporte-inversores?fechai=${fechaInicio}&fechaf=${fechaFin}`);
   }
 
+  validacion(fechaInicio, fechaFin) {
+    return this.http.get(`${apiUrl}reporte-validacion?fechai=${fechaInicio}&fechaf=${fechaFin}`);
+  }
+
 }

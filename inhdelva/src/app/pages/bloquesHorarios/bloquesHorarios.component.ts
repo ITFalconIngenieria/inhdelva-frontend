@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BloqueHorarioService } from '../../servicios/bloqueHorario.service';
 
 interface ItemData {
   gender: string;
@@ -69,6 +70,7 @@ export class BloquesHorariosComponent implements OnInit, OnDestroy {
   constructor(
     private message: NzMessageService,
     private http: HttpClient,
+    private bloqueHorarioService: BloqueHorarioService
   ) { }
 
   ngOnInit(): void {
