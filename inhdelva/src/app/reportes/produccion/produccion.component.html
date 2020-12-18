@@ -67,78 +67,104 @@
         </nz-table>
     </div>
     <div class="col">
-        <div class="row">
-            <div class="col">
-                <p style="font-size: 16px; color: black; font-weight: bold;"> Inicio: </p>
-                <nz-date-picker nzMode="month" nzPlaceHolder="Inicio" [(ngModel)]="inicio" (ngModelChange)="onChange($event)"></nz-date-picker>
-            </div>
-            <div class="col">
-                <p style="font-size: 16px; color: black; font-weight: bold;"> Fin: </p>
-                <nz-date-picker nzMode="month" nzPlaceHolder="Fin" [(ngModel)]="fin" (ngModelChange)="onChange($event)"></nz-date-picker>
-            </div>
+        <div>
+            <p style="font-size: 16px; color: black; font-weight: bold;"> Fechas: </p>
+            <nz-range-picker nzMode="month" [(ngModel)]="fechas"></nz-range-picker>
         </div>
+        <br>
         <button nz-button nzType="primary" (click)="consultar()"><i nz-icon nzType="search"></i>Consultar</button>
     </div>
 </div>
 <hr>
 <div>
-    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" class="btnExcel" nz-button style="margin: 2%;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-excel"></i></button>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" class="btnExcel" nz-button style="margin: 2%;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon
+            nzType="file-excel"></i></button>
 </div>
 <nz-table #nzTable *ngIf="isVisible" [nzData]="listOfDataProduccion" nzSize="small" [nzPageSize]="25" [nzScroll]="{y: '350px', x: '6300px' }">
     <thead>
         <tr>
             <th colspan="11" style="background-color: #ffffff;"></th>
-            <th colspan="7" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;">AHORROS INHDELVA</th>
-            <th colspan="4" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;">VERIFICACION GENERACION SOLAR</th>
+            <th colspan="7" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;">
+                AHORROS INHDELVA</th>
+            <th colspan="4" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black;">
+                VERIFICACION GENERACION SOLAR</th>
         </tr>
         <tr>
-            <th nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Año de operación</th>
-            <th nzRight="true" nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Mes de operación</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Mes calendario</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Año calendario</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Producción total Energía Solar (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía exportada hacia la red (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía en autoconsumo en INHDELVA (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #efefef; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía consumida de la red (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #efefef; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Consumo de energía total INHDELVA (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Fraccion de energía solar en autoconsumo (%)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Fraccion de energía solar total (%)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo de Energia INHDELVA (Lps/kWh)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia total INHDELVA (kWh/año)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo total de energía INHDELVA (Lps)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Consumo actual de energía de la red (kWh/año)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo energía consumida de la red (Lps)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Ahorro en energía por sistema solar (kWh/año)</th>
-            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Ahorro por sistema solar (Lps)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Producción real Energia Solar (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Producción estimada energía solar P50 (kWh/mes)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Degradacion maxima según garantia de modulos (%)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Porcentaje de cumplimiento (%)</th>
+            <th nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Año de operación</th>
+            <th nzRight="true" nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Mes de operación</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Mes calendario</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Año calendario</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Producción total Energía Solar (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energía exportada hacia la red (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energía en autoconsumo en INHDELVA (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #efefef; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energía consumida de la red (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #efefef; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Consumo de energía total INHDELVA (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Fraccion de energía solar en autoconsumo (%)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Fraccion de energía solar total (%)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo de Energia INHDELVA (Lps/kWh)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia total INHDELVA (kWh/año)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo total de energía INHDELVA (Lps)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Consumo actual de energía de la red (kWh/año)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo energía consumida de la red (Lps)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Ahorro en energía por sistema solar (kWh/año)</th>
+            <th nzWidth="300px" style="background-color: #f7d8b8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Ahorro por sistema solar (Lps)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Producción real Energia Solar (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Producción estimada energía solar P50 (kWh/mes)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Degradacion maxima según garantia de modulos (%)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Porcentaje de cumplimiento (%)</th>
         </tr>
     </thead>
     <tbody>
         <ng-container *ngFor="let data of nzTable.data">
             <tr>
-                <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 239px; " nzAlign="center"></td>
+                <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 239px; " nzAlign="center">{{data.x}}</td>
                 <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 240px;" nzAlign="center">{{ data.fecha | date:'M'}}</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 212px;;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.fecha | date:'yyyy' }}</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionTotalEnergiaSolar | number:'':'en_US' }} kWh/mes </td>
-                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaExportadaHaciaRed | number:'':'en_US' }} kWh/mes</td>
+                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaExportadaHaciaRed | number:'':'en_US' }} kWh/mes
+                </td>
                 <td class="tdVerde" nzAlign="center"> {{ data.energiaAutoconsumoINH | number:'':'en_US' }} kWh/mes</td>
                 <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaConsumidaRed | number:'':'en_US' }} </td>
-                <td class="tdGrisClaro" nzAlign="center"> {{ data.consumoEnergiaTotalINH | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdVerde" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} %</td>
+                <td class="tdGrisClaro" nzAlign="center"> {{ data.consumoEnergiaTotalINH | number:'':'en_US' }} kWh/mes
+                </td>
+                <td class="tdVerde" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} %
+                </td>
                 <td class="tdAzul" nzAlign="center"> {{ data.fraccionEnergiaSolarTotal | number:'':'en_US' }} %</td>
                 <td class="tdNaranja" nzAlign="center"> {{ data.costoEnergiaINH | number:'':'en_US' }} </td>
                 <td class="tdNaranja" nzAlign="center">{{ data.energiaTotalINH | number:'':'en_US' }} kWh/mes</td>
                 <td class="tdNaranja" nzAlign="center">L {{ data.costoTotalEnergiaINH | number:'':'en_US' }}</td>
-                <td class="tdNaranja" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'':'en_US' }} kWh/mes</td>
+                <td class="tdNaranja" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'':'en_US' }} kWh/mes
+                </td>
                 <td class="tdNaranja" nzAlign="center">L {{ data.costoEnergiaConsumidaRed | number:'':'en_US' }}</td>
                 <td class="tdNaranja" nzAlign="center">{{ data.ahorroEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
                 <td class="tdNaranja" nzAlign="center">L {{ data.ahorroSolar | number:'':'en_US' }}</td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes
+                </td>
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes
+                </td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.degradacionMaxima | number:'':'en_US' }} %</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.porcentajeCumplimiento | number:'':'en_US' }} %</td>
             </tr>
@@ -146,7 +172,8 @@
         <tr *ngFor="let total of listaTotales">
             <td class="totales" nzAlign="center"> TOTAL </td>
             <td colSpan="3" class="totales" nzAlign="center"> AÑO {{ total.x }} </td>
-            <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'':'en_US' }} kWh/mes
+            </td>
             <td class="totales" nzAlign="center"> {{ total.energiaExportadaHaciaRed | number:'':'en_US' }} kWh/mes</td>
             <td class="totales" nzAlign="center"> {{ total.energiaAutoconsumoINH | number:'':'en_US' }} kWh/mes</td>
             <td class="totales" nzAlign="center"> {{ total.energiaConsumidaRed | number:'':'en_US' }} </td>
@@ -160,8 +187,10 @@
             <td class="totales" nzAlign="center">L {{ total.costoEnergiaConsumidaRed | number:'':'en_US' }} </td>
             <td class="totales" nzAlign="center"> {{ total.ahorroEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
             <td class="totales" nzAlign="center">L {{ total.ahorroSolar | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center"> {{ total.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes
+            </td>
+            <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes
+            </td>
             <td class="totales" nzAlign="center"> {{ total.degradacionMaxima | number:'':'en_US' }} %</td>
             <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento | number:'':'en_US' }} %</td>
 

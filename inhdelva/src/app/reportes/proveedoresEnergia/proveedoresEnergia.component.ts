@@ -133,30 +133,8 @@ export class ProveedoresEnergiaComponent implements OnInit {
               return [...acumulador, valorActual];
             }, []);
 
-
-            this.listaTotales.forEach(x => {
-              this.dataExport = [{
-                'PROVEEDOR': x.proveedor,
-                'Año': '',
-                'Mes': 'TOTALES',
-                'Consumo Energia activa (kWh/mes)': x.consumoEnergiaActiva,
-                'Energia activa exportada (kWh/mes)': x.energiaActivaExportada,
-                'Demanda potencia maxima (kW)': x.demandaPotenciaMaxima,
-                'Consumo Energia reactiva (kVArh/mes)': x.consumoEnergiaReactiva,
-                'Factor de Potencia': x.factorPotencia,
-                'Costo de la Energia (L/kWh)': x.precioEnergia,
-                'Costo de la Demanda (L/kW-mes)': x.costoDemanda,
-                'Costo de la Energia (L)': x.costoEnergia,
-                'Alumbrado Público (L)': x.alumbradoPublico,
-                'Cargo de Comercialización (L)': x.cargoComercializacion,
-                'Cargo de Regulación (L)': x.cargoRegulacion,
-                'Demanda (L)': x.precioDemanda,
-                'TOTAL (L)': x.total
-              }, ...this.dataExport]
-            });
-
             this.listOfData.forEach(y => {
-              this.dataExport = [{
+              this.dataExport = [...this.dataExport, {
                 'PROVEEDOR': y.proveedor,
                 'Año': moment(y.fecha).format('YYYY'),
                 'Mes': moment(y.fecha).format('MM'),
@@ -173,7 +151,28 @@ export class ProveedoresEnergiaComponent implements OnInit {
                 'Cargo de Regulación (L)': y.cargoRegulacion,
                 'Demanda (L)': y.precioDemanda,
                 'TOTAL (L)': y.total
-              }, ...this.dataExport]
+              }]
+            });
+
+            this.listaTotales.forEach(x => {
+              this.dataExport = [...this.dataExport, {
+                'PROVEEDOR': x.proveedor,
+                'Año': '',
+                'Mes': 'TOTALES',
+                'Consumo Energia activa (kWh/mes)': x.consumoEnergiaActiva,
+                'Energia activa exportada (kWh/mes)': x.energiaActivaExportada,
+                'Demanda potencia maxima (kW)': x.demandaPotenciaMaxima,
+                'Consumo Energia reactiva (kVArh/mes)': x.consumoEnergiaReactiva,
+                'Factor de Potencia': x.factorPotencia,
+                'Costo de la Energia (L/kWh)': x.precioEnergia,
+                'Costo de la Demanda (L/kW-mes)': x.costoDemanda,
+                'Costo de la Energia (L)': x.costoEnergia,
+                'Alumbrado Público (L)': x.alumbradoPublico,
+                'Cargo de Comercialización (L)': x.cargoComercializacion,
+                'Cargo de Regulación (L)': x.cargoRegulacion,
+                'Demanda (L)': x.precioDemanda,
+                'TOTAL (L)': x.total
+              }]
             });
 
             if (this.listOfData.length === 0) {

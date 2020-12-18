@@ -26,6 +26,7 @@ export class FacturacionComponent implements OnInit {
   listOfContratos: any[] = [];
   listaIDContratos: any[] = [];
   listaTotales: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  dataExport: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -85,10 +86,6 @@ export class FacturacionComponent implements OnInit {
         .toPromise()
         .then(
           (data: any[]) => {
-
-            console.log(data);
-
-
             this.listOfData = data;
             this.isVisible = true;
 
@@ -136,8 +133,85 @@ export class FacturacionComponent implements OnInit {
                 this.listaTotales[27] + this.listOfData[y].CSC,
                 this.listaTotales[28] + this.listOfData[y].TOTAL
               ];
-              this.spinner.hide();
             }
+
+            this.listOfData.forEach(y => {
+              this.dataExport = [...this.dataExport, {
+                'Nave': y.nave,
+                'Empresa': y.empresa,
+                'Cuenta': y.cuenta,
+                'Codigo medidor': y.medidor,
+                'Codigo tarifa': y.tarifa,
+                'Energia Activa (EA)': y.EA,
+                'Energia reactiva (ER)': y.ER,
+                'Potencia maxima (PM)': y.PM,
+                'Factor potencia (FP)': y.FP,
+                'Fraccion de energia solar en autoocnsumo (FS)': y.FS,
+                'Precio base de energia (PBE)': y.PBE,
+                'Cargo por energia(CPE)': y.CPE,
+                'Promedio potencia 11 meses (P11)': y.P11,
+                'Precio base potencia (PBP)': y.PBP,
+                'Cargo por potencia (CPC)': y.CPC,
+                'Factor de recargo (FR)': (y.FP < 0.9 && y.FP !== 0) ? (0.9 / y.FP) - 1 : 0,
+                'Cargo por energia reactiva (CER)': y.CER,
+                'Costo operativo sistema solar (COS)': y.COS,
+                'Costo operativo mantenimiento red de distribucion (COR)': y.COR,
+                'Costo operativo de mantenimiento de equipos auxiliares (COE)': y.COE,
+                'Costos administrativos (COA)': y.COA,
+                'Cargo por costos operativos (CCO)': y.CCO,
+                'Punto de medida': y.PuntoMedida,
+                'Perdidas internas (PI)': y.PI,
+                'Cargo por perdidas internas (CPI)': y.CPI,
+                'Energia activa consumida en Alumbrado Público (EAAP)': y.EAAP,
+                'Precio de la energia tarifa Alumbrado Público (EAP)': y.EAP,
+                'Energía total consumida por los usuarios (ETCU)': y.ETCU,
+                'Cargo por iluminación comunitaria (CIC)': y.CIC,
+                'Energia activa consumida en servicios comunitarios (EASC)': y.EASC,
+                'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': y.EBT,
+                'Energía total consumida por los usuarios (ETCU) ': y.ETCU,
+                'Cargo por servicios comunitarios (CSC)': y.CSC,
+                'CARGOS TOTALES TARIFA': y.TOTAL
+              }]
+            });
+
+            this.dataExport = [...this.dataExport, {
+              'Nave': '',
+              'Empresa': '',
+              'Cuenta': '',
+              'Codigo medidor': '',
+              'Codigo tarifa': 'TOTAL CLIENTES',
+              'Energia Activa (EA)': this.listaTotales[0],
+              'Energia reactiva (ER)': this.listaTotales[1],
+              'Potencia maxima (PM)': this.listaTotales[2],
+              'Factor potencia (FP)': this.listaTotales[3],
+              'Fraccion de energia solar en autoocnsumo (FS)': this.listaTotales[4],
+              'Precio base de energia (PBE)': this.listaTotales[5],
+              'Cargo por energia(CPE)': this.listaTotales[6],
+              'Promedio potencia 11 meses (P11)': this.listaTotales[7],
+              'Precio base potencia (PBP)': this.listaTotales[8],
+              'Cargo por potencia (CPC)': this.listaTotales[9],
+              'Factor de recargo (FR)': this.listaTotales[10],
+              'Cargo por energia reactiva (CER)': this.listaTotales[11],
+              'Costo operativo sistema solar (COS)': this.listaTotales[12],
+              'Costo operativo mantenimiento red de distribucion (COR)': this.listaTotales[13],
+              'Costo operativo de mantenimiento de equipos auxiliares (COE)': this.listaTotales[14],
+              'Costos administrativos (COA)': this.listaTotales[15],
+              'Cargo por costos operativos CCO': this.listaTotales[16],
+              'Punto de medida': this.listaTotales[17],
+              'Perdidas internas (PI)': this.listaTotales[18],
+              'Cargo por perdidas internas (CPI)': this.listaTotales[19],
+              'Energia activa consumida en Alumbrado Público (EAAP)': this.listaTotales[20],
+              'Precio de la energia tarifa Alumbrado Público (EAP)': this.listaTotales[21],
+              'Energía total consumida por los usuarios (ETCU)': this.listaTotales[22],
+              'Cargo por iluminación comunitaria (CIC)': this.listaTotales[23],
+              'Energia activa consumida en servicios comunitarios (EASC)': this.listaTotales[24],
+              'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': this.listaTotales[25],
+              'Energía total consumida por los usuarios (ETCU) ': this.listaTotales[26],
+              'Cargo por servicios comunitarios (CSC)': this.listaTotales[27],
+              'CARGOS TOTALES TARIFA': this.listaTotales[28]
+            }]
+
+            this.spinner.hide();
           },
           (error) => {
             this.spinner.hide();
@@ -156,10 +230,10 @@ export class FacturacionComponent implements OnInit {
 
   exportExcel() {
     import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.listOfData);
+      const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
+      this.saveAsExcelFile(excelBuffer, 'Informe Proveedores de Energia');
     });
   }
 
@@ -170,7 +244,7 @@ export class FacturacionComponent implements OnInit {
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
-      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+      FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     });
   }
 
