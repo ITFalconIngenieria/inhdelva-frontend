@@ -12,6 +12,8 @@ import { ReportesService } from '../../servicios/reportes.service';
 export class ValidacionComponent implements OnInit {
   listOfData: any[] = [];
   colspan: number;
+  dataInh: any[] = [];
+  dataUsu: any[] = [];
 
   isVisible = false;
   fechas = null;
@@ -44,7 +46,47 @@ export class ValidacionComponent implements OnInit {
             this.isVisible = true;
             this.listOfData = data;
             this.colspan = data.length;
-            
+
+            this.listOfData.forEach(element => {
+              this.dataInh = [{
+                'FECHA': moment(element.fecha).format('MM-YYYY'),
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.consumoTotalEA,
+                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.totalEAexportada,
+                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': element.totalEnergiaProducidaAuto,
+                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': element.totalEnergiaConsumida,
+                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': element.totalEnergiaProducida,
+                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': element.FraccionEnergiaSoalr,
+                'CARGO POR ENERGIA A INHDELVA (US$)': element.cargoEnergia,
+                'CARGO POR POTENCIA A INHDELVA (US$)': element.cargoPotencia,
+                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': 0,
+                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': element.cargoAlumbrado,
+                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': element.cargoComercializacion,
+                'CARGO POR REGULACION A INHDELVA (US$)': element.cargoRegulacion,
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': element.totalProveedores
+              }, ...this.dataInh]
+            });
+
+            this.listOfData.forEach(x => {
+              this.dataUsu = [{
+                'FECHA': moment(x.fecha).format('MM-YYYY'),
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': x.consumoTotalEAFact,
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': x.consumoTotalEASC,
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': x.consumoTotalEAI,
+                'PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)': x.perdidaTotal,
+                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': x.totalEAexportada,
+                'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': x.cargoTotalEA,
+                'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': x.cargoTotalPotencia,
+                'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': x.cargoTotalER,
+                'CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)': x.cargoTotalCO,
+                'CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)': x.cargoTotalCSC,
+                'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': x.cargoTotalIlum,
+                'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': x.cargoPI,
+                'FACTURACION TOTAL A LOS USUARIOS (US$)': x.facturacionTotal,
+                'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': x.diferenciaFacturacionConsumo,
+                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': x.porcentajeDiferencia
+              }, ...this.dataUsu]
+            });
+
             if (this.listOfData.length === 0) {
               this.spinner.hide();
               this.isVisible = false;
@@ -73,11 +115,21 @@ export class ValidacionComponent implements OnInit {
   }
 
   exportExcel() {
+
+    // Excel Inhdelva
     import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.listOfData);
+      const worksheet = xlsx.utils.json_to_sheet(this.dataInh);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'Produccion ');
+      this.saveAsExcelFile(excelBuffer, 'INFORMACIÓN GLOBAL DE INHDELVA');
+    });
+
+    // Excel Usuarios
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.dataUsu);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'INFORMACION GLOBAL DE LOS USUARIOS DEL PARQUE');
     });
   }
 
