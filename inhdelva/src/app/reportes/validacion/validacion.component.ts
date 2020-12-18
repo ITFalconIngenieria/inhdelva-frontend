@@ -47,27 +47,8 @@ export class ValidacionComponent implements OnInit {
             this.listOfData = data;
             this.colspan = data.length;
 
-            this.listOfData.forEach(element => {
-              this.dataInh = [{
-                'FECHA': moment(element.fecha).format('MM-YYYY'),
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.consumoTotalEA,
-                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.totalEAexportada,
-                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': element.totalEnergiaProducidaAuto,
-                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': element.totalEnergiaConsumida,
-                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': element.totalEnergiaProducida,
-                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': element.FraccionEnergiaSoalr,
-                'CARGO POR ENERGIA A INHDELVA (US$)': element.cargoEnergia,
-                'CARGO POR POTENCIA A INHDELVA (US$)': element.cargoPotencia,
-                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': 0,
-                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': element.cargoAlumbrado,
-                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': element.cargoComercializacion,
-                'CARGO POR REGULACION A INHDELVA (US$)': element.cargoRegulacion,
-                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': element.totalProveedores
-              }, ...this.dataInh]
-            });
-
             this.listOfData.forEach(x => {
-              this.dataUsu = [{
+              this.dataUsu = [...this.dataUsu, {
                 'FECHA': moment(x.fecha).format('MM-YYYY'),
                 'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': x.consumoTotalEAFact,
                 'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': x.consumoTotalEASC,
@@ -84,7 +65,26 @@ export class ValidacionComponent implements OnInit {
                 'FACTURACION TOTAL A LOS USUARIOS (US$)': x.facturacionTotal,
                 'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': x.diferenciaFacturacionConsumo,
                 'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': x.porcentajeDiferencia
-              }, ...this.dataUsu]
+              }]
+            });
+
+            this.listOfData.forEach(element => {
+              this.dataInh = [...this.dataInh, {
+                'FECHA': moment(element.fecha).format('MM-YYYY'),
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.consumoTotalEA,
+                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.totalEAexportada,
+                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': element.totalEnergiaProducidaAuto,
+                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': element.totalEnergiaConsumida,
+                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': element.totalEnergiaProducida,
+                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': element.FraccionEnergiaSoalr,
+                'CARGO POR ENERGIA A INHDELVA (US$)': element.cargoEnergia,
+                'CARGO POR POTENCIA A INHDELVA (US$)': element.cargoPotencia,
+                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': 0,
+                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': element.cargoAlumbrado,
+                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': element.cargoComercializacion,
+                'CARGO POR REGULACION A INHDELVA (US$)': element.cargoRegulacion,
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': element.totalProveedores
+              }]
             });
 
             if (this.listOfData.length === 0) {
@@ -140,7 +140,7 @@ export class ValidacionComponent implements OnInit {
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
-      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+      FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     });
   }
 

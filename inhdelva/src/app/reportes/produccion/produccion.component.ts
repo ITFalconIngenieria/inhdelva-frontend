@@ -42,9 +42,9 @@ export class ProduccionComponent implements OnInit {
       address: 'Sidney No. 1 Lake Park'
     }
   ];
+  test: any[] = [];
 
-  inicio = null;
-  fin = null;
+  fechas = null;
   isVisible = false;
 
   cols: any[];
@@ -103,7 +103,7 @@ export class ProduccionComponent implements OnInit {
 
   consultar() {
     this.spinner.show();
-    if (this.inicio === null || this.fin === null) {
+    if (this.fechas === null) {
       swal({
         icon: 'warning',
         title: 'No se puede consultar',
@@ -113,16 +113,74 @@ export class ProduccionComponent implements OnInit {
     } else {
 
       this.reporteService.produccion(
-        moment(moment(this.inicio).format('YYYY-MM-DD')).toISOString(),
-        moment(moment(this.fin).format('YYYY-MM-DD')).toISOString()
+        moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
+        moment(moment(this.fechas[1]).format('YYYY-MM-DD')).toISOString()
       )
         .toPromise()
         .then(
           (data: any[]) => {
             this.isVisible = true;
-            this.listOfDataProduccion = data;
+            // this.listOfDataProduccion = data;
 
-            this.listaTotales = this.listOfDataProduccion.reduce((acumulador, valorActual) => {
+            let a = 1;
+            for (let h = 1; h <= data.length; h++) {
+
+              this.listOfDataProduccion = [...this.listOfDataProduccion, {
+                x: a,
+                fecha: data[h - 1].fecha,
+                produccionTotalEnergiaSolar: data[h - 1].produccionTotalEnergiaSolar,
+                energiaExportadaHaciaRed: data[h - 1].energiaExportadaHaciaRed,
+                energiaAutoconsumoINH: data[h - 1].energiaAutoconsumoINH,
+                energiaConsumidaRed: data[h - 1].energiaConsumidaRed,
+                consumoEnergiaTotalINH: data[h - 1].consumoEnergiaTotalINH,
+                fraccionEnergiaSolarAutoconsumo: data[h - 1].fraccionEnergiaSolarAutoconsumo,
+                fraccionEnergiaSolarTotal: data[h - 1].fraccionEnergiaSolarTotal,
+                costoEnergiaINH: data[h - 1].costoEnergiaINH,
+                energiaTotalINH: data[h - 1].energiaTotalINH,
+                costoTotalEnergiaINH: data[h - 1].costoTotalEnergiaINH,
+                consumoActualEnergiaRed: data[h - 1].consumoActualEnergiaRed,
+                costoEnergiaConsumidaRed: data[h - 1].costoEnergiaConsumidaRed,
+                ahorroEnergiaSolar: data[h - 1].ahorroEnergiaSolar,
+                ahorroSolar: data[h - 1].ahorroSolar,
+                produccionRealEnergiaSolar: data[h - 1].produccionRealEnergiaSolar,
+                produccionEstimadaEnergiaSolar: data[h - 1].produccionEstimadaEnergiaSolar,
+                degradacionMaxima: data[h - 1].degradacionMaxima,
+                porcentajeCumplimiento: data[h - 1].porcentajeCumplimiento
+              }]
+              if (h <= (data.length - 1)) {
+                if ((moment(this.test[this.test.length - 1]).get('year') !== moment(data[h].fecha).get('year'))) {
+                  a += 1;
+                }
+              }
+
+              this.dataExport = [...this.dataExport, {
+                'Año de operación': a,
+                'Mes de operación': moment(data[h - 1].fecha).format('MM'),
+                'Mes calendario': moment(data[h - 1].fecha).format('MMMM'),
+                'Año calendario': moment(data[h - 1].fecha).format('YYYY'),
+                'Producción total Energía Solar (kWh/mes)': data[h - 1].produccionTotalEnergiaSolar,
+                'Energía exportada hacia la red (kWh/mes)': data[h - 1].energiaExportadaHaciaRed,
+                'Energía en autoconsumo en INHDELVA (kWh/mes)': data[h - 1].energiaAutoconsumoINH,
+                'Energía consumida de la red (kWh/mes)': data[h - 1].energiaConsumidaRed,
+                'Consumo de energía total INHDELVA (kWh/mes)': data[h - 1].consumoEnergiaTotalINH,
+                'Fraccion de energía solar en autoconsumo (%)': data[h - 1].fraccionEnergiaSolarAutoconsumo,
+                'Fraccion de energía solar total (%)': data[h - 1].fraccionEnergiaSolarTotal,
+                'Costo de Energia INHDELVA (Lps/kWh)': data[h - 1].costoEnergiaINH,
+                'Energia total INHDELVA (kWh/año)': data[h - 1].energiaTotalINH,
+                'Costo total de energía INHDELVA (Lps)': data[h - 1].costoTotalEnergiaINH,
+                'Consumo actual de energía de la red (kWh/año)': data[h - 1].consumoActualEnergiaRed,
+                'Costo energía consumida de la red (Lps)': data[h - 1].costoEnergiaConsumidaRed,
+                'Ahorro en energía por sistema solar (kWh/año)': data[h - 1].ahorroEnergiaSolar,
+                'Ahorro por sistema solar (Lps)': data[h - 1].ahorroSolar,
+                'Producción real Energia Solar (kWh/mes)': data[h - 1].produccionRealEnergiaSolar,
+                'Producción estimada energía solar P50 (kWh/mes)': data[h - 1].produccionEstimadaEnergiaSolar,
+                'Degradacion maxima según garantia de modulos (%)': data[h - 1].degradacionMaxima,
+                'Porcentaje de cumplimiento (%)': data[h - 1].porcentajeCumplimiento
+              }]
+
+            }
+
+            this.listaTotales = data.reduce((acumulador, valorActual) => {
               let x = 1;
               const elementoYaExiste = acumulador.find(elemento => elemento.proveedor === valorActual.proveedor);
               if (elementoYaExiste) {
@@ -152,7 +210,6 @@ export class ProduccionComponent implements OnInit {
                     };
                   }
                   x += 1;
-
                   return elemento;
                 });
               }
@@ -161,7 +218,7 @@ export class ProduccionComponent implements OnInit {
             }, []);
 
             this.listaTotales.forEach(y => {
-              this.dataExport = [{
+              this.dataExport = [...this.dataExport, {
                 'Año de operación': 'TOTAL',
                 'Mes de operación': '',
                 'Mes calendario': '',
@@ -184,34 +241,7 @@ export class ProduccionComponent implements OnInit {
                 'Producción estimada energía solar P50 (kWh/mes)': y.produccionEstimadaEnergiaSolar,
                 'Degradacion maxima según garantia de modulos (%)': y.degradacionMaxima,
                 'Porcentaje de cumplimiento (%)': y.porcentajeCumplimiento
-              }, ...this.dataExport]
-            });
-
-            this.listOfDataProduccion.forEach(y => {
-              this.dataExport = [{
-                'Año de operación': 1,
-                'Mes de operación': moment(y.fecha).format('MM'),
-                'Mes calendario': moment(y.fecha).format('MMMM'),
-                'Año calendario': moment(y.fecha).format('YYYY'),
-                'Producción total Energía Solar (kWh/mes)': y.produccionTotalEnergiaSolar,
-                'Energía exportada hacia la red (kWh/mes)': y.energiaExportadaHaciaRed,
-                'Energía en autoconsumo en INHDELVA (kWh/mes)': y.energiaAutoconsumoINH,
-                'Energía consumida de la red (kWh/mes)': y.energiaConsumidaRed,
-                'Consumo de energía total INHDELVA (kWh/mes)': y.consumoEnergiaTotalINH,
-                'Fraccion de energía solar en autoconsumo (%)': y.fraccionEnergiaSolarAutoconsumo,
-                'Fraccion de energía solar total (%)': y.fraccionEnergiaSolarTotal,
-                'Costo de Energia INHDELVA (Lps/kWh)': y.costoEnergiaINH,
-                'Energia total INHDELVA (kWh/año)': y.energiaTotalINH,
-                'Costo total de energía INHDELVA (Lps)': y.costoTotalEnergiaINH,
-                'Consumo actual de energía de la red (kWh/año)': y.consumoActualEnergiaRed,
-                'Costo energía consumida de la red (Lps)': y.costoEnergiaConsumidaRed,
-                'Ahorro en energía por sistema solar (kWh/año)': y.ahorroEnergiaSolar,
-                'Ahorro por sistema solar (Lps)': y.ahorroSolar,
-                'Producción real Energia Solar (kWh/mes)': y.produccionRealEnergiaSolar,
-                'Producción estimada energía solar P50 (kWh/mes)': y.produccionEstimadaEnergiaSolar,
-                'Degradacion maxima según garantia de modulos (%)': y.degradacionMaxima,
-                'Porcentaje de cumplimiento (%)': y.porcentajeCumplimiento
-              }, ...this.dataExport]
+              }]
             });
 
             if (this.listOfDataProduccion.length === 0) {
@@ -263,7 +293,7 @@ export class ProduccionComponent implements OnInit {
       const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'Produccion ');
+      this.saveAsExcelFile(excelBuffer, 'Informe de Produccion ');
     });
   }
 
@@ -274,7 +304,7 @@ export class ProduccionComponent implements OnInit {
       const data: Blob = new Blob([buffer], {
         type: EXCEL_TYPE
       });
-      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+      FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     });
   }
 
