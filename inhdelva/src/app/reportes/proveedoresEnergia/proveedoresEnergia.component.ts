@@ -20,6 +20,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
   listOfProveedores: any[] = [];
   listaIDProveedores: any[] = [];
   listaTotales: any[] = [];
+  dataExport: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -46,7 +47,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   exportExcel() {
     import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.listOfData);
+      const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
@@ -131,6 +132,49 @@ export class ProveedoresEnergiaComponent implements OnInit {
               }
               return [...acumulador, valorActual];
             }, []);
+
+
+            this.listaTotales.forEach(x => {
+              this.dataExport = [{
+                'PROVEEDOR': x.proveedor,
+                'Año': '',
+                'Mes': 'TOTALES',
+                'Consumo Energia activa (kWh/mes)': x.consumoEnergiaActiva,
+                'Energia activa exportada (kWh/mes)': x.energiaActivaExportada,
+                'Demanda potencia maxima (kW)': x.demandaPotenciaMaxima,
+                'Consumo Energia reactiva (kVArh/mes)': x.consumoEnergiaReactiva,
+                'Factor de Potencia': x.factorPotencia,
+                'Costo de la Energia (L/kWh)': x.precioEnergia,
+                'Costo de la Demanda (L/kW-mes)': x.costoDemanda,
+                'Costo de la Energia (L)': x.costoEnergia,
+                'Alumbrado Público (L)': x.alumbradoPublico,
+                'Cargo de Comercialización (L)': x.cargoComercializacion,
+                'Cargo de Regulación (L)': x.cargoRegulacion,
+                'Demanda (L)': x.precioDemanda,
+                'TOTAL (L)': x.total
+              }, ...this.dataExport]
+            });
+
+            this.listOfData.forEach(y => {
+              this.dataExport = [{
+                'PROVEEDOR': y.proveedor,
+                'Año': moment(y.fecha).format('YYYY'),
+                'Mes': moment(y.fecha).format('MM'),
+                'Consumo Energia activa (kWh/mes)': y.consumoEnergiaActiva,
+                'Energia activa exportada (kWh/mes)': y.energiaActivaExportada,
+                'Demanda potencia maxima (kW)': y.demandaPotenciaMaxima,
+                'Consumo Energia reactiva (kVArh/mes)': y.consumoEnergiaReactiva,
+                'Factor de Potencia': y.factorPotencia,
+                'Costo de la Energia (L/kWh)': y.precioEnergia,
+                'Costo de la Demanda (L/kW-mes)': y.costoDemanda,
+                'Costo de la Energia (L)': y.costoEnergia,
+                'Alumbrado Público (L)': y.alumbradoPublico,
+                'Cargo de Comercialización (L)': y.cargoComercializacion,
+                'Cargo de Regulación (L)': y.cargoRegulacion,
+                'Demanda (L)': y.precioDemanda,
+                'TOTAL (L)': y.total
+              }, ...this.dataExport]
+            });
 
             if (this.listOfData.length === 0) {
               this.spinner.hide();
