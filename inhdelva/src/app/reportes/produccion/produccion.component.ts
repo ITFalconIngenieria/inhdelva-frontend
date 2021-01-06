@@ -3,6 +3,8 @@ import * as moment from 'moment';
 import swal from 'sweetalert';
 import { ReportesService } from '../../servicios/reportes.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import 'jspdf-autotable';
+import jspdf from 'jspdf';
 
 interface Person {
   key: string;
@@ -91,7 +93,7 @@ export class ProduccionComponent implements OnInit {
       ]
     ];
 
-    this.cols = [['ID', 'Country', 'Rank', 'Capital']];
+    this.cols = [['Año de operación', 'Mes de operación', 'Mes calendario', 'Año calendario', 'Producción total Energía Solar (kWh/mes)', 'Energía exportada hacia la red (kWh/mes)', 'Energía en autoconsumo en INHDELVA (kWh/mes)', 'Energía consumida de la red (kWh/mes)', 'Consumo de energía total INHDELVA (kWh/mes)', 'Fraccion de energía solar en autoconsumo (%)', 'Fraccion de energía solar total (%)', 'Costo de Energia INHDELVA (Lps/kWh)', 'Energia total INHDELVA (kWh/año)', 'Costo total de energía INHDELVA (Lps)', 'Consumo actual de energía de la red (kWh/año)', 'Costo energía consumida de la red (Lps)', 'Ahorro en energía por sistema solar (kWh/año)', ' Ahorro por sistema solar (Lps)', 'Producción real Energia Solar (kWh/mes)', 'Producción estimada energía solar P50 (kWh/mes)', 'Degradacion maxima según garantia de modulos (%)', 'Porcentaje de cumplimiento (%)']];
 
     this.exportColumns = this.cols.map(col => ({ title: col.header, datakey: col.field }));
 
@@ -179,6 +181,9 @@ export class ProduccionComponent implements OnInit {
               }]
 
             }
+
+            console.log(this.listOfDataProduccion);
+
 
             this.listaTotales = data.reduce((acumulador, valorActual) => {
               let x = 1;
@@ -272,20 +277,29 @@ export class ProduccionComponent implements OnInit {
   }
 
   exportPdf() {
-    import('jspdf').then(jsPDF => {
-      import('jspdf-autotable').then(x => {
-        const doc = new jsPDF.default();
-        (doc as any).autoTable(
-          {
-            head: this.cols,
-            body: this.products,
-            theme: 'plain'
-          }
-        );
-        doc.output('dataurlnewwindow');
-        doc.save('products.pdf');
-      });
-    });
+    // import('jspdf').then(jsPDF => {
+    //   import('jspdf-autotable').then(x => {
+
+    const doc = new jspdf('l', 'in', 'legal');
+    (doc as any).autoTable(
+      {
+        head: this.cols,
+        body: this.listOfDataProduccion,
+        theme: 'striped'
+      }
+    );
+    doc.addPage('l');
+    (doc as any).autoTable(
+      {
+        head: this.cols,
+        body: this.listOfDataProduccion,
+        theme: 'striped'
+      }
+    );
+    doc.output('dataurlnewwindow');
+    doc.save('products.pdf');
+    //   });
+    // });
   }
 
   exportExcel() {

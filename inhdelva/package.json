@@ -29,6 +29,7 @@
         "moment": "^2.28.0",
         "ng-zorro-antd": "^8.5.2",
         "ngx-spinner": "^8.1.0",
+        "pdfmake": "^0.1.68",
         "rxjs": "~6.4.0",
         "sweetalert": "^2.1.2",
         "tslib": "^1.10.0",
