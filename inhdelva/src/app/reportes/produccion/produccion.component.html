@@ -79,8 +79,10 @@
 <div>
     <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" class="btnExcel" nz-button style="margin: 2%;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon
             nzType="file-excel"></i></button>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a PDF" nz-button style="margin: 2%;" (click)="exportPdf()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip nzType="default" nzDanger><i nz-icon nzType="file-pdf"></i></button>
+
 </div>
-<nz-table #nzTable *ngIf="isVisible" [nzData]="listOfDataProduccion" nzSize="small" [nzPageSize]="25" [nzScroll]="{y: '350px', x: '6300px' }">
+<nz-table #nzTable id="produccionTable" *ngIf="isVisible" [nzData]="listOfDataProduccion" nzSize="small" [nzPageSize]="25" [nzScroll]="{y: '350px', x: '6300px' }">
     <thead>
         <tr>
             <th colspan="11" style="background-color: #ffffff;"></th>

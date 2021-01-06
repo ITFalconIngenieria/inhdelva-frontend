@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import swal from 'sweetalert';
 import { ContratoService } from '../../servicios/contrato.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import 'jspdf-autotable';
+import jspdf from 'jspdf';
 
 interface Totales {
   ea: number;
@@ -27,6 +29,10 @@ export class FacturacionComponent implements OnInit {
   listaIDContratos: any[] = [];
   listaTotales: any[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   dataExport: any[] = [];
+  cols: any[] = [];
+  dataPDF: any[] = [];
+  colsExport: any[] = [];
+  dataPDFExport: any[] = [];
 
   constructor(
     private reporteService: ReportesService,
@@ -142,74 +148,112 @@ export class FacturacionComponent implements OnInit {
                 'Cuenta': y.cuenta,
                 'Codigo medidor': y.medidor,
                 'Codigo tarifa': y.tarifa,
-                'Energia Activa (EA)': y.EA,
-                'Energia reactiva (ER)': y.ER,
-                'Potencia maxima (PM)': y.PM,
-                'Factor potencia (FP)': y.FP,
-                'Fraccion de energia solar en autoocnsumo (FS)': y.FS,
-                'Precio base de energia (PBE)': y.PBE,
-                'Cargo por energia(CPE)': y.CPE,
-                'Promedio potencia 11 meses (P11)': y.P11,
-                'Precio base potencia (PBP)': y.PBP,
-                'Cargo por potencia (CPC)': y.CPC,
-                'Factor de recargo (FR)': (y.FP < 0.9 && y.FP !== 0) ? (0.9 / y.FP) - 1 : 0,
-                'Cargo por energia reactiva (CER)': y.CER,
-                'Costo operativo sistema solar (COS)': y.COS,
-                'Costo operativo mantenimiento red de distribucion (COR)': y.COR,
-                'Costo operativo de mantenimiento de equipos auxiliares (COE)': y.COE,
-                'Costos administrativos (COA)': y.COA,
-                'Cargo por costos operativos (CCO)': y.CCO,
+                'Energia Activa (EA)': Math.round(y.EA * 100) / 100,
+                'Energia reactiva (ER)': Math.round(y.ER * 100) / 100,
+                'Potencia maxima (PM)': Math.round(y.PM * 100) / 100,
+                'Factor potencia (FP)': Math.round(y.FP * 100) / 100,
+                'Fraccion de energia solar en autoocnsumo (FS)': Math.round(y.FS * 100) / 100,
+                'Precio base de energia (PBE)': Math.round(y.PBE * 100) / 100,
+                'Cargo por energia(CPE)': Math.round(y.CPE * 100) / 100,
+                'Promedio potencia 11 meses (P11)': Math.round(y.P11 * 100) / 100,
+                'Precio base potencia (PBP)': Math.round(y.PBP * 100) / 100,
+                'Cargo por potencia (CPC)': Math.round(y.CPC * 100) / 100,
+                'Factor de recargo (FR)': Math.round((y.FP < 0.9 && y.FP !== 0) ? (0.9 / y.FP) - 1 : 0 * 100) / 100,
+                'Cargo por energia reactiva (CER)': Math.round(y.CER * 100) / 100,
+                'Costo operativo sistema solar (COS)': Math.round(y.COS * 100) / 100,
+                'Costo operativo mantenimiento red de distribucion (COR)': Math.round(y.COR * 100) / 100,
+                'Costo operativo de mantenimiento de equipos auxiliares (COE)': Math.round(y.COE * 100) / 100,
+                'Costos administrativos (COA)': Math.round(y.COA * 100) / 100,
+                'Cargo por costos operativos (CCO)': Math.round(y.CCO * 100) / 100,
                 'Punto de medida': y.PuntoMedida,
-                'Perdidas internas (PI)': y.PI,
-                'Cargo por perdidas internas (CPI)': y.CPI,
-                'Energia activa consumida en Alumbrado Público (EAAP)': y.EAAP,
-                'Precio de la energia tarifa Alumbrado Público (EAP)': y.EAP,
-                'Energía total consumida por los usuarios (ETCU)': y.ETCU,
-                'Cargo por iluminación comunitaria (CIC)': y.CIC,
-                'Energia activa consumida en servicios comunitarios (EASC)': y.EASC,
-                'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': y.EBT,
-                'Energía total consumida por los usuarios (ETCU) ': y.ETCU,
-                'Cargo por servicios comunitarios (CSC)': y.CSC,
-                'CARGOS TOTALES TARIFA': y.TOTAL
+                'Perdidas internas (PI)': Math.round(y.PI * 100) / 100,
+                'Cargo por perdidas internas (CPI)': Math.round(y.CPI * 100) / 100,
+                'Energia activa consumida en Alumbrado Público (EAAP)': Math.round(y.EAAP * 100) / 100,
+                'Precio de la energia tarifa Alumbrado Público (EAP)': Math.round(y.EAP * 100) / 100,
+                'Energía total consumida por los usuarios (ETCU)': Math.round(y.ETCU * 100) / 100,
+                'Cargo por iluminación comunitaria (CIC)': Math.round(y.CIC * 100) / 100,
+                'Energia activa consumida en servicios comunitarios (EASC)': Math.round(y.EASC * 100) / 100,
+                'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': Math.round(y.EBT * 100) / 100,
+                'Energía total consumida por los usuarios (ETCU) ': Math.round(y.ETCU * 100) / 100,
+                'Cargo por servicios comunitarios (CSC)': Math.round(y.CSC * 100) / 100,
+                'CARGOS TOTALES TARIFA': Math.round(y.TOTAL * 100) / 100
               }]
             });
 
             this.dataExport = [...this.dataExport, {
               'Nave': '',
               'Empresa': '',
-              'Cuenta': '',
+              'Cuenta': 'TOTAL CLIENTES',
               'Codigo medidor': '',
-              'Codigo tarifa': 'TOTAL CLIENTES',
-              'Energia Activa (EA)': this.listaTotales[0],
-              'Energia reactiva (ER)': this.listaTotales[1],
-              'Potencia maxima (PM)': this.listaTotales[2],
-              'Factor potencia (FP)': this.listaTotales[3],
-              'Fraccion de energia solar en autoocnsumo (FS)': this.listaTotales[4],
-              'Precio base de energia (PBE)': this.listaTotales[5],
-              'Cargo por energia(CPE)': this.listaTotales[6],
-              'Promedio potencia 11 meses (P11)': this.listaTotales[7],
-              'Precio base potencia (PBP)': this.listaTotales[8],
-              'Cargo por potencia (CPC)': this.listaTotales[9],
-              'Factor de recargo (FR)': this.listaTotales[10],
-              'Cargo por energia reactiva (CER)': this.listaTotales[11],
-              'Costo operativo sistema solar (COS)': this.listaTotales[12],
-              'Costo operativo mantenimiento red de distribucion (COR)': this.listaTotales[13],
-              'Costo operativo de mantenimiento de equipos auxiliares (COE)': this.listaTotales[14],
-              'Costos administrativos (COA)': this.listaTotales[15],
-              'Cargo por costos operativos CCO': this.listaTotales[16],
+              'Codigo tarifa': '',
+              'Energia Activa (EA)': Math.round(this.listaTotales[0] * 100) / 100,
+              'Energia reactiva (ER)': Math.round(this.listaTotales[1] * 100) / 100,
+              'Potencia maxima (PM)': Math.round(this.listaTotales[2] * 100) / 100,
+              'Factor potencia (FP)': Math.round(this.listaTotales[3] * 100) / 100,
+              'Fraccion de energia solar en autoocnsumo (FS)': Math.round(this.listaTotales[4] * 100) / 100,
+              'Precio base de energia (PBE)': Math.round(this.listaTotales[5] * 100) / 100,
+              'Cargo por energia(CPE)': Math.round(this.listaTotales[6] * 100) / 100,
+              'Promedio potencia 11 meses (P11)': Math.round(this.listaTotales[7] * 100) / 100,
+              'Precio base potencia (PBP)': Math.round(this.listaTotales[8] * 100) / 100,
+              'Cargo por potencia (CPC)': Math.round(this.listaTotales[9] * 100) / 100,
+              'Factor de recargo (FR)': Math.round(this.listaTotales[10] * 100) / 100,
+              'Cargo por energia reactiva (CER)': Math.round(this.listaTotales[11] * 100) / 100,
+              'Costo operativo sistema solar (COS)': Math.round(this.listaTotales[12] * 100) / 100,
+              'Costo operativo mantenimiento red de distribucion (COR)': Math.round(this.listaTotales[13] * 100) / 100,
+              'Costo operativo de mantenimiento de equipos auxiliares (COE)': Math.round(this.listaTotales[14] * 100) / 100,
+              'Costos administrativos (COA)': Math.round(this.listaTotales[15] * 100) / 100,
+              'Cargo por costos operativos CCO': Math.round(this.listaTotales[16] * 100) / 100,
               'Punto de medida': this.listaTotales[17],
-              'Perdidas internas (PI)': this.listaTotales[18],
-              'Cargo por perdidas internas (CPI)': this.listaTotales[19],
-              'Energia activa consumida en Alumbrado Público (EAAP)': this.listaTotales[20],
-              'Precio de la energia tarifa Alumbrado Público (EAP)': this.listaTotales[21],
-              'Energía total consumida por los usuarios (ETCU)': this.listaTotales[22],
-              'Cargo por iluminación comunitaria (CIC)': this.listaTotales[23],
-              'Energia activa consumida en servicios comunitarios (EASC)': this.listaTotales[24],
-              'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': this.listaTotales[25],
-              'Energía total consumida por los usuarios (ETCU) ': this.listaTotales[26],
-              'Cargo por servicios comunitarios (CSC)': this.listaTotales[27],
-              'CARGOS TOTALES TARIFA': this.listaTotales[28]
+              'Perdidas internas (PI)': Math.round(this.listaTotales[18] * 100) / 100,
+              'Cargo por perdidas internas (CPI)': Math.round(this.listaTotales[19] * 100) / 100,
+              'Energia activa consumida en Alumbrado Público (EAAP)': Math.round(this.listaTotales[20] * 100) / 100,
+              'Precio de la energia tarifa Alumbrado Público (EAP)': Math.round(this.listaTotales[21] * 100) / 100,
+              'Energía total consumida por los usuarios (ETCU)': Math.round(this.listaTotales[22] * 100) / 100,
+              'Cargo por iluminación comunitaria (CIC)': Math.round(this.listaTotales[23] * 100) / 100,
+              'Energia activa consumida en servicios comunitarios (EASC)': Math.round(this.listaTotales[24] * 100) / 100,
+              'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': Math.round(this.listaTotales[25] * 100) / 100,
+              'Energía total consumida por los usuarios (ETCU) ': Math.round(this.listaTotales[26] * 100) / 100,
+              'Cargo por servicios comunitarios (CSC)': Math.round(this.listaTotales[27] * 100) / 100,
+              'CARGOS TOTALES TARIFA': Math.round(this.listaTotales[28] * 100) / 100
             }]
+
+            this.cols = [['Descripcion', ...this.dataExport.map(x => x.Cuenta)]]
+            this.dataPDF = [
+              ['Nave', ...this.dataExport.map(x => x.Nave)],
+              ['Empresa', ...this.dataExport.map(x => x.Empresa)],
+              ['Codigo medidor', ...this.dataExport.map(x => x['Codigo medidor'])],
+              ['Codigo tarifa', ...this.dataExport.map(x => x['Codigo tarifa'])],
+              ['Energia Activa (EA)', ...this.dataExport.map(x => x['Energia Activa (EA)'])],
+              ['Energia reactiva (ER)', ...this.dataExport.map(x => x['Energia reactiva (ER)'])],
+              ['Potencia maxima (PM)', ...this.dataExport.map(x => x['Potencia maxima (PM)'])],
+              ['Factor potencia (FP)', ...this.dataExport.map(x => x['Factor potencia (FP)'])],
+              ['Fraccion de energia solar en autoocnsumo (FS)', ...this.dataExport.map(x => x['Fraccion de energia solar en autoocnsumo (FS)'])],
+              ['Precio base de energia (PBE)', ...this.dataExport.map(x => x['Precio base de energia (PBE)'])],
+              ['Cargo por energia(CPE)', ...this.dataExport.map(x => x['Cargo por energia(CPE)'])],
+              ['Promedio potencia 11 meses (P11)', ...this.dataExport.map(x => x['Promedio potencia 11 meses (P11)'])],
+              ['Precio base potencia (PBP)', ...this.dataExport.map(x => x['Precio base potencia (PBP)'])],
+              ['Cargo por potencia (CPC)', ...this.dataExport.map(x => x['Cargo por potencia (CPC)'])],
+              ['Factor de recargo (FR)', ...this.dataExport.map(x => x['Factor de recargo (FR)'])],
+              ['Cargo por energia reactiva (CER)', ...this.dataExport.map(x => x['Cargo por energia reactiva (CER)'])],
+              ['Costo operativo sistema solar (COS)', ...this.dataExport.map(x => x['Costo operativo sistema solar (COS)'])],
+              ['Costo operativo mantenimiento red de distribucion (COR)', ...this.dataExport.map(x => x['Costo operativo mantenimiento red de distribucion (COR)'])],
+              ['Costo operativo de mantenimiento de equipos auxiliares (COE)', ...this.dataExport.map(x => x['Costo operativo de mantenimiento de equipos auxiliares (COE)'])],
+              ['Costos administrativos (COA)', ...this.dataExport.map(x => x['Costos administrativos (COA)'])],
+              ['Cargo por costos operativos (CCO)', ...this.dataExport.map(x => x['Cargo por costos operativos (CCO)'])],
+              ['Punto de medida', ...this.dataExport.map(x => x['Punto de medida'])],
+              ['Perdidas internas (PI)', ...this.dataExport.map(x => x['Perdidas internas (PI)'])],
+              ['Cargo por perdidas internas (CPI)', ...this.dataExport.map(x => x['Cargo por perdidas internas (CPI)'])],
+              ['Energia activa consumida en Alumbrado Público (EAAP)', ...this.dataExport.map(x => x['Energia activa consumida en Alumbrado Público (EAAP)'])],
+              ['Precio de la energia tarifa Alumbrado Público (EAP)', ...this.dataExport.map(x => x['Precio de la energia tarifa Alumbrado Público (EAP)'])],
+              ['Energía total consumida por los usuarios (ETCU)', ...this.dataExport.map(x => x['Energía total consumida por los usuarios (ETCU)'])],
+              ['Cargo por iluminación comunitaria (CIC)', ...this.dataExport.map(x => x['Cargo por iluminación comunitaria (CIC)'])],
+              ['Energia activa consumida en servicios comunitarios (EASC)', ...this.dataExport.map(x => x['Energia activa consumida en servicios comunitarios (EASC)'])],
+              ['Precio de la energia tarifa Servicio General de Baja Tensión (EBT)', ...this.dataExport.map(x => x['Precio de la energia tarifa Servicio General de Baja Tensión (EBT)'])],
+              ['Energía total consumida por los usuarios (ETCU) ', ...this.dataExport.map(x => x['Energía total consumida por los usuarios (ETCU) '])],
+              ['Cargo por servicios comunitarios (CSC)', ...this.dataExport.map(x => x['Cargo por servicios comunitarios (CSC)'])],
+              ['CARGOS TOTALES TARIFA', ...this.dataExport.map(x => x['CARGOS TOTALES TARIFA'])]
+            ]
+
 
             this.spinner.hide();
           },
@@ -226,6 +270,107 @@ export class FacturacionComponent implements OnInit {
           }
         );
     }
+  }
+
+  exportPdf() {
+    let tamano = this.cols[0].length;
+    // let pag = Math.round(tamano / 4);
+
+    // console.log(tamano, pag);
+    this.colsExport[0] = this.cols[0].slice(0, 4);
+    this.dataPDFExport[0] = this.dataPDF[0].slice(0, 4);
+    this.dataPDFExport[1] = this.dataPDF[1].slice(0, 4);
+    this.dataPDFExport[2] = this.dataPDF[2].slice(0, 4);
+    this.dataPDFExport[3] = this.dataPDF[3].slice(0, 4);
+    this.dataPDFExport[4] = this.dataPDF[4].slice(0, 4);
+    this.dataPDFExport[5] = this.dataPDF[5].slice(0, 4);
+    this.dataPDFExport[6] = this.dataPDF[6].slice(0, 4);
+    this.dataPDFExport[7] = this.dataPDF[7].slice(0, 4);
+    this.dataPDFExport[8] = this.dataPDF[8].slice(0, 4);
+    this.dataPDFExport[9] = this.dataPDF[9].slice(0, 4);
+    this.dataPDFExport[10] = this.dataPDF[10].slice(0, 4);
+    this.dataPDFExport[11] = this.dataPDF[11].slice(0, 4);
+    this.dataPDFExport[12] = this.dataPDF[12].slice(0, 4);
+    this.dataPDFExport[13] = this.dataPDF[13].slice(0, 4);
+    this.dataPDFExport[14] = this.dataPDF[14].slice(0, 4);
+    this.dataPDFExport[15] = this.dataPDF[15].slice(0, 4);
+    this.dataPDFExport[16] = this.dataPDF[16].slice(0, 4);
+    this.dataPDFExport[17] = this.dataPDF[17].slice(0, 4);
+    this.dataPDFExport[18] = this.dataPDF[18].slice(0, 4);
+    this.dataPDFExport[19] = this.dataPDF[19].slice(0, 4);
+    this.dataPDFExport[20] = this.dataPDF[20].slice(0, 4);
+    this.dataPDFExport[21] = this.dataPDF[21].slice(0, 4);
+    this.dataPDFExport[22] = this.dataPDF[22].slice(0, 4);
+    this.dataPDFExport[23] = this.dataPDF[23].slice(0, 4);
+    this.dataPDFExport[24] = this.dataPDF[24].slice(0, 4);
+    this.dataPDFExport[25] = this.dataPDF[25].slice(0, 4);
+    this.dataPDFExport[26] = this.dataPDF[26].slice(0, 4);
+    this.dataPDFExport[27] = this.dataPDF[27].slice(0, 4);
+    this.dataPDFExport[28] = this.dataPDF[28].slice(0, 4);
+    this.dataPDFExport[29] = this.dataPDF[29].slice(0, 4);
+    this.dataPDFExport[30] = this.dataPDF[30].slice(0, 4);
+    this.dataPDFExport[31] = this.dataPDF[31].slice(0, 4);
+    this.dataPDFExport[32] = this.dataPDF[32].slice(0, 4);
+
+    const doc = new jspdf('p', 'in', 'letter');
+    (doc as any).autoTable(
+      {
+        head: this.colsExport,
+        body: this.dataPDFExport,
+        theme: 'striped'
+      }
+    );
+    for (let x = 5; x < tamano;) {
+      this.colsExport[0] = this.cols[0].slice(x, (x + 4));
+
+      this.dataPDFExport[0] = this.dataPDF[0].slice(x, (x + 4));
+      this.dataPDFExport[1] = this.dataPDF[1].slice(x, (x + 4));
+      this.dataPDFExport[2] = this.dataPDF[2].slice(x, (x + 4));
+      this.dataPDFExport[3] = this.dataPDF[3].slice(x, (x + 4));
+      this.dataPDFExport[4] = this.dataPDF[4].slice(x, (x + 4));
+      this.dataPDFExport[5] = this.dataPDF[5].slice(x, (x + 4));
+      this.dataPDFExport[6] = this.dataPDF[6].slice(x, (x + 4));
+      this.dataPDFExport[7] = this.dataPDF[7].slice(x, (x + 4));
+      this.dataPDFExport[8] = this.dataPDF[8].slice(x, (x + 4));
+      this.dataPDFExport[9] = this.dataPDF[9].slice(x, (x + 4));
+      this.dataPDFExport[10] = this.dataPDF[10].slice(x, (x + 4));
+      this.dataPDFExport[11] = this.dataPDF[11].slice(x, (x + 4));
+      this.dataPDFExport[12] = this.dataPDF[12].slice(x, (x + 4));
+      this.dataPDFExport[13] = this.dataPDF[13].slice(x, (x + 4));
+      this.dataPDFExport[14] = this.dataPDF[14].slice(x, (x + 4));
+      this.dataPDFExport[15] = this.dataPDF[15].slice(x, (x + 4));
+      this.dataPDFExport[16] = this.dataPDF[16].slice(x, (x + 4));
+      this.dataPDFExport[17] = this.dataPDF[17].slice(x, (x + 4));
+      this.dataPDFExport[18] = this.dataPDF[18].slice(x, (x + 4));
+      this.dataPDFExport[19] = this.dataPDF[19].slice(x, (x + 4));
+      this.dataPDFExport[20] = this.dataPDF[20].slice(x, (x + 4));
+      this.dataPDFExport[21] = this.dataPDF[21].slice(x, (x + 4));
+      this.dataPDFExport[22] = this.dataPDF[22].slice(x, (x + 4));
+      this.dataPDFExport[23] = this.dataPDF[23].slice(x, (x + 4));
+      this.dataPDFExport[24] = this.dataPDF[24].slice(x, (x + 4));
+      this.dataPDFExport[25] = this.dataPDF[25].slice(x, (x + 4));
+      this.dataPDFExport[26] = this.dataPDF[26].slice(x, (x + 4));
+      this.dataPDFExport[27] = this.dataPDF[27].slice(x, (x + 4));
+      this.dataPDFExport[28] = this.dataPDF[28].slice(x, (x + 4));
+      this.dataPDFExport[29] = this.dataPDF[29].slice(x, (x + 4));
+      this.dataPDFExport[30] = this.dataPDF[30].slice(x, (x + 4));
+      this.dataPDFExport[31] = this.dataPDF[31].slice(x, (x + 4));
+      this.dataPDFExport[32] = this.dataPDF[32].slice(x, (x + 4));
+
+      doc.addPage('p');
+      (doc as any).autoTable(
+        {
+          head: this.colsExport,
+          body: this.dataPDFExport,
+          theme: 'striped'
+        }
+      );
+
+      x = x + 5;
+    }
+
+    doc.output('dataurlnewwindow');
+    doc.save('InformeProveedoresDeEnergia.pdf');
   }
 
   exportExcel() {

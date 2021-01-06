@@ -3,6 +3,9 @@ import * as moment from 'moment';
 import swal from 'sweetalert';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReportesService } from '../../servicios/reportes.service';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-validacion',
@@ -10,10 +13,19 @@ import { ReportesService } from '../../servicios/reportes.service';
   styleUrls: ['./validacion.component.scss']
 })
 export class ValidacionComponent implements OnInit {
+
+
+  generatePdf() {
+    const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+
   listOfData: any[] = [];
   colspan: number;
   dataInh: any[] = [];
   dataUsu: any[] = [];
+  cols: any[] = [['ID', 'Country', 'Rank', 'Capital']];
 
   isVisible = false;
   fechas = null;
@@ -143,5 +155,28 @@ export class ValidacionComponent implements OnInit {
       FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
     });
   }
+
+  // exportPdf() {
+  //   import('jspdf').then(jsPDF => {
+  //     import('jspdf-autotable').then(x => {
+  //       const doc = new jsPDF.default();
+  //       (doc as any).autoTable(
+  //         {
+  //           head: this.cols,
+  //           body: this.products,
+  //           theme: 'plain'
+  //         }
+  //       );
+  //       doc.output('dataurlnewwindow');
+  //       doc.save('products.pdf');
+  //     });
+  //   });
+  // }
+
+  // exportarPDF() {
+  //   const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+  //   pdfmake.createPdf(documentDefinition).open();
+
+  // }
 
 }
