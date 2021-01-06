@@ -254,6 +254,9 @@ export class FacturacionComponent implements OnInit {
               ['CARGOS TOTALES TARIFA', ...this.dataExport.map(x => x['CARGOS TOTALES TARIFA'])]
             ]
 
+            console.log(this.cols);
+
+            console.log(this.dataPDF);
 
             this.spinner.hide();
           },
@@ -320,9 +323,9 @@ export class FacturacionComponent implements OnInit {
         theme: 'striped'
       }
     );
-    for (let x = 5; x < tamano;) {
-      this.colsExport[0] = this.cols[0].slice(x, (x + 4));
 
+    for (let x = 4; x < tamano;) {
+      this.colsExport[0] = this.cols[0].slice(x, (x + 4));
       this.dataPDFExport[0] = this.dataPDF[0].slice(x, (x + 4));
       this.dataPDFExport[1] = this.dataPDF[1].slice(x, (x + 4));
       this.dataPDFExport[2] = this.dataPDF[2].slice(x, (x + 4));
@@ -366,8 +369,10 @@ export class FacturacionComponent implements OnInit {
         }
       );
 
-      x = x + 5;
+      x = x + 4;
     }
+
+
 
     doc.output('dataurlnewwindow');
     doc.save('InformeProveedoresDeEnergia.pdf');
