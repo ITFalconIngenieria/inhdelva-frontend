@@ -79,3 +79,7 @@ nz-form-control {
 nz-list {
     padding: 24px;
 }
+
+[nz-form][_ngcontent-rks-c5] {
+    max-width: 760px;
+}

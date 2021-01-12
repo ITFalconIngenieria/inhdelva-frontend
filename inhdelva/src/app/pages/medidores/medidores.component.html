@@ -62,18 +62,25 @@
 <!-- Modal Formulario medidor-->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Medidores" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical">
-        <nz-form-item>
-            <nz-form-label>Código del medidor</nz-form-label>
-            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
-                </nz-input-group>
-                <ng-template #suffixIconButton>
-                    <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
-                            nzType="search"></i></button>
-                </ng-template>
-            </nz-form-control>
-        </nz-form-item>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Código del medidor</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                            <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
+                        </nz-input-group>
+                        <ng-template #suffixIconButton>
+                            <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
+                                    nzType="search"></i></button>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col" style="width: 100%; margin: auto;">
+                <button nz-button nzType="primary" (click)="showModalMV()" style="width: 100%;" nzShape="round">Cambiar a virtual</button>
+            </div>
+        </div>
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
@@ -261,5 +268,105 @@
     </div>
     <div *nzModalFooter>
         <button nz-button nzType="primary" (click)="handleOkRollover()">OK</button>
+    </div>
+</nz-modal>
+
+<!-- Modar medidor virtual -->
+<nz-modal [(nzVisible)]="isVisibleMV" nzTitle="Medidor virtual" nzWidth="600" (nzOnCancel)="handleCancelMV()">
+    <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateFormMedidorV">
+        <h5> Configuración medidores virtuales </h5>
+        <nz-form-item>
+            <nz-form-label>Código del medidor</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <input type="text" nz-input style="width: 100%; margin: 0px;" formControlName="codigoMedidor" placeholder="Escribe aquí..." />
+            </nz-form-control>
+        </nz-form-item>
+        <div class="row">
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Medidor en operacion</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                            <input type="text" formControlName="medidor" nz-input placeholder="Busca por código" />
+                        </nz-input-group>
+                        <ng-template #suffixIconButton>
+                            <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
+                                    nzType="search"></i></button>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Medidor en operacion</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-select ngModel="lucy" formControlName="operacion">
+                            <nz-option nzValue="jack" nzLabel="( + ) Suma"></nz-option>
+                            <nz-option nzValue="lucy" nzLabel="( - ) Resta"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+        </div>
+        <nz-form-item>
+            <nz-form-label>Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <div class="row">
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelRollover()">Cancelar</button>
+                    </div>
+                    <div class="col">
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()">Guardar</button>
+                    </div>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+
+    </form>
+    <br>
+    <div style="background-color: #f3f9ff; padding: 15px;">
+        <h6> Operaciones </h6>
+        <nz-table #nzTableRollover [nzData]="listOfDataMVirtuales" nzTableLayout="fixed" nzPageSize="5">
+            <thead>
+                <tr>
+                    <th nzWidth="60px"></th>
+                    <th>Medidor</th>
+                    <th>Operacion</th>
+                    <th nzWidth="30px"></th>
+                    <th nzWidth="30px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of nzTableRollover.data">
+                    <tr>
+                        <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.age}}</td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">
+                                <i nz-icon nzType="edit" nzTheme="outline"></i>
+                            </button>
+                        </td>
+                        <td style="width: 30px;">
+                            <button nz-button nzType="primary" (click)="eliminarRollover(data)" nzShape="circle">
+                                <i nz-icon nzType="delete" nzTheme="outline"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr [nzExpand]="expandSet.has(data.id)">
+                        <td colSpan="7"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </nz-table>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="primary" (click)="handleOkMV()">OK</button>
     </div>
 </nz-modal>

@@ -40,16 +40,6 @@
             </li>
         </ul>
         <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
-            <!-- <li nz-submenu nzTitle="Tarifas" nzIcon="calculator">
-                <ul>
-                    <li nz-menu-item>
-                        <a routerLink="/tipoTarifa">Tipo tarifa</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/tarifaHoraria">Horaria</a>
-                    </li>
-                </ul>
-            </li> -->
             <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/tipoTarifa" [nzTitle]="isCollapsed ? 'Tarifa' : ''">
                 <i nz-icon nzType="calculator"></i>
                 <span>Tarifa</span>

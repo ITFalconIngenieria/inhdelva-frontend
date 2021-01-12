@@ -156,6 +156,10 @@ export class ValidacionComponent implements OnInit {
     });
   }
 
+  exportPdf(){
+    
+  }
+
   // exportPdf() {
   //   import('jspdf').then(jsPDF => {
   //     import('jspdf-autotable').then(x => {

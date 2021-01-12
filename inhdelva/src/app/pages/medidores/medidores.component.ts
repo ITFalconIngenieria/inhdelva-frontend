@@ -15,7 +15,9 @@ export class MedidoresComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleRollover = false;
+  isVisibleMV = false;
   validateForm: FormGroup;
+  validateFormMedidorV: FormGroup;
   disabledLec: boolean;
   codigo: string;
   descripcion: string;
@@ -37,6 +39,27 @@ export class MedidoresComponent implements OnInit {
   listOfDataMedidores: MedidorPME[] = [];
   listOfDataRollover: RolloverModel[] = [];
   listOfDataRolloverMedidor: RolloverModel[] = [];
+
+  listOfDataMVirtuales: any[] = [
+    {
+      key: '1',
+      name: 'Med1243',
+      age: 'Suma ',
+      address: 'New York No. 1 Lake Park'
+    },
+    {
+      key: '2',
+      name: 'Med 3256',
+      age: 'Suma',
+      address: 'London No. 1 Lake Park'
+    },
+    {
+      key: '3',
+      name: 'Med 666',
+      age: 'Resta',
+      address: 'Sidney No. 1 Lake Park'
+    }
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -380,6 +403,15 @@ export class MedidoresComponent implements OnInit {
     });
   }
 
+  limpiarMVirtual() {
+    this.validateFormMedidorV = this.fb.group({
+      codigoMedidor: [null, [Validators.required]],
+      medidor: ['', [Validators.required]],
+      operacion: [0],
+      observacion: ['']
+    });
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
     this.disabledLec = true;
@@ -454,6 +486,7 @@ export class MedidoresComponent implements OnInit {
       );
 
     this.limpiarRollover();
+    this.limpiarMVirtual();
   }
 
   showModal(): void {
@@ -493,6 +526,23 @@ export class MedidoresComponent implements OnInit {
 
   handleOkRollover(): void {
     this.isVisibleRollover = false;
+  }
+
+  showModalMV(): void {
+    this.isVisibleMV = true;
+    // this.codigoMedidor = data.codigo;
+    // this.idMedidor = data.id;
+    // this.listOfDataRolloverMedidor = this.listOfDataRollover.filter(x => x.medidorId === this.idMedidor);
+
+  }
+
+  handleCancelMV(): void {
+    this.accion = 'new';
+    this.isVisibleMV = false;
+  }
+
+  handleOkMV(): void {
+    this.isVisibleMV = false;
   }
 
 }

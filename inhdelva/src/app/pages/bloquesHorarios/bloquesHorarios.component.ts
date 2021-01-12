@@ -33,7 +33,7 @@ export class BloquesHorariosComponent implements OnInit, OnDestroy {
   isVisible = false;
   date = null;
   inputValue: string;
-
+  expandSet = new Set<any>();
   listOfData = [
     {
       id: 1,
@@ -67,6 +67,57 @@ export class BloquesHorariosComponent implements OnInit, OnDestroy {
     }
   ];
 
+  listOfDias: any[] = [
+    {
+      id: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park'
+    },
+    {
+      id: '2',
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      id: '3',
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    }
+  ];
+
   constructor(
     private message: NzMessageService,
     private http: HttpClient,
@@ -74,12 +125,29 @@ export class BloquesHorariosComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    this.bloqueHorarioService.vistaMatrizHoraria()
+      .toPromise()
+      .then(
+        (data) => {
+          console.log(data);
+
+        }
+      )
     this.ds
       .completed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.message.warning('Infinite List loaded all');
       });
+  }
+
+  onExpandChange(id: any, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
+    } else {
+      this.expandSet.delete(id);
+    }
   }
 
   ngOnDestroy(): void {

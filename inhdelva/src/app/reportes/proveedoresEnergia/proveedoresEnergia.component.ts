@@ -205,6 +205,9 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   }
 
+  exportPdf(){
+    
+  }
 
 
 }
