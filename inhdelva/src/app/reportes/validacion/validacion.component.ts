@@ -3,9 +3,8 @@ import * as moment from 'moment';
 import swal from 'sweetalert';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ReportesService } from '../../servicios/reportes.service';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import 'jspdf-autotable';
+import jspdf from 'jspdf';
 
 @Component({
   selector: 'app-validacion',
@@ -14,18 +13,20 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ValidacionComponent implements OnInit {
 
-
-  generatePdf() {
-    const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
-    pdfMake.createPdf(documentDefinition).open();
-  }
-
-
   listOfData: any[] = [];
   colspan: number;
   dataInh: any[] = [];
   dataUsu: any[] = [];
-  cols: any[] = [['ID', 'Country', 'Rank', 'Capital']];
+
+  colsUSU: any[];
+  colsExportUSU: any[] = [];
+  dataPDFUSU: any[] = [];
+  dataPDFExportUSU: any[] = [];
+
+  colsINH: any[];
+  colsExportINH: any[] = [];
+  dataPDFINH: any[] = [];
+  dataPDFExportINH: any[] = [];
 
   isVisible = false;
   fechas = null;
@@ -80,6 +81,25 @@ export class ValidacionComponent implements OnInit {
               }]
             });
 
+            this.colsUSU = [['Descripcion', ...this.dataUsu.map(x => x.FECHA)]]
+            this.dataPDFUSU = [
+              ['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)'])],
+              ['CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)'])],
+              ['CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes))', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)'])],
+              ['PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)', ...this.dataUsu.map(x => x['PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)'])],
+              ['TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)', ...this.dataUsu.map(x => x['TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)'])],
+              ['CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)'])],
+              ['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)'])],
+              ['FACTURACION TOTAL A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['FACTURACION TOTAL A LOS USUARIOS (US$)'])],
+              ['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)', ...this.dataUsu.map(x => x['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)'])],
+              ['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)', ...this.dataUsu.map(x => x['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)'])]
+            ]
+
             this.listOfData.forEach(element => {
               this.dataInh = [...this.dataInh, {
                 'FECHA': moment(element.fecha).format('MM-YYYY'),
@@ -98,6 +118,23 @@ export class ValidacionComponent implements OnInit {
                 'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': element.totalProveedores
               }]
             });
+
+            this.colsINH = [['Descripcion', ...this.dataInh.map(x => x.FECHA)]]
+            this.dataPDFINH = [
+              ['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)', ...this.dataInh.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)'])],
+              ['TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)', ...this.dataInh.map(x => x['TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)'])],
+              ['TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)', ...this.dataInh.map(x => x['TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)'])],
+              ['TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)', ...this.dataInh.map(x => x['TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)'])],
+              ['TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)', ...this.dataInh.map(x => x['TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)'])],
+              ['FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)', ...this.dataInh.map(x => x['FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)'])],
+              ['CARGO POR ENERGIA A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR ENERGIA A INHDELVA (US$)'])],
+              ['CARGO POR POTENCIA A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR POTENCIA A INHDELVA (US$)'])],
+              ['CARGO POR ENERGIA REACTIVA A INHDELVA (US$)', ...this.dataInh.map(x => x['CCARGO POR ENERGIA REACTIVA A INHDELVA (US$)'])],
+              ['CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)'])],
+              ['CARGO POR COMERCIALIZACION A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR COMERCIALIZACION A INHDELVA (US$)'])],
+              ['CARGO POR REGULACION A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR REGULACION A INHDELVA (US$)'])],
+              ['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)', ...this.dataInh.map(x => x['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)'])]
+            ]
 
             if (this.listOfData.length === 0) {
               this.spinner.hide();
@@ -156,31 +193,115 @@ export class ValidacionComponent implements OnInit {
     });
   }
 
-  exportPdf(){
-    
+  exportPdf() {
+    let tamano = this.colsUSU[0].length;
+
+    this.colsExportUSU[0] = this.colsUSU[0].slice(0, 4);
+    this.dataPDFExportUSU[0] = this.dataPDFUSU[0].slice(0, 4);
+    this.dataPDFExportUSU[1] = this.dataPDFUSU[1].slice(0, 4);
+    this.dataPDFExportUSU[2] = this.dataPDFUSU[2].slice(0, 4);
+    this.dataPDFExportUSU[3] = this.dataPDFUSU[3].slice(0, 4);
+    this.dataPDFExportUSU[4] = this.dataPDFUSU[4].slice(0, 4);
+    this.dataPDFExportUSU[5] = this.dataPDFUSU[5].slice(0, 4);
+    this.dataPDFExportUSU[6] = this.dataPDFUSU[6].slice(0, 4);
+    this.dataPDFExportUSU[7] = this.dataPDFUSU[7].slice(0, 4);
+    this.dataPDFExportUSU[8] = this.dataPDFUSU[8].slice(0, 4);
+    this.dataPDFExportUSU[9] = this.dataPDFUSU[9].slice(0, 4);
+    this.dataPDFExportUSU[10] = this.dataPDFUSU[10].slice(0, 4);
+    this.dataPDFExportUSU[11] = this.dataPDFUSU[11].slice(0, 4);
+    this.dataPDFExportUSU[12] = this.dataPDFUSU[12].slice(0, 4);
+    this.dataPDFExportUSU[13] = this.dataPDFUSU[13].slice(0, 4);
+    this.dataPDFExportUSU[14] = this.dataPDFUSU[14].slice(0, 4);
+
+    this.colsExportINH[0] = this.colsINH[0].slice(0, 4);
+    this.dataPDFExportINH[0] = this.dataPDFINH[0].slice(0, 4);
+    this.dataPDFExportINH[1] = this.dataPDFINH[1].slice(0, 4);
+    this.dataPDFExportINH[2] = this.dataPDFINH[2].slice(0, 4);
+    this.dataPDFExportINH[3] = this.dataPDFINH[3].slice(0, 4);
+    this.dataPDFExportINH[4] = this.dataPDFINH[4].slice(0, 4);
+    this.dataPDFExportINH[5] = this.dataPDFINH[5].slice(0, 4);
+    this.dataPDFExportINH[6] = this.dataPDFINH[6].slice(0, 4);
+    this.dataPDFExportINH[7] = this.dataPDFINH[7].slice(0, 4);
+    this.dataPDFExportINH[8] = this.dataPDFINH[8].slice(0, 4);
+    this.dataPDFExportINH[9] = this.dataPDFINH[9].slice(0, 4);
+    this.dataPDFExportINH[10] = this.dataPDFINH[10].slice(0, 4);
+    this.dataPDFExportINH[11] = this.dataPDFINH[11].slice(0, 4);
+    this.dataPDFExportINH[12] = this.dataPDFINH[12].slice(0, 4);
+
+    const docUSU = new jspdf('p', 'in', 'letter');
+    (docUSU as any).autoTable(
+      {
+        head: this.colsExportUSU,
+        body: this.dataPDFExportUSU,
+        theme: 'striped'
+      }
+    );
+    const docINH = new jspdf('p', 'in', 'letter');
+    (docINH as any).autoTable(
+      {
+        head: this.colsExportINH,
+        body: this.dataPDFExportINH,
+        theme: 'striped'
+      }
+    );
+
+    for (let x = 4; x < tamano;) {
+      this.colsExportUSU[0] = this.colsUSU[0].slice(x, (x + 4));
+      this.dataPDFExportUSU[0] = this.dataPDFUSU[0].slice(x, (x + 4));
+      this.dataPDFExportUSU[1] = this.dataPDFUSU[1].slice(x, (x + 4));
+      this.dataPDFExportUSU[2] = this.dataPDFUSU[2].slice(x, (x + 4));
+      this.dataPDFExportUSU[3] = this.dataPDFUSU[3].slice(x, (x + 4));
+      this.dataPDFExportUSU[4] = this.dataPDFUSU[4].slice(x, (x + 4));
+      this.dataPDFExportUSU[5] = this.dataPDFUSU[5].slice(x, (x + 4));
+      this.dataPDFExportUSU[6] = this.dataPDFUSU[6].slice(x, (x + 4));
+      this.dataPDFExportUSU[7] = this.dataPDFUSU[7].slice(x, (x + 4));
+      this.dataPDFExportUSU[8] = this.dataPDFUSU[8].slice(x, (x + 4));
+      this.dataPDFExportUSU[9] = this.dataPDFUSU[9].slice(x, (x + 4));
+      this.dataPDFExportUSU[10] = this.dataPDFUSU[10].slice(x, (x + 4));
+      this.dataPDFExportUSU[11] = this.dataPDFUSU[11].slice(x, (x + 4));
+      this.dataPDFExportUSU[12] = this.dataPDFUSU[12].slice(x, (x + 4));
+      this.dataPDFExportUSU[13] = this.dataPDFUSU[13].slice(x, (x + 4));
+      this.dataPDFExportUSU[14] = this.dataPDFUSU[14].slice(x, (x + 4));
+
+      this.colsExportINH[0] = this.colsINH[0].slice(x, (x + 4));
+      this.dataPDFExportINH[0] = this.dataPDFINH[0].slice(x, (x + 4));
+      this.dataPDFExportINH[1] = this.dataPDFINH[1].slice(x, (x + 4));
+      this.dataPDFExportINH[2] = this.dataPDFINH[2].slice(x, (x + 4));
+      this.dataPDFExportINH[3] = this.dataPDFINH[3].slice(x, (x + 4));
+      this.dataPDFExportINH[4] = this.dataPDFINH[4].slice(x, (x + 4));
+      this.dataPDFExportINH[5] = this.dataPDFINH[5].slice(x, (x + 4));
+      this.dataPDFExportINH[6] = this.dataPDFINH[6].slice(x, (x + 4));
+      this.dataPDFExportINH[7] = this.dataPDFINH[7].slice(x, (x + 4));
+      this.dataPDFExportINH[8] = this.dataPDFINH[8].slice(x, (x + 4));
+      this.dataPDFExportINH[9] = this.dataPDFINH[9].slice(x, (x + 4));
+      this.dataPDFExportINH[10] = this.dataPDFINH[10].slice(x, (x + 4));
+      this.dataPDFExportINH[11] = this.dataPDFINH[11].slice(x, (x + 4));
+      this.dataPDFExportINH[12] = this.dataPDFINH[12].slice(x, (x + 4));
+
+      docUSU.addPage('p');
+      (docUSU as any).autoTable(
+        {
+          head: this.colsExportUSU,
+          body: this.dataPDFExportUSU,
+          theme: 'striped'
+        }
+      );
+
+      docINH.addPage('p');
+      (docINH as any).autoTable(
+        {
+          head: this.colsExportINH,
+          body: this.dataPDFExportINH,
+          theme: 'striped'
+        }
+      );
+
+      x = x + 4;
+    }
+
+    docUSU.save('InformeValidacionUSuarios.pdf');
+    docINH.save('InformeValidacionInhdelva.pdf');
   }
 
-  // exportPdf() {
-  //   import('jspdf').then(jsPDF => {
-  //     import('jspdf-autotable').then(x => {
-  //       const doc = new jsPDF.default();
-  //       (doc as any).autoTable(
-  //         {
-  //           head: this.cols,
-  //           body: this.products,
-  //           theme: 'plain'
-  //         }
-  //       );
-  //       doc.output('dataurlnewwindow');
-  //       doc.save('products.pdf');
-  //     });
-  //   });
-  // }
-
-  // exportarPDF() {
-  //   const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
-  //   pdfmake.createPdf(documentDefinition).open();
-
-  // }
 
 }

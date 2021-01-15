@@ -34,6 +34,32 @@ export class MedidoresService {
     return this.http.get(`${apiUrl}vmedidores-pme`);
   }
 
+
+  // Medidor virtual
+  getMedidoreVirtuales() {
+    return this.http.get(`${apiUrl}medidor-virtuals`);
+  }
+
+  getMedidoreVirtualesJoin() {
+    return this.http.get(`${apiUrl}medidor-virtuals?filter={ "include": [ { "relation": "medidor" },{ "relation": "medidorVirtual" } ] }`);
+  }
+
+  postMedidoreVirtual(medidor) {
+    return this.http.post(`${apiUrl}medidor-virtuals`, medidor);
+  }
+
+  putMedidoreVirtual(id, medidor) {
+    return this.http.put(`${apiUrl}medidor-virtuals/${id}`, medidor);
+  }
+
+  deleteMedidoreVirtual(id, medidor) {
+    return this.http.patch(`${apiUrl}medidor-virtuals/${id}`, medidor);
+  }
+
+  checkMedidor(id) {
+    return this.http.get(`${apiUrl}aprobacion-mv/${id}`);
+  }
+
   // roll-overs?filter[where][medidorId]=1
   // Rollover
   getRollovers() {

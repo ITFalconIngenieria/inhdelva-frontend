@@ -28,38 +28,24 @@ export class MedidoresComponent implements OnInit {
   conexion: any;
   multiplicador: number;
   observacion: string;
+  tipoMedidor: string = 'f'
 
   codigoMedidor;
-
+  codMV;
   accion;
   idMedidor;
+  idMV;
   idRollover;
   cantidad;
+  cantMV: number = 0;
   medidoresPME: any[] = [];
   listOfDataMedidores: MedidorPME[] = [];
   listOfDataRollover: RolloverModel[] = [];
   listOfDataRolloverMedidor: RolloverModel[] = [];
 
-  listOfDataMVirtuales: any[] = [
-    {
-      key: '1',
-      name: 'Med1243',
-      age: 'Suma ',
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Med 3256',
-      age: 'Suma',
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Med 666',
-      age: 'Resta',
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
+  listOfDataMVirtuales: any[] = [];
+  MVirtualesJoin: any[] = [];
+  MVirtualesFilter: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -219,6 +205,7 @@ export class MedidoresComponent implements OnInit {
       lecturaMax: `${this.lecMax}`,
       multiplicador: this.multiplicador,
       puntoMedicionId: this.conexion,
+      tipo: (this.tipoMedidor === 'f') ? true : false,
       observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
     };
@@ -276,48 +263,110 @@ export class MedidoresComponent implements OnInit {
           }
         );
     } else {
-      this.medidoresService.postMedidores(dataMedidor)
-        .toPromise()
-        .then(
-          (data: Medidor) => {
-            this.cantidad = this.cantidad + 1;
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            // this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
 
-            this.codigo = '';
-            this.descripcion = '';
-            this.serie = '';
-            this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
-            this.multiplicador = 0;
-            this.observacion = '';
+      const dataMV = {
+        medidorId: this.idMV,
+        medidorVirtualId: this.validateFormMedidorV.value.medidorVirtualId,
+        operacion: this.validateFormMedidorV.value.operacion,
+        observacion: this.validateFormMedidorV.value.observacion
+      };
 
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo guardar',
-              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-            );
-            console.log(error);
+      if (this.tipoMedidor === 'f') {
+        this.medidoresService.postMedidores(dataMedidor)
+          .toPromise()
+          .then(
+            (data: Medidor) => {
+              this.cantidad = this.cantidad + 1;
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+              // this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
 
-            this.codigo = '';
-            this.descripcion = '';
-            this.serie = '';
-            this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
-            this.multiplicador = 0;
-            this.observacion = '';
-          }
-        );
+              this.codigo = '';
+              this.descripcion = '';
+              this.serie = '';
+              this.modelo = '';
+              this.direccionIp = '';
+              this.lecMax = 0;
+              this.conexion = 1;
+              this.multiplicador = 0;
+              this.observacion = '';
+
+            },
+            (error) => {
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+
+              this.codigo = '';
+              this.descripcion = '';
+              this.serie = '';
+              this.modelo = '';
+              this.direccionIp = '';
+              this.lecMax = 0;
+              this.conexion = 1;
+              this.multiplicador = 0;
+              this.observacion = '';
+            }
+          );
+      } else {
+        this.medidoresService.postMedidores(dataMedidor)
+          .toPromise()
+          .then(
+            (data: Medidor) => {
+              this.cantidad = this.cantidad + 1;
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+
+              this.medidoresService.postMedidoreVirtual(dataMV)
+                .toPromise()
+                .then(
+                  (data: any) => {
+
+                  }
+                )
+              // this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
+
+              this.codigo = '';
+              this.descripcion = '';
+              this.serie = '';
+              this.modelo = '';
+              this.direccionIp = '';
+              this.lecMax = 0;
+              this.conexion = 1;
+              this.multiplicador = 0;
+              this.observacion = '';
+
+            },
+            (error) => {
+              this.ShowNotification(
+                'error',
+                'No se pudo guardar',
+                'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+              );
+              console.log(error);
+
+              this.codigo = '';
+              this.descripcion = '';
+              this.serie = '';
+              this.modelo = '';
+              this.direccionIp = '';
+              this.lecMax = 0;
+              this.conexion = 1;
+              this.multiplicador = 0;
+              this.observacion = '';
+            }
+          );
+      }
+
     }
   }
 
@@ -334,6 +383,7 @@ export class MedidoresComponent implements OnInit {
     this.modelo = data.modelo;
     this.direccionIp = data.ip;
     this.lecMax = data.lecturaMax;
+    this.tipoMedidor = (data.tipo === true) ? 'f' : 'v';
     this.conexion = (data.puntoMedicionId === 1) ? '1' : '2';
     this.multiplicador = data.multiplicador;
     this.observacion = data.observacion;
@@ -405,8 +455,8 @@ export class MedidoresComponent implements OnInit {
 
   limpiarMVirtual() {
     this.validateFormMedidorV = this.fb.group({
-      codigoMedidor: [null, [Validators.required]],
-      medidor: ['', [Validators.required]],
+      medidorId: [null, [Validators.required]],
+      medidorVirtualId: ['', [Validators.required]],
       operacion: [0],
       observacion: ['']
     });
@@ -422,8 +472,38 @@ export class MedidoresComponent implements OnInit {
         (data: MedidorPME[]) => {
 
           this.listOfDataMedidores = data;
-          // tslint:disable-next-line: prefer-for-of
+          console.log(this.listOfDataMedidores);
+
           this.cantidad = data.length;
+
+          this.medidoresService.getMedidoreVirtualesJoin()
+            .toPromise()
+            .then(
+              (data: any) => {
+                console.log(data);
+
+                this.MVirtualesJoin = data;
+                this.listOfDataMVirtuales = data.reduce((acumulador, valorActual) => {
+                  const elementoYaExiste = acumulador.find(elemento => elemento.medidor.codigo === valorActual.medidor.codigo);
+                  if (elementoYaExiste) {
+                    return acumulador.map((elemento) => {
+                      if (elemento.medidor.codigo === valorActual.medidor.codigo) {
+                        return {
+                          ...elemento
+                        };
+                      }
+                      return elemento;
+                    });
+                  }
+                  return [...acumulador, valorActual];
+                }, []);
+
+                this.cantMV = this.listOfDataMVirtuales.length;
+                console.log(this.listOfDataMVirtuales);
+
+              }
+            )
+
           // for (let x = 0; x < data.length; x++) {
           //   this.listOfDataMedidores = [{
           //     id: data[x].id,
@@ -439,7 +519,6 @@ export class MedidoresComponent implements OnInit {
           //     contrato: (data[x].contrato)
           //   }, ...this.listOfDataMedidores];
           // }
-
         },
         (error) => {
           swal({
@@ -528,11 +607,11 @@ export class MedidoresComponent implements OnInit {
     this.isVisibleRollover = false;
   }
 
-  showModalMV(): void {
+  showModalMV(data): void {
     this.isVisibleMV = true;
-    // this.codigoMedidor = data.codigo;
-    // this.idMedidor = data.id;
-    // this.listOfDataRolloverMedidor = this.listOfDataRollover.filter(x => x.medidorId === this.idMedidor);
+    this.idMV = data.medidorId;
+    this.codMV = data.medidor.codigo;
+    this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === data.medidorId)
 
   }
 

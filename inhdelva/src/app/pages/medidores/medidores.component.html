@@ -10,9 +10,10 @@
 <br>
 <br>
 <div class="tabla">
+    <h4> Medidores físicos </h4>
     <p> <span style="color: black; font-size: 20px; font-weight: bold;">Existencia: </span> <span style="font-size: 25px; font-weight: bold;"> {{ cantidad }} </span> </p>
     <hr>
-    <nz-table #nzTable [nzData]="listOfDataMedidores" nzTableLayout="fixed" nzPageSize="5">
+    <nz-table #nzTableMedidor [nzData]="listOfDataMedidores" nzTableLayout="fixed" nzPageSize="4">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
@@ -26,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let data of nzTable.data">
+            <ng-container *ngFor="let data of nzTableMedidor.data">
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
@@ -59,6 +60,53 @@
     </nz-table>
 </div>
 
+<hr>
+
+<div class="tabla">
+    <h4> Medidores virtuales </h4>
+    <p> <span style="color: black; font-size: 20px; font-weight: bold;">Existencia: </span> <span style="font-size: 25px; font-weight: bold;"> {{ cantMV }} </span> </p>
+    <hr>
+    <nz-table #nzTable [nzData]="listOfDataMVirtuales" nzTableLayout="fixed" nzPageSize="4">
+        <thead>
+            <tr>
+                <th nzWidth="60px"></th>
+                <th nzWidth="30px"></th>
+                <th nzWidth="30px"></th>
+                <th>Codigo</th>
+                <th>Multiplicador</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let data of nzTable.data">
+                <tr>
+                    <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="editarMedidor(data)" nzShape="circle">
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td style="width: 30px;">
+                        <button nz-button nzType="primary" (click)="eliminarMedidor(data)" nzShape="circle">
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
+                    </td>
+                    <td>{{ data.medidor.codigo }}</td>
+                    <td>{{ data.medidor.multiplicador }}</td>
+                    <td>{{ data.medidor.estado && 'Activo' || 'Inactivo'}}</td>
+                    <td>
+                        <button nz-button nzType="primary" nzSize="small" (click)="showModalMV(data)" nzShape="round">Admin</button>
+
+                    </td>
+                </tr>
+                <tr [nzExpand]="expandSet.has(data.id)">
+                    <td colSpan="8">{{ data.descripcion }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </nz-table>
+</div>
 <!-- Modal Formulario medidor-->
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Configuración Medidores" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical">
@@ -72,19 +120,28 @@
                         </nz-input-group>
                         <ng-template #suffixIconButton>
                             <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
-                                    nzType="search"></i></button>
+                                            nzType="search"></i></button>
                         </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div class="col" style="width: 100%; margin: auto;">
-                <button nz-button nzType="primary" (click)="showModalMV()" style="width: 100%;" nzShape="round">Cambiar a virtual</button>
+            <div class="col">
+                <nz-form-item>
+                    <nz-form-label>Tipo de medidor</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
+                        <nz-radio-group [(ngModel)]="tipoMedidor" [ngModelOptions]="{standalone: true}">
+                            <label nz-radio nzValue="f">Fisico</label>
+                            <label nz-radio nzValue="v">Virtual</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
             </div>
         </div>
+
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -278,7 +335,7 @@
         <nz-form-item>
             <nz-form-label>Código del medidor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input type="text" nz-input style="width: 100%; margin: 0px;" formControlName="codigoMedidor" placeholder="Escribe aquí..." />
+                <input type="text" nz-input disabled="true" style="width: 40%;" [(ngModel)]="codMV" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <div class="row">
@@ -287,7 +344,7 @@
                     <nz-form-label>Medidor en operacion</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                            <input type="text" formControlName="medidor" nz-input placeholder="Busca por código" />
+                            <input type="text" formControlName="medidorVirtualId" nz-input placeholder="Busca por código" />
                         </nz-input-group>
                         <ng-template #suffixIconButton>
                             <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
@@ -301,12 +358,11 @@
                     <nz-form-label>Medidor en operacion</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <nz-select ngModel="lucy" formControlName="operacion">
-                            <nz-option nzValue="jack" nzLabel="( + ) Suma"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="( - ) Resta"></nz-option>
+                            <nz-option nzValue="true" nzLabel="( + ) Suma"></nz-option>
+                            <nz-option nzValue="false" nzLabel="( - ) Resta"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
-
             </div>
         </div>
         <nz-form-item>
@@ -332,28 +388,28 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Operaciones </h6>
-        <nz-table #nzTableRollover [nzData]="listOfDataMVirtuales" nzTableLayout="fixed" nzPageSize="5">
+        <nz-table #nzTableMV [nzData]="MVirtualesFilter" nzTableLayout="fixed" nzPageSize="5">
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>
                     <th>Medidor</th>
                     <th>Operacion</th>
-                    <th nzWidth="30px"></th>
-                    <th nzWidth="30px"></th>
+                    <th nzWidth="20px"></th>
+                    <th nzWidth="20px"></th>
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let data of nzTableRollover.data">
+                <ng-container *ngFor="let data of nzTableMV.data">
                     <tr>
                         <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.age}}</td>
-                        <td style="width: 30px;">
+                        <td>{{ data.medidorVirtual.codigo }}</td>
+                        <td>{{ data.operacion && 'Suma' || 'Resta'}}</td>
+                        <td style="width: 20px;">
                             <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>
                             </button>
                         </td>
-                        <td style="width: 30px;">
+                        <td style="width: 20px;">
                             <button nz-button nzType="primary" (click)="eliminarRollover(data)" nzShape="circle">
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>
