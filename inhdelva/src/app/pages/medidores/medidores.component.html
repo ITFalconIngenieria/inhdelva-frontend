@@ -31,7 +31,7 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="editarMedidor(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="editarMedidor(data,'f')" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -82,7 +82,7 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="editarMVirtual(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="editarMedidor(data,'v')" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -117,8 +117,7 @@
                             <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                         </nz-input-group>
                         <ng-template #suffixIconButton>
-                            <button nz-button (click)="busquedadMedidor()" [disabled]="disableVirtual" nzType="primary" nzSearch><i nz-icon
-                                            nzType="search"></i></button>
+                            <button nz-button (click)="busquedadMedidor()" [disabled]="disableVirtual" nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
                         </ng-template>
                     </nz-form-control>
                 </nz-form-item>
@@ -127,7 +126,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de medidor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group [(ngModel)]="tipoMedidor" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeTipo($event)">
+                        <nz-radio-group [(ngModel)]="tipoMedidor" [ngModelOptions]="{standalone: true}" [nzDisabled]="disebleTipo" (ngModelChange)="changeTipo($event)">
                             <label nz-radio nzValue="f">Fisico</label>
                             <label nz-radio nzValue="v">Virtual</label>
                         </nz-radio-group>
