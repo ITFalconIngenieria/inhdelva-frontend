@@ -52,8 +52,8 @@ export class MedidoresService {
     return this.http.put(`${apiUrl}medidor-virtuals/${id}`, medidor);
   }
 
-  deleteMedidoreVirtual(id, medidor) {
-    return this.http.patch(`${apiUrl}medidor-virtuals/${id}`, medidor);
+  deleteMedidoreVirtual(id) {
+    return this.http.delete(`${apiUrl}medidor-virtuals/${id}`);
   }
 
   checkMedidor(id) {

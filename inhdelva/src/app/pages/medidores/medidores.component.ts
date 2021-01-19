@@ -38,7 +38,9 @@ export class MedidoresComponent implements OnInit {
   idMV;
   idRollover;
   cantidad;
-  accionMV
+  accionMV;
+  idMVEdit;
+  disebleTipo: boolean = false;
   cantMV: number = 0;
   medidoresPME: any[] = [];
   listOfDataMedidores: MedidorPME[] = [];
@@ -311,27 +313,56 @@ export class MedidoresComponent implements OnInit {
     }
   }
 
-  editarMedidor(data) {
+  editarMedidor(data, tipo) {
 
-    this.disabledLec = false;
-    this.isVisible = true;
-    this.idMedidor = data.id;
-    this.accion = 'editar';
+    if (tipo === 'f') {
+      this.disabledLec = false;
+      this.isVisible = true;
+      this.idMedidor = data.id;
+      this.accion = 'editar';
 
-    this.codigo = data.codigo;
-    this.descripcion = data.descripcion;
-    this.serie = data.serie;
-    this.modelo = data.modelo;
-    this.direccionIp = data.ip;
-    this.lecMax = data.lecturaMax;
-    this.tipoMedidor = (data.tipo === true) ? 'v' : 'f';
-    this.conexion = (data.puntoMedicionId === 1) ? '1' : '2';
-    this.multiplicador = data.multiplicador;
-    this.observacion = data.observacion;
+      this.codigo = data.codigo;
+      this.descripcion = data.descripcion;
+      this.serie = data.serie;
+      this.modelo = data.modelo;
+      this.direccionIp = data.ip;
+      this.lecMax = data.lecturaMax;
+      this.tipoMedidor = (data.tipo === true) ? 'v' : 'f';
+      this.conexion = (data.puntoMedicionId === 1) ? '1' : '2';
+      this.multiplicador = data.multiplicador;
+      this.observacion = data.observacion;
+    } else {
+
+      let info = data;
+      console.log(info);
+
+      this.checkMVirtual(data.id).then(
+        (data) => {
+          console.log(data);
+          if (data === true) {
+            this.accion = 'editar';
+            this.isVisible = true;
+            this.disebleTipo = true;
+            this.idMedidor = info.id;
+            this.codigo = info.codigo;
+          } else {
+            swal({
+              icon: 'error',
+              text: 'Este medidor no puede ser editado'
+            });
+          }
+        }
+
+      );
+
+    }
+
+
+
   }
 
   eliminarMedidor(data) {
-    
+
     this.medidoresService.deleteMedidores(data.id, { estado: false })
       .toPromise()
       .then(
@@ -367,52 +398,90 @@ export class MedidoresComponent implements OnInit {
 
 
     } else {
+      this.medidoresService.postMedidoreVirtual(dataMV)
+        .toPromise()
+        .then(
+          (data) => {
 
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+            this.limpiarMVirtual();
+            console.log(data);
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+
+            this.limpiarMVirtual();
+          }
+        )
     }
-
-    this.medidoresService.postMedidoreVirtual(dataMV)
-      .toPromise()
-      .then(
-        (data) => {
-
-          this.ShowNotification(
-            'success',
-            'Guardado con éxito',
-            'El registro fue guardado con éxito'
-          );
-          this.limpiarMVirtual();
-
-          console.log(data);
-
-
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo guardar',
-            'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
-          );
-          console.log(error);
-
-          this.limpiarMVirtual();
-        }
-      )
-
-
   }
 
   editarMVirtual(data) {
 
-    this.accionMV = 'editar'
 
   }
 
   eliminarMVirtual(data) {
+    let info = data;
 
-    this.accionMV = 'editar'
+    this.checkMVirtual(data.id).then(
+      (data) => {
+        console.log(data);
+        if (data === true) {
+
+          this.medidoresService.deleteMedidoreVirtual(info.id)
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            )
+        } else {
+          swal({
+            icon: 'error',
+            text: 'Este medidor no puede ser eliminado'
+          });
+        }
+      }
+
+    );
 
   }
 
+  checkMVirtual(id) {
+
+    return this.medidoresService.checkMedidor(id)
+      .toPromise()
+      .then(
+        (data) => {
+
+          let permiso = data[0].Permiso;
+          return permiso;
+        }
+      )
+  }
   busquedadMedidor() {
     const codigo = this.codigo;
     const medidor: MedidorPME[] = this.medidoresPME.filter(x => x.codigo === codigo);
@@ -483,7 +552,11 @@ export class MedidoresComponent implements OnInit {
 
           this.medidoresService.getMedidoreVirtuales()
             .toPromise()
-            .then((data: any[]) => this.listOfDataMVirtuales = data)
+            .then((data: any[]) => {
+              console.log(this.listOfDataMVirtuales);
+
+              this.listOfDataMVirtuales = data
+            })
 
           this.medidoresService.getMedidoreVirtualesJoin()
             .toPromise()
@@ -496,6 +569,8 @@ export class MedidoresComponent implements OnInit {
 
               }
             )
+
+
 
           ///////
           // Clientes.E_31_3
@@ -610,9 +685,6 @@ export class MedidoresComponent implements OnInit {
   }
 
   showModalMV(data): void {
-
-    console.log(data);
-
 
     this.isVisibleMV = true;
     this.idMV = data.id;
