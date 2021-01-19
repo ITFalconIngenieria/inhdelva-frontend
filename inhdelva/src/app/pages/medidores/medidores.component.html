@@ -62,7 +62,7 @@
 
 <hr>
 
-<div class="tabla">
+<div style="width: 60%; margin: auto;">
     <h4> Medidores virtuales </h4>
     <p> <span style="color: black; font-size: 20px; font-weight: bold;">Existencia: </span> <span style="font-size: 25px; font-weight: bold;"> {{ cantMV }} </span> </p>
     <hr>
@@ -73,7 +73,6 @@
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
                 <th>Codigo</th>
-                <th>Multiplicador</th>
                 <th>Estado</th>
                 <th></th>
             </tr>
@@ -83,18 +82,17 @@
                 <tr>
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="editarMedidor(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="editarMVirtual(data)" nzShape="circle">
                             <i nz-icon nzType="edit" nzTheme="outline"></i>
                         </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="eliminarMedidor(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="eliminarMVirtual(data)" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>{{ data.medidor.codigo }}</td>
-                    <td>{{ data.medidor.multiplicador }}</td>
-                    <td>{{ data.medidor.estado && 'Activo' || 'Inactivo'}}</td>
+                    <td>{{ data.codigo }}</td>
+                    <td>{{ data.estado && 'Activo' || 'Inactivo'}}</td>
                     <td>
                         <button nz-button nzType="primary" nzSize="small" (click)="showModalMV(data)" nzShape="round">Admin</button>
 
@@ -119,7 +117,7 @@
                             <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                         </nz-input-group>
                         <ng-template #suffixIconButton>
-                            <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
+                            <button nz-button (click)="busquedadMedidor()" [disabled]="disableVirtual" nzType="primary" nzSearch><i nz-icon
                                             nzType="search"></i></button>
                         </ng-template>
                     </nz-form-control>
@@ -129,7 +127,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de medidor</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-radio-group [(ngModel)]="tipoMedidor" [ngModelOptions]="{standalone: true}">
+                        <nz-radio-group [(ngModel)]="tipoMedidor" [ngModelOptions]="{standalone: true}" (ngModelChange)="changeTipo($event)">
                             <label nz-radio nzValue="f">Fisico</label>
                             <label nz-radio nzValue="v">Virtual</label>
                         </nz-radio-group>
@@ -141,7 +139,7 @@
         <nz-form-item>
             <nz-form-label>Descripción</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="descripcion" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input [(ngModel)]="descripcion" [disabled]="disableVirtual" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -344,7 +342,7 @@
                     <nz-form-label>Medidor en operacion</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                            <input type="text" formControlName="medidorVirtualId" nz-input placeholder="Busca por código" />
+                            <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                         </nz-input-group>
                         <ng-template #suffixIconButton>
                             <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
@@ -355,9 +353,9 @@
             </div>
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Medidor en operacion</nz-form-label>
+                    <nz-form-label>Tipo de operacion</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-select ngModel="lucy" formControlName="operacion">
+                        <nz-select formControlName="operacion">
                             <nz-option nzValue="true" nzLabel="( + ) Suma"></nz-option>
                             <nz-option nzValue="false" nzLabel="( - ) Resta"></nz-option>
                         </nz-select>
@@ -375,10 +373,10 @@
             <nz-form-control>
                 <div class="row">
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelRollover()">Cancelar</button>
+                        <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelMV()">Cancelar</button>
                     </div>
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()">Guardar</button>
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarMVirtual()">Guardar</button>
                     </div>
                 </div>
             </nz-form-control>

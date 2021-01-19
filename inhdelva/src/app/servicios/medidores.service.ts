@@ -37,7 +37,7 @@ export class MedidoresService {
 
   // Medidor virtual
   getMedidoreVirtuales() {
-    return this.http.get(`${apiUrl}medidor-virtuals`);
+    return this.http.get(`${apiUrl}medidor?filter={"where":{"tipo":true}}`);
   }
 
   getMedidoreVirtualesJoin() {
