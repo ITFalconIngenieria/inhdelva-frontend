@@ -3,7 +3,7 @@ export interface Medidor {
   codigo: string;
   lecturaMax: any;
   puntoMedicionId: any;
-  multiplicador: number;
+  multiplicador: any;
   observacion: string;
   tipo: boolean;
   estado: boolean;
@@ -19,7 +19,7 @@ export interface MedidorPME {
   lecturaMax?: any;
   tipo: boolean;
   puntoMedicionId: any;
-  multiplicador: number;
+  multiplicador: any;
   observacion?: any;
   contrato: boolean;
 }
