@@ -5,6 +5,7 @@ import { MedidorPME, RolloverModel, Medidor } from '../../Modelos/medidor';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
+import { treeCollapseMotion } from 'ng-zorro-antd/core';
 
 @Component({
   selector: 'app-medidores',
@@ -13,6 +14,7 @@ import swal from 'sweetalert';
 })
 export class MedidoresComponent implements OnInit {
   expandSet = new Set<number>();
+  permisoAdmin: boolean = true;
   isVisible = false;
   isVisibleRollover = false;
   isVisibleMV = false;
@@ -26,7 +28,7 @@ export class MedidoresComponent implements OnInit {
   direccionIp: string;
   lecMax: any;
   conexion: any;
-  multiplicador: number;
+  multiplicador: any;
   observacion: string;
   tipoMedidor: string = 'f'
   disableVirtual: boolean = false;
@@ -36,6 +38,7 @@ export class MedidoresComponent implements OnInit {
   accion;
   idMedidor;
   idMV;
+  idMedFV;
   idRollover;
   cantidad;
   accionMV;
@@ -206,9 +209,9 @@ export class MedidoresComponent implements OnInit {
   guardarMedidor() {
     const dataMedidor = {
       codigo: this.codigo,
-      lecturaMax: `${this.lecMax}`,
-      multiplicador: this.multiplicador,
-      puntoMedicionId: this.conexion,
+      lecturaMax: (this.lecMax === '0') ? '0' : `${this.lecMax}`,
+      multiplicador: (this.multiplicador === undefined) ? '1' : `${this.multiplicador}`,
+      puntoMedicionId: (this.conexion === 0) ? 1 : this.conexion,
       tipo: (this.tipoMedidor === 'f') ? false : true,
       observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
       estado: true
@@ -230,6 +233,13 @@ export class MedidoresComponent implements OnInit {
               item.lecturaMax = dataMedidor.lecturaMax;
               item.multiplicador = dataMedidor.multiplicador;
               item.puntoMedicionId = dataMedidor.puntoMedicionId;
+              item.observacion = dataMedidor.observacion;
+            }
+
+            for (const item of this.listOfDataMVirtuales.filter(x => x.id === this.idMedidor)) {
+              item.codigo = dataMedidor.codigo;
+              item.lecturaMax = dataMedidor.lecturaMax;
+              item.multiplicador = dataMedidor.multiplicador;
               item.observacion = dataMedidor.observacion;
             }
 
@@ -341,10 +351,14 @@ export class MedidoresComponent implements OnInit {
           console.log(data);
           if (data === true) {
             this.accion = 'editar';
+            this.tipoMedidor = 'v';
             this.isVisible = true;
             this.disebleTipo = true;
             this.idMedidor = info.id;
             this.codigo = info.codigo;
+            this.observacion = '';
+            this.lecMax = '0';
+
           } else {
             swal({
               icon: 'error',
@@ -352,37 +366,73 @@ export class MedidoresComponent implements OnInit {
             });
           }
         }
+      );
+    }
+  }
 
+  eliminarMedidor(data, tipo) {
+
+    if (tipo === 'f') {
+      this.medidoresService.deleteMedidores(data.id, { estado: false })
+        .toPromise()
+        .then(
+          () => {
+            this.ShowNotification(
+              'success',
+              'Eliminado',
+              'El registro fue eliminado con éxito'
+            );
+            this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo eliminar',
+              'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+            );
+            console.log(error);
+          }
+        );
+
+    } else {
+      let info = data;
+
+      this.checkMVirtual(data.id).then(
+        (data) => {
+          console.log(data);
+          if (data === true) {
+
+            this.medidoresService.deleteMVirtualGeneral(info.id)
+              .toPromise()
+              .then(
+                () => {
+                  this.ShowNotification(
+                    'success',
+                    'Eliminado',
+                    'El registro fue eliminado con éxito'
+                  );
+                  this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
+                },
+                (error) => {
+                  this.ShowNotification(
+                    'error',
+                    'No se pudo eliminar',
+                    'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                  );
+                  console.log(error);
+                }
+              )
+          } else {
+            swal({
+              icon: 'error',
+              text: 'Este medidor no puede ser eliminado'
+            });
+          }
+        }
       );
 
     }
 
-
-
-  }
-
-  eliminarMedidor(data) {
-
-    this.medidoresService.deleteMedidores(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
-        }
-      );
   }
 
   guardarMVirtual() {
@@ -427,46 +477,20 @@ export class MedidoresComponent implements OnInit {
 
   editarMVirtual(data) {
 
+    console.log(data);
+
+    this.accionMV = 'editar';
+    this.codigo = data.medidorVirtual.codigo;
+    // this.idMVForm = data.medidorVirtualId;
+
+    this.validateFormMedidorV = this.fb.group({
+      operacion: [(data.operacion === true) ? 'true' : 'false'],
+      observacion: [data.observacion]
+    });
 
   }
 
   eliminarMVirtual(data) {
-    let info = data;
-
-    this.checkMVirtual(data.id).then(
-      (data) => {
-        console.log(data);
-        if (data === true) {
-
-          this.medidoresService.deleteMedidoreVirtual(info.id)
-            .toPromise()
-            .then(
-              () => {
-                this.ShowNotification(
-                  'success',
-                  'Eliminado',
-                  'El registro fue eliminado con éxito'
-                );
-                this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
-              },
-              (error) => {
-                this.ShowNotification(
-                  'error',
-                  'No se pudo eliminar',
-                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-                );
-                console.log(error);
-              }
-            )
-        } else {
-          swal({
-            icon: 'error',
-            text: 'Este medidor no puede ser eliminado'
-          });
-        }
-      }
-
-    );
 
   }
 
@@ -685,11 +709,26 @@ export class MedidoresComponent implements OnInit {
   }
 
   showModalMV(data): void {
+    let info = data;
 
-    this.isVisibleMV = true;
-    this.idMV = data.id;
-    this.codMV = data.codigo;
-    this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === data.id)
+    this.checkMVirtual(data.id).then(
+      (data) => {
+
+        if (data === true) {
+          this.permisoAdmin = false;
+          this.isVisibleMV = true;
+          this.idMV = info.id;
+          this.codMV = info.codigo;
+          this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === info.id)
+        } else {
+          this.permisoAdmin = true;
+          this.isVisibleMV = true;
+          this.codMV = info.codigo;
+          this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === info.id)
+
+        }
+      }
+    );
 
   }
 

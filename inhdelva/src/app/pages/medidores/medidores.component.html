@@ -36,7 +36,7 @@
                         </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="eliminarMedidor(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="eliminarMedidor(data,'f')" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -87,7 +87,7 @@
                         </button>
                     </td>
                     <td style="width: 30px;">
-                        <button nz-button nzType="primary" (click)="eliminarMVirtual(data)" nzShape="circle">
+                        <button nz-button nzType="primary" (click)="eliminarMedidor(data,'v')" nzShape="circle">
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
@@ -99,7 +99,7 @@
                     </td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
-                    <td colSpan="8">{{ data.descripcion }}</td>
+                    <td colSpan="6">{{ data.descripcion }}</td>
                 </tr>
             </ng-container>
         </tbody>
@@ -385,7 +385,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Operaciones </h6>
-        <nz-table #nzTableMV [nzData]="MVirtualesFilter" nzTableLayout="fixed" nzPageSize="5">
+        <nz-table #nzTableMV [nzData]="MVirtualesFilter" nzTableLayout="fixed" nzPageSize="4">
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>
@@ -402,18 +402,18 @@
                         <td>{{ data.medidorVirtual.codigo }}</td>
                         <td>{{ data.operacion && 'Suma' || 'Resta'}}</td>
                         <td style="width: 20px;">
-                            <button nz-button nzType="primary" (click)="editarRollover(data)" nzShape="circle">
+                            <button nz-button nzType="primary" [disabled]="permisoAdmin" (click)="editarMVirtual(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>
                             </button>
                         </td>
                         <td style="width: 20px;">
-                            <button nz-button nzType="primary" (click)="eliminarRollover(data)" nzShape="circle">
+                            <button nz-button nzType="primary" [disabled]="true" (click)="eliminarMVirtual(data)" nzShape="circle">
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </button>
                         </td>
                     </tr>
                     <tr [nzExpand]="expandSet.has(data.id)">
-                        <td colSpan="7"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
+                        <td colSpan="5"><span style="color: black; font-weight: bold;"> Observación: </span> {{ data.observacion }}</td>
                     </tr>
                 </ng-container>
             </tbody>
