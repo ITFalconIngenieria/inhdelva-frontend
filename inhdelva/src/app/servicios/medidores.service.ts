@@ -30,10 +30,6 @@ export class MedidoresService {
     return this.http.patch(`${apiUrl}medidor/${id}`, medidor);
   }
 
-  deleteMVirtualGeneral(id) {
-    return this.http.delete(`${apiUrl}medidor/${id}`);
-  }
-
   busquedadMedidor() {
     return this.http.get(`${apiUrl}vmedidores-pme`);
   }

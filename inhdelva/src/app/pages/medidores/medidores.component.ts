@@ -38,7 +38,6 @@ export class MedidoresComponent implements OnInit {
   accion;
   idMedidor;
   idMV;
-  idMedFV;
   idRollover;
   cantidad;
   accionMV;
@@ -92,9 +91,6 @@ export class MedidoresComponent implements OnInit {
       observacion,
       estado: true
     };
-
-    console.log(dataRollover);
-
 
     if (this.accion === 'editar') {
       this.medidoresService.putRollovers(this.idRollover, dataRollover)
@@ -402,7 +398,7 @@ export class MedidoresComponent implements OnInit {
           console.log(data);
           if (data === true) {
 
-            this.medidoresService.deleteMVirtualGeneral(info.id)
+            this.medidoresService.deleteMedidores(info.id, { estado: false })
               .toPromise()
               .then(
                 () => {
@@ -441,10 +437,50 @@ export class MedidoresComponent implements OnInit {
       medidorId: this.idMV,
       medidorVirtualId: this.idMVForm,
       operacion: (this.validateFormMedidorV.value.operacion === 'true') ? true : false,
-      observacion: this.validateFormMedidorV.value.observacion
+      observacion: (this.validateFormMedidorV.value.observacion === '' || this.validateFormMedidorV.value.observacion === null) ? 'N/A' : this.validateFormMedidorV.value.observacion
     };
 
     if (this.accionMV === 'editar') {
+
+      this.medidoresService.putMedidoreVirtual(this.idMVEdit, dataMV)
+        .toPromise()
+        .then(
+          () => {
+
+            this.limpiarMVirtual();
+            for (const item of this.MVirtualesJoin.filter(x => x.id === this.idMVEdit)) {
+              item.medidorVirtual.id = dataMV.medidorVirtualId;
+              item.medidorVirtualId = dataMV.medidorVirtualId;
+              item.medidorVirtual.codigo = this.codigo;
+              item.operacion = dataMV.operacion;
+            }
+
+            for (const item of this.MVirtualesFilter.filter(x => x.id === this.idMVEdit)) {
+              item.medidorVirtual.id = dataMV.medidorVirtualId;
+              item.medidorVirtualId = dataMV.medidorVirtualId;
+              item.medidorVirtual.codigo = this.codigo;
+              item.operacion = dataMV.operacion;
+            }
+            this.limpiarMVirtual();
+
+            this.ShowNotification(
+              'success',
+              'Guardado con éxito',
+              'El registro fue guardado con éxito'
+            );
+
+          },
+          (error) => {
+            this.ShowNotification(
+              'error',
+              'No se pudo guardar',
+              'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
+            );
+            console.log(error);
+
+            this.limpiarMVirtual();
+          }
+        )
 
 
     } else {
@@ -481,8 +517,8 @@ export class MedidoresComponent implements OnInit {
 
     this.accionMV = 'editar';
     this.codigo = data.medidorVirtual.codigo;
-    // this.idMVForm = data.medidorVirtualId;
-
+    this.idMVEdit = data.id;
+    this.idMVForm = data.medidorVirtual.id;
     this.validateFormMedidorV = this.fb.group({
       operacion: [(data.operacion === true) ? 'true' : 'false'],
       observacion: [data.observacion]
@@ -491,6 +527,30 @@ export class MedidoresComponent implements OnInit {
   }
 
   eliminarMVirtual(data) {
+
+    this.medidoresService.deleteMedidoreVirtual(data.id)
+      .toPromise()
+      .then(
+        () => {
+          this.ShowNotification(
+            'success',
+            'Eliminado',
+            'El registro fue eliminado con éxito'
+          );
+
+          this.MVirtualesJoin = this.MVirtualesJoin.filter(x => x.id !== data.id);
+          this.MVirtualesFilter = this.MVirtualesFilter.filter(x => x.id !== data.id);
+
+        },
+        (error) => {
+          this.ShowNotification(
+            'error',
+            'No se pudo eliminar',
+            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+          );
+          console.log(error);
+        }
+      )
 
   }
 
@@ -506,6 +566,7 @@ export class MedidoresComponent implements OnInit {
         }
       )
   }
+
   busquedadMedidor() {
     const codigo = this.codigo;
     const medidor: MedidorPME[] = this.medidoresPME.filter(x => x.codigo === codigo);
@@ -570,8 +631,6 @@ export class MedidoresComponent implements OnInit {
         (data: MedidorPME[]) => {
 
           this.listOfDataMedidores = data;
-          console.log(this.listOfDataMedidores);
-
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
@@ -586,15 +645,14 @@ export class MedidoresComponent implements OnInit {
             .toPromise()
             .then(
               (data: any) => {
-                console.log(data);
 
                 this.MVirtualesJoin = data;
+                console.log(this.MVirtualesJoin);
+
                 this.cantMV = this.listOfDataMVirtuales.length;
 
               }
             )
-
-
 
           ///////
           // Clientes.E_31_3
@@ -711,6 +769,8 @@ export class MedidoresComponent implements OnInit {
   showModalMV(data): void {
     let info = data;
 
+    console.log(info);
+
     this.checkMVirtual(data.id).then(
       (data) => {
 
@@ -720,6 +780,8 @@ export class MedidoresComponent implements OnInit {
           this.idMV = info.id;
           this.codMV = info.codigo;
           this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === info.id)
+          console.log(this.MVirtualesFilter);
+
         } else {
           this.permisoAdmin = true;
           this.isVisibleMV = true;
