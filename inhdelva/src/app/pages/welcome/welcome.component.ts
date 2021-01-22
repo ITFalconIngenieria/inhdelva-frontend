@@ -8,12 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
   isCollapsed = false;
+  menu: any[] = [];
 
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
+
+    this.menu = JSON.parse(localStorage.getItem('menu'));
+
+    console.log(this.menu);
+
   }
 
   salir() {

@@ -23,7 +23,7 @@ export class UserService {
   }
 
   executeLogin(data) {
-    localStorage.setItem('infoUser', JSON.stringify(data));
+    localStorage.setItem('infoUser', JSON.stringify(data.nombre));
     localStorage.setItem('token', data.token);
 
     this.infoLogin = JSON.parse(localStorage.getItem('infoUser'));

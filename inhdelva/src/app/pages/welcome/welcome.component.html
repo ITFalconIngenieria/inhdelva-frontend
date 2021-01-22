@@ -7,9 +7,9 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/inicio" [nzTitle]="isCollapsed ? 'Inicio' : ''">
-                <i nz-icon nzType="home"></i>
-                <span>Inicio</span>
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[0]?.url" [nzTitle]="isCollapsed ? 'Inicio' : ''">
+                <i nz-icon [nzType]="menu[0]?.icon"></i>
+                <span> {{ menu[0]?.Titulo }} </span>
             </li>
         </ul>
         <ul nz-menu nzTheme="dark" nzMode="vertical">

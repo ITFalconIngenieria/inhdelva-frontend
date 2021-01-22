@@ -26,7 +26,7 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="email">Correo</nz-form-label>
+                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="email">Correo</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El dato es incorrecto!">
                     <input nz-input formControlName="email" id="email" />
                 </nz-form-control>
@@ -53,7 +53,7 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="observacion">Observación</nz-form-label>
+                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="observacion">Observación</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="El dato es incorrecto!">
                     <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
                 </nz-form-control>

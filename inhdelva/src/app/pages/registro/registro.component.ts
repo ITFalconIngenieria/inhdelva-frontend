@@ -32,10 +32,11 @@ export class RegistroComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    // debugger;
+ 
     this.dataUsuarios = {
       ...this.validateForm.value,
       ad: 0,
+      // tuser: 0,
       estado: 1
     };
 

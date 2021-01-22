@@ -27,6 +27,16 @@ import { ProveedoresEnergiaComponent } from './reportes/proveedoresEnergia/prove
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { FacturacionComponent } from './reportes/facturacion/facturacion.component';
 import { ValidacionComponent } from './reportes/validacion/validacion.component';
+import { LoginGuard } from './servicios/Guards/login.guard';
+import { MantenimientoGuard } from './servicios/Guards/mantenimiento.guard';
+import { TarifasGuard } from './servicios/Guards/tarifas.guard';
+import { ParametrosGuard } from './servicios/Guards/parametros.guard';
+import { ContratosGuard } from './servicios/Guards/contratos.guard';
+import { MatrizGuard } from './servicios/Guards/matriz.guard';
+import { FacturasGuard } from './servicios/Guards/facturas.guard';
+import { CargosGuard } from './servicios/Guards/cargos.guard';
+import { ConfiguracionGuard } from './servicios/Guards/configuracion.guard';
+import { ReporteGuard } from './servicios/Guards/reporte.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -35,30 +45,31 @@ const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent,
+    canActivate: [LoginGuard],
     children: [
       { path: 'inicio', component: InicioComponent },
-      { path: 'proveedores', component: ProveedoresComponent },
-      { path: 'clientes', component: ClientesComponent },
-      { path: 'medidores', component: MedidoresComponent },
-      { path: 'bloquesHorarios', component: BloquesHorariosComponent },
-      { path: 'tipoTarifa', component: TipoTarifaComponent },
-      { path: 'parametrosEntrada', component: ParametrosEntradaComponent },
-      { path: 'contratos', component: ContratosComponent },
-      { path: 'matrizEnergetica', component: MatrizEnergeticaComponent },
+      { path: 'proveedores', component: ProveedoresComponent, canActivate: [MantenimientoGuard] },
+      { path: 'clientes', component: ClientesComponent, canActivate: [MantenimientoGuard] },
+      { path: 'medidores', component: MedidoresComponent, canActivate: [MantenimientoGuard] },
+      { path: 'bloquesHorarios', component: BloquesHorariosComponent, canActivate: [MantenimientoGuard] },
+      { path: 'tipoTarifa', component: TipoTarifaComponent, canActivate: [TarifasGuard] },
+      { path: 'parametrosEntrada', component: ParametrosEntradaComponent, canActivate: [ParametrosGuard] },
+      { path: 'contratos', component: ContratosComponent, canActivate: [ContratosGuard] },
+      { path: 'matrizEnergetica', component: MatrizEnergeticaComponent, canActivate: [MatrizGuard] },
       { path: 'ayuda', component: AyudaComponent },
-      { path: 'factura', component: FacturaComponent },
+      { path: 'factura', component: FacturaComponent, canActivate: [FacturasGuard] },
       { path: 'localizacion', component: LocalizacionComponent },
-      { path: 'cargosEspeciales', component: CargosEspecialesComponent },
-      { path: 'facturasGeneradas', component: FacturasGeneradasComponent },
-      { path: 'facturasEmitidas', component: FacturasEmitidasComponent },
-      { path: 'facturasCanceladas', component: FacturasCanceladasComponent },
-      { path: 'rangoFactura', component: RangoFacturaComponent },
-      { path: 'usuarios', component: UsuariosComponent },
+      { path: 'cargosEspeciales', component: CargosEspecialesComponent, canActivate: [CargosGuard] },
+      { path: 'facturasGeneradas', component: FacturasGeneradasComponent, canActivate: [FacturasGuard] },
+      { path: 'facturasEmitidas', component: FacturasEmitidasComponent, canActivate: [FacturasGuard] },
+      { path: 'facturasCanceladas', component: FacturasCanceladasComponent, canActivate: [FacturasGuard] },
+      { path: 'rangoFactura', component: RangoFacturaComponent, canActivate: [ConfiguracionGuard] },
+      { path: 'usuarios', component: UsuariosComponent, canActivate: [MantenimientoGuard] },
       ///// Reportes
-      { path: 'reporteFacturacion', component: FacturacionComponent },
-      { path: 'reporteProduccion', component: ProduccionComponent },
-      { path: 'reporteProveedores', component: ProveedoresEnergiaComponent },
-      { path: 'reporteValidacion', component: ValidacionComponent }
+      { path: 'reporteFacturacion', component: FacturacionComponent, canActivate: [ReporteGuard] },
+      { path: 'reporteProduccion', component: ProduccionComponent, canActivate: [ReporteGuard] },
+      { path: 'reporteProveedores', component: ProveedoresEnergiaComponent, canActivate: [ReporteGuard] },
+      { path: 'reporteValidacion', component: ValidacionComponent, canActivate: [ReporteGuard] }
 
     ]
   },

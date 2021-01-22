@@ -118,6 +118,7 @@ export class UsuariosComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
+    console.log(data);
 
     this.userEdit = data.id;
     this.validateForm = this.fb.group({
