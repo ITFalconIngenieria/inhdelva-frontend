@@ -205,11 +205,11 @@ export class MedidoresComponent implements OnInit {
   guardarMedidor() {
     const dataMedidor = {
       codigo: this.codigo,
-      lecturaMax: (this.lecMax === '0') ? '0' : `${this.lecMax}`,
+      lecturaMax: (this.lecMax === '0' || this.lecMax === undefined) ? '0' : `${this.lecMax}`,
       multiplicador: (this.multiplicador === undefined) ? '1' : `${this.multiplicador}`,
       puntoMedicionId: (this.conexion === 0) ? 1 : this.conexion,
       tipo: (this.tipoMedidor === 'f') ? false : true,
-      observacion: (this.observacion === '' || this.observacion === null) ? 'N/A' : this.observacion,
+      observacion: (this.observacion === '' || this.observacion === undefined) ? 'N/A' : this.observacion,
       estado: true
     };
 
@@ -340,11 +340,8 @@ export class MedidoresComponent implements OnInit {
     } else {
 
       let info = data;
-      console.log(info);
-
       this.checkMVirtual(data.id).then(
         (data) => {
-          console.log(data);
           if (data === true) {
             this.accion = 'editar';
             this.tipoMedidor = 'v';
@@ -571,12 +568,13 @@ export class MedidoresComponent implements OnInit {
     const codigo = this.codigo;
     const medidor: MedidorPME[] = this.medidoresPME.filter(x => x.codigo === codigo);
 
-    swal({
-      icon: 'success',
-      text: 'Medidor encontrado'
-    });
-
     if (medidor.length > 0) {
+
+      swal({
+        icon: 'success',
+        text: 'Medidor encontrado'
+      });
+
       this.descripcion = medidor[0].descripcion;
       this.serie = medidor[0].serie;
       this.modelo = medidor[0].modelo;
