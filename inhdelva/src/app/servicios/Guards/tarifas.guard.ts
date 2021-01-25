@@ -10,8 +10,8 @@ export class TarifasGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    let arryPermisos = JSON.parse(localStorage.getItem('guards'));
-    if (arryPermisos[21] === true) {
+    let arryPermisos = JSON.parse(localStorage.getItem('guards')); 
+    if (arryPermisos[1] === true) {
       return true;
     } else {
       this.router.navigate(['/login']);
