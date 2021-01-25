@@ -14,6 +14,11 @@ export class MedidoresService {
   ) { }
 
   // Medidpres
+
+    getMedidores(){
+      return this.http.get(`${apiUrl}medidor`);
+    }
+
   getMedidoresPME() {
     return this.http.get(`${apiUrl}vmedidores-pme`);
   }

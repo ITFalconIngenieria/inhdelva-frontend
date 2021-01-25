@@ -517,10 +517,13 @@ export class ContratosComponent implements OnInit {
     this.rangoFechas = true;
 
     this.accion = 'new';
-    this.medidorService.getMedidoresPME()
+    this.medidorService.getMedidores()
       .toPromise()
       .then(
-        (data: MedidorPME[]) => {
+        (data: any) => {
+
+          console.log(data);
+
 
           this.listOfMedidores = data;
           // tslint:disable-next-line: prefer-for-of
