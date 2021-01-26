@@ -198,7 +198,7 @@
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="guardarMedidor()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardarMedidor()" [disabled]="permiso">Guardar</button>
     </div>
 </nz-modal>
 
@@ -272,7 +272,7 @@
                         <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelRollover()">Cancelar</button>
                     </div>
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()">Guardar</button>
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarRollover()" [disabled]="permiso">Guardar</button>
                     </div>
                 </div>
             </nz-form-control>
@@ -375,7 +375,7 @@
                         <button nz-button style="width: 100%;" nzType="default" (click)="handleCancelMV()">Cancelar</button>
                     </div>
                     <div class="col">
-                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarMVirtual()">Guardar</button>
+                        <button nz-button style="width: 100%;" nzType="primary" (click)="guardarMVirtual()" [disabled]="permiso">Guardar</button>
                     </div>
                 </div>
             </nz-form-control>
