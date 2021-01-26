@@ -366,10 +366,13 @@ export class MatrizEnergeticaComponent implements OnInit {
         (data: any[]) => this.listaOrigenes = data
       );
 
-    this.matrizService.getArregloDatos()
+    this.matrizService.getMatrizRelacion()
       .toPromise()
       .then(
         (data: any[]) => {
+
+          console.log(data);
+          
           this.listOfDataMatriz = data[0];
           this.listOfDataDistribucion = data[1];
 
@@ -385,7 +388,7 @@ export class MatrizEnergeticaComponent implements OnInit {
             this.dataMatrizEnergetica = [{
               id: this.listOfDataMatriz[x].id,
               actorId: this.listOfDataMatriz[x].actorId,
-              proveedor: '',
+              proveedor: this.listOfDataMatriz[x].actor.codigo,
               fechaInicio: this.listOfDataMatriz[x].fechaInicio,
               fechaFinal: this.listOfDataMatriz[x].fechaFinal,
               observacion: this.listOfDataMatriz[x].observacion,
@@ -397,19 +400,6 @@ export class MatrizEnergeticaComponent implements OnInit {
 
         }
       );
-
-
-    // this.matrizService.getMatriz()
-    //   .toPromise()
-    //   .then(
-    //     (data: any[]) => this.listOfDataMatriz = data
-    //   );
-
-    // this.matrizService.getDistribucion()
-    //   .toPromise()
-    //   .then(
-    //     (data: any[]) => this.listOfDataDistribucion = data
-    //   );
 
     this.actoresService.getProveedores()
       .toPromise()

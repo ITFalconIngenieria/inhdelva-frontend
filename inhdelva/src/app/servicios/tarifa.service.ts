@@ -31,7 +31,7 @@ export class TarifaService {
   }
 
   getTarifasRelacion() {
-    return this.http.get(`${apiUrl}tarifa?filter={"include":[{"relation":"puntoMedicion"},{"relation":"matrizHoraria"}]}`);
+    return this.http.get(`${apiUrl}tarifa?filter={"include":[{"relation":"puntoMedicion"},{"relation":"matrizHoraria"}],"where":{"estado":true}}`);
   }
 
   getPuntoMedicion() {
@@ -60,7 +60,7 @@ export class TarifaService {
   }
 
   getTarifasParametroRelacion() {
-    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}]}`);
+    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where":{"estado":true}}`);
   }
 
   getTipoCargo() {

@@ -38,7 +38,7 @@
                           <i nz-icon nzType="delete" nzTheme="outline"></i>
                       </button>
                     </td>
-                    <td>{{ data.actorId }}</td>
+                    <td>{{ data.proveedor }}</td>
                     <td>{{ data.fechaInicio | date:'yyyy/M/dd'}}</td>
                     <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
                     <td>{{ data.total | number:'':'en_US'}}</td>
@@ -156,7 +156,7 @@
             <tbody>
                 <ng-container *ngFor="let data of nzTableDistribucion.data">
                     <tr>
-                        <td>{{ data.origenId }}</td>
+                        <td>{{ data.origen.descripcion }}</td>
                         <td>{{ data.valor | number:'':'en_US'}}</td>
                         <td>{{ data.emisiones | number:'':'en_US'}}</td>
                         <td style="width: 30px;">
