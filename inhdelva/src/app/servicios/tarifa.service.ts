@@ -30,6 +30,10 @@ export class TarifaService {
     return this.http.patch(`${apiUrl}tarifa/${id}`, tarifa);
   }
 
+  getTarifasRelacion() {
+    return this.http.get(`${apiUrl}tarifa?filter={"include":[{"relation":"puntoMedicion"},{"relation":"matrizHoraria"}]}`);
+  }
+
   getPuntoMedicion() {
     return this.http.get(`${apiUrl}punto-medicion`);
   }
@@ -55,13 +59,17 @@ export class TarifaService {
     return this.http.patch(`${apiUrl}parametro-tarifas/${id}`, tarifa);
   }
 
+  getTarifasParametroRelacion() {
+    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}]}`);
+  }
+
   getTipoCargo() {
     return this.http.get(`${apiUrl}tipo-cargo`);
   }
 
   getBloqueHorario(idMH) {
     // tslint:disable-next-line: max-line-length
-    return this.http.get(`${apiUrl}bloque-horarios?filter={ "where": { "matrizHorariaId": ${idMH} }, "fields": { "id": true, "descripcion": true } }`);
+    return this.http.get(`${apiUrl}bloque-horarios?filter={"where":{"matrizHorariaId":${idMH}},"fields":{"id":true,"descripcion":true}}`);
   }
 
 }

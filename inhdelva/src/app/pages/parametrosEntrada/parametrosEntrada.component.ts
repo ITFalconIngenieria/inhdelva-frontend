@@ -21,7 +21,7 @@ export class ParametrosEntradaComponent implements OnInit {
   dateFormat = 'yyyy/MM/dd';
   accion;
   idParametro;
-  listOfDataParametro: Parametro[] = [];
+  listOfDataParametro: any[] = [];
   tipoCargo: TipoCargo[] = [];
   unidad;
 
@@ -185,11 +185,11 @@ export class ParametrosEntradaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.parametroServce.getParametro()
+    this.parametroServce.getParametroRelacion()
       .toPromise()
       .then(
-        (data: Parametro[]) => {
-          this.listOfDataParametro = data;
+        (data: any[]) => {
+          this.listOfDataParametro = data;          
         },
         (error) => {
           swal({

@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
-          console.log(data);
 
           localStorage.setItem('guards', JSON.stringify(data.guards));
           localStorage.setItem('menu', JSON.stringify(data.data));
