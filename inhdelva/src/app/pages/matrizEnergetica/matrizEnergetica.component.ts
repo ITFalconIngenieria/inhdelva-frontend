@@ -41,7 +41,7 @@ export class MatrizEnergeticaComponent implements OnInit {
   listaOrigenes: any[] = [];
   total: number = 0;
   totalEditar: number = 0;
-  dataMatrizEnergetica: Matriz[] = [];
+  dataMatrizEnergetica: any[] = [];
 
   constructor(
     private fb: FormBuilder,

@@ -19,6 +19,10 @@ export class ContratoService {
     return this.http.get(`${apiUrl}contrato?filter[where][estado]=true`);
   }
 
+  getContratosRelacion() {
+    return this.http.get(`${apiUrl}contrato?filter={"include":[{"relation":"actor"}]}`);
+  }
+
   getAllContratos() {
     // return this.http.get(`${apiUrl}contrato`);
     return this.http.get(`${apiUrl}contrato`);
@@ -39,6 +43,10 @@ export class ContratoService {
   // Contratos-Medidores
   getContratosMedidor() {
     return this.http.get(`${apiUrl}contratos-medidores?filter[where][estado]=true`);
+  }
+
+  getContratosMedidorRelacion() {
+    return this.http.get(`${apiUrl}contratos-medidores?filter={"include":[{"relation":"medidor"},{"relation":"tarifa"},{"relation":"zona"},{"relation":"contrato"},{"relation":"tipoServicio"}]}`);
   }
 
   getContratosMedidorID(id) {

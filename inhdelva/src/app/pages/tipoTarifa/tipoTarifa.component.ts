@@ -23,9 +23,9 @@ export class TipoTarifaComponent implements OnInit {
   accion;
   idTarifa;
   idParametro;
-  listOfDataTarifa: TarifaModel[] = [];
-  listOfDataParametros: ParametroTarifaModel[] = [];
-  listOfDataParametrosFiltrado: ParametroTarifaModel[] = [];
+  listOfDataTarifa: any[] = [];
+  listOfDataParametros: any[] = [];
+  listOfDataParametrosFiltrado: any[] = [];
   puntoMedicion: PuntoMedicion[] = [];
   matrizHoraria: MatrizHoraria[] = [];
   tipoCargo: TipoCargo[] = [];
@@ -150,10 +150,10 @@ export class TipoTarifaComponent implements OnInit {
 
     this.validateFormTarifa = this.fb.group({
       codigo: [data.codigo, [Validators.required]],
-      puntoMedicionId: [data.puntoMedicionId, [Validators.required]],
+      puntoMedicionId: [data.puntoMedicion.id, [Validators.required]],
       descripcion: [data.descripcion, [Validators.required]],
       tipo: [(data.tipo === false) ? 'false' : 'true'],
-      matrizHorariaId: [data.matrizHorariaId, [Validators.required]],
+      matrizHorariaId: [data.matrizHoraria.id, [Validators.required]],
       observacion: [data.observacion]
     });
   }
@@ -278,12 +278,12 @@ export class TipoTarifaComponent implements OnInit {
     this.idParametro = data.id;
     this.accion = 'editar';
 
-    const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargoId);
+    const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargo.id);
     this.unidad = cargo[0].unidad;
 
     this.validateFormParametro = this.fb.group({
-      tipoCargoId: [data.tipoCargoId, [Validators.required]],
-      bloqueHorarioId: [data.bloqueHorarioId],
+      tipoCargoId: [data.tipoCargo.id, [Validators.required]],
+      bloqueHorarioId: [data.bloqueHorario.id],
       fechaInicio: [[data.fechaInicio, data.fechaFinal]],
       valor: [data.valor],
       observacion: [data.observacion]
@@ -342,11 +342,12 @@ export class TipoTarifaComponent implements OnInit {
     this.limpiarTarifa();
     this.limpiarParametro();
 
-    this.tarifaService.getTarifas()
+    this.tarifaService.getTarifasRelacion()
       .toPromise()
       .then(
-        (data: TarifaModel[]) => this.listOfDataTarifa = data
-        ,
+        (data: any[]) => {
+          this.listOfDataTarifa = data;
+        },
         (error) => {
           swal({
             icon: 'error',
@@ -358,10 +359,12 @@ export class TipoTarifaComponent implements OnInit {
         }
       );
 
-    this.tarifaService.getTarifasParametro()
+    this.tarifaService.getTarifasParametroRelacion()
       .toPromise()
       .then(
-        (data: ParametroTarifaModel[]) => this.listOfDataParametros = data
+        (data: any[]) => {
+          this.listOfDataParametros = data;
+        }
       );
 
     this.tarifaService.getPuntoMedicion()

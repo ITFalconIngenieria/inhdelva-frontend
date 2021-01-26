@@ -30,4 +30,8 @@ export class ParametroEntradaService {
     return this.http.patch(`${apiUrl}parametro-tarifas/${id}`, Parametro);
   }
 
+  getParametroRelacion() {
+    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where": {"tarifaId": null } }`);
+  }
+
 }

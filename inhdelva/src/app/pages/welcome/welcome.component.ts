@@ -15,11 +15,7 @@ export class WelcomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.menu = JSON.parse(localStorage.getItem('menu'));
-
-    console.log(this.menu);
-
   }
 
   salir() {

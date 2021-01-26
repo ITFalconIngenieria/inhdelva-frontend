@@ -18,6 +18,7 @@
                 <th nzWidth="30px"></th>
                 <th>Codigo</th>
                 <th>Matríz horaria</th>
+                <th>Punto de medicion</th>
                 <th>Parámetros</th>
             </tr>
         </thead>
@@ -36,7 +37,8 @@
                         </button>
                     </td>
                     <td>{{ data.codigo }}</td>
-                    <td>{{ data.matrizHorariaId }}</td>
+                    <td>{{ data.matrizHoraria.codigo }}</td>
+                    <td>{{ data.puntoMedicion.codigo }}</td>
                     <td>
                         <button nz-button nzType="primary" nzSize="small" (click)="showModalParametro(data)" nzShape="round">Parámetros</button>
 
@@ -189,7 +191,7 @@
             <tbody>
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
-                        <td>{{ data.tipoCargoId }}</td>
+                        <td>{{ data.tipoCargo.codigo }}</td>
                         <td>{{ data.valor }}</td>
                         <td>{{ data.fechaInicio | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>

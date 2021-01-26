@@ -16,7 +16,6 @@
                 <th nzWidth="60px"></th>
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
-                <th>Codigo</th>
                 <th>Cargo</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
@@ -36,8 +35,7 @@
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.tipoCargoId }}</td>
+                    <td>{{ data.tipoCargo.codigo }}</td>
                     <td>{{ data.fechaInicio | date: 'yyyy/M/dd' }}</td>
                     <td>{{ data.fechaFinal | date: 'yyyy/M/dd' }}</td>
                 </tr>

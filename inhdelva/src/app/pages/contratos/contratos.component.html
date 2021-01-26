@@ -38,7 +38,7 @@
                         </button>
                     </td>
                     <td>{{ data.codigo }}</td>
-                    <td>{{ data.actorId }}</td>
+                    <td>{{ data.actor.codigo }}</td>
                     <td>{{ data.clasificacion }}</td>
                     <td>{{ data.fechaCreacion | date:'yyyy/M/dd' }}</td>
                     <td>
@@ -347,7 +347,7 @@
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>
-                    <th>ID medidor</th>
+                    <th>Medidor</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
                     <th nzWidth="30px"></th>
@@ -358,7 +358,7 @@
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
                         <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-                        <td>{{ data.medidorId }}</td>
+                        <td>{{ data.medidor.codigo }}</td>
                         <td>{{ data.fechaInicial | date:'yyyy/M/dd' }}</td>
                         <td>{{ data.fechaFinal | date:'yyyy/M/dd' }}</td>
                         <td style="width: 30px;">

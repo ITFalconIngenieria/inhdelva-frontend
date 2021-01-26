@@ -19,6 +19,10 @@ export class MatrizEnergeticaService {
     return this.http.get(`${apiUrl}matriz-energeticas`);
   }
 
+  getMatrizRelacion() {
+    return this.http.get(`${apiUrl}matriz-energeticas?filter={"include":[{"relation":"actor"}]}`);
+  }
+
   postMatriz(matriz) {
     return this.http.post(`${apiUrl}matriz-energeticas`, matriz);
   }

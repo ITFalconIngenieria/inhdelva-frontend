@@ -48,9 +48,9 @@ export class ContratosComponent implements OnInit {
   validarDia;
   // tslint:disable-next-line: max-line-length
   diasGeneracion: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
-  listOfDataContrato: Contrato[] = [];
-  listOfDataMedidores: ContratoMedidores[] = [];
-  listaMedidoresFiltrado: ContratoMedidores[] = [];
+  listOfDataContrato: any[] = [];
+  listOfDataMedidores: any[] = [];
+  listaMedidoresFiltrado: any[] = [];
   listOfMedidores: Medidor[] = [];
   listaServicios: any[] = [];
   medidorId;
@@ -398,8 +398,6 @@ export class ContratosComponent implements OnInit {
     this.radioValue = (data.fechaFinal) ? 'B' : 'A';
     this.changeOpcion(valor);
 
-    console.log(data);
-
     if (data.fechaInicial) {
       this.validateFormMedidores = this.fb.group({
         medidorId: [data.medidorId, [Validators.required]],
@@ -521,18 +519,7 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
-
-          console.log(data);
-
-
           this.listOfMedidores = data;
-          // tslint:disable-next-line: prefer-for-of
-          // for (let x = 0; x < data.length; x++) {
-          //   this.listOfMedidores = [{
-          //     id: data[x].id,
-          //     codigo: data[x].codigo.substr(9)
-          //   }, ...this.listOfMedidores];
-          // }
         }
       );
 
@@ -565,17 +552,15 @@ export class ContratosComponent implements OnInit {
     this.actoresService.getActores()
       .toPromise()
       .then(
-        (data: ClientesVista[]) => {
-          this.listaClientes = data;
-          console.log(this.listaClientes);
-
-        }
+        (data: ClientesVista[]) => this.listaClientes = data
       );
 
-    this.contratoService.getContratos()
+    this.contratoService.getContratosRelacion()
       .toPromise()
       .then(
-        (data: Contrato[]) => this.listOfDataContrato = data
+        (data: any[]) => {
+          this.listOfDataContrato = data
+        }
         ,
         (error) => {
           swal({
@@ -588,10 +573,12 @@ export class ContratosComponent implements OnInit {
         }
       );
 
-    this.contratoService.getContratosMedidor()
+    this.contratoService.getContratosMedidorRelacion()
       .toPromise()
       .then(
-        (data: ContratoMedidores[]) => this.listOfDataMedidores = data
+        (data: any[]) => {
+          this.listOfDataMedidores = data
+        }
       );
 
     this.limpiarFormContrato();
