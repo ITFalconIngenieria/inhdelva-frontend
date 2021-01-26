@@ -189,7 +189,9 @@ export class ParametrosEntradaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataParametro = data;          
+          this.listOfDataParametro = data;
+          console.log(data);
+
         },
         (error) => {
           swal({

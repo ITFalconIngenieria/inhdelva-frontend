@@ -17,6 +17,7 @@
                 <th nzWidth="30px"></th>
                 <th nzWidth="30px"></th>
                 <th>Cargo</th>
+                <th>Valor</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
             </tr>
@@ -36,6 +37,7 @@
                         </button>
                     </td>
                     <td>{{ data.tipoCargo.codigo }}</td>
+                    <td>{{ data.valor | number:'':'en_US'}}</td>
                     <td>{{ data.fechaInicio | date: 'yyyy/M/dd' }}</td>
                     <td>{{ data.fechaFinal | date: 'yyyy/M/dd' }}</td>
                 </tr>

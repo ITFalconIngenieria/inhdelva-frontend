@@ -19,10 +19,6 @@ export class MatrizEnergeticaService {
     return this.http.get(`${apiUrl}matriz-energeticas`);
   }
 
-  getMatrizRelacion() {
-    return this.http.get(`${apiUrl}matriz-energeticas?filter={"include":[{"relation":"actor"}]}`);
-  }
-
   postMatriz(matriz) {
     return this.http.post(`${apiUrl}matriz-energeticas`, matriz);
   }
@@ -60,6 +56,13 @@ export class MatrizEnergeticaService {
     return forkJoin(
       this.http.get(`${apiUrl}matriz-energeticas`),
       this.http.get(`${apiUrl}distribucion-energias`)
+    );
+  }
+
+  getMatrizRelacion() {
+    return forkJoin(
+      this.http.get(`${apiUrl}matriz-energeticas?filter={"include":[{"relation":"actor"}],"where":{"estado":true}}`),
+      this.http.get(`${apiUrl}distribucion-energias?filter={"include":[{"relation":"matriz"},{"relation":"origen"}],"where":{"estado":true}}`)
     );
   }
 
