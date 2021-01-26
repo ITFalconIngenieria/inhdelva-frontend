@@ -48,7 +48,7 @@ export class MedidoresComponent implements OnInit {
   listOfDataMedidores: MedidorPME[] = [];
   listOfDataRollover: RolloverModel[] = [];
   listOfDataRolloverMedidor: RolloverModel[] = [];
-
+  permiso: any;
   listOfDataMVirtuales: any[] = [];
   MVirtualesJoin: any[] = [];
   MVirtualesFilter: any[] = [];
@@ -621,6 +621,8 @@ export class MedidoresComponent implements OnInit {
 
   ngOnInit() {
     this.accion = 'nuevo';
+    this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;    
+
     this.disabledLec = true;
     this.conexion = 1;
     this.medidoresService.getMedidoresPME()

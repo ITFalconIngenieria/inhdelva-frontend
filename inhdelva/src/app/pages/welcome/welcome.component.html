@@ -6,114 +6,81 @@
                 <h1>NHDELVA</h1>
             </a>
         </div>
-        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[0]?.url" [nzTitle]="isCollapsed ? menu[0]?.Titulo : ''">
+        <ul *ngIf="menu[0]?.acceso" nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[0]?.url" [nzTitle]="isCollapsed ? menu[0]?.titulo : ''">
                 <i nz-icon [nzType]="menu[0]?.icon"></i>
-                <span> {{ menu[0]?.Titulo }} </span>
+                <span> {{ menu[0]?.titulo }} </span>
             </li>
         </ul>
-        <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Mantenimiento'" nzIcon="tool">
+        <ul *ngIf="menu[1]?.acceso" nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : menu[1]?.titulo" [nzIcon]="menu[1]?.icon">
                 <ul>
-                    <li nz-menu-item>
-                        <a routerLink="/usuarios">Usuarios</a>
+                    <li nz-menu-item *ngFor="let opcion of menu[1]?.submenu">
+                        <a [routerLink]="opcion.url">{{ opcion.titulo }}</a>
                     </li>
-                    <li nz-menu-item>
-                        <a routerLink="/clientes">Clientes</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/proveedores">Proveedores</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/localizacion">Zonas</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/medidores">Medidores</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/bloquesHorarios">Bloques Horarios</a>
-                    </li>
-                    <!-- <li nz-menu-item>
-                        <a>Tipos de contrato</a>
-                    </li> -->
                 </ul>
             </li>
         </ul>
-        <ul nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/tipoTarifa" [nzTitle]="isCollapsed ? 'Tarifa' : ''">
-                <i nz-icon nzType="calculator"></i>
-                <span>Tarifa</span>
+        <ul *ngIf="menu[2]?.acceso" nz-menu nzMode="inline" nzTheme="dark" [nzInlineCollapsed]="isCollapsed">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[2]?.url" [nzTitle]="isCollapsed ? menu[2]?.titulo : ''">
+                <i nz-icon [nzType]="menu[2]?.icon"></i>
+                <span>{{ menu[2]?.titulo }}</span>
             </li>
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/parametrosEntrada" [nzTitle]="isCollapsed ? 'Parámetros de entrada' : ''">
-                <i nz-icon nzType="control"></i>
-                <span>Parámetros de entrada</span>
+            <li *ngIf="menu[3]?.acceso" nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[3]?.url" [nzTitle]="isCollapsed ? menu[3]?.titulo : ''">
+                <i nz-icon [nzType]="menu[3]?.icon"></i>
+                <span>{{ menu[3]?.titulo }}</span>
             </li>
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/contratos" [nzTitle]="isCollapsed ? 'Contratos' : ''">
-                <i nz-icon nzType="book"></i>
-                <span>Contratos</span>
+            <li *ngIf="menu[4]?.acceso" nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[4]?.url" [nzTitle]="isCollapsed ? menu[4]?.titulo : ''">
+                <i nz-icon [nzType]="menu[4]?.icon"></i>
+                <span>{{ menu[4]?.titulo }}</span>
             </li>
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/matrizEnergetica" [nzTitle]="isCollapsed ? 'Matriz Energética' : ''">
-                <i nz-icon nzType="pie-chart"></i>
-                <span>Matriz Energética</span>
+            <li *ngIf="menu[5]?.acceso" nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[5]?.url" [nzTitle]="isCollapsed ? menu[5]?.titulo : ''">
+                <i nz-icon [nzType]="menu[5]?.icon"></i>
+                <span>{{ menu[5]?.titulo }}</span>
             </li>
-            <li nz-submenu nzTitle="Facturación" nzIcon="profile">
+            <li *ngIf="menu[6]?.acceso" nz-submenu [nzTitle]="menu[6]?.titulo" [nzIcon]="menu[6]?.icon">
                 <ul>
-                    <li nz-menu-item>
-                        <a routerLink="/cargosEspeciales">Cargos especiales</a>
+                    <li nz-menu-item *ngFor="let opcion of menu[6]?.submenu">
+                        <a [routerLink]="opcion.url">{{ opcion.titulo }}</a>
                     </li>
-                    <li nz-submenu nzTitle="Facturas" nzIcon="file-text">
+                    <li *ngIf="menu[7]?.acceso" nz-submenu [nzTitle]="menu[7]?.titulo" [nzIcon]="menu[7]?.icon">
                         <ul>
-                            <li nz-menu-item>
-                                <a routerLink="/facturasGeneradas">Facturas generadas</a>
-                            </li>
-                            <li nz-menu-item>
-                                <a routerLink="/facturasEmitidas">Facturas emitidas</a>
-                            </li>
-                            <li nz-menu-item>
-                                <a routerLink="/facturasCanceladas">Facturas canceladas</a>
+                            <li nz-menu-item *ngFor="let opcion of menu[7]?.submenu">
+                                <a [routerLink]="opcion.url">{{ opcion.titulo }}</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </li>
         </ul>
-        <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Reportes'" nzIcon="bar-chart">
+        <ul *ngIf="menu[8]?.acceso" nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : menu[8]?.titulo" [nzIcon]="menu[8]?.icon">
                 <ul>
-                    <li nz-menu-item>
-                        <a routerLink="/reporteProduccion">Reporte producción</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/reporteProveedores">Reporte proveedores de energía</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/reporteFacturacion">Reporte facturación</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a routerLink="/reporteValidacion">Reporte validación</a>
+                    <li nz-menu-item *ngFor="let opcion of menu[8]?.submenu">
+                        <a [routerLink]="opcion.url">{{ opcion.titulo }}</a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <ul nz-menu nzTheme="dark" nzMode="vertical">
-            <li nz-submenu [nzTitle]="isCollapsed ? '' : 'Configuración'" nzIcon="setting">
+        <ul *ngIf="menu[9]?.acceso" nz-menu nzTheme="dark" nzMode="vertical">
+            <li nz-submenu [nzTitle]="isCollapsed ? '' : menu[9]?.titulo" [nzIcon]="menu[9]?.icon">
                 <ul>
-                    <li nz-menu-item>
-                        <a routerLink="/rangoFactura">Rango factura</a>
-                    </li>
-                    <li nz-menu-item>
-                        <a>Opcion 2</a>
-                    </li>
-                    <li (click)="salir()" nz-menu-item>
-                        <a>Cerrar sesión</a>
+                    <li nz-menu-item *ngFor="let opcion of menu[9]?.submenu">
+                        <a [routerLink]="opcion.url">{{ opcion.titulo }}</a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" routerLink="/ayuda" [nzTitle]="isCollapsed ? 'Ayuda' : ''">
-                <i nz-icon nzType="question-circle"></i>
-                <span>Ayuda</span>
+        <ul nz-menu *ngIf="menu[10]?.acceso" nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" (click)="salir()" [nzTitle]="isCollapsed ? menu[10]?.titulo : ''">
+                <i nz-icon [nzType]="menu[10]?.icon"></i>
+                <span>{{ menu[10]?.titulo }}</span>
+            </li>
+        </ul>
+        <ul nz-menu *ngIf="menu[11]?.acceso" nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [routerLink]="menu[11]?.url" [nzTitle]="isCollapsed ? menu[11]?.titulo : ''">
+                <i nz-icon [nzType]="menu[11]?.icon"></i>
+                <span>{{ menu[11]?.titulo }}</span>
             </li>
         </ul>
     </nz-sider>

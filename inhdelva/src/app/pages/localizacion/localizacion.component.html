@@ -70,6 +70,6 @@
     </form>
     <div *nzModalFooter>
         <button nz-button nzType="default" (click)="handleCancel()">Cancelar</button>
-        <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
+        <button nz-button nzType="primary" (click)="guardar()" [disabled]="permiso">Guardar</button>
     </div>
 </nz-modal>

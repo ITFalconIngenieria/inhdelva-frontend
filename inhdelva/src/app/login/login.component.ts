@@ -38,8 +38,9 @@ export class LoginComponent implements OnInit {
         (data: any) => {
           console.log(data);
 
-          localStorage.setItem('guards', JSON.stringify(data.guards));    
-          localStorage.setItem('menu', JSON.stringify(data.data));    
+          localStorage.setItem('guards', JSON.stringify(data.guards));
+          localStorage.setItem('menu', JSON.stringify(data.data));
+          localStorage.setItem('permiso', data.permiso)
 
           this.userService.executeLogin(data);
           this.route.navigate(['inicio']);

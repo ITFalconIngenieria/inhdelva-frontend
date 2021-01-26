@@ -20,6 +20,7 @@ export class LocalizacionComponent implements OnInit {
   dataZona;
   listOfDataZona: ZonaModel[] = [];
   accion: string;
+  permiso: any;
 
   constructor(
     private fb: FormBuilder,
@@ -174,7 +175,7 @@ export class LocalizacionComponent implements OnInit {
   ngOnInit() {
 
     this.accion = 'new';
-
+    this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;
     this.zonaService.getZonas()
       .toPromise()
       .then(

@@ -2,11 +2,13 @@ const menu = [
     {
         titulo: 'Inicio',
         icon: 'home',
-        url: '/inicio'
+        url: '/inicio', 
+        acceso: true
     },
     {
         titulo: 'Mantenimiento',
         icon: 'tool',
+        acceso: false,
         submenu: [
             { titulo: 'Usuarios', url: '/usuarios' },
             { titulo: 'Clientes', url: '/clientes' },
@@ -19,26 +21,31 @@ const menu = [
     {
         titulo: 'Tarifa',
         icon: 'calculator',
-        url: '/tipoTarifa'
+        url: '/tipoTarifa',
+        acceso: false
     },
     {
         titulo: 'Parámetros de entrada',
         icon: 'control',
-        url: '/parametrosEntrada'
+        url: '/parametrosEntrada',
+        acceso: false
     },
     {
         titulo: 'Contratos',
         icon: 'book',
-        url: '/contratos'
+        url: '/contratos',
+        acceso: false
     },
     {
         titulo: 'Matriz Energética',
         icon: 'pie-chart',
-        url: '/matrizEnergetica'
+        url: '/matrizEnergetica',
+        acceso: false
     },
     {
         titulo: 'Facturación',
         icon: 'profile',
+        acceso: false,
         submenu: [
             { titulo: 'Cargos especiales', url: '/cargosEspeciales' }
         ]
@@ -46,6 +53,7 @@ const menu = [
     {
         titulo: 'Facturas',
         icon: 'file-text',
+        acceso: false,
         submenu: [
             { titulo: 'Facturas generadas', url: '/facturasGeneradas' },
             { titulo: 'Facturas emitidas', url: '/facturasEmitidas' },
@@ -55,6 +63,7 @@ const menu = [
     {
         titulo: 'Reportes',
         icon: 'bar-chart',
+        acceso: false,
         submenu: [
             { titulo: 'Reporte producción', url: '/reporteProduccion' },
             { titulo: 'Reporte proveedores de energía', url: '/reporteProveedores' },
@@ -65,16 +74,22 @@ const menu = [
     {
         titulo: 'Configuración',
         icon: 'setting',
+        acceso: false,
         submenu: [
-            { titulo: 'Rango factura', url: '/rangoFactura' },
-            { titulo: 'Opcion 2', url: '' },
-            { titulo: 'Cerrar sesión', url: '' }
+            { titulo: 'Rango factura', url: '/rangoFactura' }
         ]
+    },
+    {
+        titulo: 'Cerrar sesión',
+        icon: 'logout',
+        url: '/ayuda',
+        acceso: true
     },
     {
         titulo: 'Ayuda',
         icon: 'question-circle',
-        url: '/ayuda'
+        url: '/ayuda',
+        acceso: true
     }
 ]
 //
