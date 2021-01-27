@@ -26,6 +26,7 @@
         "fusioncharts": "^3.15.2",
         "jspdf": "^2.1.1",
         "jspdf-autotable": "^3.5.13",
+        "jspdf-html2canvas": "^1.4.9",
         "moment": "^2.28.0",
         "ng-zorro-antd": "^8.5.2",
         "ngx-spinner": "^8.1.0",
