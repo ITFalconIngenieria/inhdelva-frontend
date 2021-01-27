@@ -60,7 +60,7 @@ export class TarifaService {
   }
 
   getTarifasParametroRelacion() {
-    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where":{"estado":true}}`);
+    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where": {"estado":true,"tarifaId": null } }`);
   }
 
   getTipoCargo() {

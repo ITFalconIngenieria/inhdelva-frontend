@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 moment.locale('es');
 
+import html2PDF from 'jspdf-html2canvas';
+
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
