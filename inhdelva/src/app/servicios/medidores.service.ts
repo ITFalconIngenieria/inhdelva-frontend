@@ -36,7 +36,7 @@ export class MedidoresService {
   }
 
   busquedadMedidor() {
-    return this.http.get(`${apiUrl}vmedidores-pme`);
+    return this.http.get(`${apiUrl}vmedidor-pme`);
   }
 
 

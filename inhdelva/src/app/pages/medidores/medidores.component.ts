@@ -45,7 +45,7 @@ export class MedidoresComponent implements OnInit {
   disebleTipo: boolean = false;
   cantMV: number = 0;
   medidoresPME: any[] = [];
-  listOfDataMedidores: MedidorPME[] = [];
+  listOfDataMedidores: any[] = [];
   listOfDataRollover: RolloverModel[] = [];
   listOfDataRolloverMedidor: RolloverModel[] = [];
   permiso: any;
@@ -207,7 +207,7 @@ export class MedidoresComponent implements OnInit {
       codigo: this.codigo,
       lecturaMax: (this.lecMax === '0' || this.lecMax === undefined) ? '0' : `${this.lecMax}`,
       multiplicador: (this.multiplicador === undefined) ? '1' : `${this.multiplicador}`,
-      puntoMedicionId: (this.conexion === 0) ? 1 : this.conexion,
+      puntoMedicionId: (this.conexion === 0) ? 1 : parseFloat(this.conexion),
       tipo: (this.tipoMedidor === 'f') ? false : true,
       observacion: (this.observacion === '' || this.observacion === undefined) ? 'N/A' : this.observacion,
       estado: true
@@ -322,7 +322,7 @@ export class MedidoresComponent implements OnInit {
   editarMedidor(data, tipo) {
 
     if (tipo === 'f') {
-      this.disabledLec = false;
+      this.disableVirtual = false;
       this.isVisible = true;
       this.idMedidor = data.id;
       this.accion = 'editar';
@@ -343,6 +343,7 @@ export class MedidoresComponent implements OnInit {
       this.checkMVirtual(data.id).then(
         (data) => {
           if (data === true) {
+            this.disableVirtual = true;
             this.accion = 'editar';
             this.tipoMedidor = 'v';
             this.isVisible = true;
@@ -566,7 +567,7 @@ export class MedidoresComponent implements OnInit {
 
   busquedadMedidor() {
     const codigo = this.codigo;
-    const medidor: MedidorPME[] = this.medidoresPME.filter(x => x.codigo === codigo);
+    const medidor: any[] = this.medidoresPME.filter(x => x.nombre === codigo);
 
     if (medidor.length > 0) {
 
@@ -621,9 +622,9 @@ export class MedidoresComponent implements OnInit {
 
   ngOnInit() {
     this.accion = 'nuevo';
-    this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;    
+    this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;
 
-    this.disabledLec = true;
+    this.disabledLec = false;
     this.conexion = 1;
     this.medidoresService.getMedidoresPME()
       .toPromise()
@@ -698,6 +699,8 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.medidoresPME = data;
+          console.log(data);
+
           // tslint:disable-next-line: prefer-for-of
           // for (let x = 0; x < data.length; x++) {
           //   this.medidoresPME = [{

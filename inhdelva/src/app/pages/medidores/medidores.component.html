@@ -165,7 +165,7 @@
                     <nz-form-label>Lectura maxima</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
-                            <nz-input-number [disabled]="disabledLec" [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                            <nz-input-number [disabled]="disableVirtual" [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" [nzMin]="0" [nzStep]="1"></nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
                         </div>
                     </nz-form-control>
@@ -178,6 +178,7 @@
                         <nz-radio-group [(ngModel)]="conexion" [ngModelOptions]="{standalone: true}">
                             <label nz-radio nzValue="1">Baja tensión</label>
                             <label nz-radio nzValue="2">Media tensión</label>
+                            <label nz-radio nzValue="3">Alta tensión</label>
                         </nz-radio-group>
                     </nz-form-control>
                 </nz-form-item>
