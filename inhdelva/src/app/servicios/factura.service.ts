@@ -34,8 +34,10 @@ export class FacturaService {
     localStorage.removeItem('dataFactura');
   }
 
-  getListadoFacturas(id) {
-    return this.http.get(`${apiUrl}vlistado-facturas?filter[where][Estado]=${id}`);
+  getListadoFacturas(estado, fechaInicio, fechaFin) {
+    // return this.http.get(`${apiUrl}vlistado-facturas?filter[where][Estado]=${estado}`);
+    return this.http.get(`${apiUrl}vlistado-facturas?filter={"where":{ "fechaInicio":{ "between":["${fechaInicio}","${fechaFin}"]}, "Estado": ${estado}}}`);
+
   }
 
   getDetalleFactura(id, fechaInicio, fechaFin, fechaInicioFac, fechaFinFac, idContrato, idMedidor): Observable<any> {

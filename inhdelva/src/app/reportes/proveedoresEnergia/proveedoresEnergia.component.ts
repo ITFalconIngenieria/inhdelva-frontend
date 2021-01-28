@@ -104,8 +104,8 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
       this.reporteService.proveedoresEnergia(
         this.proveedores,
-        moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
-        moment(moment(this.fechas[1]).format('YYYY-MM-DD')).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(), 
+        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
       )
         .toPromise()
         .then(

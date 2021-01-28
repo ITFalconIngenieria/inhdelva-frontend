@@ -50,8 +50,8 @@ export class ValidacionComponent implements OnInit {
     } else {
 
       this.reporteService.validacion(
-        moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
-        moment(moment(this.fechas[1]).format('YYYY-MM-DD')).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(), 
+        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
       )
         .toPromise()
         .then(

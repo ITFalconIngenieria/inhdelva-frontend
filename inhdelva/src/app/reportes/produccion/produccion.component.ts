@@ -82,8 +82,8 @@ export class ProduccionComponent implements OnInit {
     } else {
 
       this.reporteService.produccion(
-        moment(moment(this.fechas[0]).format('YYYY-MM-DD')).toISOString(),
-        moment(moment(this.fechas[1]).format('YYYY-MM-DD')).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(), 
+        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
       )
         .toPromise()
         .then(
