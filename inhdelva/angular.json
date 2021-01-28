@@ -34,7 +34,9 @@
                         ],
                         "scripts": [
                             "node_modules/jspdf/dist/jspdf.es.min.js",
-                            "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"
+                            "node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
+                            "node_modules/html2canvas/dist/html2canvas.min.js",
+                            "node_modules/jspdf/dist/jspdf.node.min.js"
                         ]
                     },
                     "configurations": {

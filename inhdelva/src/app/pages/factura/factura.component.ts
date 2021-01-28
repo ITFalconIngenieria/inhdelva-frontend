@@ -1,5 +1,5 @@
 import { EncabezadoFactura, BloquesdeEnergia, DetalleFactura } from './../../Modelos/factura';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FacturaService } from '../../servicios/factura.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
@@ -7,7 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import * as moment from 'moment';
 moment.locale('es');
 
-import html2PDF from 'jspdf-html2canvas';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-factura',
@@ -16,57 +17,7 @@ import html2PDF from 'jspdf-html2canvas';
 })
 export class FacturaComponent implements OnInit {
 
-  // EtiquetaProveedores = {
-  //   color: '#000000',
-  //   'font-size': '13px',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '55%'
-  // };
-
-  // HRproveedores = {
-  //   height: '2px',
-  //   width: '54%',
-  //   'background-color': '#E37D25',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '57%'
-  // };
-
-  // ValorProveedores = {
-  //   color: '#000000',
-  //   'font-size': '13px',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '64%'
-  // };
-
-  // EtiquetaInh = {
-  //   color: '#000000',
-  //   'font-size': '13px',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '35%'
-  // };
-
-  // HRinh = {
-  //   height: '2px',
-  //   width: '59%',
-  //   'background-color': '#F9D32A',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '37%'
-  // };
-
-  // ValorIhn = {
-  //   color: '#000000',
-  //   'font-size': '13px',
-  //   position: 'absolute',
-  //   right: 0,
-  //   top: '45%'
-  // };
-
-
+  @ViewChild('content', { 'static': true }) content: ElementRef;
 
   dataSourceConsumo: any;
   chartDataConsumo: any[] = [];
@@ -86,7 +37,7 @@ export class FacturaComponent implements OnInit {
   cargado: boolean;
   pag;
   EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
-  BloquesdeEnergiaFactura: BloquesdeEnergia[] = [];
+  BloquesdeEnergiaFactura: any[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
   factorRecargo: number;
   matrizEnergetica: any[] = [];
@@ -146,6 +97,8 @@ export class FacturaComponent implements OnInit {
         (data: any) => {
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];
+          console.log(this.BloquesdeEnergiaFactura);
+
           this.DetalleFacturaData = { ...data[2] };
           // console.log(data[2]);
           // console.log(data[5]);
@@ -681,5 +634,33 @@ export class FacturaComponent implements OnInit {
         }
       );
 
+  }
+
+  generarPDF() {
+    this.spinner.show();
+    const div = document.getElementById('content');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+
+    html2canvas(div, options).then((canvas) => {
+
+      var img = canvas.toDataURL("image/PNG");
+      var doc = new jsPDF('p', 'mm', 'a4', true);
+
+      // Add image Canvas to PDF
+      const bufferX = 5;
+      const bufferY = 5;
+      const imgProps = (<any>doc).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      (doc as any).addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+
+      return doc;
+    }).then((doc) => {
+      doc.save('factura.pdf');
+      this.spinner.hide();
+    });
   }
 }
