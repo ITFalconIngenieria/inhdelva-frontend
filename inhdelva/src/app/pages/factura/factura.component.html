@@ -1,5 +1,8 @@
-<button nz-button nzType="primary" (click)="volver()"><i nz-icon nzType="rollback"></i>Volver a
-    facturas</button>
+<div>
+    <button nz-button nzType="primary" (click)="volver()"><i nz-icon nzType="rollback"></i>Volver a facturas</button>
+    <button nz-button (click)="generarPDF()" style="background-color: #e67d7d;" nzDanger><i nz-icon nzType="file-pdf"></i>Generar PDF</button>
+</div>
+
 <hr>
 <div class="cabecera">
     <h1> INHDELVA </h1>
@@ -9,7 +12,8 @@
     </div>
 </div>
 <br>
-<div *ngIf="cargado">
+
+<div *ngIf="cargado" id="content">
     <div class="titulos">
         <h5>Datos de Factura</h5>
         <h5>Datos del titular </h5>

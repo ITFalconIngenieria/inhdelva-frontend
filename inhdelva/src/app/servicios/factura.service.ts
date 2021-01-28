@@ -40,11 +40,6 @@ export class FacturaService {
 
   getDetalleFactura(id, fechaInicio, fechaFin, fechaInicioFac, fechaFinFac, idContrato, idMedidor): Observable<any> {
 
-    // tslint:disable-next-line: max-line-length
-    console.log(`${apiUrl}v-matriz-energia-pros?filter={"where":{"and":[{"or":[{"FechaInicio":{"lt":"${fechaInicioFac}"}},{"FechaInicio":"${fechaInicioFac}"}]},{"or":[{ "FechaFinal":{"gt":${fechaInicioFac}"}},{"FechaFinal":"${fechaInicioFac}"}]}]},"fields":{"FechaInicio":false,"FechaFinal":false},"order":["Id ASC"]}`);
-    console.log(`${apiUrl}grafico?fechai=${fechaInicioFac}&fechaf=${fechaFinFac}`);
-
-
     return forkJoin(
       this.http.get(`${apiUrl}facturas/${id}`),
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":${id}}}`),
