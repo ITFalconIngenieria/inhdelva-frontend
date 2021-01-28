@@ -5,6 +5,8 @@ import { Router, NavigationExtras } from '@angular/router';
 import swal from 'sweetalert';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-facturasGeneradas',
@@ -34,6 +36,7 @@ export class FacturasGeneradasComponent implements OnInit {
       }
     }
   ];
+  fechas = null;
 
   isVisible = false;
   checked = false;
@@ -53,7 +56,9 @@ export class FacturasGeneradasComponent implements OnInit {
     private fb: FormBuilder,
     private facturaService: FacturaService,
     private router: Router,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private spinner: NgxSpinnerService
+
   ) { }
 
   parserValor = (value: string) => value.replace('Lps ', '');
@@ -83,25 +88,6 @@ export class FacturasGeneradasComponent implements OnInit {
 
   ngOnInit() {
 
-    this.facturaService.getListadoFacturas(1)
-      .toPromise()
-      .then(
-        (data: ListadoFactura[]) => {
-          this.listOfDataFacturas = data;
-        },
-        (error) => {
-
-          swal({
-            icon: 'error',
-            title: 'No se pudo conectar al servidor',
-            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
-          });
-
-          console.log(error);
-        }
-      );
-
-
     this.validateForm = this.fb.group({
       cargoFinancionamiento: [0],
       ajuste: [0],
@@ -111,6 +97,56 @@ export class FacturasGeneradasComponent implements OnInit {
       total: [0],
     });
 
+  }
+
+  consultar() {
+    this.spinner.show();
+    if (this.fechas === null) {
+      this.spinner.hide();
+
+      swal({
+        icon: 'warning',
+        title: 'No se puede consultar',
+        text: 'Debe seleccionar un rango de fechas'
+      });
+    } else {
+      this.facturaService.getListadoFacturas(
+        1, 
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(), 
+        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
+        )
+        .toPromise()
+        .then(
+          (data: any[]) => {
+            this.listOfDataFacturas = data;
+
+            if (this.listOfDataFacturas.length <= 0) {
+              swal({
+                icon: 'error',
+                title: 'No se encontraron facturas',
+                text: 'Por favor revise la fecha que ha consultado'
+              });
+
+              this.spinner.hide();
+
+            }
+            this.spinner.hide();
+
+            console.log(data);
+
+          },
+          (error) => {
+            this.spinner.hide();
+            swal({
+              icon: 'error',
+              title: 'No se pudo conectar al servidor',
+              text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+            });
+
+            console.log(error);
+          }
+        );
+    }
   }
 
   ShowNotification(type: string, titulo: string, mensaje: string): void {

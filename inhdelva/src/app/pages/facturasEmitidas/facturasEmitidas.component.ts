@@ -4,6 +4,8 @@ import { ListadoFactura } from '../../Modelos/factura';
 import { Router, NavigationExtras } from '@angular/router';
 import swal from 'sweetalert';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-facturasEmitidas',
@@ -14,11 +16,13 @@ export class FacturasEmitidasComponent implements OnInit {
 
   listOfCurrentPageData: ListadoFactura[] = [];
   listOfDataFacturas: ListadoFactura[] = [];
+  fechas = null;
 
   constructor(
     private facturaService: FacturaService,
     private router: Router,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private spinner: NgxSpinnerService
   ) { }
 
   verFactura(data) {
@@ -30,25 +34,56 @@ export class FacturasEmitidasComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
 
-    this.facturaService.getListadoFacturas(2)
-      .toPromise()
-      .then(
-        (data: ListadoFactura[]) => {
-          this.listOfDataFacturas = data;
+  consultar() {
+    this.spinner.show();
+    if (this.fechas === null) {
+      this.spinner.hide();
 
-        },
-        (error) => {
+      swal({
+        icon: 'warning',
+        title: 'No se puede consultar',
+        text: 'Debe seleccionar un rango de fechas'
+      });
+    } else {
+      this.facturaService.getListadoFacturas(
+        2,
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(),
+        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
+      )
+        .toPromise()
+        .then(
+          (data: any[]) => {
+            this.listOfDataFacturas = data;
 
-          swal({
-            icon: 'error',
-            title: 'No se pudo conectar al servidor',
-            text: 'Revise su conexión a internet o comuníquese con el proveedor.'
-          });
+            if (this.listOfDataFacturas.length <= 0) {
+              swal({
+                icon: 'error',
+                title: 'No se encontraron facturas',
+                text: 'Por favor revise la fecha que ha consultado'
+              });
 
-          console.log(error);
-        }
-      );
+              this.spinner.hide();
+
+            }
+            this.spinner.hide();
+
+            console.log(data);
+
+          },
+          (error) => {
+            this.spinner.hide();
+            swal({
+              icon: 'error',
+              title: 'No se pudo conectar al servidor',
+              text: 'Revise su conexión a internet o comuníquese con el proveedor.'
+            });
+
+            console.log(error);
+          }
+        );
+    }
   }
 
   ShowNotification(type: string, titulo: string, mensaje: string): void {

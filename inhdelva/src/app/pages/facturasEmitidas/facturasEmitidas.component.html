@@ -1,6 +1,14 @@
 <h2> Facturas emitidas </h2>
 <br>
 <br>
+<div style="display: flex; justify-content: center;">
+    <div>
+        <p style="font-size: 16px; color: black; font-weight: bold;"> Fechas: </p>
+        <nz-range-picker nzMode="month" [(ngModel)]="fechas"></nz-range-picker>
+    </div>
+    <br>
+    <button nz-button nzType="primary" (click)="consultar()" style="margin: 2% 0% 0% 4%;"><i nz-icon nzType="search"></i>Consultar</button>
+</div>
 <div class="tabla">
     <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6">
         <thead>
@@ -30,4 +38,8 @@
             </tr>
         </tbody>
     </nz-table>
+</div>
+
+<div>
+    <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>
