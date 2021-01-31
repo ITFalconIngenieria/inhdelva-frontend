@@ -42,6 +42,8 @@ export class FacturaService {
 
   getDetalleFactura(id, fechaInicio, fechaFin, fechaInicioFac, fechaFinFac, idContrato, idMedidor): Observable<any> {
 
+    console.log(fechaInicioFac, fechaFinFac);
+
     return forkJoin(
       this.http.get(`${apiUrl}facturas/${id}`),
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":${id}}}`),
@@ -59,7 +61,7 @@ export class FacturaService {
          },"order":["Id ASC"]
      }`),
       // tslint:disable-next-line: max-line-length
-      this.http.get(`${apiUrl}grafico?fechai=${moment(fechaInicioFac).add(6, 'hour').format('YYYY-MM-DD HH:mm:ss')}&fechaf=${fechaFinFac}`)
+      this.http.get(`${apiUrl}grafico?fechai=${fechaInicioFac}&fechaf=${fechaFinFac}`)
 
     );
   }

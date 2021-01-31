@@ -17,16 +17,24 @@ export class UsuarioService {
     return this.http.get(`${apiUrl}usuarios`);
   }
 
-  postUsuarios(usuarios) {
-    return this.http.post(`${apiUrl}signup`, usuarios);
+  getAllUsuarios() {
+    return this.http.get(`${apiUrl}AllUser`);
   }
 
-  putUsuarios(id, usuarios) {
-    return this.http.put(`${apiUrl}usuarios/${id}`, usuarios);
+  postUsuario(usuario) {
+    return this.http.post(`${apiUrl}signup`, usuario);
   }
 
-  deleteUsuarios(id, usuarios) {
-    return this.http.patch(`${apiUrl}usuarios/${id}`, usuarios);
+  postUsuarioRelacion(usuario) {
+    return this.http.post(`${apiUrl}AddUser`, usuario);
+  }
+
+  putUsuario(usuario) {
+    return this.http.put(`${apiUrl}UpdateUser`, usuario);
+  }
+
+  deleteUsuario(id, usuario) {
+    return this.http.patch(`${apiUrl}usuarios/${id}`, usuario);
   }
 
 }

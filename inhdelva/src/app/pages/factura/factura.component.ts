@@ -87,7 +87,7 @@ export class FacturaComponent implements OnInit {
       id,
       `${moment(fechaInicio).subtract(12, 'month').format('YYYY-MM-DD')}T00:00:00.000Z`,
       `${moment(fechaInicio).add(1, 'day').format('YYYY-MM-DD')}T00:00:00.000Z`,
-      `${moment(fechaInicio).format('YYYY-MM-DD')}T00:00:00.000Z`,
+      `${moment(fechaInicio).format('YYYY-MM-DD')}T06:00:00.000Z`,
       `${moment(fechaFin).format('YYYY-MM-DD')}T06:00:00.000Z`,
       contratoid,
       medidorId
@@ -104,15 +104,16 @@ export class FacturaComponent implements OnInit {
           // console.log(data[5]);
 
           const matrisInh = data[5];
+          console.log(data[5]);
 
           this.chatDataMatrizInh = [
             {
-              label: 'Fracción energía concencional',
-              value: Math.round(matrisInh[0].Convencional * 100) / 100
+              label: 'Fracción energía convencional',
+              value: matrisInh[0].Convencional
             },
             {
               label: 'Fracción energía solar fotovoltaica',
-              value: Math.round(matrisInh[1].Solar * 100) / 100
+              value: matrisInh[1].Solar
             }
           ];
 
