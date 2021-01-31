@@ -47,14 +47,24 @@ export class UsuariosComponent implements OnInit {
   guardar() {
     // tslint:disable-next-line: max-line-length
     this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+    this.validateForm.value.tuser = parseFloat(this.validateForm.value.tuser);
 
     this.dataUser = {
       ...this.validateForm.value,
       estado: true
     };
 
+    console.log(this.dataUser);
+
+
     if (this.accion === 'editar') {
-      this.usuarioService.putUsuarios(this.userEdit, this.dataUser)
+
+      const dataUser = {
+        ...this.validateForm.value,
+        estado: true,
+        usId: this.userEdit
+      };
+      this.usuarioService.putUsuario(dataUser)
         .toPromise()
         .then(
           () => {
@@ -64,12 +74,12 @@ export class UsuariosComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
 
-            for (const item of this.listOfDataUsuarios.filter(x => x.id === this.userEdit)) {
-              item.codigo = this.dataUser.codigo;
-              item.descripcion = this.dataUser.descripcion;
-              item.observacion = this.dataUser.observacion;
-              item.estado = this.dataUser.estado;
-            }
+            // for (const item of this.listOfDataUsuarios.filter(x => x.id === this.userEdit)) {
+            //   item.codigo = this.dataUser.codigo;
+            //   item.descripcion = this.dataUser.descripcion;
+            //   item.observacion = this.dataUser.observacion;
+            //   item.estado = this.dataUser.estado;
+            // }
 
             this.accion = 'new';
             this.limpiar();
@@ -88,7 +98,7 @@ export class UsuariosComponent implements OnInit {
           }
         );
     } else {
-      this.usuarioService.postUsuarios(this.dataUser)
+      this.usuarioService.postUsuarioRelacion(this.dataUser)
         .toPromise()
         .then(
           (data: any) => {
@@ -120,22 +130,23 @@ export class UsuariosComponent implements OnInit {
     this.isVisible = true;
     console.log(data);
 
-    this.userEdit = data.id;
+    this.userEdit = data.usId;
     this.validateForm = this.fb.group({
-      nombre: [data.nombre, [Validators.required]],
-      apellido: [data.apellido, [Validators.required]],
+      nombre: [data.Nombre, [Validators.required]],
+      apellido: [data.Apellido, [Validators.required]],
       username: [data.username, [Validators.required]],
       email: [data.email, [Validators.email]],
-      ad: [data.ad],
+      ad: [data.AD],
       password: [data.password, [Validators.required, Validators.minLength(5)]],
-      telefono: [data.telefono],
-      observacion: [data.observacion]
+      telefono: [data.Telefono],
+      tuser: [(data.TipoUsuario).toString()],
+      observacion: [data.Observacion]
     });
 
   }
 
   eliminar(data) {
-    this.usuarioService.deleteUsuarios(data.id, { estado: false })
+    this.usuarioService.deleteUsuario(data.id, { estado: false })
       .toPromise()
       .then(
         () => {
@@ -165,8 +176,9 @@ export class UsuariosComponent implements OnInit {
       username: [null, [Validators.required]],
       email: [null, [Validators.email]],
       password: [null, [Validators.required, Validators.minLength(5)]],
-      ad: [true, [Validators.email]],
+      ad: [true],
       telefono: [null],
+      tuser: ['2'],
       observacion: [null]
     });
   }
@@ -183,11 +195,13 @@ export class UsuariosComponent implements OnInit {
 
     this.accion = 'new';
 
-    this.usuarioService.getUsuarios()
+    this.usuarioService.getAllUsuarios()
       .toPromise()
       .then(
         (data: any[]) => {
           this.listOfDataUsuarios = data;
+          console.log(data);
+
         },
         (error) => {
           swal({

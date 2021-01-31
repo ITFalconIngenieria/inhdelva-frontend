@@ -4,7 +4,7 @@
     </div>
     <div class="col" style="display: flex; justify-content: flex-end;">
         <button nz-button nzType="primary" (click)="showModal()" nzShape="round"><i nz-icon nzType="plus"
-        nzTheme="outline"></i>Nueva usuarios</button>
+                nzTheme="outline"></i>Nueva usuarios</button>
     </div>
 </div>
 <br>
@@ -18,6 +18,7 @@
                 <th nzWidth="30px"></th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>User</th>
                 <th>Telefono</th>
                 <th>D/A</th>
             </tr>
@@ -28,18 +29,19 @@
                     <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
                     <td style="width: 30px;">
                         <button nz-button nzType="primary" (click)="editar(data)" nzShape="circle">
-              <i nz-icon nzType="edit" nzTheme="outline"></i>
-            </button>
+                            <i nz-icon nzType="edit" nzTheme="outline"></i>
+                        </button>
                     </td>
                     <td style="width: 30px;">
                         <button nz-button nzType="primary" (click)="eliminar(data)" nzShape="circle">
-              <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </button>
+                            <i nz-icon nzType="delete" nzTheme="outline"></i>
+                        </button>
                     </td>
-                    <td>{{ data.nombre }}</td>
-                    <td>{{ data.apellido }}</td>
-                    <td>{{ data.telefono }}</td>
-                    <td>{{ data.ad && 'Activo' || 'Inactivo'}}</td>
+                    <td>{{ data.Nombre }}</td>
+                    <td>{{ data.Apellido }}</td>
+                    <td>{{ data.username }}</td>
+                    <td>{{ data.Telefono }}</td>
+                    <td>{{ data.AD && 'Activo' || 'Inactivo'}}</td>
 
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
@@ -71,7 +73,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div style="width: 70%; margin: auto;">
+            <div>
                 <nz-form-item>
                     <nz-form-label nzRequired nzFor="username">Usuario</nz-form-label>
                     <nz-form-control nzErrorTip="El dato es incorrecto!">
@@ -96,7 +98,20 @@
                     </ng-template>
                 </nz-form-item>
             </div>
-            <div style="width: 30%; margin: auto;">
+        </div>
+        <div class="grid-tres">
+            <div>
+                <nz-form-item>
+                    <nz-form-label>Tipo de usuario</nz-form-label>
+                    <nz-form-control nzErrorTip="El dato es incorrecto!">
+                        <nz-radio-group [(ngModel)]="radioValue" formControlName="tuser">
+                            <label nz-radio nzValue="1">Administrador</label>
+                            <label nz-radio nzValue="2">Tecnico</label>
+                        </nz-radio-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
                 <nz-form-item>
                     <nz-form-label nzFor="telefono">Directorio</nz-form-label>
                     <nz-form-control nzErrorTip="El dato es incorrecto!">
@@ -104,7 +119,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div style="width: 70%; margin: auto;">
+            <div>
                 <nz-form-item>
                     <nz-form-label nzFor="telefono">Telefono</nz-form-label>
                     <nz-form-control nzErrorTip="El dato es incorrecto!">
@@ -123,7 +138,7 @@
             </nz-form-item>
         </div>
         <nz-form-item>
-            <nz-form-label nzRequired nzFor="observacion">Observación</nz-form-label>
+            <nz-form-label nzFor="observacion">Observación</nz-form-label>
             <nz-form-control nzErrorTip="El dato es incorrecto!">
                 <textarea nz-input formControlName="observacion" placeholder="Escribe aquí..."></textarea>
             </nz-form-control>

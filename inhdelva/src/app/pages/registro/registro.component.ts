@@ -2,7 +2,7 @@ import { UsuarioService } from './../../servicios/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { max } from 'moment';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-registro',
@@ -32,7 +32,8 @@ export class RegistroComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
- 
+    this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+
     this.dataUsuarios = {
       ...this.validateForm.value,
       ad: 0,
@@ -43,21 +44,31 @@ export class RegistroComponent implements OnInit {
     console.log(this.dataUsuarios);
 
 
-    this.usuarioService.postUsuarios(this.dataUsuarios)
+    this.usuarioService.postUsuario(this.dataUsuarios)
       .toPromise()
       .then(
-        (data) => {
+        (data: any) => {
+          console.log(data);
 
-          this.validateForm = this.fb.group({
-            nombre: [null, [Validators.required]],
-            apellido: [null, [Validators.required]],
-            username: [null, [Validators.required]],
-            email: [null, [Validators.email]],
-            password: [null, [Validators.required, Validators.minLength(5)]],
-            telefono: [null],
-            observacion: [null]
-          });
-          this.createMessage('success', 'Usuario creado con exito');
+          if (data.info) {
+            swal({
+              icon: 'warning',
+              title: `${data.info.message}`,
+              text: 'Ya existe un usuario con ese correo'
+            });
+            
+          } else {
+            this.validateForm = this.fb.group({
+              nombre: [null, [Validators.required]],
+              apellido: [null, [Validators.required]],
+              username: [null, [Validators.required]],
+              email: [null, [Validators.email]],
+              password: [null, [Validators.required, Validators.minLength(5)]],
+              telefono: [null],
+              observacion: [null]
+            });
+            this.createMessage('success', 'Usuario creado con exito');
+          }
 
         },
         (error) => {
