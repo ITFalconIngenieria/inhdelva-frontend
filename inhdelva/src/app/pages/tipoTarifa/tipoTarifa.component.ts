@@ -89,7 +89,10 @@ export class TipoTarifaComponent implements OnInit {
       this.tarifaService.putTarifa(this.idTarifa, dataTarifa)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
+            console.log(data);
+            
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -120,7 +123,9 @@ export class TipoTarifaComponent implements OnInit {
       this.tarifaService.postTarifa(dataTarifa)
         .toPromise()
         .then(
-          (data: TarifaModel) => {
+          (data: any) => {
+
+            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
