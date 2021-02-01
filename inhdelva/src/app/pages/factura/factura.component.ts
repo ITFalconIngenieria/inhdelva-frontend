@@ -660,7 +660,7 @@ export class FacturaComponent implements OnInit {
 
       return doc;
     }).then((doc) => {
-      doc.save('factura.pdf');
+      doc.save(`factura-${this.dataFactura.codigo}.pdf`);
       this.spinner.hide();
     });
   }

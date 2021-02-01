@@ -96,7 +96,9 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.putRollovers(this.idRollover, dataRollover)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
+            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -140,7 +142,9 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.postRollovers(dataRollover)
         .toPromise()
         .then(
-          (data: RolloverModel) => {
+          (data: any) => {
+
+            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -217,7 +221,9 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.putMedidores(this.idMedidor, dataMedidor)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
+            console.log(data);
 
             this.ShowNotification(
               'success',
@@ -277,14 +283,16 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.postMedidores(dataMedidor)
         .toPromise()
         .then(
-          (data: Medidor) => {
+          (data: any) => {
+
+            console.log(data);
             this.cantidad = this.cantidad + 1;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            // this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
+            this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
 
             this.codigo = '';
             this.descripcion = '';
@@ -443,7 +451,9 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.putMedidoreVirtual(this.idMVEdit, dataMV)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
+            console.log(data);
 
             this.limpiarMVirtual();
             for (const item of this.MVirtualesJoin.filter(x => x.id === this.idMVEdit)) {
@@ -485,15 +495,15 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.postMedidoreVirtual(dataMV)
         .toPromise()
         .then(
-          (data) => {
+          (data: any) => {
 
+            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
             this.limpiarMVirtual();
-            console.log(data);
           },
           (error) => {
             this.ShowNotification(
@@ -629,16 +639,16 @@ export class MedidoresComponent implements OnInit {
     this.medidoresService.getMedidoresPME()
       .toPromise()
       .then(
-        (data: MedidorPME[]) => {
+        (data: any[]) => {
 
           this.listOfDataMedidores = data;
+          console.log(this.listOfDataMedidores);
+          
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
             .toPromise()
             .then((data: any[]) => {
-              console.log(this.listOfDataMVirtuales);
-
               this.listOfDataMVirtuales = data
             })
 
