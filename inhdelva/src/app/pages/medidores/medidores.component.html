@@ -156,7 +156,7 @@
         <nz-form-item>
             <nz-form-label>Direción IP</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input disabled="true" [(ngModel)]="direccionIp" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input disabled="true" [(ngModel)]="ip" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
             </nz-form-control>
         </nz-form-item>
         <div class="row">
@@ -165,7 +165,7 @@
                     <nz-form-label>Lectura maxima</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
-                            <nz-input-number [disabled]="disableVirtual" [(ngModel)]="lecMax" [ngModelOptions]="{standalone: true}" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                            <nz-input-number [disabled]="disableVirtual" [(ngModel)]="lecturaMax" [ngModelOptions]="{standalone: true}" [nzMin]="0" [nzStep]="1"></nz-input-number>
                             <label style="color: black; font-size: 17px; margin-left: 2%;"> kW</label>
                         </div>
                     </nz-form-control>
@@ -175,7 +175,7 @@
                 <nz-form-item>
                     <nz-form-control>
                         <nz-form-label>Punto de conexión</nz-form-label>
-                        <nz-radio-group [(ngModel)]="conexion" [ngModelOptions]="{standalone: true}">
+                        <nz-radio-group [(ngModel)]="puntoMedicionId" [ngModelOptions]="{standalone: true}">
                             <label nz-radio nzValue="1">Baja tensión</label>
                             <label nz-radio nzValue="2">Media tensión</label>
                             <label nz-radio nzValue="3">Alta tensión</label>
@@ -283,7 +283,7 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Historico de Rollover </h6>
-        <nz-table #nzTableRollover [nzData]="listOfDataRolloverMedidor" nzTableLayout="fixed" nzPageSize="5">
+        <nz-table #nzTableRollover [nzData]="listOfDataRolloverMedidor" nzTableLayout="fixed" nzPageSize="4">
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>

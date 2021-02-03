@@ -286,21 +286,21 @@ nz-spin {
     position: absolute;
     font-size: 15px;
     color: black;
-    margin: 0% 0% 0% 1%;
+    margin: -9px 0px 0px 1px;
 }
 
 .formula-divisor1 {
     position: absolute;
     font-size: 15px;
     color: black;
-    margin: 0% 0% 0% 12%;
+    margin: -9px 0px 0px 198px;
 }
 
 .formula-divisor2 {
     position: absolute;
     font-size: 15px;
     color: black;
-    margin: 0% 0% 0% 18%;
+    margin: -9px 0px 0px 378px;
 }
 
 .formula-penalidad {
@@ -314,7 +314,7 @@ nz-spin {
     position: absolute;
     font-size: 15px;
     color: black;
-    margin: 0% 0% 0% 28%;
+    margin: -9px 0px 0px 526px;
     background-color: #d8d8d8;
     padding: 0px 12px 0px 12px;
 }

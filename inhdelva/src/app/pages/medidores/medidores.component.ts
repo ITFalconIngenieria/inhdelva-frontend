@@ -25,9 +25,9 @@ export class MedidoresComponent implements OnInit {
   descripcion: string;
   serie: string;
   modelo: string;
-  direccionIp: string;
-  lecMax: any;
-  conexion: any;
+  ip: string;
+  lecturaMax: any;
+  puntoMedicionId: any;
   multiplicador: any;
   observacion: string;
   tipoMedidor: string = 'f'
@@ -96,9 +96,8 @@ export class MedidoresComponent implements OnInit {
       this.medidoresService.putRollovers(this.idRollover, dataRollover)
         .toPromise()
         .then(
-          (data: any) => {
+          () => {
 
-            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -136,6 +135,7 @@ export class MedidoresComponent implements OnInit {
             this.accion = 'new';
             this.limpiarRollover();
             console.log(error);
+
           }
         );
     } else {
@@ -144,14 +144,33 @@ export class MedidoresComponent implements OnInit {
         .then(
           (data: any) => {
 
-            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor, data];
-            this.listOfDataRollover = [...this.listOfDataRollover, data];
+            this.listOfDataRolloverMedidor = [...this.listOfDataRolloverMedidor,
+            {
+              energia: data.energia,
+              estado: data.estado,
+              fecha: data.fecha,
+              id: data.id,
+              lecturaAnterior: data.lecturaAnterior,
+              lecturaNueva: data.lecturaNueva,
+              medidorId: data.medidorId,
+              observacion: data.observacion
+            }];
+            this.listOfDataRollover = [...this.listOfDataRollover,
+            {
+              energia: data.energia,
+              estado: data.estado,
+              fecha: data.fecha,
+              id: data.id,
+              lecturaAnterior: data.lecturaAnterior,
+              lecturaNueva: data.lecturaNueva,
+              medidorId: data.medidorId,
+              observacion: data.observacion
+            }];
             this.limpiarRollover();
 
           },
@@ -209,9 +228,9 @@ export class MedidoresComponent implements OnInit {
   guardarMedidor() {
     const dataMedidor = {
       codigo: this.codigo,
-      lecturaMax: (this.lecMax === '0' || this.lecMax === undefined) ? '0' : `${this.lecMax}`,
+      lecturaMax: (this.lecturaMax === '0' || this.lecturaMax === undefined) ? '0' : `${this.lecturaMax}`,
       multiplicador: (this.multiplicador === undefined) ? '1' : `${this.multiplicador}`,
-      puntoMedicionId: (this.conexion === 0) ? 1 : parseFloat(this.conexion),
+      puntoMedicionId: (this.puntoMedicionId === 0) ? 1 : parseFloat(this.puntoMedicionId),
       tipo: (this.tipoMedidor === 'f') ? false : true,
       observacion: (this.observacion === '' || this.observacion === undefined) ? 'N/A' : this.observacion,
       estado: true
@@ -222,8 +241,6 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
-
-            console.log(data);
 
             this.ShowNotification(
               'success',
@@ -240,8 +257,6 @@ export class MedidoresComponent implements OnInit {
 
             for (const item of this.listOfDataMVirtuales.filter(x => x.id === this.idMedidor)) {
               item.codigo = dataMedidor.codigo;
-              item.lecturaMax = dataMedidor.lecturaMax;
-              item.multiplicador = dataMedidor.multiplicador;
               item.observacion = dataMedidor.observacion;
             }
 
@@ -249,13 +264,14 @@ export class MedidoresComponent implements OnInit {
             this.descripcion = '';
             this.serie = '';
             this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
+            this.ip = '';
+            this.lecturaMax = 0;
+            this.puntoMedicionId = 1;
             this.multiplicador = 0;
             this.observacion = '';
 
             this.accion = 'new';
+            this.isVisible = false;
           },
           (error) => {
             this.ShowNotification(
@@ -269,13 +285,15 @@ export class MedidoresComponent implements OnInit {
             this.descripcion = '';
             this.serie = '';
             this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
+            this.ip = '';
+            this.lecturaMax = 0;
+            this.puntoMedicionId = 1;
             this.multiplicador = 0;
             this.observacion = '';
 
             this.accion = 'new';
+            this.isVisible = false;
+
           }
         );
     } else {
@@ -285,22 +303,60 @@ export class MedidoresComponent implements OnInit {
         .then(
           (data: any) => {
 
-            console.log(data);
-            this.cantidad = this.cantidad + 1;
-            this.ShowNotification(
-              'success',
-              'Guardado con éxito',
-              'El registro fue guardado con éxito'
-            );
-            this.listOfDataMedidores = [...this.listOfDataRolloverMedidor, data];
+
+            if (data.tipo === true) {
+              this.cantMV = this.cantMV + 1;
+
+              this.listOfDataMVirtuales = [...this.listOfDataMVirtuales,
+              {
+                codigo: data.codigo,
+                estado: dataMedidor.estado,
+                id: data.id,
+                lecturaMax: data.lecturaMax,
+                multiplicador: data.multiplicador,
+                observacion: data.observacion,
+                puntoMedicionId: data.puntoMedicionId,
+                tipo: true
+              }]
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+
+
+            } else {
+              this.cantidad = this.cantidad + 1;
+              this.ShowNotification(
+                'success',
+                'Guardado con éxito',
+                'El registro fue guardado con éxito'
+              );
+              this.listOfDataMedidores = [...this.listOfDataMedidores,
+              {
+                codigo: data.codigo,
+                contrato: false,
+                descripcion: data,
+                id: data.id,
+                ip: data,
+                lecturaMax: data.lecturaMax,
+                modelo: data,
+                multiplicador: data.multiplicador,
+                observacion: data.observacion,
+                puntoMedicionId: data.puntoMedicionId,
+                serie: data,
+                tipo: data.tipo
+              }
+              ];
+            }
 
             this.codigo = '';
             this.descripcion = '';
             this.serie = '';
             this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
+            this.ip = '';
+            this.lecturaMax = 0;
+            this.puntoMedicionId = 1;
             this.multiplicador = 0;
             this.observacion = '';
 
@@ -317,9 +373,9 @@ export class MedidoresComponent implements OnInit {
             this.descripcion = '';
             this.serie = '';
             this.modelo = '';
-            this.direccionIp = '';
-            this.lecMax = 0;
-            this.conexion = 1;
+            this.ip = '';
+            this.lecturaMax = 0;
+            this.puntoMedicionId = 1;
             this.multiplicador = 0;
             this.observacion = '';
           }
@@ -339,10 +395,10 @@ export class MedidoresComponent implements OnInit {
       this.descripcion = data.descripcion;
       this.serie = data.serie;
       this.modelo = data.modelo;
-      this.direccionIp = data.ip;
-      this.lecMax = data.lecturaMax;
+      this.ip = data.ip;
+      this.lecturaMax = data.lecturaMax;
       this.tipoMedidor = (data.tipo === true) ? 'v' : 'f';
-      this.conexion = (data.puntoMedicionId === 1) ? '1' : '2';
+      this.puntoMedicionId = (data.puntoMedicionId === 1) ? '1' : '2';
       this.multiplicador = data.multiplicador;
       this.observacion = data.observacion;
     } else {
@@ -359,7 +415,7 @@ export class MedidoresComponent implements OnInit {
             this.idMedidor = info.id;
             this.codigo = info.codigo;
             this.observacion = '';
-            this.lecMax = '0';
+            this.lecturaMax = '0';
 
           } else {
             swal({
@@ -401,7 +457,7 @@ export class MedidoresComponent implements OnInit {
 
       this.checkMVirtual(data.id).then(
         (data) => {
-          console.log(data);
+
           if (data === true) {
 
             this.medidoresService.deleteMedidores(info.id, { estado: false })
@@ -432,7 +488,6 @@ export class MedidoresComponent implements OnInit {
           }
         }
       );
-
     }
 
   }
@@ -453,24 +508,23 @@ export class MedidoresComponent implements OnInit {
         .then(
           (data: any) => {
 
-            console.log(data);
+            this.codigo = '';
 
-            this.limpiarMVirtual();
             for (const item of this.MVirtualesJoin.filter(x => x.id === this.idMVEdit)) {
-              item.medidorVirtual.id = dataMV.medidorVirtualId;
-              item.medidorVirtualId = dataMV.medidorVirtualId;
-              item.medidorVirtual.codigo = this.codigo;
-              item.operacion = dataMV.operacion;
+              item.medidorVirtual = { ...data.medidorVirtual }
+              item.medidorVirtualId = data.medidorVirtualId
+              item.observacion = data.observacion
+              item.operacion = data.operacion;
             }
 
             for (const item of this.MVirtualesFilter.filter(x => x.id === this.idMVEdit)) {
-              item.medidorVirtual.id = dataMV.medidorVirtualId;
-              item.medidorVirtualId = dataMV.medidorVirtualId;
-              item.medidorVirtual.codigo = this.codigo;
-              item.operacion = dataMV.operacion;
+              item.medidorVirtual = { ...data.medidorVirtual }
+              item.medidorVirtualId = data.medidorVirtualId
+              item.observacion = data.observacion
+              item.operacion = data.operacion;
             }
             this.limpiarMVirtual();
-
+            this.accionMV = 'new';
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -485,8 +539,8 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-
             this.limpiarMVirtual();
+            this.accionMV = 'new';
           }
         )
 
@@ -496,13 +550,15 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
+            this.MVirtualesJoin = [...this.MVirtualesJoin, data];
+            this.MVirtualesFilter = [...this.MVirtualesFilter, data]
 
-            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
+            this.codigo = '';
             this.limpiarMVirtual();
           },
           (error) => {
@@ -520,8 +576,6 @@ export class MedidoresComponent implements OnInit {
   }
 
   editarMVirtual(data) {
-
-    console.log(data);
 
     this.accionMV = 'editar';
     this.codigo = data.medidorVirtual.codigo;
@@ -579,7 +633,9 @@ export class MedidoresComponent implements OnInit {
     const codigo = this.codigo;
     const medidor: any[] = this.medidoresPME.filter(x => x.nombre === codigo);
 
-    if (medidor.length > 0) {
+    console.log(medidor);
+
+    if (medidor.length > 0 && medidor[0].id !== null) {
 
       swal({
         icon: 'success',
@@ -589,9 +645,9 @@ export class MedidoresComponent implements OnInit {
       this.descripcion = medidor[0].descripcion;
       this.serie = medidor[0].serie;
       this.modelo = medidor[0].modelo;
-      this.direccionIp = medidor[0].ip;
-      this.conexion = medidor[0].puntoMedicionId;
-      this.lecMax = medidor[0].lecturaMax;
+      this.ip = medidor[0].ip;
+      this.puntoMedicionId = medidor[0].puntoMedicionId;
+      this.lecturaMax = medidor[0].lecturaMax;
       this.observacion = medidor[0].observacion;
       this.idMVForm = medidor[0].id;
 
@@ -635,7 +691,7 @@ export class MedidoresComponent implements OnInit {
     this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;
 
     this.disabledLec = false;
-    this.conexion = 1;
+    this.puntoMedicionId = 1;
     this.medidoresService.getMedidoresPME()
       .toPromise()
       .then(
@@ -643,14 +699,17 @@ export class MedidoresComponent implements OnInit {
 
           this.listOfDataMedidores = data;
           console.log(this.listOfDataMedidores);
-          
+
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
             .toPromise()
-            .then((data: any[]) => {
-              this.listOfDataMVirtuales = data
-            })
+            .then(
+              (data: any[]) => {
+                this.listOfDataMVirtuales = data
+                console.log(this.listOfDataMVirtuales);
+
+              });
 
           this.medidoresService.getMedidoreVirtualesJoin()
             .toPromise()
@@ -699,8 +758,10 @@ export class MedidoresComponent implements OnInit {
     this.medidoresService.getRollovers()
       .toPromise()
       .then(
-        (data: RolloverModel[]) => {
+        (data: any[]) => {
           this.listOfDataRollover = data;
+
+
         }
       );
 
@@ -709,7 +770,8 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.medidoresPME = data;
-          console.log(data);
+
+
 
           // tslint:disable-next-line: prefer-for-of
           // for (let x = 0; x < data.length; x++) {
@@ -750,9 +812,9 @@ export class MedidoresComponent implements OnInit {
     this.descripcion = '';
     this.serie = '';
     this.modelo = '';
-    this.direccionIp = '';
-    this.lecMax = 0;
-    this.conexion = 0;
+    this.ip = '';
+    this.lecturaMax = 0;
+    this.puntoMedicionId = 0;
     this.multiplicador = 0;
     this.observacion = '';
   }
@@ -793,7 +855,6 @@ export class MedidoresComponent implements OnInit {
           this.idMV = info.id;
           this.codMV = info.codigo;
           this.MVirtualesFilter = this.MVirtualesJoin.filter(x => x.medidorId === info.id)
-          console.log(this.MVirtualesFilter);
 
         } else {
           this.permisoAdmin = true;

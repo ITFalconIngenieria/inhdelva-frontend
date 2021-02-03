@@ -18,6 +18,7 @@ import html2canvas from 'html2canvas';
 export class FacturaComponent implements OnInit {
 
   @ViewChild('content', { 'static': true }) content: ElementRef;
+  @ViewChild('anexo', { 'static': true }) anexo: ElementRef;
 
   dataSourceConsumo: any;
   chartDataConsumo: any[] = [];
@@ -41,6 +42,8 @@ export class FacturaComponent implements OnInit {
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
   factorRecargo: number;
   matrizEnergetica: any[] = [];
+  anexoMedidores: any[] = [];
+  isVisibleAnexo: boolean;
   totalMatrizEnergia: number = 0;
   totalMatrizEmisiones: number = 0;
 
@@ -76,6 +79,7 @@ export class FacturaComponent implements OnInit {
 
   ngOnInit() {
     this.cargado = false;
+    this.isVisibleAnexo = false;
     this.spinner.show();
     this.dataFactura = this.facturaService.getInfoNavegacion();
     console.log(this.dataFactura);
@@ -95,16 +99,19 @@ export class FacturaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
+          console.log(data);
+
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];
-          console.log(this.BloquesdeEnergiaFactura);
-
           this.DetalleFacturaData = { ...data[2] };
+          this.anexoMedidores = data[6]
+          this.isVisibleAnexo = (this.anexoMedidores.length > 0) ? true : false;
+          console.log(this.anexoMedidores.length);
+
           // console.log(data[2]);
           // console.log(data[5]);
 
           const matrisInh = data[5];
-          console.log(data[5]);
 
           this.chatDataMatrizInh = [
             {
@@ -123,6 +130,7 @@ export class FacturaComponent implements OnInit {
               valuePosition: 'inside',
               palettecolors: '0E9679,F3931F',
               showLabels: '0',
+              formatNumberScale: 0,
               theme: 'fusion' // Set the theme for your chart
             },
             data: this.chatDataMatrizInh
@@ -578,6 +586,7 @@ export class FacturaComponent implements OnInit {
               caption: 'Matriz energética de Proveedoes', // Set the chart caption
               valuePosition: 'inside',
               showLabels: '0',
+              formatNumberScale: 0,
               decimals: '0',
               palettecolors: '8BB53A,0E9679,2CB8C5,F2921F,929133,7E5025,E65124,4D4E4D,1D1D1B',
               theme: 'fusion' // Set the theme for your chart
@@ -600,6 +609,10 @@ export class FacturaComponent implements OnInit {
               rotateLabels: '0',
               labelDisplay: 'rotate',
               palettecolors: '334d7c,b9b9b9',
+              valuePosition: 'inside',
+              showLabels: '0',
+              showValues: 1,
+              formatNumberScale: 0,
               theme: 'fusion' // Set the theme for your chart
             },
             data: this.chartDataConsumo
@@ -640,28 +653,54 @@ export class FacturaComponent implements OnInit {
   generarPDF() {
     this.spinner.show();
     const div = document.getElementById('content');
+    const anexo = document.getElementById('anexo');
+
     const options = {
       background: 'white',
       scale: 3
     };
 
+    // const divs: any[] = [div, anexo];
+    const doc = new jsPDF('p', 'mm', 'a4', true);
+
     html2canvas(div, options).then((canvas) => {
-
       var img = canvas.toDataURL("image/PNG");
-      var doc = new jsPDF('p', 'mm', 'a4', true);
-
       // Add image Canvas to PDF
       const bufferX = 5;
       const bufferY = 5;
       const imgProps = (<any>doc).getImageProperties(img);
       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
       (doc as any).addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
 
       return doc;
     }).then((doc) => {
-      doc.save(`factura-${this.dataFactura.codigo}.pdf`);
-      this.spinner.hide();
+
+      if (this.isVisibleAnexo) {
+
+        html2canvas(anexo, options).then((canvas) => {
+          var img = canvas.toDataURL("image/PNG");
+          // Add image Canvas to PDF
+          const bufferX = 5;
+          const bufferY = 5;
+          const imgProps = (<any>doc).getImageProperties(img);
+          const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+          doc.addPage('p');
+          (doc as any).addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+
+          return doc;
+        }).then((doc) => {
+          doc.save(`factura-${this.dataFactura.codigo}.pdf`);
+          this.spinner.hide();
+        })
+
+      } else {
+        doc.save(`factura-${this.dataFactura.codigo}.pdf`);
+        this.spinner.hide();
+      }
     });
   }
 }

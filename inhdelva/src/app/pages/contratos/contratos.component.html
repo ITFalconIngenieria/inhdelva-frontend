@@ -175,7 +175,7 @@
                 <nz-form-item>
                     <nz-form-label>Código del medidor</nz-form-label>
                     <nz-form-control>
-                        <nz-select formControlName="medidorId" [(ngModel)]="medidorId" nzPlaceHolder="Buscar medidor..." nzShowSearch nzAllowClear>
+                        <nz-select formControlName="medidorId" nzPlaceHolder="Buscar medidor..." nzShowSearch nzAllowClear>
                             <nz-option *ngFor="let option of listOfMedidores" [nzLabel]="option.codigo" [nzValue]="option.id"></nz-option>
                         </nz-select>
                     </nz-form-control>

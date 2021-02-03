@@ -90,24 +90,24 @@ export class TipoTarifaComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
-
-            console.log(data);
-            
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
             for (const item of this.listOfDataTarifa.filter(x => x.id === this.idTarifa)) {
-              item.codigo = dataTarifa.codigo;
-              item.puntoMedicionId = dataTarifa.puntoMedicionId;
-              item.descripcion = dataTarifa.descripcion;
-              item.tipo = dataTarifa.tipo;
-              item.matrizHorariaId = dataTarifa.matrizHorariaId;
-              item.estado = dataTarifa.estado;
+              item.codigo = data.codigo;
+              item.puntoMedicionId = data.puntoMedicionId;
+              item.puntoMedicion = { ...data.puntoMedicion }
+              item.descripcion = data.descripcion;
+              item.tipo = data.tipo;
+              item.matrizHorariaId = data.matrizHorariaId;
+              item.matrizHoraria = { ...data.matrizHoraria }
+              item.estado = data.estado;
             }
             this.accion = 'new';
             this.limpiarTarifa();
+            this.isVisible = false;
           },
           (error) => {
             this.ShowNotification(
@@ -116,7 +116,10 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.accion = 'new';
             this.limpiarTarifa();
+            this.isVisible = false;
+
           }
         );
     } else {
@@ -125,7 +128,6 @@ export class TipoTarifaComponent implements OnInit {
         .then(
           (data: any) => {
 
-            console.log(data);
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -202,13 +204,11 @@ export class TipoTarifaComponent implements OnInit {
       estado: true
     };
 
-    console.log(dataParametro);
-
     if (this.accion === 'editar') {
       this.tarifaService.putTarifaParametro(this.idParametro, dataParametro)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -216,24 +216,30 @@ export class TipoTarifaComponent implements OnInit {
             );
 
             for (const item of this.listOfDataParametrosFiltrado.filter(x => x.id === this.idParametro)) {
-              item.tarifaId = dataParametro.tarifaId;
-              item.tipoCargoId = dataParametro.tipoCargoId;
-              item.bloqueHorarioId = dataParametro.bloqueHorarioId;
-              item.fechaInicio = dataParametro.fechaInicio;
-              item.fechaFinal = dataParametro.fechaFinal;
-              item.valor = dataParametro.valor;
-              item.observacion = dataParametro.observacion;
-              item.estado = dataParametro.estado;
+              item.tarifaId = data.tarifaId;
+              item.tarifa = { ...data.tarifa }
+              item.tipoCargoId = data.tipoCargoId;
+              item.tipoCargo = { ...data.tipoCargo }
+              item.bloqueHorarioId = data.bloqueHorarioId;
+              item.bloqueHorario = { ...data.bloqueHorario }
+              item.fechaInicio = data.fechaInicio;
+              item.fechaFinal = data.fechaFinal;
+              item.valor = data.valor;
+              item.observacion = data.observacion;
+              item.estado = data.estado;
             }
             for (const item of this.listOfDataParametros.filter(x => x.id === this.idParametro)) {
-              item.tarifaId = dataParametro.tarifaId;
-              item.tipoCargoId = dataParametro.tipoCargoId;
-              item.bloqueHorarioId = dataParametro.bloqueHorarioId;
-              item.fechaInicio = dataParametro.fechaInicio;
-              item.fechaFinal = dataParametro.fechaFinal;
-              item.valor = dataParametro.valor;
-              item.observacion = dataParametro.observacion;
-              item.estado = dataParametro.estado;
+              item.tarifaId = data.tarifaId;
+              item.tarifa = { ...data.tarifa }
+              item.tipoCargoId = data.tipoCargoId;
+              item.tipoCargo = { ...data.tipoCargo }
+              item.bloqueHorarioId = data.bloqueHorarioId;
+              item.bloqueHorario = { ...data.bloqueHorario }
+              item.fechaInicio = data.fechaInicio;
+              item.fechaFinal = data.fechaFinal;
+              item.valor = data.valor;
+              item.observacion = data.observacion;
+              item.estado = data.estado;
             }
             this.accion = 'new';
             this.unidad = null;
@@ -246,14 +252,17 @@ export class TipoTarifaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.accion = 'new';
             this.limpiarParametro();
+
           }
         );
     } else {
       this.tarifaService.postTarifaParametro(dataParametro)
         .toPromise()
         .then(
-          (data: ParametroTarifaModel) => {
+          (data: any) => {
+
             this.ShowNotification(
               'success',
               'Guardado con éxito',
@@ -352,6 +361,8 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataTarifa = data;
+          console.log(data);
+
         },
         (error) => {
           swal({
@@ -408,6 +419,8 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   showModalParametro(data): void {
+    console.log(data);
+
     this.isVisibleParametro = true;
     this.idTarifa = data.id;
 

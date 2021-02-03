@@ -74,29 +74,30 @@ export class ParametrosEntradaComponent implements OnInit {
       estado: true
     };
 
-    console.log(dataParametro);
-
     if (this.accion === 'editar') {
       this.parametroServce.putParametro(this.idParametro, dataParametro)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
             for (const item of this.listOfDataParametro.filter(x => x.id === this.idParametro)) {
-              item.tipoCargoId = dataParametro.tipoCargoId;
-              item.fechaInicio = dataParametro.fechaInicio;
-              item.fechaFinal = dataParametro.fechaFinal;
-              item.valor = dataParametro.valor;
-              item.observacion = dataParametro.observacion;
-              item.estado = dataParametro.estado;
+              item.tipoCargoId = data.tipoCargoId;
+              item.tipoCargo = { ...data.tipoCargo }
+              item.fechaInicio = data.fechaInicio;
+              item.fechaFinal = data.fechaFinal;
+              item.valor = data.valor;
+              item.observacion = data.observacion;
+              item.estado = data.estado;
             }
             this.accion = 'new';
             this.unidad = null;
             this.limpiarParametro();
+            this.isVisible = false;
           },
           (error) => {
             this.ShowNotification(
@@ -105,14 +106,16 @@ export class ParametrosEntradaComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
+            this.accion = 'new';
             this.limpiarParametro();
+            this.isVisible = false;
           }
         );
     } else {
       this.parametroServce.postParametro(dataParametro)
         .toPromise()
         .then(
-          (data: Parametro) => {
+          (data: any) => {
             this.ShowNotification(
               'success',
               'Guardado con éxito',

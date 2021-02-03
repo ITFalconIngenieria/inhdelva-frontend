@@ -1,6 +1,7 @@
 <div>
     <button nz-button nzType="primary" (click)="volver()"><i nz-icon nzType="rollback"></i>Volver a facturas</button>
-    <button nz-button (click)="generarPDF()" style="background-color: #e67d7d;" nzDanger><i nz-icon nzType="file-pdf"></i>Generar PDF</button>
+    <button nz-button (click)="generarPDF()" style="background-color: #e67d7d;" nzDanger><i nz-icon
+            nzType="file-pdf"></i>Generar PDF</button>
 </div>
 
 <hr>
@@ -35,7 +36,8 @@
                     <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaVencimiento | date:'yyyy/M/dd' }} </p>
                     <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
                     <p class="etiqueta-der"> 30 </p>
-                    <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
+                    <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }}
+                    </p>
                 </div>
             </div>
             <div class="datos">
@@ -136,7 +138,8 @@
                 <p class="etiqueta-detalle">-</p>
                 <p class="etiqueta-detalle"> {{ totalConsumo | number:'':'en_US'}} </p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[33]?.valor | number:'':'en_US'}} </p>
-                <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number:'':'en_US'}}</p>
+                <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number:'':'en_US'}}
+                </p>
             </div>
             <div>
                 <p class="etiqueta-detalle">-</p>
@@ -166,7 +169,8 @@
                             <tr *ngFor="let item of BloquesdeEnergiaFactura">
                                 <td>
                                     <p style="margin: 0px;">Activa</p>
-                                    <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }} </p>
+                                    <p style="font-size: 10px; margin: 0px;">*Bloque en horario {{ item.periodoId }}
+                                    </p>
                                 </td>
                                 <td> {{ item.lps | number:'':'en_US'}} </td>
                                 <td> {{ item.valor | number:'':'en_US'}} </td>
@@ -242,14 +246,16 @@
                     <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia
                     </p>
                     <label> <span class="formula-dividendo"> {{ totalConsumo | number:'':'en_US'}} kWh</span> <span
-                        class="formula-divisor1">
-                        ( {{ totalConsumo | number:'':'en_US'}} kWh)^2 </span> <span class="formula-divisor2"> + (
-                        {{ energiaReactiva  | number:'':'en_US'}} kWh)^2 =
-                    </span> <span class="resultado-factor"> {{ resultadoFactorP | number:'':'en_US' }} </span> </label>
+                            class="formula-divisor1">
+                            ( {{ totalConsumo | number:'':'en_US'}} kWh)^2 </span> <span class="formula-divisor2"> + (
+                            {{ energiaReactiva | number:'':'en_US'}} kWh)^2 =
+                        </span> <span class="resultado-factor"> {{ resultadoFactorP | number:'':'en_US' }} </span>
+                    </label>
                     <img class="img-formula" src="assets/raiz.svg">
-                    <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad </p>
+                    <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad
+                    </p>
                     <p class="formula-penalidad"> {{ factorRecargo | number:'':'en_US' }} x ( {{ DetalleFacturaData[12]?.valor | number:'':'en_US'}} + {{ DetalleFacturaData[11]?.valor | number:'':'en_US' }} ) = <span class="resultado-penalidad"> L.
-                        {{ resultadoPenalidad |number }} </span> </p>
+                            {{ resultadoPenalidad |number }} </span> </p>
                 </div>
             </div>
             <div class="historico-consumo-container">
@@ -272,11 +278,13 @@
                 <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
                     <p class="totales-historico">
                         <span> Total a pagar (L.):</span>
-                        <span> {{ DetalleFacturaData[27]?.valor + DetalleFacturaData[10]?.valor | number:'':'en_US'}} </span>
+                        <span> {{ DetalleFacturaData[27]?.valor + DetalleFacturaData[10]?.valor | number:'':'en_US'}}
+                        </span>
                     </p>
                 </div>
                 <div style="text-align: end; margin: 1% 3% 1% 3%;">
-                    <p style="color: black; font-size: 12px;"> *Según reglamento de tarifas vigentes a fecha de factura </p>
+                    <p style="color: black; font-size: 12px;"> *Según reglamento de tarifas vigentes a fecha de factura
+                    </p>
                 </div>
                 <!-- <img src="assets/grafica-consumo.PNG" alt=""> -->
             </div>
@@ -290,8 +298,8 @@
             <div class="detalle-cliente-container">
                 <div class="contenedor-cliente-regulado">
                     <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span>
-                        {{ item.descripcion }}:
-                    </span> <span> {{ item.valor | number:'':'en_US' }} </span> </p>
+                            {{ item.descripcion }}:
+                        </span> <span> {{ item.valor | number:'':'en_US' }} </span> </p>
                     <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
             <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
@@ -315,12 +323,12 @@
                         <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;">
-                        {{ DetalleFacturaData[27]?.descripcion }}:
-                    </span>
+                            {{ DetalleFacturaData[27]?.descripcion }}:
+                        </span>
                         <span style="color: black;
                 font-weight: bold;
                 font-size: 16px;"> {{ DetalleFacturaData[27]?.valor | number:'':'en_US'}}
-                    </span>
+                        </span>
                     </p>
                 </div>
                 <div style="background-color: #334d7c; text-align: center; margin-top: 3%;">
@@ -343,62 +351,7 @@
                                 <td> {{ matriz.Energia | number:'':'en_US'}} </td>
                                 <td> {{ (( matriz.Energia / totalMatrizEnergia ))*100 | number:'':'en_US'}} %</td>
                             </tr>
-                            <!-- <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Hidro pasada
-                            </td>
-                            <td> 25 </td>
-                            <td> 15% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Eólica
-                            </td>
-                            <td> 14 </td>
-                            <td> 8% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Solar
-                            </td>
-                            <td> 21 </td>
-                            <td> 15% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Biogás
-                            </td>
-                            <td> 30 </td>
-                            <td> 8% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Diésel
-                            </td>
-                            <td> 8 </td>
-                            <td> 10% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Bunker
-                            </td>
-                            <td> 6 </td>
-                            <td> 9% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Carbón
-                            </td>
-                            <td> 7 </td>
-                            <td> 9% </td>
-                        </tr>
-                        <tr>
-                            <td style="background-color: #717171; color: white;">
-                                Gas
-                            </td>
-                            <td> 14 </td>
-                            <td> 19% </td>
-                        </tr> -->
+
                         </tbody>
                     </table>
                 </div>
@@ -417,11 +370,11 @@
                 text-align: start;
                 width: 27%;
                margin: 0% 0% 3% 1%;">
-                        A RENOVABLE
-                    </span>
+                            A RENOVABLE
+                        </span>
                         <hr *ngIf="emesionesVisible" class="emisiones">
                         <span *ngIf="emesionesVisible" style=" margin-top: -3%; color: #5e7835;font-size: 13px; position: absolute; right: 0; top: 15%;">
-                        EMISIONES 0 kg CO2 </span>
+                            EMISIONES 0 kg CO2 </span>
                     </div>
                     <div class="div-etiquetas-medioambiente">
                         <span class="badge badge-pill" style="background-color: #8EB23E;
@@ -430,8 +383,8 @@
                 text-align: start;
                 width: 30%;
                margin: 0% 0% 3% 1%;">
-                        B GAS NATURAL
-                    </span>
+                            B GAS NATURAL
+                        </span>
                     </div>
                     <!-- <br> -->
                     <!-- <span class="badge badge-pill" style="background-color: #CAD62B;
@@ -449,8 +402,8 @@
                 text-align: start;
                 width: 40%;
                margin: 0% 0% 3% 1%;">
-                        D DIESEL
-                    </span>
+                            D DIESEL
+                        </span>
 
                     </div>
 
@@ -465,8 +418,8 @@
                 text-align: start;
                 width: 45%;
                margin: 0% 0% 3% 1%;">
-                        E BUNKER
-                    </span>
+                            E BUNKER
+                        </span>
                     </div>
                     <p [ngStyle]="EtiquetaProveedores"> MEDIA PROVEEDORES </p>
                     <hr [ngStyle]="HRproveedores">
@@ -479,8 +432,8 @@
                 text-align: start;
                 width: 50%;
                margin: 0% 0% 3% 1%;">
-                        F CARBÓN
-                    </span>
+                            F CARBÓN
+                        </span>
                     </div>
                 </div>
                 <div>
@@ -495,94 +448,68 @@
         </div>
     </div>
 </div>
+
+<div id="anexo" *ngIf="isVisibleAnexo">
+    <p style="color: black;font-size: 20px;font-weight: bold;">Medidores fisicos considerados en el cálculo de facturación </p>
+    <nz-table #anexo nzSize="small" [nzData]="anexoMedidores" nzShowPagination="false" style="width: 80%; margin: auto;">
+        <thead>
+            <tr>
+                <th rowspan="2" style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Codigo medidor</th>
+                <th rowspan="2" style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Operación considerada</th>
+                <th colspan="3" style="background-color: #a7a7a7; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Energía activa</th>
+                <th colspan="3" style="background-color: #a7a7a7; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Energía reactiva</th>
+                <th rowspan="2" style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Demanda (kW)</th>
+            </tr>
+            <tr>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Lectura actual </th>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Lectura anterior </th>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Energia activa (kWh) </th>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Lectura actual </th>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Lectura anterior </th>
+                <th style="background-color: #d8d8d8; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                    Energia reactiva (kVArh) </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of anexo.data">
+                <td> {{ data.Medidor }} </td>
+                <td> {{ data.Operacion }} </td>
+                <td> {{ data.LecturaActualEA | number:'':'en_US'}} </td>
+                <td> {{ data.LecturaAnteriorEA | number:'':'en_US'}} </td>
+                <td> {{ data.EA | number:'':'en_US'}} </td>
+                <td> {{ data.LecturaActualER | number:'':'en_US'}} </td>
+                <td> {{ data.LecturaAnteriorER | number:'':'en_US'}} </td>
+                <td> {{ data.ER | number:'':'en_US'}} </td>
+                <td> {{ data.Demanda | number:'':'en_US'}} </td>
+            </tr>
+            <tr>
+                <!-- <td colSpan="2" style="text-align: right !important; color: black; font-weight: bold;"> TOTAL </td>
+                <td colSpan="3" style="text-align: right !important; color: black; font-weight: bold;"> {{ DetalleFacturaData[33]?.valor | number:'':'en_US' }} KWh</td>
+                <td colSpan="3" style="text-align: right !important; color: black; font-weight: bold;"> {{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number:'':'en_US'}} kVArh</td>
+                <td style="color: black; font-weight: bold;"> {{ DetalleFacturaData[8]?.valor | number:'':'en_US'}} kW </td> -->
+                <td></td>
+                <td style="color: black; font-weight: bold;"> TOTAL </td>
+                <td></td>
+                <td></td>
+                <td style="color: black; font-weight: bold;"> {{ DetalleFacturaData[33]?.valor | number:'':'en_US' }} KWh</td>
+                <td></td>
+                <td></td>
+                <td style="color: black; font-weight: bold;"> {{ DetalleFacturaData[13]?.valor * DetalleFacturaData[2]?.valor | number:'':'en_US'}} kVArh</td>
+                <td style="color: black; font-weight: bold;"> {{ DetalleFacturaData[8]?.valor | number:'':'en_US'}} kW </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
 <div>
     <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>
-
-<!-- <div>
-    <nz-card class="card-style" [nzBordered]="true" nzTitle="INHDELVA">
-        <div style="background: #ececec; padding: 30px;">
-            <div nz-row [nzGutter]="12">
-                <div nz-col [nzSpan]="12">
-                    <nz-card nzTitle="DATOS DE LA FACTURA">
-                        <p>.</p>
-                        <p>.</p>
-                        <p>.</p>
-                    </nz-card>
-                </div>
-                <div nz-col [nzSpan]="12">
-                    <nz-card nzTitle="DATOS DEL TITULAR">
-                        <p>.</p>
-                        <p>.</p>
-                        <p>.</p>
-                    </nz-card>
-                </div>
-            </div>
-            <br />
-            <nz-card class="card-style" [nzBordered]="true" nzTitle="RESUMEN DE LA FACTURA">
-                <div nz-row [nzGutter]="5">
-                    <div nz-col [nzSpan]="5">
-                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                    <div nz-col [nzSpan]="5">
-                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                    <div nz-col [nzSpan]="5">
-                        <nz-card class="card-small-font" nzTitle="Consumo en kWh">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                    <div nz-col [nzSpan]="4">
-                        <nz-card class="card-small-font" nzTitle="Consumo total en kWh">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                    <div nz-col [nzSpan]="5">
-                        <nz-card class="card-small-font" nzTitle="Total a pagar">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                </div>
-            </nz-card>
-            <br>
-            <nz-card class="card-style" [nzBordered]="true" nzTitle="DETALLE DE CONSUMO DE ENERGÍA">
-                <nz-table #basicTable [nzData]="listOfData">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Lectura Actual</th>
-                            <th>Lectura Anterior</th>
-                            <th>Consumo</th>
-                            <th>Unidades</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td>{{ data.campo }}</td>
-                            <td>{{ data.lecturaActual }}</td>
-                            <td>{{ data.lecturaAnterior }}</td>
-                            <td>{{ data.consumo }}</td>
-                            <td>{{ data.unidades}}</td>
-                        </tr>
-                    </tbody>
-                </nz-table>
-                <div nz-row [nzGutter]="12">
-                    <div nz-col [nzSpan]="12">
-                        <nz-card class="card-small-font" nzTitle="Cálculo de consumo de Energía">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                    <div nz-col [nzSpan]="12">
-                        <nz-card class="card-small-font" nzTitle="Historico de consumo">
-                            <p>.</p>
-                        </nz-card>
-                    </div>
-                </div>
-            </nz-card>
-        </div>
-    </nz-card>
-</div> -->

@@ -91,6 +91,7 @@ export class ProveedoresComponent implements OnInit {
             this.direccion = '';
             this.imagen = '';
             this.observacion = '';
+            this.isVisible = false;
           },
           (error) => {
             this.ShowNotification(
@@ -98,7 +99,10 @@ export class ProveedoresComponent implements OnInit {
               'No se pudo guardar',
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
+            this.accion = 'new';
             console.log(error);
+            this.isVisible = false;
+
           }
         );
     } else {
