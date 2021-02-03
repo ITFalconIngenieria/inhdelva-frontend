@@ -189,8 +189,6 @@ ng-zorro-antd/button
 
 ng-zorro-antd/dropdown
 
-ng-zorro-antd/empty
-
 ng-zorro-antd/form
 
 ng-zorro-antd/input
@@ -1204,8 +1202,6 @@ Exhibit B - “Incompatible With Secondary Licenses” Notice
 
 
 
-ng-zorro-antd/badge
-
 ng-zorro-antd/calendar
 
 ng-zorro-antd/card
@@ -1215,6 +1211,8 @@ ng-zorro-antd/checkbox
 ng-zorro-antd/date-picker
 
 ng-zorro-antd/drawer
+
+ng-zorro-antd/empty
 
 ng-zorro-antd/input-number
 
@@ -1235,8 +1233,6 @@ ng-zorro-antd/spin
 ng-zorro-antd/switch
 
 ng-zorro-antd/table
-
-ng-zorro-antd/tabs
 
 ng-zorro-antd/time-picker
 

@@ -97,6 +97,8 @@ export class FacturasGeneradasComponent implements OnInit {
       total: [0],
     });
 
+    this.listOfDataFacturas = JSON.parse(localStorage.getItem('data'));
+
   }
 
   consultar() {
@@ -111,14 +113,15 @@ export class FacturasGeneradasComponent implements OnInit {
       });
     } else {
       this.facturaService.getListadoFacturas(
-        1, 
-        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(), 
+        1,
+        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(),
         moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
-        )
+      )
         .toPromise()
         .then(
           (data: any[]) => {
             this.listOfDataFacturas = data;
+            localStorage.setItem('data', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {
               swal({
@@ -126,14 +129,9 @@ export class FacturasGeneradasComponent implements OnInit {
                 title: 'No se encontraron facturas',
                 text: 'Por favor revise la fecha que ha consultado'
               });
-
               this.spinner.hide();
-
             }
             this.spinner.hide();
-
-            console.log(data);
-
           },
           (error) => {
             this.spinner.hide();

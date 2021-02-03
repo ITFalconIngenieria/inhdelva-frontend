@@ -76,6 +76,7 @@ export class RangoFacturaComponent implements OnInit {
 
             this.limpiar();
             this.accion = 'new';
+            this.isVisible = false;
 
           },
           (error) => {
@@ -85,6 +86,8 @@ export class RangoFacturaComponent implements OnInit {
               'No se pudo guardar',
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
+            this.accion = 'new';
+            this.isVisible = false;
             console.log(error);
           }
         );

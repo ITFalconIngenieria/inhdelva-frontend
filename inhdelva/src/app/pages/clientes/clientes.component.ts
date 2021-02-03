@@ -90,6 +90,7 @@ export class ClientesComponent implements OnInit {
             this.observacion = '';
 
             this.accion = 'new';
+            this.isVisible = false;
           },
           (error) => {
 
@@ -109,7 +110,7 @@ export class ClientesComponent implements OnInit {
             this.direccion = '';
             this.imagen = '';
             this.observacion = '';
-
+            this.isVisible = false;
             this.accion = 'new';
           }
         );

@@ -61,7 +61,8 @@ export class FacturaService {
          },"order":["Id ASC"]
      }`),
       // tslint:disable-next-line: max-line-length
-      this.http.get(`${apiUrl}grafico?fechai=${fechaInicioFac}&fechaf=${fechaFinFac}`)
+      this.http.get(`${apiUrl}grafico?fechai=${fechaInicioFac}&fechaf=${fechaFinFac}`),
+      this.http.get(`${apiUrl}mediciones-mv/${idMedidor}?F1=${fechaInicioFac}&F2=${fechaFinFac}`),
 
     );
   }

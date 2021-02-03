@@ -114,8 +114,7 @@ export class ContratosComponent implements OnInit {
         this.contratoService.putContrato(this.idContrato, dataContrato)
           .toPromise()
           .then(
-            () => {
-
+            (data: any) => {
               this.ShowNotification(
                 'success',
                 'Guardado con éxito',
@@ -123,20 +122,22 @@ export class ContratosComponent implements OnInit {
               );
 
               for (const item of this.listOfDataContrato.filter(x => x.id === this.idContrato)) {
-                item.codigo = dataContrato.codigo;
-                item.clasificacion = dataContrato.clasificacion;
-                item.descripcion = dataContrato.descripcion;
-                item.actorId = dataContrato.actorId;
-                item.fechaCreacion = dataContrato.fechaCreacion;
-                item.fechaVenc = dataContrato.fechaVenc;
-                item.diaGeneracion = dataContrato.diaGeneracion;
-                item.diasDisponibles = dataContrato.diasDisponibles;
-                item.observacion = dataContrato.observacion;
-                item.exportacion = dataContrato.exportacion;
-                item.estado = dataContrato.estado;
+                item.codigo = data.codigo;
+                item.clasificacion = data.clasificacion;
+                item.descripcion = data.descripcion;
+                item.actorId = data.actorId;
+                item.actor = { ...data.actor }
+                item.fechaCreacion = data.fechaCreacion;
+                item.fechaVenc = data.fechaVenc;
+                item.diaGeneracion = data.diaGeneracion;
+                item.diasDisponibles = data.diasDisponibles;
+                item.observacion = data.observacion;
+                item.exportacion = data.exportacion;
+                item.estado = data.estado;
               }
               this.accion = 'new';
               this.limpiarFormContrato();
+              this.isVisible = false;
 
             },
             (error) => {
@@ -148,6 +149,7 @@ export class ContratosComponent implements OnInit {
               );
               console.log(error);
               this.limpiarFormContrato();
+              this.isVisible = false;
               this.accion = 'new';
             }
           );
@@ -155,8 +157,7 @@ export class ContratosComponent implements OnInit {
         this.contratoService.postContrato(dataContrato)
           .toPromise()
           .then(
-            (data: Contrato) => {
-              console.log('post');
+            (data: any) => {
               this.ShowNotification(
                 'success',
                 'Guardado con éxito',
@@ -297,7 +298,7 @@ export class ContratosComponent implements OnInit {
         this.contratoService.putContratoMedidor(this.idMedidorContrato, dataMedidor)
           .toPromise()
           .then(
-            () => {
+            (data: any) => {
 
               this.ShowNotification(
                 'success',
@@ -305,43 +306,52 @@ export class ContratosComponent implements OnInit {
                 'El registro fue guardado con éxito'
               );
               for (const item of this.listaMedidoresFiltrado.filter(x => x.id === this.idMedidorContrato)) {
-                item.contratoId = dataMedidor.contratoId,
-                  item.medidorId = dataMedidor.medidorId,
-                  item.fechaInicial = dataMedidor.fechaInicial,
-                  item.fechaFinal = dataMedidor.fechaFinal,
-                  item.zonaId = dataMedidor.zonaId,
-                  item.area = dataMedidor.area,
-                  item.tipoServicioId = dataMedidor.tipoServicioId,
-                  item.trifasica = dataMedidor.trifasica,
-                  item.potencia = dataMedidor.potencia,
-                  item.iluminacionTC = dataMedidor.iluminacionTC,
-                  item.iluminacionP = dataMedidor.iluminacionP,
-                  item.sComTC = dataMedidor.sComTC,
-                  item.sComP = dataMedidor.sComP,
-                  item.tarifaId = dataMedidor.tarifaId,
-                  item.observacion = dataMedidor.observacion,
-                  item.estado = true;
+                item.contratoId = data.contratoId,
+                  item.contrato = { ...data.contrato },
+                  item.medidorId = data.medidorId,
+                  item.medidor = { ...data.medidor },
+                  item.fechaInicial = data.fechaInicial,
+                  item.fechaFinal = data.fechaFinal,
+                  item.zonaId = data.zonaId,
+                  item.zona = { ...data.zona },
+                  item.area = data.area,
+                  item.tipoServicioId = data.tipoServicioId,
+                  item.tipoServicio = { ...data.tipoServicio },
+                  item.trifasica = data.trifasica,
+                  item.potencia = data.potencia,
+                  item.iluminacionTC = data.iluminacionTC,
+                  item.iluminacionP = data.iluminacionP,
+                  item.sComTC = data.sComTC,
+                  item.sComP = data.sComP,
+                  item.tarifaId = data.tarifaId,
+                  item.tarifa = { ...data.tarifa },
+                  item.observacion = data.observacion,
+                  item.estado = data.estado;
               }
               for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
-                item.contratoId = dataMedidor.contratoId,
-                  item.medidorId = dataMedidor.medidorId,
-                  item.fechaInicial = dataMedidor.fechaInicial,
-                  item.fechaFinal = dataMedidor.fechaFinal,
-                  item.zonaId = dataMedidor.zonaId,
-                  item.area = dataMedidor.area,
-                  item.tipoServicioId = dataMedidor.tipoServicioId,
-                  item.trifasica = dataMedidor.trifasica,
-                  item.potencia = dataMedidor.potencia,
-                  item.iluminacionTC = dataMedidor.iluminacionTC,
-                  item.iluminacionP = dataMedidor.iluminacionP,
-                  item.sComTC = dataMedidor.sComTC,
-                  item.sComP = dataMedidor.sComP,
-                  item.tarifaId = dataMedidor.tarifaId,
-                  item.observacion = dataMedidor.observacion,
-                  item.estado = true;
+                item.contratoId = data.contratoId,
+                  item.contrato = { ...data.contrato },
+                  item.medidorId = data.medidorId,
+                  item.medidor = { ...data.medidor },
+                  item.fechaInicial = data.fechaInicial,
+                  item.fechaFinal = data.fechaFinal,
+                  item.zonaId = data.zonaId,
+                  item.zona = { ...data.zona },
+                  item.area = data.area,
+                  item.tipoServicioId = data.tipoServicioId,
+                  item.tipoServicio = { ...data.tipoServicio },
+                  item.trifasica = data.trifasica,
+                  item.potencia = data.potencia,
+                  item.iluminacionTC = data.iluminacionTC,
+                  item.iluminacionP = data.iluminacionP,
+                  item.sComTC = data.sComTC,
+                  item.sComP = data.sComP,
+                  item.tarifaId = data.tarifaId,
+                  item.tarifa = { ...data.tarifa },
+                  item.observacion = data.observacion,
+                  item.estado = data.estado;
               }
               this.accion = 'new';
-
               this.limpiarFormMedidores();
             },
             (error) => {
@@ -362,7 +372,7 @@ export class ContratosComponent implements OnInit {
         this.contratoService.postContratoMedidor(dataMedidor)
           .toPromise()
           .then(
-            (data: ContratoMedidores) => {
+            (data: any) => {
 
               this.ShowNotification(
                 'success',
@@ -559,7 +569,7 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataContrato = data
+          this.listOfDataContrato = data;
         }
         ,
         (error) => {
@@ -577,7 +587,9 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataMedidores = data
+          this.listOfDataMedidores = data;
+          console.log(data);
+
         }
       );
 

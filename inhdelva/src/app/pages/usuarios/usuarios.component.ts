@@ -83,6 +83,7 @@ export class UsuariosComponent implements OnInit {
 
             this.accion = 'new';
             this.limpiar();
+            this.isVisible = false;
           },
           (error) => {
 
@@ -94,6 +95,7 @@ export class UsuariosComponent implements OnInit {
             console.log(error);
             this.limpiar();
             this.accion = 'new';
+            this.isVisible = false;
 
           }
         );

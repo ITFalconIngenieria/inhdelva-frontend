@@ -101,7 +101,7 @@ export class CargosEspecialesComponent implements OnInit {
             }
 
             this.accion = 'new';
-
+            this.isVisible = false;
             this.limpiar();
           },
           (error) => {
@@ -113,6 +113,7 @@ export class CargosEspecialesComponent implements OnInit {
             );
             console.log(error);
             this.limpiar();
+            this.isVisible = false;
             this.accion = 'new';
 
           }
