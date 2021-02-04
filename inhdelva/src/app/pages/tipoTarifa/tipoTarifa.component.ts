@@ -48,6 +48,7 @@ export class TipoTarifaComponent implements OnInit {
 
   onExpandChange(id: number, checked: boolean): void {
     if (checked) {
+      this.expandSet.add(id);
     } else {
       this.expandSet.delete(id);
     }
@@ -84,6 +85,9 @@ export class TipoTarifaComponent implements OnInit {
       matrizHorariaId: this.validateFormTarifa.value.matrizHorariaId,
       estado: true
     };
+
+    console.log(dataTarifa);
+
 
     if (this.accion === 'editar') {
       this.tarifaService.putTarifa(this.idTarifa, dataTarifa)
@@ -197,12 +201,15 @@ export class TipoTarifaComponent implements OnInit {
       tarifaId: this.idTarifa,
       tipoCargoId: this.validateFormParametro.value.tipoCargoId,
       bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
-      fechaInicio: this.validateFormParametro.value.fechaInicio[0],
-      fechaFinal: this.validateFormParametro.value.fechaInicio[1],
+      fechaInicio: `${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')} 00:00:00`,
+      fechaFinal: `${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')} 00:00:00`,
       valor: `${this.validateFormParametro.value.valor}`,
       observacion,
       estado: true
     };
+
+    console.log(dataParametro);
+
 
     if (this.accion === 'editar') {
       this.tarifaService.putTarifaParametro(this.idParametro, dataParametro)
@@ -343,7 +350,7 @@ export class TipoTarifaComponent implements OnInit {
   limpiarParametro() {
     this.validateFormParametro = this.fb.group({
       tipoCargoId: [null, [Validators.required]],
-      bloqueHorarioId: [1],
+      bloqueHorarioId: [null],
       fechaInicio: [null, [Validators.required]],
       valor: [0],
       observacion: ['']
@@ -361,7 +368,6 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataTarifa = data;
-          console.log(data);
 
         },
         (error) => {
@@ -380,6 +386,8 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametros = data;
+          console.log(data);
+
         }
       );
 

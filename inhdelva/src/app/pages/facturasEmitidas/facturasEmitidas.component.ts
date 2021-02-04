@@ -49,8 +49,8 @@ export class FacturasEmitidasComponent implements OnInit {
     } else {
       this.facturaService.getListadoFacturas(
         2,
-        moment(`${moment(this.fechas[0]).format('YYYY-MM')}-01`).toISOString(),
-        moment(`${moment(this.fechas[1]).format('YYYY-MM')}-01`).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')} 00:00:00`).toISOString(),
+        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')} 00:00:00`).toISOString()
       )
         .toPromise()
         .then(

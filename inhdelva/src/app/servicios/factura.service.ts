@@ -42,10 +42,8 @@ export class FacturaService {
 
   getDetalleFactura(id, fechaInicio, fechaFin, fechaInicioFac, fechaFinFac, idContrato, idMedidor): Observable<any> {
 
-    console.log(fechaInicioFac, fechaFinFac);
-
     return forkJoin(
-      this.http.get(`${apiUrl}facturas/${id}`),
+      this.http.get(`${apiUrl}facturas/${id}?filter={"include":[{"relation":"tarifa"}]}`),
       this.http.get(`${apiUrl}periodo-facturas?filter={"where":{"facturaId":${id}}}`),
       this.http.get(`${apiUrl}vdetalle-factura?filter={"where":{"facturaId":${id}}}`),
       // tslint:disable-next-line: max-line-length

@@ -37,7 +37,8 @@ export class FacturaComponent implements OnInit {
   dataFactura;
   cargado: boolean;
   pag;
-  EncabezadoFacturaData: EncabezadoFactura = new EncabezadoFactura();
+  diferencia;
+  EncabezadoFacturaData: any;
   BloquesdeEnergiaFactura: any[] = [];
   DetalleFacturaData: DetalleFactura = new DetalleFactura();
   factorRecargo: number;
@@ -46,7 +47,7 @@ export class FacturaComponent implements OnInit {
   isVisibleAnexo: boolean;
   totalMatrizEnergia: number = 0;
   totalMatrizEmisiones: number = 0;
-
+  calculoEXE: number = 0;
   mediaInhdelva: any;
   mediaProveedores: any;
   EtiquetaInh;
@@ -106,12 +107,14 @@ export class FacturaComponent implements OnInit {
           this.DetalleFacturaData = { ...data[2] };
           this.anexoMedidores = data[6]
           this.isVisibleAnexo = (this.anexoMedidores.length > 0) ? true : false;
-          console.log(this.anexoMedidores.length);
 
-          // console.log(data[2]);
-          // console.log(data[5]);
+          let fecha1 = moment(this.EncabezadoFacturaData.fechaInicio);
+          let fecha2 = moment(this.EncabezadoFacturaData.fechaFin);
+          this.diferencia = fecha2.diff(fecha1, 'days');
 
           const matrisInh = data[5];
+          let sumaEnergias = matrisInh[0].Convencional + matrisInh[1].Solar;
+          let porcentajeConvecional = matrisInh[0].Convencional / sumaEnergias;
 
           this.chatDataMatrizInh = [
             {
@@ -155,6 +158,7 @@ export class FacturaComponent implements OnInit {
           this.matrizEnergetica.forEach(element => {
             this.totalMatrizEnergia += element.Energia;
             this.totalMatrizEmisiones += element.Emisiones;
+            this.calculoEXE += (element.Energia * element.Emisiones)
 
             this.chatDataMatrizProvee = [{
               label: element.Origen,
@@ -162,11 +166,8 @@ export class FacturaComponent implements OnInit {
             }, ...this.chatDataMatrizProvee];
           });
 
-          // totalMatrizEmisiones Seria la media de proveedores
-          // (matrisInh[0].Convencional / totalMatrizEnergia ) * this.totalMatrizEmisiones Media inhdelva
-
-          this.mediaInhdelva = ((matrisInh[0].Convencional / this.totalMatrizEnergia) * this.totalMatrizEmisiones).toFixed(3);
-          this.mediaProveedores = (this.totalMatrizEmisiones).toFixed(3);
+          this.mediaProveedores = Math.round(this.calculoEXE / this.totalMatrizEnergia * 100) / 100;
+          this.mediaInhdelva = Math.round(porcentajeConvecional * this.mediaProveedores * 100) / 100;
 
           if (this.mediaInhdelva >= 0.000 && this.mediaInhdelva < 0.481) {
             this.emesionesVisible = false;
@@ -610,7 +611,7 @@ export class FacturaComponent implements OnInit {
               labelDisplay: 'rotate',
               palettecolors: '334d7c,b9b9b9',
               valuePosition: 'inside',
-              showLabels: '0',
+              showLabels: '1',
               showValues: 1,
               formatNumberScale: 0,
               theme: 'fusion' // Set the theme for your chart
@@ -633,6 +634,9 @@ export class FacturaComponent implements OnInit {
           for (let x = 12; x < 27; x++) {
             this.clienteReguladoData.push(this.DetalleFacturaData[x]);
           }
+
+          console.log(this.clienteReguladoData);
+
           this.cargado = true;
           this.spinner.hide();
         },

@@ -193,7 +193,6 @@ export class ParametrosEntradaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametro = data;
-          console.log(data);
 
         },
         (error) => {

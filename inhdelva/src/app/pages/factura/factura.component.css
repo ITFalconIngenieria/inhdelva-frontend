@@ -188,6 +188,10 @@ nz-spin {
     color: black;
 }
 
+.align-td {
+    text-align: right;
+}
+
 .calculo-consumo-container {
     /* display: flex;
     flex-direction: column; */
@@ -209,9 +213,9 @@ nz-spin {
 .historico-consumo-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.1fr 0.1fr 0.1fr 0.1fr;
+    grid-template-rows: 1fr 0.1fr 0.1fr;
     gap: 1px 1px;
-    grid-template-areas: ".""."".""."".";
+    grid-template-areas: ".""."".";
     margin-top: 5px;
 }
 
@@ -277,7 +281,7 @@ nz-spin {
 
 .img-formula {
     width: 57%;
-    margin: 0% 0% 0% 24%;
+    margin: 0% 0% 0% 18%;
     position: relative;
     height: 17%;
 }
@@ -300,7 +304,7 @@ nz-spin {
     position: absolute;
     font-size: 15px;
     color: black;
-    margin: -9px 0px 0px 378px;
+    margin: -9px 0px 0px 353px;
 }
 
 .formula-penalidad {
@@ -339,6 +343,13 @@ nz-spin {
     width: 55%;
     background-color: #E37D25;
 } */
+
+.asterisco {
+    color: red;
+    font-size: 15px;
+    margin: 0px;
+    font-weight: bold;
+}
 
 h1,
 h2,

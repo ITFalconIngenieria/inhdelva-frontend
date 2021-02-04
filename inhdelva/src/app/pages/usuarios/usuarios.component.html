@@ -104,7 +104,7 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de usuario</nz-form-label>
                     <nz-form-control nzErrorTip="El dato es incorrecto!">
-                        <nz-radio-group [(ngModel)]="radioValue" formControlName="tuser">
+                        <nz-radio-group formControlName="tuser">
                             <label nz-radio nzValue="1">Administrador</label>
                             <label nz-radio nzValue="2">Tecnico</label>
                         </nz-radio-group>
@@ -113,7 +113,7 @@
             </div>
             <div>
                 <nz-form-item>
-                    <nz-form-label nzFor="telefono">Directorio</nz-form-label>
+                    <nz-form-label nzFor="telefono">Directorio activo</nz-form-label>
                     <nz-form-control nzErrorTip="El dato es incorrecto!">
                         <nz-switch formControlName="ad"></nz-switch>
                     </nz-form-control>
@@ -131,7 +131,7 @@
 
         <div style="width: 70%; margin: auto;">
             <nz-form-item>
-                <nz-form-label nzFor="email">Correo</nz-form-label>
+                <nz-form-label nzFor="email" nzRequired>Correo</nz-form-label>
                 <nz-form-control nzErrorTip="El dato es incorrecto!">
                     <input nz-input formControlName="email" id="email" />
                 </nz-form-control>
