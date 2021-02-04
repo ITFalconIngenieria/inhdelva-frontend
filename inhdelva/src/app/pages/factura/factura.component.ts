@@ -157,7 +157,7 @@ export class FacturaComponent implements OnInit {
 
           this.matrizEnergetica.forEach(element => {
             this.totalMatrizEnergia += element.Energia;
-            this.totalMatrizEmisiones += element.Emisiones;
+            //this.totalMatrizEmisiones += element.Emisiones;
             this.calculoEXE += (element.Energia * element.Emisiones)
 
             this.chatDataMatrizProvee = [{
@@ -165,7 +165,7 @@ export class FacturaComponent implements OnInit {
               value: Math.round(element.Energia)
             }, ...this.chatDataMatrizProvee];
           });
-
+          this.totalMatrizEmisiones += Math.round(this.calculoEXE / this.totalMatrizEnergia * 100) / 100;
           this.mediaProveedores = Math.round(this.calculoEXE / this.totalMatrizEnergia * 100) / 100;
           this.mediaInhdelva = Math.round(porcentajeConvecional * this.mediaProveedores * 100) / 100;
 
