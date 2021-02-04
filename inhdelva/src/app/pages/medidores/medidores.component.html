@@ -299,7 +299,7 @@
                 <ng-container *ngFor="let data of nzTableRollover.data">
                     <tr>
                         <td [nzExpand]="expandSet.has(data.id)" nzShowExpand="true" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-                        <td>{{ data.fecha | date:'yyyy/M/dd'}}</td>
+                        <td>{{ data.fecha | date:'dd/M/yyyy'}}</td>
                         <td>{{ data.lecturaAnterior | number:'':'en_US'}}</td>
                         <td>{{ data.lecturaNueva | number:'':'en_US'}}</td>
                         <td>{{ data.energia && 'Reactiva' || 'Activa'}}</td>

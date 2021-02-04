@@ -30,10 +30,10 @@
                 <p class="etiqueta-izq"> Número de factura: </p>
             </div>
             <div>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura | date:'yyyy/M/dd' }} </p>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaEmision | date:'yyyy/M/dd' }} </p>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaVencimiento | date:'yyyy/M/dd' }} </p>
-                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaLectura | date:'dd/M/yyyy' }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaEmision | date:'dd/M/yyyy' }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaVencimiento | date:'dd/M/yyyy' }} </p>
+                <p class="etiqueta-der"> {{ EncabezadoFacturaData.fechaInicio | date:'dd/M/yyyy'}} hasta {{ EncabezadoFacturaData.fechaFin | date:'dd/M/yyyy'}} </p>
                 <p class="etiqueta-der"> 30 </p>
                 <p class="etiqueta-der"> {{ (EncabezadoFacturaData.codigo) ? EncabezadoFacturaData.codigo: '-' }} </p>
             </div>
@@ -109,13 +109,13 @@
             <p class="etiqueta-detalle">Demanda</p>
         </div>
         <div>
-            <p class="etiqueta-detalle">{{EncabezadoFacturaData.fechaInicio | date:'yyyy/M/dd'}}</p>
+            <p class="etiqueta-detalle">{{EncabezadoFacturaData.fechaInicio | date:'dd/M/yyyy'}}</p>
             <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number:'':'en_US'}}</p>
             <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number:'':'en_US'}}</p>
             <p class="etiqueta-detalle">{{ DetalleFacturaData[13]?.valor | number:'':'en_US'}}</p>
         </div>
         <div>
-            <p class="etiqueta-detalle">{{ EncabezadoFacturaData.fechaFin | date:'yyyy/M/dd'}}</p>
+            <p class="etiqueta-detalle">{{ EncabezadoFacturaData.fechaFin | date:'dd/M/yyyy'}}</p>
             <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number:'':'en_US'}}</p>
             <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number:'':'en_US'}}</p>
             <p class="etiqueta-detalle">-</p>

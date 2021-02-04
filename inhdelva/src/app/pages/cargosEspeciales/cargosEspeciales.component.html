@@ -35,8 +35,8 @@
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>{{ data.fechaInicial | date:'yyyy/M/dd'}}</td>
-                    <td>{{ data.fechaFinal | date:'yyyy/M/dd'}}</td>
+                    <td>{{ data.fechaInicial | date:'dd/M/yyyy'}}</td>
+                    <td>{{ data.fechaFinal | date:'dd/M/yyyy'}}</td>
                     <td>{{ data.total | number:'':'en_US'}}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">

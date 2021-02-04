@@ -47,15 +47,13 @@ export class UsuariosComponent implements OnInit {
   guardar() {
     // tslint:disable-next-line: max-line-length
     this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+    this.validateForm.value.telefono = (this.validateForm.value.telefono === '' || this.validateForm.value.telefono === null) ? 'N/A' : this.validateForm.value.telefono;
     this.validateForm.value.tuser = parseFloat(this.validateForm.value.tuser);
 
     this.dataUser = {
       ...this.validateForm.value,
       estado: true
     };
-
-    console.log(this.dataUser);
-
 
     if (this.accion === 'editar') {
 
@@ -64,22 +62,30 @@ export class UsuariosComponent implements OnInit {
         estado: true,
         usId: this.userEdit
       };
+
       this.usuarioService.putUsuario(dataUser)
         .toPromise()
         .then(
-          () => {
+          (data: any) => {
+
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
 
-            // for (const item of this.listOfDataUsuarios.filter(x => x.id === this.userEdit)) {
-            //   item.codigo = this.dataUser.codigo;
-            //   item.descripcion = this.dataUser.descripcion;
-            //   item.observacion = this.dataUser.observacion;
-            //   item.estado = this.dataUser.estado;
-            // }
+            for (const item of this.listOfDataUsuarios.filter(x => x.usId === this.userEdit)) {
+              item.Apellido = data.Apellido;
+              item.Estado = data.Estado;
+              item.Nombre = data.Nombre;
+              item.Observacion = data.Observacion;
+              item.Telefono = data.Telefono;
+              item.TipoUsuario = data.TipoUsuario;
+              item.email = data.email;
+              item.password = data.password;
+              item.username = data.username;
+              item.AD = data.AD;
+            }
 
             this.accion = 'new';
             this.limpiar();
@@ -130,7 +136,6 @@ export class UsuariosComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
-    console.log(data);
 
     this.userEdit = data.usId;
     this.validateForm = this.fb.group({
