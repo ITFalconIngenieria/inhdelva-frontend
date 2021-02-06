@@ -143,56 +143,56 @@
                 <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 240px;" nzAlign="center">{{ data.fecha | date:'M'}}</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 212px;;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.fecha | date:'yyyy' }}</td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionTotalEnergiaSolar | number:'':'en_US' }} kWh/mes </td>
-                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaExportadaHaciaRed | number:'':'en_US' }} kWh/mes
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionTotalEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes </td>
+                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaExportadaHaciaRed | number:'1.2-2':'en_US'}} kWh/mes
                 </td>
-                <td class="tdVerde" nzAlign="center"> {{ data.energiaAutoconsumoINH | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaConsumidaRed | number:'':'en_US' }} </td>
-                <td class="tdGrisClaro" nzAlign="center"> {{ data.consumoEnergiaTotalINH | number:'':'en_US' }} kWh/mes
+                <td class="tdVerde" nzAlign="center"> {{ data.energiaAutoconsumoINH | number:'1.2-2':'en_US'}} kWh/mes</td>
+                <td class="tdGrisOscuro" nzAlign="center"> {{ data.energiaConsumidaRed | number:'1.2-2':'en_US'}} </td>
+                <td class="tdGrisClaro" nzAlign="center"> {{ data.consumoEnergiaTotalINH | number:'1.2-2':'en_US'}} kWh/mes
                 </td>
-                <td class="tdVerde" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} %
+                <td class="tdVerde" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'1.2-2':'en_US'}} %
                 </td>
-                <td class="tdAzul" nzAlign="center"> {{ data.fraccionEnergiaSolarTotal | number:'':'en_US' }} %</td>
-                <td class="tdNaranja" nzAlign="center"> {{ data.costoEnergiaINH | number:'':'en_US' }} </td>
-                <td class="tdNaranja" nzAlign="center">{{ data.energiaTotalINH | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdNaranja" nzAlign="center">L {{ data.costoTotalEnergiaINH | number:'':'en_US' }}</td>
-                <td class="tdNaranja" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'':'en_US' }} kWh/mes
+                <td class="tdAzul" nzAlign="center"> {{ data.fraccionEnergiaSolarTotal | number:'1.2-2':'en_US'}} %</td>
+                <td class="tdNaranja" nzAlign="center"> {{ data.costoEnergiaINH | number:'1.2-2':'en_US'}} </td>
+                <td class="tdNaranja" nzAlign="center">{{ data.energiaTotalINH | number:'1.2-2':'en_US'}} kWh/mes</td>
+                <td class="tdNaranja" nzAlign="center">L {{ data.costoTotalEnergiaINH | number:'1.2-2':'en_US'}}</td>
+                <td class="tdNaranja" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'1.2-2':'en_US'}} kWh/mes
                 </td>
-                <td class="tdNaranja" nzAlign="center">L {{ data.costoEnergiaConsumidaRed | number:'':'en_US' }}</td>
-                <td class="tdNaranja" nzAlign="center">{{ data.ahorroEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdNaranja" nzAlign="center">L {{ data.ahorroSolar | number:'':'en_US' }}</td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes
+                <td class="tdNaranja" nzAlign="center">L {{ data.costoEnergiaConsumidaRed | number:'1.2-2':'en_US'}}</td>
+                <td class="tdNaranja" nzAlign="center">{{ data.ahorroEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes</td>
+                <td class="tdNaranja" nzAlign="center">L {{ data.ahorroSolar | number:'1.2-2':'en_US'}}</td>
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionRealEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
                 </td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionEstimadaEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
                 </td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.degradacionMaxima | number:'':'en_US' }} %</td>
-                <td class="tdGrisOscuro" nzAlign="center">{{ data.porcentajeCumplimiento | number:'':'en_US' }} %</td>
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.degradacionMaxima | number:'1.2-2':'en_US'}} %</td>
+                <td class="tdGrisOscuro" nzAlign="center">{{ data.porcentajeCumplimiento | number:'1.2-2':'en_US'}} %</td>
             </tr>
         </ng-container>
         <tr *ngFor="let total of listaTotales">
             <td class="totales" nzAlign="center"> TOTAL </td>
             <td colSpan="3" class="totales" nzAlign="center"> AÑO {{ total.x }} </td>
-            <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'':'en_US' }} kWh/mes
+            <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
             </td>
-            <td class="totales" nzAlign="center"> {{ total.energiaExportadaHaciaRed | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.energiaAutoconsumoINH | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.energiaConsumidaRed | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaExportadaHaciaRed | number:'1.2-2':'en_US'}} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.energiaAutoconsumoINH | number:'1.2-2':'en_US'}} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.energiaConsumidaRed | number:'1.2-2':'en_US'}} </td>
             <td class="totales" nzAlign="center"> {{ total.consumoEnergiaTotalINH | number:'':'en_US'}} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarAutoconsumo | number:'':'en_US' }} %</td>
-            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarTotal | number:'':'en_US' }} %</td>
-            <td class="totales" nzAlign="center"> {{ total.costoEnergiaINH | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center"> {{ total.energiaTotalINH | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center">L {{ total.costoTotalEnergiaINH | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center"> {{ total.consumoActualEnergiaRed | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center">L {{ total.costoEnergiaConsumidaRed | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center"> {{ total.ahorroEnergiaSolar | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center">L {{ total.ahorroSolar | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center"> {{ total.produccionRealEnergiaSolar | number:'':'en_US' }} kWh/mes
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarAutoconsumo | number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarTotal | number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.costoEnergiaINH | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.energiaTotalINH | number:'1.2-2':'en_US'}} kWh/mes</td>
+            <td class="totales" nzAlign="center">L {{ total.costoTotalEnergiaINH | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.consumoActualEnergiaRed | number:'1.2-2':'en_US'}} kWh/mes</td>
+            <td class="totales" nzAlign="center">L {{ total.costoEnergiaConsumidaRed | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.ahorroEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes</td>
+            <td class="totales" nzAlign="center">L {{ total.ahorroSolar | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.produccionRealEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
             </td>
-            <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'':'en_US' }} kWh/mes
+            <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
             </td>
-            <td class="totales" nzAlign="center"> {{ total.degradacionMaxima | number:'':'en_US' }} %</td>
-            <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento | number:'':'en_US' }} %</td>
+            <td class="totales" nzAlign="center"> {{ total.degradacionMaxima | number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento | number:'1.2-2':'en_US'}} %</td>
 
         </tr>
 

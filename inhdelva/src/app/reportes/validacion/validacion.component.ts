@@ -59,25 +59,27 @@ export class ValidacionComponent implements OnInit {
             this.isVisible = true;
             this.listOfData = data;
             this.colspan = data.length;
+            console.log(data);
+
 
             this.listOfData.forEach(x => {
               this.dataUsu = [...this.dataUsu, {
                 'FECHA': moment(x.fecha).format('MM-YYYY'),
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': x.consumoTotalEAFact,
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': x.consumoTotalEASC,
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': x.consumoTotalEAI,
-                'PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)': x.perdidaTotal,
-                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': x.totalEAexportada,
-                'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': x.cargoTotalEA,
-                'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': x.cargoTotalPotencia,
-                'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': x.cargoTotalER,
-                'CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)': x.cargoTotalCO,
-                'CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)': x.cargoTotalCSC,
-                'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': x.cargoTotalIlum,
-                'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': x.cargoPI,
-                'FACTURACION TOTAL A LOS USUARIOS (US$)': x.facturacionTotal,
-                'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': x.diferenciaFacturacionConsumo,
-                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': x.porcentajeDiferencia
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': Math.round(x.consumoTotalEAFact * 100) / 100,
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': Math.round(x.consumoTotalEASC * 100) / 100,
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': Math.round(x.consumoTotalEAI * 100) / 100,
+                'PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)': Math.round(x.perdidaTotal * 100) / 100,
+                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': Math.round(x.totalEAexportada * 100) / 100,
+                'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalEA * 100) / 100,
+                'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalPotencia * 100) / 100,
+                'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': Math.round(x.cargoTotalER * 100) / 100,
+                'CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)': Math.round(x.cargoTotalCO * 100) / 100,
+                'CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)': Math.round(x.cargoTotalCSC * 100) / 100,
+                'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalIlum * 100) / 100,
+                'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': Math.round(x.cargoPI * 100) / 100,
+                'FACTURACION TOTAL A LOS USUARIOS (US$)': Math.round(x.facturacionTotal * 100) / 100,
+                'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': Math.round(x.diferenciaFacturacionConsumo * 100) / 100,
+                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': Math.round(x.porcentajeDiferencia * 100) / 100
               }]
             });
 
@@ -103,19 +105,19 @@ export class ValidacionComponent implements OnInit {
             this.listOfData.forEach(element => {
               this.dataInh = [...this.dataInh, {
                 'FECHA': moment(element.fecha).format('MM-YYYY'),
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.consumoTotalEA,
-                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': element.totalEAexportada,
-                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': element.totalEnergiaProducidaAuto,
-                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': element.totalEnergiaConsumida,
-                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': element.totalEnergiaProducida,
-                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': element.FraccionEnergiaSoalr,
-                'CARGO POR ENERGIA A INHDELVA (US$)': element.cargoEnergia,
-                'CARGO POR POTENCIA A INHDELVA (US$)': element.cargoPotencia,
-                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': 0,
-                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': element.cargoAlumbrado,
-                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': element.cargoComercializacion,
-                'CARGO POR REGULACION A INHDELVA (US$)': element.cargoRegulacion,
-                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': element.totalProveedores
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': Math.round(element.consumoTotalEA * 100) / 100,
+                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': Math.round(element.totalEAexportada * 100) / 100,
+                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': Math.round(element.totalEnergiaProducidaAuto * 100) / 100,
+                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': Math.round(element.totalEnergiaConsumida * 100) / 100,
+                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': Math.round(element.totalEnergiaProducida * 100) / 100,
+                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': Math.round(element.FraccionEnergiaSolar * 100) / 100,
+                'CARGO POR ENERGIA A INHDELVA (US$)': Math.round(element.cargoEnergia * 100) / 100,
+                'CARGO POR POTENCIA A INHDELVA (US$)': Math.round(element.cargoPotencia * 100) / 100,
+                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': Math.round(element.cargoReactiva * 100) / 100,
+                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': Math.round(element.cargoAlumbrado * 100) / 100,
+                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': Math.round(element.cargoComercializacion * 100) / 100,
+                'CARGO POR REGULACION A INHDELVA (US$)': Math.round(element.cargoRegulacion * 100) / 100,
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': Math.round(element.totalProveedores * 100) / 100
               }]
             });
 
@@ -129,7 +131,7 @@ export class ValidacionComponent implements OnInit {
               ['FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)', ...this.dataInh.map(x => x['FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)'])],
               ['CARGO POR ENERGIA A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR ENERGIA A INHDELVA (US$)'])],
               ['CARGO POR POTENCIA A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR POTENCIA A INHDELVA (US$)'])],
-              ['CARGO POR ENERGIA REACTIVA A INHDELVA (US$)', ...this.dataInh.map(x => x['CCARGO POR ENERGIA REACTIVA A INHDELVA (US$)'])],
+              ['CARGO POR ENERGIA REACTIVA A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR ENERGIA REACTIVA A INHDELVA (US$)'])],
               ['CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)'])],
               ['CARGO POR COMERCIALIZACION A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR COMERCIALIZACION A INHDELVA (US$)'])],
               ['CARGO POR REGULACION A INHDELVA (US$)', ...this.dataInh.map(x => x['CARGO POR REGULACION A INHDELVA (US$)'])],

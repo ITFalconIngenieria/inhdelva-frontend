@@ -40,7 +40,7 @@ export class FacturaComponent implements OnInit {
   diferencia;
   EncabezadoFacturaData: any;
   BloquesdeEnergiaFactura: any[] = [];
-  DetalleFacturaData: DetalleFactura = new DetalleFactura();
+  DetalleFacturaData: any[] = [];
   factorRecargo: number;
   matrizEnergetica: any[] = [];
   anexoMedidores: any[] = [];
@@ -53,6 +53,7 @@ export class FacturaComponent implements OnInit {
   EtiquetaInh;
   HRinh;
   ValorIhn;
+  penalidad: number;
   emesionesVisible = false;
   EtiquetaProveedores;
   HRproveedores;
@@ -67,7 +68,7 @@ export class FacturaComponent implements OnInit {
   }
 
   volver() {
-
+    // Z♥
     if (this.pag === 'G') {
       this.facturaService.destroyInfo();
       this.router.navigate(['facturasGeneradas']);
@@ -624,18 +625,22 @@ export class FacturaComponent implements OnInit {
           });
 
           this.energiaReactiva = this.DetalleFacturaData[3].valor - this.DetalleFacturaData[4].valor;
-          this.totalApagar = this.DetalleFacturaData[27].valor + this.DetalleFacturaData[11].valor;
+          this.totalApagar = this.DetalleFacturaData[28].valor + this.DetalleFacturaData[11].valor;
+          this.penalidad = this.DetalleFacturaData[35].valor * this.DetalleFacturaData[29].valor * this.totalConsumo;
+          this.resultadoFactorP = Math.round(this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.DetalleFacturaData[34].valor, 2))) * 100) / 100;
 
-          this.resultadoFactorP = this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.energiaReactiva, 2)));
-          this.factorRecargo = (this.resultadoFactorP >= 0.9) ? 0 : ((0.9 / this.resultadoFactorP) - 1);
+          this.factorRecargo = Math.round((this.resultadoFactorP >= 0.9) ? 0 : ((0.9 / this.resultadoFactorP) - 1) * 100) / 100;
 
-          this.resultadoPenalidad = this.factorRecargo * (this.DetalleFacturaData[12].valor + this.DetalleFacturaData[11].valor);
+          if (this.EncabezadoFacturaData.tarifa.puntoMedicionId === 1) {
+            this.resultadoPenalidad = this.factorRecargo * (Math.round(this.DetalleFacturaData[12].valor * 100) / 100 + Math.round(this.penalidad * 100) / 100);
 
-          for (let x = 12; x < 27; x++) {
-            this.clienteReguladoData.push(this.DetalleFacturaData[x]);
+          } else {
+            this.resultadoPenalidad = this.factorRecargo * ((Math.round(this.DetalleFacturaData[12].valor * 100) / 100) + (Math.round(this.penalidad * 100) / 100) + (Math.round(this.DetalleFacturaData[13].valor * 100) / 100));
           }
 
-          console.log(this.clienteReguladoData);
+          for (let x = 12; x < 28; x++) {
+            this.clienteReguladoData.push(this.DetalleFacturaData[x]);
+          }
 
           this.cargado = true;
           this.spinner.hide();
