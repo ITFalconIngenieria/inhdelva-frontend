@@ -30,55 +30,55 @@
         <ng-container>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEA | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEA | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEAexportada | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEAexportada | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdVerde"> TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaProducidaAuto | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaProducidaAuto | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdAzul"> TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaConsumida | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaConsumida | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdVerde"> TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaProducida | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalEnergiaProducida | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdVerde"> FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.FraccionEnergiaSoalr | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.FraccionEnergiaSolar | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR ENERGIA A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoEnergia | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoEnergia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR POTENCIA A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPotencia | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPotencia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR ENERGIA REACTIVA A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.FraccionEnergiaSoalr | number:'':'en_US' }} **</td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoReactiva | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoAlumbrado | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoAlumbrado | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR COMERCIALIZACION A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoComercializacion | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoComercializacion | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO POR REGULACION A INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoRegulacion | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoRegulacion | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalProveedores | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalProveedores | number:'1.2-2':'en_US' }} </td>
             </tr>
         </ng-container>
     </tbody>
@@ -99,68 +99,108 @@
         <ng-container>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEASC | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEASC | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAI | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAI | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdAzul"> TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEAexportada | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEAexportada | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalEA | number:'':'en_US' }} **</td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalEA | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalPotencia | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalPotencia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalER | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalER | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCO | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCO | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCSC | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCSC | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalIlum | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalIlum | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPI | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPI | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.facturacionTotal | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.facturacionTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.diferenciaFacturacionConsumo | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.diferenciaFacturacionConsumo | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.porcentajeDiferencia | number:'':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.porcentajeDiferencia | number:'1.2-2':'en_US' }} </td>
             </tr>
         </ng-container>
     </tbody>
 </nz-table>
 <br>
+<nz-table *ngIf="isVisible" #nzTableUsu [nzData]="listOfData" nzSize="small" nzShowPagination="false">
+    <thead>
+        <tr>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"></th>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" [colSpan]="colspan" nzAlign="center"> MES/AÑO</th>
+        </tr>
+        <tr>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"> INFORMACION GLOBAL DE LOS USUARIOS DEL PARQUE </th>
+            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" *ngFor="let data of listOfData" nzAlign="center"> {{ data.fecha | date:'MM-yyyy' }} </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container>
+            <tr>
+                <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEASC | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAI | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdAzul"> TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEAexportada | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalEA | number:'1.2-2':'en_US' }} </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</nz-table>
 <br>
 <div *ngIf="!isVisible" style="display: flex; justify-content: center;">
     <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">

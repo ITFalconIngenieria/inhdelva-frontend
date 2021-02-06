@@ -5,6 +5,7 @@ import { TarifaService } from '../../servicios/tarifa.service';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
+import { es_ES, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
 
 @Component({
   selector: 'app-tipoTarifa',
@@ -18,7 +19,7 @@ export class TipoTarifaComponent implements OnInit {
   isVisibleParametro = false;
   validateFormTarifa: FormGroup;
   validateFormParametro: FormGroup;
-
+  es_ES = es_ES;
   dateFormat = 'yyyy/MM/dd';
   accion;
   idTarifa;
@@ -201,8 +202,8 @@ export class TipoTarifaComponent implements OnInit {
       tarifaId: this.idTarifa,
       tipoCargoId: this.validateFormParametro.value.tipoCargoId,
       bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
-      fechaInicio: `${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')} 00:00:00`,
-      fechaFinal: `${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')} 00:00:00`,
+      fechaInicio: moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaFinal: moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
       valor: `${this.validateFormParametro.value.valor}`,
       observacion,
       estado: true
@@ -298,6 +299,7 @@ export class TipoTarifaComponent implements OnInit {
   editarParametro(data) {
     this.idParametro = data.id;
     this.accion = 'editar';
+    console.log(data);
 
     const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargo.id);
     this.unidad = cargo[0].unidad;
@@ -306,6 +308,8 @@ export class TipoTarifaComponent implements OnInit {
       tipoCargoId: [data.tipoCargo.id, [Validators.required]],
       bloqueHorarioId: [data.bloqueHorario.id],
       fechaInicio: [[data.fechaInicio, data.fechaFinal]],
+
+      // fechaInicio: [[moment(data.fechaInicio).add(1, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(1, 'days').format('YYYY-MM-DD')]],
       valor: [data.valor],
       observacion: [data.observacion]
     });

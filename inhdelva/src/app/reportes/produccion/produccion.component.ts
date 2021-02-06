@@ -89,6 +89,8 @@ export class ProduccionComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.isVisible = true;
+            console.log(data);
+
             // this.listOfDataProduccion = data;
 
             let a = 1;
