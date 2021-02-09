@@ -11,7 +11,8 @@ import { InterceptorService } from './servicios/interceptor.service';
 
 // import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { en_US } from 'ng-zorro-antd/i18n';
+import { en_US , NZ_DATE_LOCALE} from 'ng-zorro-antd/i18n';
+
 
 import { FusionChartsModule } from 'angular-fusioncharts';
 
@@ -183,8 +184,9 @@ import { ExportarFacturaComponent } from './pages/exportarFactura/exportarFactur
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
-    { provide: NZ_I18N, useValue: en_US },
-    { provide: LOCALE_ID, useValue: 'es-Ar' },
+   { provide: NZ_I18N, useValue: en_US },
+    { provide: LOCALE_ID, useValue: 'en_US' },
+    // { provide: NZ_DATE_LOCALE , useValue: en_US},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

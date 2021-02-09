@@ -629,7 +629,7 @@ export class FacturaComponent implements OnInit {
           this.penalidad = this.DetalleFacturaData[35].valor * this.DetalleFacturaData[29].valor * this.totalConsumo;
           this.resultadoFactorP = Math.round(this.totalConsumo / (Math.sqrt(Math.pow(this.totalConsumo, 2) + Math.pow(this.DetalleFacturaData[34].valor, 2))) * 100) / 100;
 
-          this.factorRecargo = Math.round((this.resultadoFactorP >= 0.9) ? 0 : ((0.9 / this.resultadoFactorP) - 1) * 100) / 100;
+          this.factorRecargo = (this.resultadoFactorP >= 0 && this.resultadoFactorP < 0.9) ? Math.round(((0.9 / this.resultadoFactorP) - 1) * 100) / 100 : 0;
 
           if (this.EncabezadoFacturaData.tarifa.puntoMedicionId === 1) {
             this.resultadoPenalidad = this.factorRecargo * (Math.round(this.DetalleFacturaData[12].valor * 100) / 100 + Math.round(this.penalidad * 100) / 100);

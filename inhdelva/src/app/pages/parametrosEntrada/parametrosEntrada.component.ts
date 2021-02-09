@@ -18,7 +18,7 @@ export class ParametrosEntradaComponent implements OnInit {
   expandSet = new Set<number>();
   isVisible = false;
   validateForm: FormGroup;
-  dateFormat = 'yyyy/MM/dd';
+  dateFormat = 'dd-MM-yyyy';
   accion;
   idParametro;
   listOfDataParametro: any[] = [];
@@ -67,8 +67,8 @@ export class ParametrosEntradaComponent implements OnInit {
 
     const dataParametro = {
       tipoCargoId: this.validateForm.value.tipoCargoId,
-      fechaInicio: moment(this.validateForm.value.fechaInicio[0]).toISOString(),
-      fechaFinal: moment(this.validateForm.value.fechaInicio[1]).toISOString(),
+      fechaInicio: moment(`${moment(this.validateForm.value.fechaInicio[0]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaFinal: moment(`${moment(this.validateForm.value.fechaInicio[1]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
       valor: `${this.validateForm.value.valor}`,
       observacion,
       estado: true
@@ -148,7 +148,7 @@ export class ParametrosEntradaComponent implements OnInit {
 
     this.validateForm = this.fb.group({
       tipoCargoId: [data.tipoCargoId, [Validators.required]],
-      fechaInicio: [[data.fechaInicio, data.fechaFinal], [Validators.required]],
+      fechaInicio: [[moment(data.fechaInicio).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
       valor: [data.valor, [Validators.required]],
       observacion: [data.observacion]
     });

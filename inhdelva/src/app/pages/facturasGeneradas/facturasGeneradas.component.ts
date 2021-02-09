@@ -121,6 +121,8 @@ export class FacturasGeneradasComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.listOfDataFacturas = data;
+            console.log(data);
+
             localStorage.setItem('data', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {

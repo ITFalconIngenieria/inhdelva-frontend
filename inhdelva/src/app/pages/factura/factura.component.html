@@ -252,14 +252,23 @@
                     </div>
                     <p style="color: black; font-size: 17px; margin: 0% 0% 1% 0%; font-weight: bold;"> Factor de potencia
                     </p>
-                    <label> <span class="formula-dividendo"> {{ totalConsumo | number:'1.2-2':'en_US'}} kWh</span> <span
+                    <div style="position: relative;">
+                        <p class="formula-dividendo"> {{ totalConsumo | number:'1.2-2':'en_US'}} kWh </p>
+                        <p class="formula-divisor1"> ( {{ totalConsumo | number:'1.2-2':'en_US'}} kWh)^2 </p>
+                        <p class="mas"> + </p>
+                        <p class="formula-divisor2"> ({{ DetalleFacturaData[34]?.valor | number:'1.2-2':'en_US'}} kWh)^2 = </p>
+                        <p class="resultado-factor"> {{ resultadoFactorP | number:'1.2-2':'en_US' }} </p>
+                        <img class="img-formula" src="assets/raiz.svg">
+
+                    </div>
+                    <!-- <label> <span class="formula-dividendo"> {{ totalConsumo | number:'1.2-2':'en_US'}} kWh</span> <span
                             class="formula-divisor1">
                             ( {{ totalConsumo | number:'1.2-2':'en_US'}} kWh)^2 </span> <span class="formula-divisor2">
                             + (
                             {{ DetalleFacturaData[34]?.valor | number:'1.2-2':'en_US'}} kWh)^2 =
                         </span> <span class="resultado-factor"> {{ resultadoFactorP | number:'1.2-2':'en_US' }} </span>
                     </label>
-                    <img class="img-formula" src="assets/raiz.svg">
+                    <img class="img-formula" src="assets/raiz.svg"> -->
                     <p style="    color: black; font-size: 17px; margin: 2% 0% 1% 0%; font-weight: bold;"> Penalidad
                     </p>
                     <p class="formula-penalidad" *ngIf="EncabezadoFacturaData.tarifa.puntoMedicionId === 1"> {{ factorRecargo | number:'1.2-2':'en_US' }} x ( {{ DetalleFacturaData[12]?.valor | number:'1.2-2':'en_US'}} + {{ DetalleFacturaData[11]?.valor | number:'1.2-2':'en_US' }} ) = <span class="resultado-penalidad">
@@ -271,21 +280,9 @@
             </div>
             <div class="historico-consumo-container">
                 <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-                    <fusioncharts width="610" height="360" type="Column2d" [dataSource]="dataSourceConsumo">
+                    <fusioncharts width="100%" height="100%" type="Column2d" [dataSource]="dataSourceConsumo">
                     </fusioncharts>
                 </div>
-                <!-- <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-                <p class="totales-historico">
-                    <span>Total del mes (L.):</span>
-                    <span> {{ DetalleFacturaData[28]?.valor | number:'1.2-2':'en_US'}} </span>
-                </p>
-            </div>
-            <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
-                <p class="totales-historico">
-                    <span> Saldo pendiente (L.): </span>
-                    <span> {{ DetalleFacturaData[10]?.valor | number:'1.2-2':'en_US'}} </span>
-                </p>
-            </div> -->
                 <div style="background-color: #b9b9b9; margin: 1% 3% 1% 3%;">
                     <p class="totales-historico">
                         <span> Total a pagar:</span>
@@ -311,23 +308,6 @@
                     <p *ngFor="let item of clienteReguladoData" class="datos-cliente-regulado"> <span>
                             {{ item.descripcion }}:
                         </span> <span> {{ item.valor | number:'1.2-2':'en_US' }} Lps</span> </p>
-                    <!-- <p class="datos-cliente-regulado"> <span> Demanda: </span> <span> 10,477.14 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo reactivo: </span> <span> 2,280.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo costos operativos: </span> <span> 1,575.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo por perdidad de distribución: </span> <span> 0.00 </span>
-            </p>
-            <p class="datos-cliente-regulado"> <span> Cargo por transformación: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo iluminación comunitaria: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo servicios comunitarios: </span> <span> 165,857.97 </span>
-            </p>
-            <p class="datos-cliente-regulado"> <span> Cargo de comercialización: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo de regulación: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo por financiamiento: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Rectificación/Ajuste: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Cargo por corte: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Recargo por mora: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Otros conceptos: </span> <span> 0.00 </span> </p>
-            <p class="datos-cliente-regulado"> <span> Subtotal: </span> <span> 0.00 </span> </p> -->
                 </div>
                 <div style="background-color: #a9a9a9; margin: 1% 0% 0% 0%;">
                     <p class="total-pagar">

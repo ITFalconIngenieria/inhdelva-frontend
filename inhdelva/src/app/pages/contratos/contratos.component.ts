@@ -253,8 +253,8 @@ export class ContratosComponent implements OnInit {
         dataMedidor = {
           contratoId: this.idContrato,
           medidorId: this.validateFormMedidores.value.medidorId,
-          fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).toISOString(),
-          fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).toISOString(),
+          fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).subtract(6,'hours').toISOString(),
+          fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).subtract(6,'hours').toISOString(),
           zonaId,
           area,
           tipoServicioId: tipoServicio,
@@ -411,7 +411,7 @@ export class ContratosComponent implements OnInit {
     if (data.fechaInicial) {
       this.validateFormMedidores = this.fb.group({
         medidorId: [data.medidorId, [Validators.required]],
-        fechaInicial: [[data.fechaInicial, data.fechaFinal]],
+        fechaInicial: [[moment(data.fechaInicial).add(6, 'hours').format('YYYY-MM-DD HH:mm'), moment(data.fechaFinal).add(6, 'hours').format('YYYY-MM-DD HH:mm')]],
         zonaId: [data.zonaId],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
@@ -632,7 +632,7 @@ export class ContratosComponent implements OnInit {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
     this.fechaInicial = data.fechaCreacion;
-    this.fechaFinal = data.fechaVenc;
+    this.fechaFinal = data.fechaVenc;    
 
     switch (data.clasificacion) {
       case 'I': {

@@ -193,8 +193,8 @@
                     <tr>
                         <td>{{ data.tipoCargo.codigo }}</td>
                         <td>{{ data.valor }}</td>
-                        <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC+6' }}</td>
-                        <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC+6' }}</td>
+                        <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC' }}</td>
+                        <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC' }}</td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" (click)="editarParametro(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>

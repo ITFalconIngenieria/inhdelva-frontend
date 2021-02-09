@@ -63,8 +63,8 @@ export class CargosEspecialesComponent implements OnInit {
     this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
 
     const dataCargo = {
-      fechaInicial: moment(this.validateForm.value.fechaInicial[0]).toISOString(),
-      fechaFinal: moment(this.validateForm.value.fechaInicial[1]).toISOString(),
+      fechaInicial: moment(`${moment(this.validateForm.value.fechaInicial[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaFinal: moment(`${moment(this.validateForm.value.fechaInicial[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
       financiamiento: `${this.validateForm.value.financiamiento}`,
       rectificacion: `${this.validateForm.value.rectificacion}`,
       corte: `${this.validateForm.value.corte}`,
@@ -167,7 +167,7 @@ export class CargosEspecialesComponent implements OnInit {
 
     this.cargoEdit = data.id;
     this.validateForm = this.fb.group({
-      fechaInicial: [[data.fechaInicial, data.fechaFinal], [Validators.required]],
+      fechaInicial: [[moment(data.fechaInicial).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
       financiamiento: [parseFloat(data.financiamiento)],
       rectificacion: [parseFloat(data.rectificacion)],
       corte: [parseFloat(data.corte)],

@@ -35,8 +35,8 @@
                             <i nz-icon nzType="delete" nzTheme="outline"></i>
                         </button>
                     </td>
-                    <td>{{ data.fechaInicial | date:'dd/M/yyyy'}}</td>
-                    <td>{{ data.fechaFinal | date:'dd/M/yyyy'}}</td>
+                    <td>{{ data.fechaInicial | date:'dd/M/yyyy':'UTC'}}</td>
+                    <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC'}}</td>
                     <td>{{ data.total | number:'':'en_US'}}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
@@ -48,7 +48,7 @@
 </div>
 
 <!-- Modal Formulario -->
-<nz-modal [(nzVisible)]="isVisible" nzWidth="450" nzTitle="Configuración Cargos especiales" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzWidth="600" nzTitle="Configuración Cargos especiales" (nzOnCancel)="handleCancel()">
     <form nz-form nzLayout="vertical" (ngSubmit)="submitForm()" [formGroup]="validateForm">
         <div style="display: flex; justify-content: center;">
             <nz-form-item>
@@ -65,7 +65,7 @@
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
                             <label style="font-size: 17px; margin-right: 2%;"> Lps.</label>
-                            <nz-input-number style="margin: 0px;" formControlName="financiamiento" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="margin: 0px; width: 50%;" formControlName="financiamiento" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
                         </div>
                     </nz-form-control>
@@ -77,7 +77,7 @@
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
                             <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
-                            <nz-input-number style="margin: 0px;" [nzMin]="0" formControlName="rectificacion" [nzStep]="1">
+                            <nz-input-number style="margin: 0px; width: 50%" [nzMin]="0" formControlName="rectificacion" [nzStep]="1">
                             </nz-input-number>
                         </div>
                     </nz-form-control>
@@ -90,7 +90,7 @@
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
                             <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
-                            <nz-input-number style="margin: 0px;" formControlName="corte" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="margin: 0px; width: 50%" formControlName="corte" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
                         </div>
                     </nz-form-control>
@@ -102,7 +102,7 @@
                     <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                         <div style="display: flex; justify-content: flex-start;">
                             <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
-                            <nz-input-number style="margin: 0px;" formControlName="mora" [nzMin]="0" [nzStep]="1">
+                            <nz-input-number style="margin: 0px; width: 50%" formControlName="mora" [nzMin]="0" [nzStep]="1">
                             </nz-input-number>
                         </div>
                     </nz-form-control>
@@ -114,7 +114,7 @@
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <div style="display: flex; justify-content: flex-start;">
                     <label style="font-size: 17px;margin-right: 2%;"> Lps.</label>
-                    <nz-input-number style="margin: 0px;" formControlName="otros" [nzMin]="0" [nzStep]="1">
+                    <nz-input-number style="margin: 0px; width: 25%" formControlName="otros" [nzMin]="0" [nzStep]="1">
                     </nz-input-number>
                 </div>
             </nz-form-control>
