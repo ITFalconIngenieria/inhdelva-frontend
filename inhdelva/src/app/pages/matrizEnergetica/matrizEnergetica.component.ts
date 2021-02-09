@@ -224,12 +224,12 @@ export class MatrizEnergeticaComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     // this.validateFormMatriz.value.fechaInicio[1] = moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD');
     const dataMatriz = {
-      fechaInicio: moment(this.validateFormMatriz.value.fechaInicio[0]).toISOString(),
-      fechaFinal: moment(this.validateFormMatriz.value.fechaInicio[1]).toISOString(),
+      fechaInicio: moment(`${moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaFinal: moment(`${moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
       actorId: this.validateFormMatriz.value.actorId,
       observacion: this.validateFormMatriz.value.observacion,
       estado: true
-    };
+    };    
 
     if (this.accion === 'editar') {
       this.matrizService.putMatriz(this.idMatriz, dataMatriz)
@@ -312,9 +312,9 @@ export class MatrizEnergeticaComponent implements OnInit {
     this.totalEditar = data.total;
 
     this.validateFormMatriz = this.fb.group({
-      fechaInicio: [[data.fechaInicio, data.fechaFinal], [Validators.required]],
+      fechaInicio: [[moment(data.fechaInicio).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
       actorId: [data.actorId, [Validators.required]],
-      observacion: ['']
+      observacion: [data.observacion]
     });
 
   }

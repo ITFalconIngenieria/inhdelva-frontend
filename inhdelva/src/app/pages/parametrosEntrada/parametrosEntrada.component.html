@@ -38,8 +38,8 @@
                     </td>
                     <td>{{ data.tipoCargo.codigo }}</td>
                     <td>{{ data.valor }}</td>
-                    <td>{{ data.fechaInicio | date: 'yyyy/M/dd' }}</td>
-                    <td>{{ data.fechaFinal | date: 'yyyy/M/dd' }}</td>
+                    <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC' }}</td>
+                    <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC' }}</td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
                     <td colSpan="7">{{ data.observacion }}</td>

@@ -39,8 +39,8 @@
                       </button>
                     </td>
                     <td>{{ data.actor }}</td>
-                    <td>{{ data.fechaInicio | date:'dd/M/yyyy'}}</td>
-                    <td>{{ data.fechaFinal | date:'dd/M/yyyy'}}</td>
+                    <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC'}}</td>
+                    <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC'}}</td>
                     <td>{{ data.total | number:'':'en_US'}}</td>
                     <td>
                         <button nz-button nzType="primary" nzSize="small" (click)="showModalDistribucion(data)" nzShape="round">Distribución</button>
