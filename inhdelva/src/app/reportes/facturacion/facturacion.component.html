@@ -98,43 +98,43 @@
                 <td class="tdBlanco" nzAlign="center">{{ data.cuenta }}</td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.medidor }} </td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.tarifa }} </td>
-                <td class="tdAzul" nzAlign="center">{{ data.EA | number:'':'en_US'}} kWh/mes</td>
-                <td class="tdAzul" nzAlign="center"> {{ data.ER | number:'':'en_US' }} kVArh/mes</td>
-                <td class="tdAzul" nzAlign="center">{{ data.PM | number:'':'en_US' }} kW</td>
-                <td class="tdGrisClaro" nzAlign="center">{{ data.FP | number:'':'en_US' }} </td>
-                <td class="tdGrisClaro" nzAlign="center">{{ data.FS | number:'':'en_US' }} </td>
-                <td class="tdBlanco" nzAlign="center">L {{ data.PBE | number:'':'en_US' }} Lps/kWh</td>
-                <td class="tdVerde" nzAlign="center"> {{ data.CPE | number:'':'en_US' }} Lps</td>
-                <td class="tdGrisClaro" nzAlign="center"> {{ data.P11 | number:'':'en_US' }} kW</td>
-                <td class="tdBlanco" nzAlign="center"> {{ data.PBP | number:'':'en_US' }} Lps/kW-mes</td>
-                <td class="tdVerde" nzAlign="center"> {{ data.CPC | number:'':'en_US' }} Lps</td>
+                <td class="tdAzul" nzAlign="center">{{ data.EA | number:'1.2-2':'en_US'}} kWh/mes</td>
+                <td class="tdAzul" nzAlign="center"> {{ data.ER | number:'1.2-2':'en_US' }} kVArh/mes</td>
+                <td class="tdAzul" nzAlign="center">{{ data.PM | number:'1.2-2':'en_US' }} kW</td>
+                <td class="tdGrisClaro" nzAlign="center">{{ data.FP | number:'1.2-2':'en_US' }} </td>
+                <td class="tdGrisClaro" nzAlign="center">{{ data.FS | number:'1.2-2':'en_US' }} </td>
+                <td class="tdBlanco" nzAlign="center">L {{ data.PBE | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                <td class="tdVerde" nzAlign="center"> {{ data.CPE | number:'1.2-2':'en_US' }} Lps</td>
+                <td class="tdGrisClaro" nzAlign="center"> {{ data.P11 | number:'1.2-2':'en_US' }} kW</td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.PBP | number:'1.2-2':'en_US' }} Lps/kW-mes</td>
+                <td class="tdVerde" nzAlign="center"> {{ data.CPC | number:'1.2-2':'en_US' }} Lps</td>
                 <td class="tdGrisClaro" nzAlign="center"> {{ (data.FP
-                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '': 'en_US' }} </td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CER | number:'':'en_US' }} Lps</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COS | number:'':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COR | number:'':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COE | number:'':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COA | number:'':'en_US' }} Lps/KwH</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CCO | number:'':'en_US' }} Lps/kWh</td>
+                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '1.2-2': 'en_US' }} </td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CER | number:'1.2-2':'en_US' }} Lps</td>
+                        <td class="tdBlanco" nzAlign="center">L {{ data.COS | number:'1.2-2':'en_US' }} Lps/KwH</td>
+                        <td class="tdBlanco" nzAlign="center">L {{ data.COR | number:'1.2-2':'en_US' }} Lps/KwH</td>
+                        <td class="tdBlanco" nzAlign="center">L {{ data.COE | number:'1.2-2':'en_US' }} Lps/KwH</td>
+                        <td class="tdBlanco" nzAlign="center">L {{ data.COA | number:'1.2-2':'en_US' }} Lps/KwH</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CCO | number:'1.2-2':'en_US' }} Lps/kWh</td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.PuntoMedida }}</td>
-                        <td class="tdGrisClaro" nzAlign="center">L {{ data.PI | number:'':'en_US' }}</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CPI | number:'':'en_US' }} Lps</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EAAP | number:'':'en_US' }} kWh/mes</td>
-                        <td class="tdBlanco" nzAlign="center"> {{ data.EAP | number:'':'en_US' }}Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CIC | number:'':'en_US' }} Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EASC | number:'':'en_US' }} kWh/mes</td>
-                        <td class="tdBlanco" nzAlign="center"> {{ data.EBT | number:'':'en_US' }} Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'':'en_US' }} kWh/mes</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CSC | number:'':'en_US' }} Lps/kWh</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.TOTAL | number:'':'en_US' }} Lps</td>
+                        <td class="tdGrisClaro" nzAlign="center">L {{ data.PI | number:'1.2-2':'en_US' }}</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CPI | number:'1.2-2':'en_US' }} Lps</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EAAP | number:'1.2-2':'en_US' }} kWh/mes</td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.EAP | number:'1.2-2':'en_US' }}Lps/kWh</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} kWh/mes</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CIC | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EASC | number:'1.2-2':'en_US' }} kWh/mes</td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.EBT | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} kWh/mes</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CSC | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.TOTAL | number:'1.2-2':'en_US' }} Lps</td>
             </tr>
 
         </ng-container>
 
         <tr>
             <td colSpan="5" style="background-color: #d7ffd9; border: rgb(102, 102, 102); border-style: solid; border-width: 1px; color: black; font-weight: bold;" nzAlign="right"> TOTAL CLIENTES </td>
-            <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'':'en_US' }} </td>
+            <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'1.2-2':'en_US' }} </td>
         </tr>
     </tbody>
 </nz-table>

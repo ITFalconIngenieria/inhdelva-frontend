@@ -29,7 +29,7 @@
 <br>
 <div class="row" style="width: 76%; margin: auto;">
     <div class="col">
-        <nz-table style="width: 80%;" nzSize="small" #basicTable [nzData]="listOfData" nzShowPagination="false">
+        <table class="table table-sm" style="width: 80%;">
             <tbody>
                 <tr>
                     <td class="infoCelda">Proyecto:</td>
@@ -51,20 +51,9 @@
                     <td class="infoCelda">Localidad:</td>
                     <td class="dataCelda">CHOLOMA, HONDURAS.</td>
                 </tr>
-                <!-- <tr>
-                    <td class="infoCelda">Fecha de inicio de operación:</td>
-                    <td class="dataCelda"></td>
-                </tr>
-                <tr>
-                    <td class="infoCelda">Mes/Año inicio informe:</td>
-                    <td class="dataCelda"></td>
-                </tr>
-                <tr>
-                    <td class="infoCelda">Mes/Año finalización informe:</td>
-                    <td class="dataCelda"></td>
-                </tr> -->
             </tbody>
-        </nz-table>
+        </table>
+
     </div>
     <div class="col">
         <div>
@@ -171,7 +160,7 @@
         </ng-container>
         <tr *ngFor="let total of listaTotales">
             <td class="totales" nzAlign="center"> TOTAL </td>
-            <td colSpan="3" class="totales" nzAlign="center"> AÑO {{ total.x }} </td>
+            <td colSpan="3" class="totales" nzAlign="center"> AÑO {{ (total.x) }} </td>
             <td class="totales" nzAlign="center"> {{ total.produccionTotalEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
             </td>
             <td class="totales" nzAlign="center"> {{ total.energiaExportadaHaciaRed | number:'1.2-2':'en_US'}} kWh/mes</td>
