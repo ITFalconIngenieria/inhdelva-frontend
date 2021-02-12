@@ -72,6 +72,14 @@ export class FacturacionComponent implements OnInit {
   }
 
   consultar() {
+
+    this.colsExport = [];
+    this.cols = [];
+    this.dataPDFExport = [];
+    this.dataPDF = [];
+    this.listOfData = [];
+    this.listaTotales = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
     this.spinner.show();
 
     if (this.contratos.length === 0 || this.fechas === null) {
@@ -109,37 +117,40 @@ export class FacturacionComponent implements OnInit {
             for (let y = 0; y < this.listOfData.length; y++) {
 
               this.listaTotales = [
-                this.listaTotales[0] + this.listOfData[y].EA,
-                this.listaTotales[1] + this.listOfData[y].ER,
-                this.listaTotales[2] + this.listOfData[y].PM,
-                this.listaTotales[3] + this.listOfData[y].FP,
-                this.listaTotales[4] + this.listOfData[y].FS,
+                this.listaTotales[0] + Math.round(data[y].EA * 100) / 100,
+                this.listaTotales[1] + Math.round(data[y].ER * 100) / 100,
+                this.listaTotales[2] + Math.round(data[y].PM * 100) / 100,
+                this.listaTotales[3] + Math.round(data[y].FP * 100) / 100,
+                this.listaTotales[4] + Math.round(data[y].FS * 100) / 100,
                 '',
-                this.listaTotales[6] + this.listOfData[y].CPE,
-                this.listaTotales[7] + this.listOfData[y].P11,
+                this.listaTotales[6] + Math.round(data[y].CPE * 100) / 100,
+                this.listaTotales[7] + Math.round(data[y].P11 * 100) / 100,
                 '',
-                this.listaTotales[9] + this.listOfData[y].CPC,
+                this.listaTotales[9] + Math.round(data[y].CPC * 100) / 100,
                 '',
-                this.listaTotales[11] + this.listOfData[y].CER,
-                '',
-                '',
-                '',
-                '',
-                this.listaTotales[16] + this.listOfData[y].CCO,
-                '',
-                '',
-                this.listaTotales[19] + this.listOfData[y].CPI,
+                this.listaTotales[11] + Math.round(data[y].CER * 100) / 100,
                 '',
                 '',
                 '',
-                this.listaTotales[23] + this.listOfData[y].CIC,
+                '',
+                this.listaTotales[16] + Math.round(data[y].CCO * 100) / 100,
+                '',
+                '',
+                this.listaTotales[19] + Math.round(data[y].CPI * 100) / 100,
                 '',
                 '',
                 '',
-                this.listaTotales[27] + this.listOfData[y].CSC,
-                this.listaTotales[28] + this.listOfData[y].TOTAL
+                this.listaTotales[23] + Math.round(data[y].CIC * 100) / 100,
+                '',
+                '',
+                '',
+                this.listaTotales[27] + Math.round(data[y].CSC * 100) / 100,
+                this.listaTotales[28] + Math.round(data[y].TOTAL * 100) / 100
               ];
             }
+
+            console.log(this.listaTotales);
+
 
             this.listOfData.forEach(y => {
               this.dataExport = [...this.dataExport, {

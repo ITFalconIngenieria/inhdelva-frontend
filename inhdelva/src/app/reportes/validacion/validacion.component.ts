@@ -39,6 +39,16 @@ export class ValidacionComponent implements OnInit {
   }
 
   consultar() {
+    this.listOfData = [];
+    this.dataInh = [];
+    this.dataUsu = [];
+    this.colsINH = [];
+    this.colsUSU = [];
+    this.dataPDFINH = [];
+    this.dataPDFUSU = [];
+    this.colsExportINH = [];
+    this.colsExportUSU = [];
+
     this.spinner.show();
     if (this.fechas === null) {
       swal({
@@ -61,7 +71,6 @@ export class ValidacionComponent implements OnInit {
             this.colspan = data.length;
             console.log(data);
 
-
             this.listOfData.forEach(x => {
               this.dataUsu = [...this.dataUsu, {
                 'FECHA': moment(x.fecha).format('MM-YYYY'),
@@ -79,7 +88,12 @@ export class ValidacionComponent implements OnInit {
                 'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': Math.round(x.cargoPI * 100) / 100,
                 'FACTURACION TOTAL A LOS USUARIOS (US$)': Math.round(x.facturacionTotal * 100) / 100,
                 'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': Math.round(x.diferenciaFacturacionConsumo * 100) / 100,
-                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': Math.round(x.porcentajeDiferencia * 100) / 100
+                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': Math.round(x.porcentajeDiferencia * 100) / 100,
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': 0,
+                'COSTO ENERGIA SOLAR (US$)': 0,
+                'COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)': 0,
+                'DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)': 0,
+                'MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)': 0
               }]
             });
 
@@ -99,7 +113,12 @@ export class ValidacionComponent implements OnInit {
               ['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)'])],
               ['FACTURACION TOTAL A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['FACTURACION TOTAL A LOS USUARIOS (US$)'])],
               ['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)', ...this.dataUsu.map(x => x['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)'])],
-              ['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)', ...this.dataUsu.map(x => x['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)'])]
+              ['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)', ...this.dataUsu.map(x => x['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)'])],
+              ['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)', ...this.dataUsu.map(x => x['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)'])],
+              ['COSTO ENERGIA SOLAR (US$)', ...this.dataUsu.map(x => x['COSTO ENERGIA SOLAR (US$)'])],
+              ['COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)', ...this.dataUsu.map(x => x['COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)'])],
+              ['DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)', ...this.dataUsu.map(x => x['COSTO ENERGIA SOLAR (US$)'])],
+              ['MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)', ...this.dataUsu.map(x => x['MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)'])]
             ]
 
             this.listOfData.forEach(element => {
@@ -301,7 +320,7 @@ export class ValidacionComponent implements OnInit {
       x = x + 4;
     }
 
-    docUSU.save('InformeValidacionUSuarios.pdf');
+    docUSU.save('InformeValidacionUsuarios.pdf');
     docINH.save('InformeValidacionInhdelva.pdf');
   }
 
