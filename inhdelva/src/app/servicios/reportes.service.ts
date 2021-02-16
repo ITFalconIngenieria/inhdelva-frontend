@@ -16,7 +16,8 @@ export class ReportesService {
 
   proveedoresEnergia(proveedores, fechaInicio, fechaFin) {
     console.log(`${apiUrl}reporte-proveedores?fechai=${fechaInicio}&fechaf=${fechaFin}`);
-    
+    console.log(proveedores);
+
     return this.http.post(`${apiUrl}reporte-proveedores?fechai=${fechaInicio}&fechaf=${fechaFin}`, proveedores);
   }
 
@@ -29,6 +30,8 @@ export class ReportesService {
   }
 
   validacion(fechaInicio, fechaFin) {
+    console.log(`${apiUrl}reporte-validacion?fechai=${fechaInicio}&fechaf=${fechaFin}`);
+    
     return this.http.get(`${apiUrl}reporte-validacion?fechai=${fechaInicio}&fechaf=${fechaFin}`);
   }
 
