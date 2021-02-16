@@ -78,37 +78,37 @@
                 <td class="tdAzul" nzAlign="center"> {{ data.proveedor }} </td>
                 <td class="tdAzul" nzAlign="center">{{ data.fecha | date:'yyyy'}}</td>
                 <td class="tdAzul" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
-                <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaActiva | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdBlanco" nzAlign="center"> {{ data.energiaActivaExportada | number:'':'en_US' }} kWh/mes</td>
-                <td class="tdBlanco" nzAlign="center">{{ data.demandaPotenciaMaxima | number:'':'en_US' }} kW</td>
-                <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'':'en_US' }} kVArh/mes</td>
-                <td class="tdGrisClaro" nzAlign="center">{{ data.factorPotencia | number:'':'en_US' }}</td>
-                <td class="tdBlanco" nzAlign="center">{{ data.precioEnergia | number:'':'en_US' }} Lps/kWh</td>
-                <td class="tdBlanco" nzAlign="center">{{ data.costoDemanda | number:'':'en_US' }} Lps/kW-mes</td>
-                <td class="tdGrisClaro" nzAlign="center">L {{ data.costoEnergia| number:'':'en_US' }}</td>
-                <td class="tdBlanco" nzAlign="center">L {{ data.alumbradoPublico | number:'':'en_US' }}</td>
-                <td class="tdBlanco" nzAlign="center">L {{ data.cargoComercializacion | number:'':'en_US' }}</td>
-                <td class="tdGrisClaro" nzAlign="center">L {{ data.cargoRegulacion | number:'':'en_US' }}</td>
-                <td class="tdGrisClaro" nzAlign="center">L {{ data.precioDemanda | number:'':'en_US' }}</td>
-                <td class="tdGrisClaro" nzAlign="center">L {{ data.total | number:'':'en_US' }}</td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaActiva | number:'1.2-2':'en_US' }} kWh/mes</td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.energiaActivaExportada | number:'1.2-2':'en_US' }} kWh/mes</td>
+                <td class="tdBlanco" nzAlign="center">{{ data.demandaPotenciaMaxima | number:'1.2-2':'en_US' }} kW</td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'1.2-2':'en_US' }} kVArh/mes</td>
+                <td class="tdGrisClaro" nzAlign="center">{{ data.factorPotencia | number:'1.2-2':'en_US' }}</td>
+                <td class="tdBlanco" nzAlign="center">{{ data.precioEnergia | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                <td class="tdBlanco" nzAlign="center">{{ data.costoDemanda | number:'1.2-2':'en_US' }} Lps/kW-mes</td>
+                <td class="tdGrisClaro" nzAlign="center">L {{ data.costoEnergia| number:'1.2-2':'en_US' }}</td>
+                <td class="tdBlanco" nzAlign="center">L {{ data.alumbradoPublico | number:'1.2-2':'en_US' }}</td>
+                <td class="tdBlanco" nzAlign="center">L {{ data.cargoComercializacion | number:'1.2-2':'en_US' }}</td>
+                <td class="tdGrisClaro" nzAlign="center">L {{ data.cargoRegulacion | number:'1.2-2':'en_US' }}</td>
+                <td class="tdGrisClaro" nzAlign="center">L {{ data.precioDemanda | number:'1.2-2':'en_US' }}</td>
+                <td class="tdGrisClaro" nzAlign="center">L {{ data.total | number:'1.2-2':'en_US' }}</td>
             </tr>
         </ng-container>
         <tr *ngFor="let total of listaTotales">
             <td class="totales" nzAlign="center"> {{ total.proveedor }} </td>
             <td colSpan="2" class="totales" nzAlign="center"> TOTAL </td>
-            <td class="totales" nzAlign="center"> {{ total.consumoEnergiaActiva | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.energiaActivaExportada | number:'':'en_US' }} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.demandaPotenciaMaxima | number:'':'en_US' }} kW</td>
-            <td class="totales" nzAlign="center"> {{ total.consumoEnergiaReactiva | number:'':'en_US' }} kVArh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.factorPotencia | number:'':'en_US'}} </td>
-            <td class="totales" nzAlign="center"> {{ total.precioEnergia | number:'':'en_US' }} Lps/kWh</td>
-            <td class="totales" nzAlign="center"> {{ total.costoDemanda | number:'':'en_US' }} Lps/kW-mes</td>
-            <td class="totales" nzAlign="center">L {{ total.costoEnergia | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center">L {{ total.alumbradoPublico | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center">L {{ total.cargoComercializacion | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center">L {{ total.cargoRegulacion | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center">L {{ total.precioDemanda | number:'':'en_US' }} </td>
-            <td class="totales" nzAlign="center">L {{ total.total | number:'':'en_US' }} </td>
+            <td class="totales" nzAlign="center"> {{ total.consumoEnergiaActiva | number:'1.2-2':'en_US' }} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.energiaActivaExportada | number:'1.2-2':'en_US' }} kWh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.demandaPotenciaMaxima | number:'1.2-2':'en_US' }} kW</td>
+            <td class="totales" nzAlign="center"> {{ total.consumoEnergiaReactiva | number:'1.2-2':'en_US' }} kVArh/mes</td>
+            <td class="totales" nzAlign="center"> {{ total.factorPotencia | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.precioEnergia | number:'1.2-2':'en_US' }} Lps/kWh</td>
+            <td class="totales" nzAlign="center"> {{ total.costoDemanda | number:'1.2-2':'en_US' }} Lps/kW-mes</td>
+            <td class="totales" nzAlign="center">L {{ total.costoEnergia | number:'1.2-2':'en_US' }} </td>
+            <td class="totales" nzAlign="center">L {{ total.alumbradoPublico | number:'1.2-2':'en_US' }} </td>
+            <td class="totales" nzAlign="center">L {{ total.cargoComercializacion | number:'1.2-2':'en_US' }} </td>
+            <td class="totales" nzAlign="center">L {{ total.cargoRegulacion | number:'1.2-2':'en_US' }} </td>
+            <td class="totales" nzAlign="center">L {{ total.precioDemanda | number:'1.2-2':'en_US' }} </td>
+            <td class="totales" nzAlign="center">L {{ total.total | number:'1.2-2':'en_US' }} </td>
         </tr>
     </tbody>
 </nz-table>
