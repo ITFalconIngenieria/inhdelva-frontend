@@ -89,6 +89,13 @@ export class ProveedoresEnergiaComponent implements OnInit {
   }
 
   consultar() {
+    this.cols =[];
+    this.colsExport =[];
+    this.dataExport =[];
+    this.dataPDF =[];
+    this.dataPDFExport =[];
+    this.listOfData =[];
+    this.listaTotales =[];
 
     this.spinner.show();
     if (this.proveedores.length === 0 || this.fechas === null) {
@@ -110,6 +117,9 @@ export class ProveedoresEnergiaComponent implements OnInit {
         .toPromise()
         .then(
           (data: any[]) => {
+
+            console.log(data);
+            
             this.isVisible = true;
             this.listOfData = data;
 
@@ -120,19 +130,19 @@ export class ProveedoresEnergiaComponent implements OnInit {
                   if (elemento.proveedor === valorActual.proveedor) {
                     return {
                       ...elemento,
-                      consumoEnergiaActiva: elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva,
-                      energiaActivaExportada: elemento.energiaActivaExportada + valorActual.energiaActivaExportada,
-                      demandaPotenciaMaxima: elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima,
-                      consumoEnergiaReactiva: elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva,
-                      factorPotencia: elemento.factorPotencia + valorActual.factorPotencia,
-                      precioEnergia: elemento.precioEnergia + valorActual.precioEnergia,
-                      costoDemanda: elemento.costoDemanda + valorActual.costoDemanda,
-                      costoEnergia: elemento.costoEnergia + valorActual.costoEnergia,
-                      alumbradoPublico: elemento.alumbradoPublico + valorActual.alumbradoPublico,
-                      cargoComercializacion: elemento.consumoEnergiaActiva + valorActual.cargoComercializacion,
-                      cargoRegulacion: elemento.cargoRegulacion + valorActual.cargoRegulacion,
-                      precioDemanda: elemento.precioDemanda + valorActual.precioDemanda,
-                      total: elemento.total + valorActual.total
+                      consumoEnergiaActiva: Math.round((elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva)* 100) / 100,
+                      energiaActivaExportada: Math.round((elemento.energiaActivaExportada + valorActual.energiaActivaExportada)* 100) / 100,
+                      demandaPotenciaMaxima: Math.round((elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima)* 100) / 100,
+                      consumoEnergiaReactiva: Math.round((elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva)* 100) / 100,
+                      factorPotencia: Math.round((elemento.factorPotencia + valorActual.factorPotencia)* 100) / 100,
+                      precioEnergia: Math.round((elemento.precioEnergia + valorActual.precioEnergia)* 100) / 100,
+                      costoDemanda: Math.round((elemento.costoDemanda + valorActual.costoDemanda)* 100) / 100,
+                      costoEnergia: Math.round((elemento.costoEnergia + valorActual.costoEnergia)* 100) / 100,
+                      alumbradoPublico: Math.round((elemento.alumbradoPublico + valorActual.alumbradoPublico)* 100) / 100,
+                      cargoComercializacion: Math.round((elemento.consumoEnergiaActiva + valorActual.cargoComercializacion)* 100) / 100,
+                      cargoRegulacion: Math.round((elemento.cargoRegulacion + valorActual.cargoRegulacion)* 100) / 100,
+                      precioDemanda: Math.round((elemento.precioDemanda + valorActual.precioDemanda)* 100) / 100,
+                      total: Math.round((elemento.total + valorActual.total)* 100) / 100
                     };
                   }
                   return elemento;
@@ -147,19 +157,19 @@ export class ProveedoresEnergiaComponent implements OnInit {
                 'Año': moment(y.fecha).format('YYYY'),
                 'Mes': moment(y.fecha).format('MM'),
                 'Fecha': moment(y.fecha).format('MM/YYYY'),
-                'Consumo Energia activa (kWh/mes)': y.consumoEnergiaActiva,
-                'Energia activa exportada (kWh/mes)': y.energiaActivaExportada,
-                'Demanda potencia maxima (kW)': y.demandaPotenciaMaxima,
-                'Consumo Energia reactiva (kVArh/mes)': y.consumoEnergiaReactiva,
-                'Factor de Potencia': y.factorPotencia,
-                'Costo de la Energia (L/kWh)': y.precioEnergia,
-                'Costo de la Demanda (L/kW-mes)': y.costoDemanda,
-                'Costo de la Energia (L)': y.costoEnergia,
-                'Alumbrado Público (L)': y.alumbradoPublico,
-                'Cargo de Comercialización (L)': y.cargoComercializacion,
-                'Cargo de Regulación (L)': y.cargoRegulacion,
-                'Demanda (L)': y.precioDemanda,
-                'TOTAL (L)': y.total
+                'Consumo Energia activa (kWh/mes)': Math.round(y.consumoEnergiaActiva* 100) / 100,
+                'Energia activa exportada (kWh/mes)': Math.round(y.energiaActivaExportada* 100) / 100,
+                'Demanda potencia maxima (kW)': Math.round(y.demandaPotenciaMaxima* 100) / 100,
+                'Consumo Energia reactiva (kVArh/mes)': Math.round(y.consumoEnergiaReactiva* 100) / 100,
+                'Factor de Potencia': Math.round(y.factorPotencia* 100) / 100,
+                'Costo de la Energia (L/kWh)': Math.round(y.precioEnergia* 100) / 100,
+                'Costo de la Demanda (L/kW-mes)': Math.round(y.costoDemanda* 100) / 100,
+                'Costo de la Energia (L)': Math.round(y.costoEnergia* 100) / 100,
+                'Alumbrado Público (L)': Math.round(y.alumbradoPublico* 100) / 100,
+                'Cargo de Comercialización (L)': Math.round(y.cargoComercializacion* 100) / 100,
+                'Cargo de Regulación (L)': Math.round(y.cargoRegulacion* 100) / 100,
+                'Demanda (L)': Math.round(y.precioDemanda* 100) / 100,
+                'TOTAL (L)': Math.round(y.total* 100) / 100
               }]
             });
 
@@ -169,19 +179,19 @@ export class ProveedoresEnergiaComponent implements OnInit {
                 'Año': '',
                 'Mes': '',
                 'Fecha': 'TOTALES',
-                'Consumo Energia activa (kWh/mes)': x.consumoEnergiaActiva,
-                'Energia activa exportada (kWh/mes)': x.energiaActivaExportada,
-                'Demanda potencia maxima (kW)': x.demandaPotenciaMaxima,
-                'Consumo Energia reactiva (kVArh/mes)': x.consumoEnergiaReactiva,
-                'Factor de Potencia': x.factorPotencia,
-                'Costo de la Energia (L/kWh)': x.precioEnergia,
-                'Costo de la Demanda (L/kW-mes)': x.costoDemanda,
-                'Costo de la Energia (L)': x.costoEnergia,
-                'Alumbrado Público (L)': x.alumbradoPublico,
-                'Cargo de Comercialización (L)': x.cargoComercializacion,
-                'Cargo de Regulación (L)': x.cargoRegulacion,
-                'Demanda (L)': x.precioDemanda,
-                'TOTAL (L)': x.total
+                'Consumo Energia activa (kWh/mes)': Math.round(x.consumoEnergiaActiva* 100) / 100,
+                'Energia activa exportada (kWh/mes)': Math.round(x.energiaActivaExportada* 100) / 100,
+                'Demanda potencia maxima (kW)': Math.round(x.demandaPotenciaMaxima* 100) / 100,
+                'Consumo Energia reactiva (kVArh/mes)': Math.round(x.consumoEnergiaReactiva* 100) / 100,
+                'Factor de Potencia': Math.round(x.factorPotencia* 100) / 100,
+                'Costo de la Energia (L/kWh)': Math.round(x.precioEnergia* 100) / 100,
+                'Costo de la Demanda (L/kW-mes)': Math.round(x.costoDemanda* 100) / 100,
+                'Costo de la Energia (L)': Math.round(x.costoEnergia* 100) / 100,
+                'Alumbrado Público (L)': Math.round(x.alumbradoPublico* 100) / 100,
+                'Cargo de Comercialización (L)': Math.round(x.cargoComercializacion* 100) / 100,
+                'Cargo de Regulación (L)': Math.round(x.cargoRegulacion* 100) / 100,
+                'Demanda (L)': Math.round(x.precioDemanda* 100) / 100,
+                'TOTAL (L)': Math.round(x.total* 100) / 100
               }]
             });
 

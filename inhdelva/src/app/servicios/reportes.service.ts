@@ -15,6 +15,8 @@ export class ReportesService {
   ) { }
 
   proveedoresEnergia(proveedores, fechaInicio, fechaFin) {
+    console.log(`${apiUrl}reporte-proveedores?fechai=${fechaInicio}&fechaf=${fechaFin}`);
+    
     return this.http.post(`${apiUrl}reporte-proveedores?fechai=${fechaInicio}&fechaf=${fechaFin}`, proveedores);
   }
 
