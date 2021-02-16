@@ -76,6 +76,7 @@ export class FacturacionComponent implements OnInit {
     this.colsExport = [];
     this.cols = [];
     this.dataPDFExport = [];
+    this.dataExport = [];
     this.dataPDF = [];
     this.listOfData = [];
     this.listaTotales = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

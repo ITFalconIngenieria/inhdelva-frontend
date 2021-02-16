@@ -25,7 +25,6 @@ export class ProveedoresEnergiaComponent implements OnInit {
   dataExport: any[] = [];
 
   cols: any[];
-  exportColumns: any[];
   dataPDF: any[] = [];
   colsExport: any[] = [];
   dataPDFExport: any[] = [];
@@ -53,26 +52,6 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   }
 
-  exportExcel() {
-    import('xlsx').then(xlsx => {
-      const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
-      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
-    });
-  }
-
-  saveAsExcelFile(buffer: any, fileName: string): void {
-    import('file-saver').then(FileSaver => {
-      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-      let EXCEL_EXTENSION = '.xlsx';
-      const data: Blob = new Blob([buffer], {
-        type: EXCEL_TYPE
-      });
-      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
-    });
-  }
-
   proveedoresChange(event: any[]) {
 
     if (event.includes('0')) {
@@ -90,6 +69,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
 
   consultar() {
     this.cols =[];
+
     this.colsExport =[];
     this.dataExport =[];
     this.dataPDF =[];
@@ -302,6 +282,26 @@ export class ProveedoresEnergiaComponent implements OnInit {
     }
 
     doc.save('InformeProveedoresDeEnergia.pdf');
+  }
+
+  exportExcel() {
+    import('xlsx').then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, 'Proveedores_de_Energia');
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    import('file-saver').then(FileSaver => {
+      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+      });
+      FileSaver.saveAs(data, fileName + '_export_' + EXCEL_EXTENSION);
+    });
   }
 
 }

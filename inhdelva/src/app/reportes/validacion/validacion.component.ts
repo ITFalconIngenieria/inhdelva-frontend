@@ -46,6 +46,8 @@ export class ValidacionComponent implements OnInit {
     this.colsUSU = [];
     this.dataPDFINH = [];
     this.dataPDFUSU = [];
+    this.dataPDFExportUSU = [];
+    this.dataPDFExportINH = [];
     this.colsExportINH = [];
     this.colsExportUSU = [];
 
@@ -77,8 +79,11 @@ export class ValidacionComponent implements OnInit {
                 'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': Math.round(x.consumoTotalEAFact * 100) / 100,
                 'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': Math.round(x.consumoTotalEASC * 100) / 100,
                 'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': Math.round(x.consumoTotalEAI * 100) / 100,
-                'PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)': Math.round(x.perdidaTotal * 100) / 100,
-                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': Math.round(x.totalEAexportada * 100) / 100,
+                'PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes)': Math.round(x.perdidaTotalMT * 100) / 100,
+                'PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes)': Math.round(x.perdidaTotalBT * 100) / 100,
+                'PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes)': Math.round(x.perdidaTotal * 100) / 100,
+                'PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%)': Math.round(x.perdidaTotalPor * 100) / 100,
+                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': Math.round(x.totalEnergiaINH * 100) / 100,
                 'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalEA * 100) / 100,
                 'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalPotencia * 100) / 100,
                 'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': Math.round(x.cargoTotalER * 100) / 100,
@@ -87,13 +92,11 @@ export class ValidacionComponent implements OnInit {
                 'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalIlum * 100) / 100,
                 'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': Math.round(x.cargoPI * 100) / 100,
                 'FACTURACION TOTAL A LOS USUARIOS (US$)': Math.round(x.facturacionTotal * 100) / 100,
-                'DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)': Math.round(x.diferenciaFacturacionConsumo * 100) / 100,
-                'PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)': Math.round(x.porcentajeDiferencia * 100) / 100,
-                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': 0,
-                'COSTO ENERGIA SOLAR (US$)': 0,
-                'COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)': 0,
-                'DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)': 0,
-                'MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)': 0
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': Math.round(x.pagoTotal * 100) / 100,
+                'COSTO ENERGIA SOLAR (US$)': Math.round(x.costoEnergiaSolar * 100) / 100,
+                'COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)': Math.round(x.costoMant * 100) / 100,
+                'DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)': Math.round(x.diferenciaFacturacionConsumo * 100) / 100,
+                'MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)': Math.round(x.porcentajeDiferencia * 100) / 100
               }]
             });
 
@@ -102,7 +105,10 @@ export class ValidacionComponent implements OnInit {
               ['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)'])],
               ['CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)'])],
               ['CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes))', ...this.dataUsu.map(x => x['CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)'])],
-              ['PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)', ...this.dataUsu.map(x => x['PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes)'])],
+              ['PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes)', ...this.dataUsu.map(x => x['PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes)'])],
+              ['PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes)', ...this.dataUsu.map(x => x['PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes)'])],
+              ['PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes)', ...this.dataUsu.map(x => x['PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes)'])],
+              ['PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%)', ...this.dataUsu.map(x => x['PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%)'])],
               ['TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)', ...this.dataUsu.map(x => x['TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)'])],
               ['CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)'])],
               ['CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)'])],
@@ -112,12 +118,10 @@ export class ValidacionComponent implements OnInit {
               ['CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)'])],
               ['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)'])],
               ['FACTURACION TOTAL A LOS USUARIOS (US$)', ...this.dataUsu.map(x => x['FACTURACION TOTAL A LOS USUARIOS (US$)'])],
-              ['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)', ...this.dataUsu.map(x => x['DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$)'])],
-              ['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)', ...this.dataUsu.map(x => x['PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%)'])],
               ['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)', ...this.dataUsu.map(x => x['PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)'])],
               ['COSTO ENERGIA SOLAR (US$)', ...this.dataUsu.map(x => x['COSTO ENERGIA SOLAR (US$)'])],
               ['COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)', ...this.dataUsu.map(x => x['COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)'])],
-              ['DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)', ...this.dataUsu.map(x => x['COSTO ENERGIA SOLAR (US$)'])],
+              ['DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)', ...this.dataUsu.map(x => x['DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)'])],
               ['MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)', ...this.dataUsu.map(x => x['MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)'])]
             ]
 
@@ -233,6 +237,12 @@ export class ValidacionComponent implements OnInit {
     this.dataPDFExportUSU[12] = this.dataPDFUSU[12].slice(0, 4);
     this.dataPDFExportUSU[13] = this.dataPDFUSU[13].slice(0, 4);
     this.dataPDFExportUSU[14] = this.dataPDFUSU[14].slice(0, 4);
+    this.dataPDFExportUSU[15] = this.dataPDFUSU[15].slice(0, 4);
+    this.dataPDFExportUSU[16] = this.dataPDFUSU[16].slice(0, 4);
+    this.dataPDFExportUSU[17] = this.dataPDFUSU[17].slice(0, 4);
+    this.dataPDFExportUSU[18] = this.dataPDFUSU[18].slice(0, 4);
+    this.dataPDFExportUSU[19] = this.dataPDFUSU[19].slice(0, 4);
+    this.dataPDFExportUSU[20] = this.dataPDFUSU[20].slice(0, 4);
 
     this.colsExportINH[0] = this.colsINH[0].slice(0, 4);
     this.dataPDFExportINH[0] = this.dataPDFINH[0].slice(0, 4);
@@ -283,6 +293,12 @@ export class ValidacionComponent implements OnInit {
       this.dataPDFExportUSU[12] = this.dataPDFUSU[12].slice(x, (x + 4));
       this.dataPDFExportUSU[13] = this.dataPDFUSU[13].slice(x, (x + 4));
       this.dataPDFExportUSU[14] = this.dataPDFUSU[14].slice(x, (x + 4));
+      this.dataPDFExportUSU[15] = this.dataPDFUSU[15].slice(0, 4);
+      this.dataPDFExportUSU[16] = this.dataPDFUSU[16].slice(0, 4);
+      this.dataPDFExportUSU[17] = this.dataPDFUSU[17].slice(0, 4);
+      this.dataPDFExportUSU[18] = this.dataPDFUSU[18].slice(0, 4);
+      this.dataPDFExportUSU[19] = this.dataPDFUSU[19].slice(0, 4);
+      this.dataPDFExportUSU[20] = this.dataPDFUSU[20].slice(0, 4);
 
       this.colsExportINH[0] = this.colsINH[0].slice(x, (x + 4));
       this.dataPDFExportINH[0] = this.dataPDFINH[0].slice(x, (x + 4));
