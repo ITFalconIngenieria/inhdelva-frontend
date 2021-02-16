@@ -24,35 +24,9 @@ export class ProduccionComponent implements OnInit {
   listaTotales: any[] = [];
   dataExport: any[] = [];
   date = null;
-  listOfData: any[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
-  test: any[] = [];
-
   fechas = null;
   isVisible = false;
-
   cols: any[];
-  exportColumns: any[];
-  products: any[];
-  selectedProducts: any[];
   dataPDF: any[] = [];
   colsExport: any[] = [];
   dataPDFExport: any[] = [];
@@ -71,7 +45,6 @@ export class ProduccionComponent implements OnInit {
   }
 
   consultar() {
-    this.listOfData = [];
     this.listOfDataProduccion = [];
     this.listaTotales = [];
     this.dataExport = [];

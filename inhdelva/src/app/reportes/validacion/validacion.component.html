@@ -110,12 +110,24 @@
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAI | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA INTERNA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal | number:'1.2-2':'en_US' }} </td>
+                <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotalMT | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotalBT | number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal| number:'1.2-2':'en_US' }} </td>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%) </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotalPor | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdAzul"> TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEAexportada | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEnergiaINH | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$) </td>
@@ -149,14 +161,6 @@
                 <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (US$) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.facturacionTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
-            <tr>
-                <td class="tdGrisOscuro"> DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.diferenciaFacturacionConsumo | number:'1.2-2':'en_US' }} </td>
-            </tr>
-            <tr>
-                <td class="tdGrisOscuro"> PORCENTAJE DE DIFERENCIA ENTRE FACTURACION DE USUARIOS Y CONSUMO DE INHDELVA (%) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.porcentajeDiferencia | number:'1.2-2':'en_US' }} </td>
-            </tr>
         </ng-container>
     </tbody>
 </nz-table>
@@ -176,27 +180,27 @@
         <ng-container>
             <tr>
                 <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.pagoTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> COSTO ENERGIA SOLAR (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEASC | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.costoEnergiaSolar | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAI | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.costoMant | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.perdidaTotal | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.factTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdAzul"> DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.diferenciaFacturacionConsumo | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
                 <td class="tdGrisOscuro"> MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalEA | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.porcentajeDiferencia | number:'1.2-2':'en_US' }} </td>
             </tr>
         </ng-container>
     </tbody>
