@@ -102,7 +102,7 @@
                         <nz-form-item>
                             <nz-form-label>Creación</nz-form-label>
                             <nz-form-control>
-                                <nz-range-picker [nzShowTime]="{ nzFormat: 'HH:mm' }" nzFormat="yyyy-MM-dd HH:mm" formControlName="fechaCreacion" (nzOnOk)="onOk($event)"></nz-range-picker>
+                                <nz-range-picker nzFormat="yyyy-MM-dd" (nzOnOpenChange)="onOpen($event)" formControlName="fechaCreacion"></nz-range-picker>
                                 <!-- <nz-range-picker formControlName="fechaCreacion" [nzFormat]="dateFormat">
                                 </nz-range-picker> -->
                             </nz-form-control>

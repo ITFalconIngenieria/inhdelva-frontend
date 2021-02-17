@@ -14,7 +14,7 @@ import * as moment from 'moment';
   styleUrls: ['./parametrosEntrada.component.css']
 })
 export class ParametrosEntradaComponent implements OnInit {
-
+  open;
   expandSet = new Set<number>();
   isVisible = false;
   validateForm: FormGroup;
@@ -59,20 +59,26 @@ export class ParametrosEntradaComponent implements OnInit {
     }
   }
 
+  onOpen(event) {
+    this.open = event;
+  }
+
   guardarParametro() {
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
-    // this.validateForm.value.fechaInicio[0] = `${moment(this.validateForm.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`;
-    // this.validateForm.value.fechaInicio[1] = `${moment(this.validateForm.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`;
+    const fechaInicio = (this.open === undefined) ? moment(`${moment(this.validateForm.value.fechaInicio[0]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateForm.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+    const fechaFinal = (this.open === undefined) ? moment(`${moment(this.validateForm.value.fechaInicio[1]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateForm.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
 
     const dataParametro = {
       tipoCargoId: this.validateForm.value.tipoCargoId,
-      fechaInicio: moment(`${moment(this.validateForm.value.fechaInicio[0]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
-      fechaFinal: moment(`${moment(this.validateForm.value.fechaInicio[1]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaInicio: fechaInicio,
+      fechaFinal: fechaFinal,
       valor: `${this.validateForm.value.valor}`,
       observacion,
       estado: true
     };
+
+    this.open = undefined;
 
     if (this.accion === 'editar') {
       this.parametroServce.putParametro(this.idParametro, dataParametro)
