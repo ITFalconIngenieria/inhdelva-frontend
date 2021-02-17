@@ -23,6 +23,7 @@ interface Matriz {
   styleUrls: ['./matrizEnergetica.component.css']
 })
 export class MatrizEnergeticaComponent implements OnInit {
+  open;
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleDistribucion = false;
@@ -214,22 +215,26 @@ export class MatrizEnergeticaComponent implements OnInit {
       );
   }
 
+  onOpen(event) {
+    this.open = event;
+  }
+
   ////////////////////////////////////////////////////////
   guardarMatriz() {
     // tslint:disable-next-line: max-line-length
     this.validateFormMatriz.value.observacion = (this.validateFormMatriz.value.observacion === '' || this.validateFormMatriz.value.observacion === null) ? 'N/A' : this.validateFormMatriz.value.observacion;
 
-    // tslint:disable-next-line: max-line-length
-    // this.validateFormMatriz.value.fechaInicio[0] = moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD');
-    // tslint:disable-next-line: max-line-length
-    // this.validateFormMatriz.value.fechaInicio[1] = moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD');
+    const fechaInicio = (this.open === undefined) ? moment(`${moment(this.validateFormMatriz.value.fechaInicio[0]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+    const fechaFinal = (this.open === undefined) ? moment(`${moment(this.validateFormMatriz.value.fechaInicio[1]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+
     const dataMatriz = {
-      fechaInicio: moment(`${moment(this.validateFormMatriz.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
-      fechaFinal: moment(`${moment(this.validateFormMatriz.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaInicio: fechaInicio,
+      fechaFinal: fechaFinal,
       actorId: this.validateFormMatriz.value.actorId,
       observacion: this.validateFormMatriz.value.observacion,
       estado: true
-    };    
+    };
+    this.open = undefined;
 
     if (this.accion === 'editar') {
       this.matrizService.putMatriz(this.idMatriz, dataMatriz)

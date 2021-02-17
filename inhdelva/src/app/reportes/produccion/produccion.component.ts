@@ -64,8 +64,8 @@ export class ProduccionComponent implements OnInit {
     } else {
 
       this.reporteService.produccion(
-        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')} 00:00:00`).toISOString(),
-        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')} 00:00:00`).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString(),
+        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString()
       )
         .toPromise()
         .then(
@@ -78,24 +78,24 @@ export class ProduccionComponent implements OnInit {
               this.listOfDataProduccion = [...this.listOfDataProduccion, {
                 x: a,
                 fecha: data[h - 1].fecha,
-                produccionTotalEnergiaSolar: Math.round(data[h - 1].produccionTotalEnergiaSolar * 100) / 100,
-                energiaExportadaHaciaRed: Math.round(data[h - 1].energiaExportadaHaciaRed * 100) / 100,
-                energiaAutoconsumoINH: Math.round(data[h - 1].energiaAutoconsumoINH * 100) / 100,
-                energiaConsumidaRed: Math.round(data[h - 1].energiaConsumidaRed * 100) / 100,
-                consumoEnergiaTotalINH: Math.round(data[h - 1].consumoEnergiaTotalINH * 100) / 100,
-                fraccionEnergiaSolarAutoconsumo: Math.round(data[h - 1].fraccionEnergiaSolarAutoconsumo * 100) / 100,
-                fraccionEnergiaSolarTotal: Math.round(data[h - 1].fraccionEnergiaSolarTotal * 100) / 100,
-                costoEnergiaINH: Math.round(data[h - 1].costoEnergiaINH * 100) / 100,
-                energiaTotalINH: Math.round(data[h - 1].energiaTotalINH * 100) / 100,
-                costoTotalEnergiaINH: Math.round(data[h - 1].costoTotalEnergiaINH * 100) / 100,
-                consumoActualEnergiaRed: Math.round(data[h - 1].consumoActualEnergiaRed * 100) / 100,
-                costoEnergiaConsumidaRed: Math.round(data[h - 1].costoEnergiaConsumidaRed * 100) / 100,
-                ahorroEnergiaSolar: Math.round(data[h - 1].ahorroEnergiaSolar * 100) / 100,
-                ahorroSolar: Math.round(data[h - 1].ahorroSolar * 100) / 100,
-                produccionRealEnergiaSolar: Math.round(data[h - 1].produccionRealEnergiaSolar * 100) / 100,
-                produccionEstimadaEnergiaSolar: Math.round(data[h - 1].produccionEstimadaEnergiaSolar * 100) / 100,
-                degradacionMaxima: Math.round(data[h - 1].degradacionMaxima * 100) / 100,
-                porcentajeCumplimiento: Math.round(data[h - 1].porcentajeCumplimiento * 100) / 100
+                produccionTotalEnergiaSolar: data[h - 1].produccionTotalEnergiaSolar,
+                energiaExportadaHaciaRed: data[h - 1].energiaExportadaHaciaRed,
+                energiaAutoconsumoINH: data[h - 1].energiaAutoconsumoINH,
+                energiaConsumidaRed: data[h - 1].energiaConsumidaRed,
+                consumoEnergiaTotalINH: data[h - 1].consumoEnergiaTotalINH,
+                fraccionEnergiaSolarAutoconsumo: data[h - 1].fraccionEnergiaSolarAutoconsumo,
+                fraccionEnergiaSolarTotal: data[h - 1].fraccionEnergiaSolarTotal,
+                costoEnergiaINH: data[h - 1].costoEnergiaINH,
+                energiaTotalINH: data[h - 1].energiaTotalINH,
+                costoTotalEnergiaINH: data[h - 1].costoTotalEnergiaINH,
+                consumoActualEnergiaRed: data[h - 1].consumoActualEnergiaRed,
+                costoEnergiaConsumidaRed: data[h - 1].costoEnergiaConsumidaRed,
+                ahorroEnergiaSolar: data[h - 1].ahorroEnergiaSolar,
+                ahorroSolar: data[h - 1].ahorroSolar,
+                produccionRealEnergiaSolar: data[h - 1].produccionRealEnergiaSolar,
+                produccionEstimadaEnergiaSolar: data[h - 1].produccionEstimadaEnergiaSolar,
+                degradacionMaxima: data[h - 1].degradacionMaxima,
+                porcentajeCumplimiento: data[h - 1].porcentajeCumplimiento
               }]
               if (h <= (data.length - 1)) {
                 if ((moment(this.listOfDataProduccion[this.listOfDataProduccion.length - 1].fecha).get('year') !== moment(data[h].fecha).get('year'))) {
@@ -109,24 +109,24 @@ export class ProduccionComponent implements OnInit {
                 'Mes calendario': moment(data[h - 1].fecha).format('MMMM'),
                 'Año calendario': moment(data[h - 1].fecha).format('YYYY'),
                 'Fecha': moment(data[h - 1].fecha).format('MM/YYYY'),
-                'Producción total Energía Solar (kWh/mes)': Math.round(data[h - 1].produccionTotalEnergiaSolar * 100) / 100,
-                'Energía exportada hacia la red (kWh/mes)': Math.round(data[h - 1].energiaExportadaHaciaRed * 100) / 100,
-                'Energía en autoconsumo en INHDELVA (kWh/mes)': Math.round(data[h - 1].energiaAutoconsumoINH * 100) / 100,
-                'Energía consumida de la red (kWh/mes)': Math.round(data[h - 1].energiaConsumidaRed * 100) / 100,
-                'Consumo de energía total INHDELVA (kWh/mes)': Math.round(data[h - 1].consumoEnergiaTotalINH * 100) / 100,
-                'Fraccion de energía solar en autoconsumo (%)': Math.round(data[h - 1].fraccionEnergiaSolarAutoconsumo * 100) / 100,
-                'Fraccion de energía solar total (%)': Math.round(data[h - 1].fraccionEnergiaSolarTotal * 100) / 100,
-                'Costo de Energia INHDELVA (Lps/kWh)': Math.round(data[h - 1].costoEnergiaINH * 100) / 100,
-                'Energia total INHDELVA (kWh/año)': Math.round(data[h - 1].energiaTotalINH * 100) / 100,
-                'Costo total de energía INHDELVA (Lps)': Math.round(data[h - 1].costoTotalEnergiaINH * 100) / 100,
-                'Consumo actual de energía de la red (kWh/año)': Math.round(data[h - 1].consumoActualEnergiaRed * 100) / 100,
-                'Costo energía consumida de la red (Lps)': Math.round(data[h - 1].costoEnergiaConsumidaRed * 100) / 100,
-                'Ahorro en energía por sistema solar (kWh/año)': Math.round(data[h - 1].ahorroEnergiaSolar * 100) / 100,
-                'Ahorro por sistema solar (Lps)': Math.round(data[h - 1].ahorroSolar * 100) / 100,
-                'Producción real Energia Solar (kWh/mes)': Math.round(data[h - 1].produccionRealEnergiaSolar * 100) / 100,
-                'Producción estimada energía solar P50 (kWh/mes)': Math.round(data[h - 1].produccionEstimadaEnergiaSolar * 100) / 100,
-                'Degradacion maxima según garantia de modulos (%)': Math.round(data[h - 1].degradacionMaxima * 100) / 100,
-                'Porcentaje de cumplimiento (%)': Math.round(data[h - 1].porcentajeCumplimiento * 100) / 100
+                'Producción total Energía Solar (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].produccionTotalEnergiaSolar),
+                'Energía exportada hacia la red (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].energiaExportadaHaciaRed),
+                'Energía en autoconsumo en INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].energiaAutoconsumoINH),
+                'Energía consumida de la red (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].energiaConsumidaRed),
+                'Consumo de energía total INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].consumoEnergiaTotalINH),
+                'Fraccion de energía solar en autoconsumo (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].fraccionEnergiaSolarAutoconsumo),
+                'Fraccion de energía solar total (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].fraccionEnergiaSolarTotal),
+                'Costo de Energia INHDELVA (Lps/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].costoEnergiaINH),
+                'Energia total INHDELVA (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].energiaTotalINH),
+                'Costo total de energía INHDELVA (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].costoTotalEnergiaINH),
+                'Consumo actual de energía de la red (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].consumoActualEnergiaRed),
+                'Costo energía consumida de la red (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].costoEnergiaConsumidaRed),
+                'Ahorro en energía por sistema solar (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].ahorroEnergiaSolar),
+                'Ahorro por sistema solar (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].ahorroSolar),
+                'Producción real Energia Solar (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].produccionRealEnergiaSolar),
+                'Producción estimada energía solar P50 (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].produccionEstimadaEnergiaSolar),
+                'Degradacion maxima según garantia de modulos (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].degradacionMaxima),
+                'Porcentaje de cumplimiento (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(data[h - 1].porcentajeCumplimiento)
               }]
             }
 
@@ -138,36 +138,36 @@ export class ProduccionComponent implements OnInit {
                     return {
                       ...elemento,
                       x: elemento.x,
-                      produccionTotalEnergiaSolar: Math.round((elemento.produccionTotalEnergiaSolar + valorActual.produccionTotalEnergiaSolar) * 100) / 100,
-                      energiaExportadaHaciaRed: Math.round((elemento.energiaExportadaHaciaRed + valorActual.energiaExportadaHaciaRed) * 100) / 100,
-                      energiaAutoconsumoINH: Math.round((elemento.energiaAutoconsumoINH + valorActual.energiaAutoconsumoINH) * 100) / 100,
-                      energiaConsumidaRed: Math.round((elemento.energiaConsumidaRed + valorActual.energiaConsumidaRed) * 100) / 100,
-                      consumoEnergiaTotalINH: Math.round((elemento.consumoEnergiaTotalINH + valorActual.consumoEnergiaTotalINH) * 100) / 100,
-                      fraccionEnergiaSolarAutoconsumo: Math.round((elemento.fraccionEnergiaSolarAutoconsumo + valorActual.fraccionEnergiaSolarAutoconsumo) * 100) / 100,
-                      fraccionEnergiaSolarTotal: Math.round((elemento.fraccionEnergiaSolarTotal + valorActual.fraccionEnergiaSolarTotal) * 100) / 100,
-                      costoEnergiaINH: Math.round((elemento.costoEnergiaINH + valorActual.costoEnergiaINH) * 100) / 100,
-                      energiaTotalINH: Math.round((elemento.energiaTotalINH + valorActual.energiaTotalINH) * 100) / 100,
-                      costoTotalEnergiaINH: Math.round((elemento.costoTotalEnergiaINH + valorActual.costoTotalEnergiaINH) * 100) / 100,
-                      consumoActualEnergiaRed: Math.round((elemento.consumoActualEnergiaRed + valorActual.consumoActualEnergiaRed) * 100) / 100,
-                      costoEnergiaConsumidaRed: Math.round((elemento.costoEnergiaConsumidaRed + valorActual.costoEnergiaConsumidaRed) * 100) / 100,
-                      ahorroEnergiaSolar: Math.round((elemento.ahorroEnergiaSolar + valorActual.ahorroEnergiaSolar) * 100) / 100,
-                      ahorroSolar: Math.round((elemento.ahorroSolar + valorActual.ahorroSolar) * 100) / 100,
-                      produccionRealEnergiaSolar: Math.round((elemento.produccionRealEnergiaSolar + valorActual.produccionRealEnergiaSolar) * 100) / 100,
-                      produccionEstimadaEnergiaSolar: Math.round((elemento.produccionEstimadaEnergiaSolar + valorActual.produccionEstimadaEnergiaSolar) * 100) / 100,
-                      degradacionMaxima: Math.round((elemento.degradacionMaxima + valorActual.degradacionMaxima) * 100) / 100,
-                      porcentajeCumplimiento: Math.round((elemento.porcentajeCumplimiento + valorActual.porcentajeCumplimiento) * 100) / 100
+                      produccionTotalEnergiaSolar: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.produccionTotalEnergiaSolar + valorActual.produccionTotalEnergiaSolar)),
+                      energiaExportadaHaciaRed: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.energiaExportadaHaciaRed + valorActual.energiaExportadaHaciaRed)),
+                      energiaAutoconsumoINH: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.energiaAutoconsumoINH + valorActual.energiaAutoconsumoINH)),
+                      energiaConsumidaRed: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.energiaConsumidaRed + valorActual.energiaConsumidaRed)),
+                      consumoEnergiaTotalINH: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.consumoEnergiaTotalINH + valorActual.consumoEnergiaTotalINH)),
+                      fraccionEnergiaSolarAutoconsumo: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.fraccionEnergiaSolarAutoconsumo + valorActual.fraccionEnergiaSolarAutoconsumo)),
+                      fraccionEnergiaSolarTotal: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.fraccionEnergiaSolarTotal + valorActual.fraccionEnergiaSolarTotal)),
+                      costoEnergiaINH: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.costoEnergiaINH + valorActual.costoEnergiaINH)),
+                      energiaTotalINH: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.energiaTotalINH + valorActual.energiaTotalINH)),
+                      costoTotalEnergiaINH: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.costoTotalEnergiaINH + valorActual.costoTotalEnergiaINH)),
+                      consumoActualEnergiaRed: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.consumoActualEnergiaRed + valorActual.consumoActualEnergiaRed)),
+                      costoEnergiaConsumidaRed: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.costoEnergiaConsumidaRed + valorActual.costoEnergiaConsumidaRed)),
+                      ahorroEnergiaSolar: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.ahorroEnergiaSolar + valorActual.ahorroEnergiaSolar)),
+                      ahorroSolar: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.ahorroSolar + valorActual.ahorroSolar)),
+                      produccionRealEnergiaSolar: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.produccionRealEnergiaSolar + valorActual.produccionRealEnergiaSolar)),
+                      produccionEstimadaEnergiaSolar: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.produccionEstimadaEnergiaSolar + valorActual.produccionEstimadaEnergiaSolar)),
+                      degradacionMaxima: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.degradacionMaxima + valorActual.degradacionMaxima)),
+                      porcentajeCumplimiento: new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((elemento.porcentajeCumplimiento + valorActual.porcentajeCumplimiento))
                     };
                   }
                   return elemento;
                 });
               }
-            
+
               return [...acumulador, valorActual];
             }, []);
 
             console.log(this.listaTotales);
             console.log(this.listOfDataProduccion);
-            
+
             this.listaTotales.forEach(y => {
               this.dataExport = [...this.dataExport, {
                 'Año de operación': '',
@@ -175,24 +175,24 @@ export class ProduccionComponent implements OnInit {
                 'Mes calendario': '',
                 'Año calendario': `AÑO ${(y.x === undefined) ? 1 : y.x}`,
                 'Fecha': 'TOTAL',
-                'Producción total Energía Solar (kWh/mes)': Math.round(y.produccionTotalEnergiaSolar * 100) / 100,
-                'Energía exportada hacia la red (kWh/mes)': Math.round(y.energiaExportadaHaciaRed * 100) / 100,
-                'Energía en autoconsumo en INHDELVA (kWh/mes)': Math.round(y.energiaAutoconsumoINH * 100) / 100,
-                'Energía consumida de la red (kWh/mes)': Math.round(y.energiaConsumidaRed * 100) / 100,
-                'Consumo de energía total INHDELVA (kWh/mes)': Math.round(y.consumoEnergiaTotalINH * 100) / 100,
-                'Fraccion de energía solar en autoconsumo (%)': Math.round(y.fraccionEnergiaSolarAutoconsumo * 100) / 100,
-                'Fraccion de energía solar total (%)': Math.round(y.fraccionEnergiaSolarTotal * 100) / 100,
-                'Costo de Energia INHDELVA (Lps/kWh)': Math.round(y.costoEnergiaINH * 100) / 100,
-                'Energia total INHDELVA (kWh/año)': Math.round(y.energiaTotalINH * 100) / 100,
-                'Costo total de energía INHDELVA (Lps)': Math.round(y.costoTotalEnergiaINH * 100) / 100,
-                'Consumo actual de energía de la red (kWh/año)': Math.round(y.consumoActualEnergiaRed * 100) / 100,
-                'Costo energía consumida de la red (Lps)': Math.round(y.costoEnergiaConsumidaRed * 100) / 100,
-                'Ahorro en energía por sistema solar (kWh/año)': Math.round(y.ahorroEnergiaSolar * 100) / 100,
-                'Ahorro por sistema solar (Lps)': Math.round(y.ahorroSolar * 100) / 100,
-                'Producción real Energia Solar (kWh/mes)': Math.round(y.produccionRealEnergiaSolar * 100) / 100,
-                'Producción estimada energía solar P50 (kWh/mes)': Math.round(y.produccionEstimadaEnergiaSolar * 100) / 100,
-                'Degradacion maxima según garantia de modulos (%)': Math.round(y.degradacionMaxima * 100) / 100,
-                'Porcentaje de cumplimiento (%)': Math.round(y.porcentajeCumplimiento * 100) / 100
+                'Producción total Energía Solar (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.produccionTotalEnergiaSolar),
+                'Energía exportada hacia la red (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.energiaExportadaHaciaRed),
+                'Energía en autoconsumo en INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.energiaAutoconsumoINH),
+                'Energía consumida de la red (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.energiaConsumidaRed),
+                'Consumo de energía total INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.consumoEnergiaTotalINH),
+                'Fraccion de energía solar en autoconsumo (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.fraccionEnergiaSolarAutoconsumo),
+                'Fraccion de energía solar total (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.fraccionEnergiaSolarTotal),
+                'Costo de Energia INHDELVA (Lps/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.costoEnergiaINH),
+                'Energia total INHDELVA (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.energiaTotalINH),
+                'Costo total de energía INHDELVA (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.costoTotalEnergiaINH),
+                'Consumo actual de energía de la red (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.consumoActualEnergiaRed),
+                'Costo energía consumida de la red (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.costoEnergiaConsumidaRed),
+                'Ahorro en energía por sistema solar (kWh/año)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.ahorroEnergiaSolar),
+                'Ahorro por sistema solar (Lps)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.ahorroSolar),
+                'Producción real Energia Solar (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.produccionRealEnergiaSolar),
+                'Producción estimada energía solar P50 (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.produccionEstimadaEnergiaSolar),
+                'Degradacion maxima según garantia de modulos (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.degradacionMaxima),
+                'Porcentaje de cumplimiento (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.porcentajeCumplimiento)
               }]
             });
 
@@ -251,7 +251,7 @@ export class ProduccionComponent implements OnInit {
 
   exportPdf() {
     let tamano = this.cols[0].length;
-    // let pag = Math.round(tamano / 4);
+    // let pag = new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(tamano / 4);
 
     this.colsExport[0] = this.cols[0].slice(0, 4);
     this.dataPDFExport[0] = this.dataPDF[0].slice(0, 4);

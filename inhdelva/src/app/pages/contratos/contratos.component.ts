@@ -27,6 +27,7 @@ interface Medidor {
 })
 
 export class ContratosComponent implements OnInit {
+  open;
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleMedidor = false;
@@ -85,6 +86,10 @@ export class ContratosComponent implements OnInit {
     }
   }
 
+  onOpen(event) {
+    this.open = event;
+  }
+
   guardarContrato() {
 
     if (this.validateFormContrato.value.diaGeneracion < this.validarDia) {
@@ -95,19 +100,25 @@ export class ContratosComponent implements OnInit {
         text: `El día de generación de factura debe ser mayor al rango de factura (${this.validarDia})`
       });
     } else {
+
+      const fechaCreacion = (this.open === undefined) ? moment(moment(this.validateFormContrato.value.fechaCreacion[0]).subtract(1, 'days').format('YYYY-MM-DD')).toISOString() : moment(moment(this.validateFormContrato.value.fechaCreacion[0]).format('YYYY-MM-DD')).toISOString();
+      const fechaVenc = (this.open === undefined) ? moment(moment(this.validateFormContrato.value.fechaCreacion[1]).subtract(1, 'days').format('YYYY-MM-DD')).toISOString() : moment(moment(this.validateFormContrato.value.fechaCreacion[1]).format('YYYY-MM-DD')).toISOString();
+
       const dataContrato = {
         codigo: this.validateFormContrato.value.codigo,
         clasificacion: this.validateFormContrato.value.clasificacion,
         descripcion: this.validateFormContrato.value.descripcion,
         actorId: this.validateFormContrato.value.actorId,
-        fechaCreacion: moment(this.validateFormContrato.value.fechaCreacion[0]).toISOString(),
-        fechaVenc: moment(this.validateFormContrato.value.fechaCreacion[1]).toISOString(),
+        fechaCreacion: fechaCreacion,
+        fechaVenc: fechaVenc,
         diaGeneracion: this.validateFormContrato.value.diaGeneracion,
         diasDisponibles: this.validateFormContrato.value.diasDisponibles,
         exportacion: (this.validateFormContrato.value.exportacion === 'false') ? false : true,
         observacion: (this.validateFormContrato.value.observacion === '') ? this.validateFormContrato.value.observacion : 'N/A',
         estado: true
       };
+      this.open = undefined;
+
 
       if (this.accion === 'editar') {
 
@@ -192,7 +203,7 @@ export class ContratosComponent implements OnInit {
       clasificacion: [data.clasificacion, [Validators.required]],
       descripcion: [data.descripcion, [Validators.required]],
       actorId: [data.actorId, [Validators.required]],
-      fechaCreacion: [[data.fechaCreacion, data.fechaVenc], [Validators.required]],
+      fechaCreacion: [[moment(data.fechaCreacion).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaVenc).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
       diaGeneracion: [data.diaGeneracion, [Validators.required]],
       diasDisponibles: [data.diasDisponibles, [Validators.required]],
       exportacion: [(data.exportacion === false) ? 'false' : 'true'],
@@ -253,8 +264,8 @@ export class ContratosComponent implements OnInit {
         dataMedidor = {
           contratoId: this.idContrato,
           medidorId: this.validateFormMedidores.value.medidorId,
-          fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).subtract(6,'hours').toISOString(),
-          fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).subtract(6,'hours').toISOString(),
+          fechaInicial: moment(this.validateFormMedidores.value.fechaInicial[0]).subtract(6, 'hours').toISOString(),
+          fechaFinal: moment(this.validateFormMedidores.value.fechaInicial[1]).subtract(6, 'hours').toISOString(),
           zonaId,
           area,
           tipoServicioId: tipoServicio,
@@ -632,7 +643,7 @@ export class ContratosComponent implements OnInit {
     this.isVisibleMedidor = true;
     this.idContrato = data.id;
     this.fechaInicial = data.fechaCreacion;
-    this.fechaFinal = data.fechaVenc;    
+    this.fechaFinal = data.fechaVenc;
 
     switch (data.clasificacion) {
       case 'I': {

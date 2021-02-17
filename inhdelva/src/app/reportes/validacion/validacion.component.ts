@@ -12,7 +12,7 @@ import jspdf from 'jspdf';
   styleUrls: ['./validacion.component.scss']
 })
 export class ValidacionComponent implements OnInit {
-
+  formatNumber = new Intl.NumberFormat;
   listOfData: any[] = [];
   colspan: number;
   dataInh: any[] = [];
@@ -62,8 +62,8 @@ export class ValidacionComponent implements OnInit {
     } else {
 
       this.reporteService.validacion(
-        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')} 00:00:00`).toISOString(),
-        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')} 00:00:00`).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString(),
+        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString()
       )
         .toPromise()
         .then(
@@ -76,27 +76,27 @@ export class ValidacionComponent implements OnInit {
             this.listOfData.forEach(x => {
               this.dataUsu = [...this.dataUsu, {
                 'FECHA': moment(x.fecha).format('MM-YYYY'),
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': Math.round(x.consumoTotalEAFact * 100) / 100,
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': Math.round(x.consumoTotalEASC * 100) / 100,
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': Math.round(x.consumoTotalEAI * 100) / 100,
-                'PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes)': Math.round(x.perdidaTotalMT * 100) / 100,
-                'PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes)': Math.round(x.perdidaTotalBT * 100) / 100,
-                'PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes)': Math.round(x.perdidaTotal * 100) / 100,
-                'PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%)': Math.round(x.perdidaTotalPor * 100) / 100,
-                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': Math.round(x.totalEnergiaINH * 100) / 100,
-                'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalEA * 100) / 100,
-                'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalPotencia * 100) / 100,
-                'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': Math.round(x.cargoTotalER * 100) / 100,
-                'CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)': Math.round(x.cargoTotalCO * 100) / 100,
-                'CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)': Math.round(x.cargoTotalCSC * 100) / 100,
-                'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': Math.round(x.cargoTotalIlum * 100) / 100,
-                'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': Math.round(x.cargoPI * 100) / 100,
-                'FACTURACION TOTAL A LOS USUARIOS (US$)': Math.round(x.facturacionTotal * 100) / 100,
-                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': Math.round(x.pagoTotal * 100) / 100,
-                'COSTO ENERGIA SOLAR (US$)': Math.round(x.costoEnergiaSolar * 100) / 100,
-                'COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)': Math.round(x.costoMant * 100) / 100,
-                'DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)': Math.round(x.diferenciaFacturacionConsumo * 100) / 100,
-                'MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)': Math.round(x.porcentajeDiferencia * 100) / 100
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.consumoTotalEAFact),
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE SERVICIOS COMUNITARIOS (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.consumoTotalEASC),
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE ILUMINACION COMUNITARIA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.consumoTotalEAI),
+                'PERDIDA TOTAL DE ENERGIA USUARIOS DE MEDIA TENSION (MT)(kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.perdidaTotalMT),
+                'PERDIDA TOTAL DE ENERGIA USUARIOS DE BAJA TENSION (BT)(kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.perdidaTotalBT),
+                'PERDIDA TOTAL DE ENERGIA INTERNA USUARIOS (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.perdidaTotal),
+                'PORCENTAJE DE PERDIDA TOTAL DE ENERGIA INTERNA (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.perdidaTotalPor),
+                'TOTAL DE ENERGIA REQUERIDA DE INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.totalEnergiaINH),
+                'CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalEA),
+                'CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalPotencia),
+                'CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalER),
+                'CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalCO),
+                'CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalCSC),
+                'CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoTotalIlum),
+                'CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.cargoPI),
+                'FACTURACION TOTAL A LOS USUARIOS (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.facturacionTotal),
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.pagoTotal),
+                'COSTO ENERGIA SOLAR (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.costoEnergiaSolar),
+                'COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.costoMant),
+                'DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.diferenciaFacturacionConsumo),
+                'MARGEN GLOBAL DE LA FACTURACION A LOS USUARIOS (%)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(x.porcentajeDiferencia)
               }]
             });
 
@@ -128,19 +128,19 @@ export class ValidacionComponent implements OnInit {
             this.listOfData.forEach(element => {
               this.dataInh = [...this.dataInh, {
                 'FECHA': moment(element.fecha).format('MM-YYYY'),
-                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': Math.round(element.consumoTotalEA * 100) / 100,
-                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': Math.round(element.totalEAexportada * 100) / 100,
-                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': Math.round(element.totalEnergiaProducidaAuto * 100) / 100,
-                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': Math.round(element.totalEnergiaConsumida * 100) / 100,
-                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': Math.round(element.totalEnergiaProducida * 100) / 100,
-                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': Math.round(element.FraccionEnergiaSolar * 100) / 100,
-                'CARGO POR ENERGIA A INHDELVA (US$)': Math.round(element.cargoEnergia * 100) / 100,
-                'CARGO POR POTENCIA A INHDELVA (US$)': Math.round(element.cargoPotencia * 100) / 100,
-                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': Math.round(element.cargoReactiva * 100) / 100,
-                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': Math.round(element.cargoAlumbrado * 100) / 100,
-                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': Math.round(element.cargoComercializacion * 100) / 100,
-                'CARGO POR REGULACION A INHDELVA (US$)': Math.round(element.cargoRegulacion * 100) / 100,
-                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': Math.round(element.totalProveedores * 100) / 100
+                'CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.consumoTotalEA),
+                'TOTAL DE ENERGIA ACTIVA EXPORTADA HACIA LOS PROVEEDORES DE ENERGIA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.totalEAexportada),
+                'TOTAL DE ENERGIA PRODUCIDA EN AUTOCONSUMO (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.totalEnergiaProducidaAuto),
+                'TOTAL DE ENERGIA CONSUMIDA INHDELVA (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.totalEnergiaConsumida),
+                'TOTAL DE ENERGIA PRODUCIDA SISTEMA SOLAR (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.totalEnergiaProducida),
+                'FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.FraccionEnergiaSolar),
+                'CARGO POR ENERGIA A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoEnergia),
+                'CARGO POR POTENCIA A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoPotencia),
+                'CARGO POR ENERGIA REACTIVA A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoReactiva),
+                'CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoAlumbrado),
+                'CARGO POR COMERCIALIZACION A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoComercializacion),
+                'CARGO POR REGULACION A INHDELVA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.cargoRegulacion),
+                'PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(element.totalProveedores)
               }]
             });
 

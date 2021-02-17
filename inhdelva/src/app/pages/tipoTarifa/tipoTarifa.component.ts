@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatrizHoraria, ParametroTarifaModel, PuntoMedicion, TarifaModel, TipoCargo } from '../../Modelos/tarifa';
 import { TarifaService } from '../../servicios/tarifa.service';
 import * as moment from 'moment';
+import * as momentTZ from 'moment-timezone';
+momentTZ().tz('America/Tegucigalpa').format();
+
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 
@@ -13,6 +16,7 @@ import swal from 'sweetalert';
 })
 export class TipoTarifaComponent implements OnInit {
 
+  open;
   expandSet = new Set<number>();
   isVisible = false;
   isVisibleParametro = false;
@@ -192,23 +196,28 @@ export class TipoTarifaComponent implements OnInit {
       );
   }
 
+  onOpen(event) {
+    this.open = event;
+  }
+
   guardarParametro() {
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateFormParametro.value.observacion === '' || this.validateFormParametro.value.observacion === null) ? 'N/A' : this.validateFormParametro.value.observacion;
+    console.log(moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString());
+    const fechaInicio = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+    const fechaFinal = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
 
     const dataParametro = {
       tarifaId: this.idTarifa,
       tipoCargoId: this.validateFormParametro.value.tipoCargoId,
       bloqueHorarioId: this.validateFormParametro.value.bloqueHorarioId,
-      fechaInicio: moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
-      fechaFinal: moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).subtract(1,'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaInicio: fechaInicio,
+      fechaFinal: fechaFinal,
       valor: `${this.validateFormParametro.value.valor}`,
       observacion,
       estado: true
     };
-
-    console.log(dataParametro);
-
+    this.open = undefined;
 
     if (this.accion === 'editar') {
       this.tarifaService.putTarifaParametro(this.idParametro, dataParametro)
@@ -297,6 +306,8 @@ export class TipoTarifaComponent implements OnInit {
   editarParametro(data) {
     this.idParametro = data.id;
     this.accion = 'editar';
+    console.log(data);
+
 
     const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargo.id);
     this.unidad = cargo[0].unidad;

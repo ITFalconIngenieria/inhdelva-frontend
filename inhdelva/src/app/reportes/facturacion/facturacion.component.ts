@@ -95,8 +95,8 @@ export class FacturacionComponent implements OnInit {
 
       this.reporteService.facturacion(
         this.contratos,
-        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')} 00:00:00`).toISOString(),
-        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')} 00:00:00`).toISOString()
+        moment(`${moment(this.fechas[0]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString(),
+        moment(`${moment(this.fechas[1]).format('YYYY-MM-DD')}T06:00:00.000Z`).toISOString()
       )
         .toPromise()
         .then(
@@ -118,40 +118,37 @@ export class FacturacionComponent implements OnInit {
             for (let y = 0; y < this.listOfData.length; y++) {
 
               this.listaTotales = [
-                this.listaTotales[0] + Math.round(data[y].EA * 100) / 100,
-                this.listaTotales[1] + Math.round(data[y].ER * 100) / 100,
-                this.listaTotales[2] + Math.round(data[y].PM * 100) / 100,
-                this.listaTotales[3] + Math.round(data[y].FP * 100) / 100,
-                this.listaTotales[4] + Math.round(data[y].FS * 100) / 100,
+                this.listaTotales[0] + data[y].EA ,
+                this.listaTotales[1] + data[y].ER ,
+                this.listaTotales[2] + data[y].PM ,
+                this.listaTotales[3] + data[y].FP ,
+                this.listaTotales[4] + data[y].FS ,
                 '',
-                this.listaTotales[6] + Math.round(data[y].CPE * 100) / 100,
-                this.listaTotales[7] + Math.round(data[y].P11 * 100) / 100,
+                this.listaTotales[6] + data[y].CPE ,
+                this.listaTotales[7] + data[y].P11 ,
                 '',
-                this.listaTotales[9] + Math.round(data[y].CPC * 100) / 100,
+                this.listaTotales[9] + data[y].CPC ,
                 '',
-                this.listaTotales[11] + Math.round(data[y].CER * 100) / 100,
-                '',
-                '',
-                '',
-                '',
-                this.listaTotales[16] + Math.round(data[y].CCO * 100) / 100,
-                '',
-                '',
-                this.listaTotales[19] + Math.round(data[y].CPI * 100) / 100,
+                this.listaTotales[11] + data[y].CER ,
                 '',
                 '',
                 '',
-                this.listaTotales[23] + Math.round(data[y].CIC * 100) / 100,
+                '',
+                this.listaTotales[16] + data[y].CCO ,
+                '',
+                '',
+                this.listaTotales[19] + data[y].CPI ,
                 '',
                 '',
                 '',
-                this.listaTotales[27] + Math.round(data[y].CSC * 100) / 100,
-                this.listaTotales[28] + Math.round(data[y].TOTAL * 100) / 100
+                this.listaTotales[23] + data[y].CIC ,
+                '',
+                '',
+                '',
+                this.listaTotales[27] + data[y].CSC ,
+                this.listaTotales[28] + data[y].TOTAL 
               ];
             }
-
-            console.log(this.listaTotales);
-
 
             this.listOfData.forEach(y => {
               this.dataExport = [...this.dataExport, {
@@ -160,35 +157,35 @@ export class FacturacionComponent implements OnInit {
                 'Cuenta': y.cuenta,
                 'Codigo medidor': y.medidor,
                 'Codigo tarifa': y.tarifa,
-                'Energia Activa (EA)': Math.round(y.EA * 100) / 100,
-                'Energia reactiva (ER)': Math.round(y.ER * 100) / 100,
-                'Potencia maxima (PM)': Math.round(y.PM * 100) / 100,
-                'Factor potencia (FP)': Math.round(y.FP * 100) / 100,
-                'Fraccion de energia solar en autoocnsumo (FS)': Math.round(y.FS * 100) / 100,
-                'Precio base de energia (PBE)': Math.round(y.PBE * 100) / 100,
-                'Cargo por energia(CPE)': Math.round(y.CPE * 100) / 100,
-                'Promedio potencia 11 meses (P11)': Math.round(y.P11 * 100) / 100,
-                'Precio base potencia (PBP)': Math.round(y.PBP * 100) / 100,
-                'Cargo por potencia (CPC)': Math.round(y.CPC * 100) / 100,
-                'Factor de recargo (FR)': Math.round((y.FP < 0.9 && y.FP !== 0) ? (0.9 / y.FP) - 1 : 0 * 100) / 100,
-                'Cargo por energia reactiva (CER)': Math.round(y.CER * 100) / 100,
-                'Costo operativo sistema solar (COS)': Math.round(y.COS * 100) / 100,
-                'Costo operativo mantenimiento red de distribucion (COR)': Math.round(y.COR * 100) / 100,
-                'Costo operativo de mantenimiento de equipos auxiliares (COE)': Math.round(y.COE * 100) / 100,
-                'Costos administrativos (COA)': Math.round(y.COA * 100) / 100,
-                'Cargo por costos operativos (CCO)': Math.round(y.CCO * 100) / 100,
+                'Energia Activa (EA)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.EA ),
+                'Energia reactiva (ER)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.ER ),
+                'Potencia maxima (PM)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.PM ),
+                'Factor potencia (FP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.FP ),
+                'Fraccion de energia solar en autoocnsumo (FS)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.FS ),
+                'Precio base de energia (PBE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.PBE ),
+                'Cargo por energia(CPE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CPE ),
+                'Promedio potencia 11 meses (P11)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.P11 ),
+                'Precio base potencia (PBP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.PBP ),
+                'Cargo por potencia (CPC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CPC ),
+                'Factor de recargo (FR)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format((y.FP < 0.9 && y.FP !== 0) ? (0.9 / y.FP) - 1 : 0 ),
+                'Cargo por energia reactiva (CER)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CER ),
+                'Costo operativo sistema solar (COS)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.COS ),
+                'Costo operativo mantenimiento red de distribucion (COR)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.COR ),
+                'Costo operativo de mantenimiento de equipos auxiliares (COE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.COE ),
+                'Costos administrativos (COA)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.COA ),
+                'Cargo por costos operativos (CCO)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CCO ),
                 'Punto de medida': y.PuntoMedida,
-                'Perdidas internas (PI)': Math.round(y.PI * 100) / 100,
-                'Cargo por perdidas internas (CPI)': Math.round(y.CPI * 100) / 100,
-                'Energia activa consumida en Alumbrado Público (EAAP)': Math.round(y.EAAP * 100) / 100,
-                'Precio de la energia tarifa Alumbrado Público (EAP)': Math.round(y.EAP * 100) / 100,
-                'Energía total consumida por los usuarios (ETCU)': Math.round(y.ETCU * 100) / 100,
-                'Cargo por iluminación comunitaria (CIC)': Math.round(y.CIC * 100) / 100,
-                'Energia activa consumida en servicios comunitarios (EASC)': Math.round(y.EASC * 100) / 100,
-                'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': Math.round(y.EBT * 100) / 100,
-                'Energía total consumida por los usuarios (ETCU) ': Math.round(y.ETCU * 100) / 100,
-                'Cargo por servicios comunitarios (CSC)': Math.round(y.CSC * 100) / 100,
-                'CARGOS TOTALES TARIFA': Math.round(y.TOTAL * 100) / 100
+                'Perdidas internas (PI)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.PI ),
+                'Cargo por perdidas internas (CPI)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CPI ),
+                'Energia activa consumida en Alumbrado Público (EAAP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.EAAP ),
+                'Precio de la energia tarifa Alumbrado Público (EAP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.EAP ),
+                'Energía total consumida por los usuarios (ETCU)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.ETCU ),
+                'Cargo por iluminación comunitaria (CIC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CIC ),
+                'Energia activa consumida en servicios comunitarios (EASC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.EASC ),
+                'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.EBT ),
+                'Energía total consumida por los usuarios (ETCU) ': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.ETCU ),
+                'Cargo por servicios comunitarios (CSC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.CSC ),
+                'CARGOS TOTALES TARIFA': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(y.TOTAL )
               }]
             });
 
@@ -198,35 +195,35 @@ export class FacturacionComponent implements OnInit {
               'Cuenta': 'TOTAL CLIENTES',
               'Codigo medidor': '',
               'Codigo tarifa': '',
-              'Energia Activa (EA)': Math.round(this.listaTotales[0] * 100) / 100,
-              'Energia reactiva (ER)': Math.round(this.listaTotales[1] * 100) / 100,
-              'Potencia maxima (PM)': Math.round(this.listaTotales[2] * 100) / 100,
-              'Factor potencia (FP)': Math.round(this.listaTotales[3] * 100) / 100,
-              'Fraccion de energia solar en autoocnsumo (FS)': Math.round(this.listaTotales[4] * 100) / 100,
-              'Precio base de energia (PBE)': Math.round(this.listaTotales[5] * 100) / 100,
-              'Cargo por energia(CPE)': Math.round(this.listaTotales[6] * 100) / 100,
-              'Promedio potencia 11 meses (P11)': Math.round(this.listaTotales[7] * 100) / 100,
-              'Precio base potencia (PBP)': Math.round(this.listaTotales[8] * 100) / 100,
-              'Cargo por potencia (CPC)': Math.round(this.listaTotales[9] * 100) / 100,
-              'Factor de recargo (FR)': Math.round(this.listaTotales[10] * 100) / 100,
-              'Cargo por energia reactiva (CER)': Math.round(this.listaTotales[11] * 100) / 100,
-              'Costo operativo sistema solar (COS)': Math.round(this.listaTotales[12] * 100) / 100,
-              'Costo operativo mantenimiento red de distribucion (COR)': Math.round(this.listaTotales[13] * 100) / 100,
-              'Costo operativo de mantenimiento de equipos auxiliares (COE)': Math.round(this.listaTotales[14] * 100) / 100,
-              'Costos administrativos (COA)': Math.round(this.listaTotales[15] * 100) / 100,
-              'Cargo por costos operativos CCO': Math.round(this.listaTotales[16] * 100) / 100,
+              'Energia Activa (EA)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[0] ),
+              'Energia reactiva (ER)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[1] ),
+              'Potencia maxima (PM)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[2] ),
+              'Factor potencia (FP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[3] ),
+              'Fraccion de energia solar en autoocnsumo (FS)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[4] ),
+              'Precio base de energia (PBE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[5] ),
+              'Cargo por energia(CPE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[6] ),
+              'Promedio potencia 11 meses (P11)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[7] ),
+              'Precio base potencia (PBP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[8] ),
+              'Cargo por potencia (CPC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[9] ),
+              'Factor de recargo (FR)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[10] ),
+              'Cargo por energia reactiva (CER)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[11] ),
+              'Costo operativo sistema solar (COS)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[12] ),
+              'Costo operativo mantenimiento red de distribucion (COR)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[13] ),
+              'Costo operativo de mantenimiento de equipos auxiliares (COE)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[14] ),
+              'Costos administrativos (COA)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[15] ),
+              'Cargo por costos operativos CCO': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[16] ),
               'Punto de medida': this.listaTotales[17],
-              'Perdidas internas (PI)': Math.round(this.listaTotales[18] * 100) / 100,
-              'Cargo por perdidas internas (CPI)': Math.round(this.listaTotales[19] * 100) / 100,
-              'Energia activa consumida en Alumbrado Público (EAAP)': Math.round(this.listaTotales[20] * 100) / 100,
-              'Precio de la energia tarifa Alumbrado Público (EAP)': Math.round(this.listaTotales[21] * 100) / 100,
-              'Energía total consumida por los usuarios (ETCU)': Math.round(this.listaTotales[22] * 100) / 100,
-              'Cargo por iluminación comunitaria (CIC)': Math.round(this.listaTotales[23] * 100) / 100,
-              'Energia activa consumida en servicios comunitarios (EASC)': Math.round(this.listaTotales[24] * 100) / 100,
-              'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': Math.round(this.listaTotales[25] * 100) / 100,
-              'Energía total consumida por los usuarios (ETCU) ': Math.round(this.listaTotales[26] * 100) / 100,
-              'Cargo por servicios comunitarios (CSC)': Math.round(this.listaTotales[27] * 100) / 100,
-              'CARGOS TOTALES TARIFA': Math.round(this.listaTotales[28] * 100) / 100
+              'Perdidas internas (PI)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[18] ),
+              'Cargo por perdidas internas (CPI)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[19] ),
+              'Energia activa consumida en Alumbrado Público (EAAP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[20] ),
+              'Precio de la energia tarifa Alumbrado Público (EAP)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[21] ),
+              'Energía total consumida por los usuarios (ETCU)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[22] ),
+              'Cargo por iluminación comunitaria (CIC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[23] ),
+              'Energia activa consumida en servicios comunitarios (EASC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[24] ),
+              'Precio de la energia tarifa Servicio General de Baja Tensión (EBT)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[25] ),
+              'Energía total consumida por los usuarios (ETCU) ': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[26] ),
+              'Cargo por servicios comunitarios (CSC)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[27] ),
+              'CARGOS TOTALES TARIFA': new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(this.listaTotales[28] )
             }]
 
             this.cols = [['Descripcion', ...this.dataExport.map(x => x.Cuenta)]]
@@ -285,7 +282,7 @@ export class FacturacionComponent implements OnInit {
 
   exportPdf() {
     let tamano = this.cols[0].length;
-    // let pag = Math.round(tamano / 4);
+    // let pag = new Intl.NumberFormat('en-us', { minimumFractionDigits: 1, maximumFractionDigits: 2 }).format(tamano / 4);
 
     this.colsExport[0] = this.cols[0].slice(0, 4);
     this.dataPDFExport[0] = this.dataPDF[0].slice(0, 4);
@@ -387,7 +384,7 @@ export class FacturacionComponent implements OnInit {
       const worksheet = xlsx.utils.json_to_sheet(this.dataExport);
       const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-      this.saveAsExcelFile(excelBuffer, 'Informe Proveedores de Energia');
+      this.saveAsExcelFile(excelBuffer, 'Informe de facturacion');
     });
   }
 
