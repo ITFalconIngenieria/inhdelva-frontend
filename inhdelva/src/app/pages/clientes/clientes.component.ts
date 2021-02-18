@@ -50,7 +50,6 @@ export class ClientesComponent implements OnInit {
         text: 'No se encontró ese cliente'
       });
     }
-
   }
 
   guardar() {

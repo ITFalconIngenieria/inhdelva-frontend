@@ -302,8 +302,6 @@ export class MedidoresComponent implements OnInit {
         .toPromise()
         .then(
           (data: any) => {
-
-
             if (data.tipo === true) {
               this.cantMV = this.cantMV + 1;
 
@@ -390,7 +388,7 @@ export class MedidoresComponent implements OnInit {
       this.isVisible = true;
       this.idMedidor = data.id;
       this.accion = 'editar';
-
+      this.disebleTipo = false;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
       this.serie = data.serie;
@@ -500,6 +498,9 @@ export class MedidoresComponent implements OnInit {
       operacion: (this.validateFormMedidorV.value.operacion === 'true') ? true : false,
       observacion: (this.validateFormMedidorV.value.observacion === '' || this.validateFormMedidorV.value.observacion === null) ? 'N/A' : this.validateFormMedidorV.value.observacion
     };
+
+    console.log(dataMV);
+
 
     if (this.accionMV === 'editar') {
 
@@ -631,10 +632,8 @@ export class MedidoresComponent implements OnInit {
 
   busquedadMedidor() {
     const codigo = this.codigo;
+
     const medidor: any[] = this.medidoresPME.filter(x => x.nombre === codigo);
-
-    console.log(medidor);
-
     if (medidor.length > 0 && medidor[0].id !== null) {
 
       swal({
@@ -698,8 +697,6 @@ export class MedidoresComponent implements OnInit {
         (data: any[]) => {
 
           this.listOfDataMedidores = data;
-          console.log(this.listOfDataMedidores);
-
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
@@ -707,7 +704,6 @@ export class MedidoresComponent implements OnInit {
             .then(
               (data: any[]) => {
                 this.listOfDataMVirtuales = data
-                console.log(this.listOfDataMVirtuales);
 
               });
 
@@ -717,7 +713,6 @@ export class MedidoresComponent implements OnInit {
               (data: any) => {
 
                 this.MVirtualesJoin = data;
-                console.log(this.MVirtualesJoin);
 
                 this.cantMV = this.listOfDataMVirtuales.length;
 
@@ -771,8 +766,6 @@ export class MedidoresComponent implements OnInit {
         (data: any[]) => {
           this.medidoresPME = data;
 
-
-
           // tslint:disable-next-line: prefer-for-of
           // for (let x = 0; x < data.length; x++) {
           //   this.medidoresPME = [{
@@ -803,6 +796,7 @@ export class MedidoresComponent implements OnInit {
 
   showModal(): void {
     this.isVisible = true;
+    this.disebleTipo = false;
   }
 
   handleCancel(): void {

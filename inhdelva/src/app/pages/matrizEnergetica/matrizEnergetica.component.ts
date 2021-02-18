@@ -203,6 +203,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataDistribucion = this.listOfDataDistribucion.filter(x => x.id !== data.id);
+          this.listOfDataDistribucionFiltrado = this.listOfDataDistribucionFiltrado.filter(x => x.id !== data.id);
+
         },
         (error) => {
           this.ShowNotification(
@@ -335,6 +337,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
+          this.dataMatrizEnergetica = this.dataMatrizEnergetica.filter(x => x.id !== data.id);
+
         },
         (error) => {
           this.ShowNotification(
@@ -381,8 +385,6 @@ export class MatrizEnergeticaComponent implements OnInit {
         (data: any[]) => {
           this.listOfDataMatriz = data[0];
           this.listOfDataDistribucion = data[1];
-          console.log(this.listOfDataDistribucion);
-
 
           // tslint:disable-next-line: prefer-for-of
           for (let x = 0; x < this.listOfDataMatriz.length; x++) {
