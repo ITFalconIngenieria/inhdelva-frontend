@@ -270,7 +270,7 @@ export class ContratosComponent implements OnInit {
           area,
           tipoServicioId: tipoServicio,
           // tslint:disable-next-line: max-line-length
-          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          trifasica: (this.validateFormMedidores.value.trifasica === false || this.validateFormMedidores.value.trifasica === null) ? false : true,
           potencia,
           // tslint:disable-next-line: max-line-length
           iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -291,7 +291,7 @@ export class ContratosComponent implements OnInit {
           area,
           tipoServicioId: tipoServicio,
           // tslint:disable-next-line: max-line-length
-          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          trifasica: (this.validateFormMedidores.value.trifasica === false || this.validateFormMedidores.value.trifasica === null) ? false : true,
           potencia,
           // tslint:disable-next-line: max-line-length
           iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -413,6 +413,8 @@ export class ContratosComponent implements OnInit {
   }
 
   editarMedidor(data) {
+    console.log(data);
+
     this.accion = 'editar';
     this.idMedidorContrato = data.id;
     const valor = (data.fechaFinal) ? 'B' : 'A';
@@ -426,7 +428,7 @@ export class ContratosComponent implements OnInit {
         zonaId: [data.zonaId],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
-        trifasica: [(data.trifasica === false) ? 'false' : 'true'],
+        trifasica: [data.trifasica],
         potencia: [data.potencia],
         iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
         iluminacionP: [data.iluminacionP],
@@ -442,7 +444,7 @@ export class ContratosComponent implements OnInit {
         zonaId: [data.zonaId],
         area: [data.area],
         tipoServicioId: [data.tipoServicioId],
-        trifasica: [(data.trifasica === false) ? 'false' : 'true'],
+        trifasica: [data.trifasica],
         potencia: [data.potencia],
         iluminacionTC: [(data.iluminacionTC === false) ? 'false' : 'true'],
         iluminacionP: [data.iluminacionP],
@@ -487,7 +489,6 @@ export class ContratosComponent implements OnInit {
   }
 
   onOk(result: Date | Date[] | null): void {
-    console.log('onOk', result);
   }
 
   onCalendarChange(result: Array<Date | null>): void {
@@ -599,7 +600,6 @@ export class ContratosComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataMedidores = data;
-          console.log(data);
 
         }
       );

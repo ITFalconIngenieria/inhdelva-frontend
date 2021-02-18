@@ -204,8 +204,8 @@ export class TipoTarifaComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const observacion = (this.validateFormParametro.value.observacion === '' || this.validateFormParametro.value.observacion === null) ? 'N/A' : this.validateFormParametro.value.observacion;
     console.log(moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString());
-    const fechaInicio = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
-    const fechaFinal = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+    const fechaInicio = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString();
+    const fechaFinal = (this.open === undefined) ? moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).subtract(1, 'days').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString() : moment(`${moment(this.validateFormParametro.value.fechaInicio[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString();
 
     const dataParametro = {
       tarifaId: this.idTarifa,

@@ -36,8 +36,9 @@ export class CargosEspecialesComponent implements OnInit {
   validateForm: FormGroup;
   demoValue = 100;
   radioValue = 'A';
-  dateFormat = 'yyyy/MM/dd';
+  dateFormat = 'dd-MM-yyyy';
   accion;
+  open;
   cargoEdit;
   listOfData: any[] = [];
   dataProcesada: any[] = [];
@@ -58,13 +59,21 @@ export class CargosEspecialesComponent implements OnInit {
     }
   }
 
+  onOpen(event) {
+    this.open = event;
+  }
+
   guardar() {
+    console.log(this.open);
+
     // tslint:disable-next-line: max-line-length
     this.validateForm.value.observacion = (this.validateForm.value.observacion === '' || this.validateForm.value.observacion === null) ? 'N/A' : this.validateForm.value.observacion;
+    const fechaInicial = (this.open === undefined) ? moment(moment(this.validateForm.value.fechaInicial[0]).subtract(1, 'days').format('YYYY-MM-DD')).toISOString() : moment(moment(this.validateForm.value.fechaInicial[0]).format('YYYY-MM-DD')).toISOString()
+    const fechaFinal = (this.open === undefined) ? moment(moment(this.validateForm.value.fechaInicial[1]).subtract(1, 'days').format('YYYY-MM-DD')).toISOString() : moment(moment(this.validateForm.value.fechaInicial[1]).format('YYYY-MM-DD')).toISOString()
 
     const dataCargo = {
-      fechaInicial: moment(`${moment(this.validateForm.value.fechaInicial[0]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
-      fechaFinal: moment(`${moment(this.validateForm.value.fechaInicial[1]).format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString(),
+      fechaInicial: fechaInicial,
+      fechaFinal: fechaFinal,
       financiamiento: `${this.validateForm.value.financiamiento}`,
       rectificacion: `${this.validateForm.value.rectificacion}`,
       corte: `${this.validateForm.value.corte}`,
@@ -73,6 +82,7 @@ export class CargosEspecialesComponent implements OnInit {
       observacion: this.validateForm.value.observacion,
       estado: true
     };
+    this.open = undefined;
 
     if (this.accion === 'editar') {
       this.cargoService.putCargoEspecial(this.cargoEdit, dataCargo)
@@ -128,7 +138,7 @@ export class CargosEspecialesComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            const total = data.financiamiento + data.rectificacion + data.corte + data.mora + data.otros;
+            const total = parseFloat(data.financiamiento) + parseFloat(data.rectificacion) + parseFloat(data.corte) + parseFloat(data.mora) + parseFloat(data.otros);
             const cargo: CargosFijos = {
               id: data.id,
               fechaInicial: data.fechaInicial,
@@ -161,10 +171,10 @@ export class CargosEspecialesComponent implements OnInit {
   }
 
   editar(data) {
-    this.accion = 'editar';
-    this.isVisible = true;
     console.log(data);
 
+    this.accion = 'editar';
+    this.isVisible = true;
     this.cargoEdit = data.id;
     this.validateForm = this.fb.group({
       fechaInicial: [[moment(data.fechaInicial).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
