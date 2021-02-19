@@ -89,7 +89,7 @@ export class RegistroComponent implements OnInit {
       username: [null, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required]],
-      telefono: [null, [Validators.required]],
+      telefono: [null],
       observacion: [null]
     });
   }

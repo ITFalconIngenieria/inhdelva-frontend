@@ -36,7 +36,7 @@ export class CargosEspecialesComponent implements OnInit {
   validateForm: FormGroup;
   demoValue = 100;
   radioValue = 'A';
-  dateFormat = 'dd-MM-yyyy';
+  dateFormat = 'yyyy-MM-dd';
   accion;
   open;
   cargoEdit;
@@ -172,12 +172,14 @@ export class CargosEspecialesComponent implements OnInit {
 
   editar(data) {
     console.log(data);
+    let fechaInicial = moment(`${moment(data.fechaInicial).add(42, 'hours').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
+    let fechaFinal = moment(`${moment(data.fechaFinal).add(42, 'hours').format('YYYY-MM-DD')}T00:00:00.000Z`).toISOString()
 
     this.accion = 'editar';
     this.isVisible = true;
     this.cargoEdit = data.id;
     this.validateForm = this.fb.group({
-      fechaInicial: [[moment(data.fechaInicial).add(2, 'days').format('YYYY-MM-DD'), moment(data.fechaFinal).add(2, 'days').format('YYYY-MM-DD')], [Validators.required]],
+      fechaInicial: [[fechaInicial, fechaFinal], [Validators.required]],
       financiamiento: [parseFloat(data.financiamiento)],
       rectificacion: [parseFloat(data.rectificacion)],
       corte: [parseFloat(data.corte)],
