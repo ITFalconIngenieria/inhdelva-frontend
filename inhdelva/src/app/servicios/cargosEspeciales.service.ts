@@ -15,7 +15,7 @@ export class CargosEspecialesService {
 
   getCargosEspeciales() {
     // return this.http.get(`${apiUrl}CargoEspecial`);
-    return this.http.get(`${apiUrl}cargos-fijos`);
+    return this.http.get(`${apiUrl}cargos-fijos?filter[where][estado]=true`);
   }
 
   postCargoEspecial(CargoEspecial) {
