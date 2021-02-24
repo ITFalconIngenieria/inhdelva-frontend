@@ -75,7 +75,6 @@
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo operativo mantenimiento red de distribucion (COR)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo operativo de mantenimiento de equipos auxiliares (COE)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costos administrativos (COA)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por costos operativos (CCO)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Punto de medida</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Perdidas internas (PI)</th>
             <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por perdidas internas (CPI)</th>
@@ -87,7 +86,7 @@
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Precio de la energia tarifa Servicio General de Baja Tensión (EBT)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía total consumida por los usuarios (ETCU)</th>
             <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por servicios comunitarios (CSC)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">CARGOS TOTALES TARIFA</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">CARGOS TOTALES </th>
         </tr>
     </thead>
     <tbody>
@@ -98,36 +97,35 @@
                 <td class="tdBlanco" nzAlign="center">{{ data.cuenta }}</td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.medidor }} </td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.tarifa }} </td>
-                <td class="tdAzul" nzAlign="center">{{ data.EA | number:'1.2-2':'en_US'}} kWh/mes</td>
-                <td class="tdAzul" nzAlign="center"> {{ data.ER | number:'1.2-2':'en_US' }} kVArh/mes</td>
-                <td class="tdAzul" nzAlign="center">{{ data.PM | number:'1.2-2':'en_US' }} kW</td>
+                <td class="tdAzul" nzAlign="center">{{ data.EA | number:'1.2-2':'en_US'}} </td>
+                <td class="tdAzul" nzAlign="center"> {{ data.ER | number:'1.2-2':'en_US' }} </td>
+                <td class="tdAzul" nzAlign="center">{{ data.PM | number:'1.2-2':'en_US' }} </td>
                 <td class="tdGrisClaro" nzAlign="center">{{ data.FP | number:'1.2-2':'en_US' }} </td>
                 <td class="tdGrisClaro" nzAlign="center">{{ data.FS | number:'1.2-2':'en_US' }} </td>
-                <td class="tdBlanco" nzAlign="center">L {{ data.PBE | number:'1.2-2':'en_US' }} Lps/kWh</td>
-                <td class="tdVerde" nzAlign="center"> {{ data.CPE | number:'1.2-2':'en_US' }} Lps</td>
-                <td class="tdGrisClaro" nzAlign="center"> {{ data.P11 | number:'1.2-2':'en_US' }} kW</td>
-                <td class="tdBlanco" nzAlign="center"> {{ data.PBP | number:'1.2-2':'en_US' }} Lps/kW-mes</td>
-                <td class="tdVerde" nzAlign="center"> {{ data.CPC | number:'1.2-2':'en_US' }} Lps</td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.PBE | number:'1.4-4':'en_US' }} </td>
+                <td class="tdVerde" nzAlign="center"> {{ data.CPE | number:'1.2-2':'en_US' }} </td>
+                <td class="tdGrisClaro" nzAlign="center"> {{ data.P11 | number:'1.2-2':'en_US' }} </td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.PBP | number:'1.4-4':'en_US' }} </td>
+                <td class="tdVerde" nzAlign="center"> {{ data.CPC | number:'1.2-2':'en_US' }} </td>
                 <td class="tdGrisClaro" nzAlign="center"> {{ (data.FP
-                    < 0.9 && data.FP !==0 ) ? (0.9/data.FP)-1 : 0 | number: '1.2-2': 'en_US' }} </td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CER | number:'1.2-2':'en_US' }} Lps</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COS | number:'1.2-2':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COR | number:'1.2-2':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COE | number:'1.2-2':'en_US' }} Lps/KwH</td>
-                        <td class="tdBlanco" nzAlign="center">L {{ data.COA | number:'1.2-2':'en_US' }} Lps/KwH</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CCO | number:'1.2-2':'en_US' }} Lps/kWh</td>
+                    < 0.9 && data.FP !==0 ) ? ((0.9/data.FP)-1 ) : 0 | number: '1.2-2': 'en_US' }} </td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CER | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.COS | number:'1.4-4':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.COR | number:'1.4-4':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.COE | number:'1.4-4':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.COA | number:'1.4-4':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.PuntoMedida }}</td>
-                        <td class="tdGrisClaro" nzAlign="center">L {{ data.PI | number:'1.2-2':'en_US' }}</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CPI | number:'1.2-2':'en_US' }} Lps</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EAAP | number:'1.2-2':'en_US' }} kWh/mes</td>
-                        <td class="tdBlanco" nzAlign="center"> {{ data.EAP | number:'1.2-2':'en_US' }}Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} kWh/mes</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CIC | number:'1.2-2':'en_US' }} Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EASC | number:'1.2-2':'en_US' }} kWh/mes</td>
-                        <td class="tdBlanco" nzAlign="center"> {{ data.EBT | number:'1.2-2':'en_US' }} Lps/kWh</td>
-                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} kWh/mes</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.CSC | number:'1.2-2':'en_US' }} Lps/kWh</td>
-                        <td class="tdVerde" nzAlign="center"> {{ data.TOTAL | number:'1.2-2':'en_US' }} Lps</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.PI | number:'1.2-2':'en_US' }}</td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CPI | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EAAP | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.EAP | number:'1.4-4':'en_US' }}</td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CIC | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.EASC | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{ data.EBT | number:'1.4-4':'en_US' }} </td>
+                        <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.CSC | number:'1.2-2':'en_US' }} </td>
+                        <td class="tdVerde" nzAlign="center"> {{ data.TOTAL | number:'1.2-2':'en_US' }} </td>
             </tr>
 
         </ng-container>

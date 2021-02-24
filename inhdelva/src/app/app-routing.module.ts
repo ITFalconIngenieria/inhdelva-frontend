@@ -31,6 +31,7 @@ import { LoginGuard } from './servicios/Guards/login.guard';
 import { MantenimientoGuard } from './servicios/Guards/mantenimiento.guard';
 import { TarifasGuard } from './servicios/Guards/tarifas.guard';
 import { ParametrosGuard } from './servicios/Guards/parametros.guard';
+import { UsuarioGuard } from './servicios/Guards/usuario.guard';
 import { ContratosGuard } from './servicios/Guards/contratos.guard';
 import { MatrizGuard } from './servicios/Guards/matriz.guard';
 import { FacturasGuard } from './servicios/Guards/facturas.guard';
@@ -64,7 +65,7 @@ const routes: Routes = [
       { path: 'facturasEmitidas', component: FacturasEmitidasComponent, canActivate: [FacturasGuard] },
       { path: 'facturasCanceladas', component: FacturasCanceladasComponent, canActivate: [FacturasGuard] },
       { path: 'rangoFactura', component: RangoFacturaComponent, canActivate: [ConfiguracionGuard] },
-      { path: 'usuarios', component: UsuariosComponent, canActivate: [MantenimientoGuard] },
+      { path: 'usuarios', component: UsuariosComponent, canActivate: [UsuarioGuard] },
       ///// Reportes
       { path: 'reporteFacturacion', component: FacturacionComponent, canActivate: [ReporteGuard] },
       { path: 'reporteProduccion', component: ProduccionComponent, canActivate: [ReporteGuard] },

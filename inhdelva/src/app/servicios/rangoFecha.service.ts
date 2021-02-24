@@ -23,6 +23,8 @@ export class RangoFechaService {
   }
 
   putRango(id, rango) {
+    console.log(`${apiUrl}config-facturas/${id}`, rango);
+
     return this.http.put(`${apiUrl}config-facturas/${id}`, rango);
   }
 

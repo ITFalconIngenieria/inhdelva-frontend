@@ -16,18 +16,16 @@
     <button *ngIf="isVisible" nzTooltipTitle="Exportar a PDF" nz-button style="margin: 1%; background-color: #f36161;" (click)="exportPdf()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-pdf"></i></button>
 </div>
 <nz-table *ngIf="isVisible" #nzTableINH [nzData]="listOfData" nzSize="small" nzShowPagination="false">
-    <thead>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"></th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" [colSpan]="colspan" nzAlign="center"> MES/AÑO</th>
-        </tr>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"> INFORMACIÓN GLOBAL DE INHDELVA </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" *ngFor="let data of listOfData" nzAlign="center"> {{ data.fecha | date:'MM-yyyy' }} </th>
-        </tr>
-    </thead>
     <tbody>
         <ng-container>
+            <tr>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" nzAlign="center"></th>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" [colSpan]="colspan" nzAlign="center"> MES/AÑO</th>
+            </tr>
+            <tr>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" nzAlign="center"> INFORMACIÓN GLOBAL DE INHDELVA </th>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" *ngFor="let data of listOfData" nzAlign="center"> {{ data.fecha | date:'MM-yyyy' }} </th>
+            </tr>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS PROVEEDORES DE ENERGIA (kWh/mes) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEA | number:'1.2-2':'en_US' }} </td>
@@ -50,53 +48,40 @@
             </tr>
             <tr>
                 <td class="tdVerde"> FRACCION DE ENERGIA SOLAR TOTAL (kWh/mes) </td>
-                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.FraccionEnergiaSolar | number:'1.2-2':'en_US' }} </td>
+                <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.FraccionEnergiaSolar | number:'1.4-4':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR ENERGIA A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR ENERGIA A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoEnergia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR POTENCIA A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR POTENCIA A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPotencia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR ENERGIA REACTIVA A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR ENERGIA REACTIVA A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoReactiva | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR ALUMBRADO PUBLICO A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR ALUMBRADO PUBLICO A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoAlumbrado | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR COMERCIALIZACION A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR COMERCIALIZACION A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoComercializacion | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO POR REGULACION A INHDELVA (US$) </td>
+                <td class="tdGrisOscuro"> CARGO POR REGULACION A INHDELVA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoRegulacion | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$) </td>
+                <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.totalProveedores | number:'1.2-2':'en_US' }} </td>
             </tr>
-        </ng-container>
-    </tbody>
-</nz-table>
-<hr>
-<nz-table *ngIf="isVisible" #nzTableUsu [nzData]="listOfData" nzSize="small" nzShowPagination="false">
-    <thead>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"></th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" [colSpan]="colspan" nzAlign="center"> MES/AÑO</th>
-        </tr>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"> INFORMACION GLOBAL DE LOS USUARIOS DEL PARQUE </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" *ngFor="let data of listOfData" nzAlign="center"> {{ data.fecha | date:'MM-yyyy' }} </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container>
+            <tr>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" nzAlign="center"> INFORMACION GLOBAL DE LOS USUARIOS DEL PARQUE </th>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" *ngFor="let data of listOfData" nzAlign="center"> </th>
+            </tr>
             <tr>
                 <td class="tdGrisOscuro"> CONSUMO TOTAL DE ENERGIA ACTIVA DE LOS USUARIOS (kWh/mes) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.consumoTotalEAFact | number:'1.2-2':'en_US' }} </td>
@@ -130,72 +115,59 @@
                 <td *ngFor="let data of listOfData" class="tdAzul" nzAlign="center"> {{ data.totalEnergiaINH | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalEA | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR POTENCIA A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR POTENCIA A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalPotencia | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR ENERGIA REACTIVA A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalER | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR COSTOS OPERATIVOS A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCO | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR CONSUMOS COMUNITARIOS A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalCSC | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR ILUMINACION COMUNITARIA A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoTotalIlum | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> CARGO TOTAL POR PERDIDAS INTERNAS A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.cargoPI | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.facturacionTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
-        </ng-container>
-    </tbody>
-</nz-table>
-<br>
-<nz-table *ngIf="isVisible" #nzTableUsu [nzData]="listOfData" nzSize="small" nzShowPagination="false">
-    <thead>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"></th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" [colSpan]="colspan" nzAlign="center"> MES/AÑO</th>
-        </tr>
-        <tr>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" nzAlign="center"> MARGEN GLOBAL FACTURACION </th>
-            <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;" *ngFor="let data of listOfData" nzAlign="center"> {{ data.fecha | date:'MM-yyyy' }} </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container>
             <tr>
-                <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (US$) </td>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" nzAlign="center"> MARGEN GLOBAL FACTURACION </th>
+                <th style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black; font-size: 16px;" *ngFor="let data of listOfData" nzAlign="center"> </th>
+            </tr>
+            <tr>
+                <td class="tdGrisOscuro"> PAGO TOTAL DE ENERGIA ACTIVA A LOS PROVEEDORES DE ENERGIA (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.pagoTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> COSTO ENERGIA SOLAR (US$) </td>
+                <td class="tdGrisOscuro"> COSTO ENERGIA SOLAR (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.costoEnergiaSolar | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (US$) </td>
+                <td class="tdGrisOscuro"> COSTOS SERVICIOS ADMINISTRATIVOS, MANTENIMIENTO DE RED DE DISTRIBUCION Y EQUIPOS AUXILIARES (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.costoMant | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (US$) </td>
+                <td class="tdGrisOscuro"> FACTURACION TOTAL A LOS USUARIOS (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.factTotal | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
-                <td class="tdAzul"> DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (US$) </td>
+                <td class="tdAzul"> DIFERENCIA ENTRE FACTURACION DE USUARIOS, CONSUMO DE INHDELVA Y COSTOS ENERGIA SOLAR (Lps) </td>
                 <td *ngFor="let data of listOfData" class="tdBlanco" nzAlign="center"> {{ data.diferenciaFacturacionConsumo | number:'1.2-2':'en_US' }} </td>
             </tr>
             <tr>
@@ -205,7 +177,7 @@
         </ng-container>
     </tbody>
 </nz-table>
-<br>
+
 <br>
 <div *ngIf="!isVisible" style="display: flex; justify-content: center;">
     <img style="width: 50%;" src="assets/Logo-INHDELVA.svg" alt="" srcset="">

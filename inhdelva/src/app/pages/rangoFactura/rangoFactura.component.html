@@ -37,8 +37,8 @@
                     </td>
                     <td>{{ data.DiaInicio }}</td>
                     <td>{{ data.DiaFinal }}</td>
-                    <td>{{ data.HoraInicio | date: 'h:mm a' }}</td>
-                    <td>{{ data.HoraFinal | date: 'h:mm a' }}</td>
+                    <td>{{ data.HoraInicio | date: 'HH:mm a':'UTC' }}</td>
+                    <td>{{ data.HoraFinal | date: 'HH:mm a':'UTC' }}</td>
                     <td>{{ data.Mes && 'Mismo mes' || 'Meses diferentes'}}</td>
                 </tr>
             </ng-container>

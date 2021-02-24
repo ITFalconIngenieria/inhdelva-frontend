@@ -52,7 +52,7 @@ export class ContratosComponent implements OnInit {
   listOfDataContrato: any[] = [];
   listOfDataMedidores: any[] = [];
   listaMedidoresFiltrado: any[] = [];
-  listOfMedidores: Medidor[] = [];
+  listOfMedidores: any[] = [];
   listaServicios: any[] = [];
   medidorId;
   fechaInicial: any;
@@ -239,6 +239,8 @@ export class ContratosComponent implements OnInit {
 
   guardarMedidor() {
 
+    console.log(this.validateFormMedidores.value.trifasica);
+    
     if (this.validateFormMedidores.value.iluminacionTC === 'true' || this.validateFormMedidores.value.sComTC === 'true') {
       if (this.validateFormMedidores.value.iluminacionP === 0 || this.validateFormMedidores.value.sComP === 0) {
         swal({
@@ -270,7 +272,7 @@ export class ContratosComponent implements OnInit {
           area,
           tipoServicioId: tipoServicio,
           // tslint:disable-next-line: max-line-length
-          trifasica: (this.validateFormMedidores.value.trifasica === false || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
           potencia,
           // tslint:disable-next-line: max-line-length
           iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -291,7 +293,7 @@ export class ContratosComponent implements OnInit {
           area,
           tipoServicioId: tipoServicio,
           // tslint:disable-next-line: max-line-length
-          trifasica: (this.validateFormMedidores.value.trifasica === false || this.validateFormMedidores.value.trifasica === null) ? false : true,
+          trifasica: (this.validateFormMedidores.value.trifasica === 'false' || this.validateFormMedidores.value.trifasica === null) ? false : true,
           potencia,
           // tslint:disable-next-line: max-line-length
           iluminacionTC: (this.validateFormMedidores.value.iluminacionTC === 'false' || this.validateFormMedidores.value.iluminacionTC === null) ? false : true,
@@ -303,6 +305,9 @@ export class ContratosComponent implements OnInit {
           estado: true
         };
       }
+
+      console.log(dataMedidor);
+      
 
       if (this.accion === 'editar') {
 
@@ -581,7 +586,7 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataContrato = data;
+          this.listOfDataContrato = data;          
         }
         ,
         (error) => {
