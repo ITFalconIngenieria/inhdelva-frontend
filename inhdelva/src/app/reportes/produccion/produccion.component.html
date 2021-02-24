@@ -1,4 +1,5 @@
-<h4>INFORME DE PRODUCCION MENSUAL</h4>
+<h4>
+    INFORME DE PRODUCCION MENSUAL</h4>
 <h5>INSTALACIÓN SOLAR FOTOVOLTAICA INHDELVA, CHOLOMA, HONDURAS.</h5>
 <br>
 <div class="row" style="width: 76%; margin: auto;">
@@ -116,7 +117,7 @@
                 <td class="tdVerde" nzAlign="center"> {{ data.fraccionEnergiaSolarAutoconsumo | number:'1.2-2':'en_US'}} %
                 </td>
                 <td class="tdAzul" nzAlign="center"> {{ data.fraccionEnergiaSolarTotal | number:'1.2-2':'en_US'}} %</td>
-                <td class="tdNaranja" nzAlign="center"> {{ data.costoEnergiaINH | number:'1.2-2':'en_US'}} </td>
+                <td class="tdNaranja" nzAlign="center"> {{ data.costoEnergiaINH | number:'1.4-4':'en_US'}} </td>
                 <td class="tdNaranja" nzAlign="center">{{ data.energiaTotalINH | number:'1.2-2':'en_US'}} kWh/mes</td>
                 <td class="tdNaranja" nzAlign="center">L {{ data.costoTotalEnergiaINH | number:'1.2-2':'en_US'}}</td>
                 <td class="tdNaranja" nzAlign="center">{{ data.consumoActualEnergiaRed | number:'1.2-2':'en_US'}} kWh/mes
@@ -141,9 +142,9 @@
             <td class="totales" nzAlign="center"> {{ total.energiaAutoconsumoINH | number:'1.2-2':'en_US'}} kWh/mes</td>
             <td class="totales" nzAlign="center"> {{ total.energiaConsumidaRed | number:'1.2-2':'en_US'}} </td>
             <td class="totales" nzAlign="center"> {{ total.consumoEnergiaTotalINH | number:'':'en_US'}} kWh/mes</td>
-            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarAutoconsumo | number:'1.2-2':'en_US'}} %</td>
-            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarTotal | number:'1.2-2':'en_US'}} %</td>
-            <td class="totales" nzAlign="center"> {{ total.costoEnergiaINH | number:'1.2-2':'en_US'}} </td>
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarAutoconsumo * 100| number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.fraccionEnergiaSolarTotal * 100| number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.costoEnergiaINH | number:'1.4-4':'en_US'}} </td>
             <td class="totales" nzAlign="center"> {{ total.energiaTotalINH | number:'1.2-2':'en_US'}} kWh/mes</td>
             <td class="totales" nzAlign="center">L {{ total.costoTotalEnergiaINH | number:'1.2-2':'en_US'}} </td>
             <td class="totales" nzAlign="center"> {{ total.consumoActualEnergiaRed | number:'1.2-2':'en_US'}} kWh/mes</td>
@@ -154,8 +155,8 @@
             </td>
             <td class="totales" nzAlign="center"> {{ total.produccionEstimadaEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes
             </td>
-            <td class="totales" nzAlign="center"> {{ total.degradacionMaxima | number:'1.2-2':'en_US'}} %</td>
-            <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento | number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.degradacionMaxima * 100| number:'1.2-2':'en_US'}} %</td>
+            <td class="totales" nzAlign="center"> {{ total.porcentajeCumplimiento * 100| number:'1.2-2':'en_US'}} %</td>
 
         </tr>
 

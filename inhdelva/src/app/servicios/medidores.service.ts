@@ -20,7 +20,7 @@ export class MedidoresService {
     }
 
   getMedidoresPME() {
-    return this.http.get(`${apiUrl}vmedidores-pme`);
+    return this.http.get(`${apiUrl}vmedidores-pme?filter={"where":{"tipo":false}}`);
   }
 
   postMedidores(medidor) {

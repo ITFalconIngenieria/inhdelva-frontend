@@ -187,7 +187,7 @@
         <nz-form-item>
             <nz-form-label>Multiplicador</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                <input nz-input [(ngModel)]="multiplicador" [ngModelOptions]="{standalone: true}" placeholder="Escribe aquí..." />
+                <input nz-input style="width: 17%;" [(ngModel)]="multiplicador" [ngModelOptions]="{standalone: true}" />
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -339,15 +339,11 @@
         <div class="row">
             <div class="col">
                 <nz-form-item>
-                    <nz-form-label>Medidor en operacion</nz-form-label>
-                    <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
-                        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                            <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
-                        </nz-input-group>
-                        <ng-template #suffixIconButton>
-                            <button nz-button (click)="busquedadMedidor()" nzType="primary" nzSearch><i nz-icon
-                                    nzType="search"></i></button>
-                        </ng-template>
+                    <nz-form-label>Código del medidor</nz-form-label>
+                    <nz-form-control>
+                        <nz-select formControlName="medidorVirtualId" nzPlaceHolder="Buscar medidor..." nzShowSearch nzAllowClear>
+                            <nz-option *ngFor="let option of listOfDataMedidores" [nzLabel]="option.codigo" [nzValue]="option.id"></nz-option>
+                        </nz-select>
                     </nz-form-control>
                 </nz-form-item>
             </div>

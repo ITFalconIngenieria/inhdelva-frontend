@@ -45,14 +45,17 @@ export class RangoFacturaComponent implements OnInit {
 
   guardar() {
 
-    this.validateForm.value.HoraInicio = moment(this.validateForm.value.HoraInicio).toISOString();
-    this.validateForm.value.HoraFinal = moment(this.validateForm.value.HoraFinal).toISOString();
+    this.validateForm.value.HoraInicio = moment(this.validateForm.value.HoraInicio).subtract(6, 'hours').toISOString();
+    this.validateForm.value.HoraFinal = moment(this.validateForm.value.HoraFinal).subtract(6, 'hours').toISOString();
     this.validateForm.value.Mes = (this.validateForm.value.Mes === 'false') ? false : true;
 
     const dataRango = {
       ...this.validateForm.value,
       Estado: true
     };
+
+    console.log(dataRango);
+
 
     if (this.accion === 'editar') {
       this.rangoService.putRango(this.rangoEdit, dataRango)
@@ -146,6 +149,8 @@ export class RangoFacturaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataRango = data;
+          console.log(data);
+
         },
         (error) => {
           swal({
@@ -179,13 +184,14 @@ export class RangoFacturaComponent implements OnInit {
     this.isVisible = true;
 
     this.rangoEdit = data.Id;
-
+    let hi = moment(data.HoraInicio).subtract(18, 'hours')
+    let hf = moment(data.HoraFinal).subtract(18, 'hours')
     this.validateForm = this.fb.group({
       Mes: [(data.Mes === false) ? 'false' : 'true', [Validators.required]],
       DiaInicio: [data.DiaInicio, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
       DiaFinal: [data.DiaFinal, [Validators.required, Validators.minLength(1), Validators.maxLength(31)]],
-      HoraInicio: [new Date(data.HoraInicio), [Validators.required]],
-      HoraFinal: [new Date(data.HoraFinal), [Validators.required]],
+      HoraInicio: [new Date(hi.toISOString()), [Validators.required]],
+      HoraFinal: [new Date(hf.toISOString()), [Validators.required]],
     });
 
   }

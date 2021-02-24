@@ -494,13 +494,10 @@ export class MedidoresComponent implements OnInit {
 
     const dataMV = {
       medidorId: this.idMV,
-      medidorVirtualId: this.idMVForm,
+      medidorVirtualId: this.validateFormMedidorV.value.medidorVirtualId,
       operacion: (this.validateFormMedidorV.value.operacion === 'true') ? true : false,
       observacion: (this.validateFormMedidorV.value.observacion === '' || this.validateFormMedidorV.value.observacion === null) ? 'N/A' : this.validateFormMedidorV.value.observacion
     };
-
-    console.log(dataMV);
-
 
     if (this.accionMV === 'editar') {
 
@@ -531,6 +528,7 @@ export class MedidoresComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
+            this.limpiarMVirtual();
 
           },
           (error) => {
@@ -544,8 +542,6 @@ export class MedidoresComponent implements OnInit {
             this.accionMV = 'new';
           }
         )
-
-
     } else {
       this.medidoresService.postMedidoreVirtual(dataMV)
         .toPromise()
@@ -559,7 +555,6 @@ export class MedidoresComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            this.codigo = '';
             this.limpiarMVirtual();
           },
           (error) => {
@@ -569,7 +564,6 @@ export class MedidoresComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-
             this.limpiarMVirtual();
           }
         )
@@ -581,8 +575,8 @@ export class MedidoresComponent implements OnInit {
     this.accionMV = 'editar';
     this.codigo = data.medidorVirtual.codigo;
     this.idMVEdit = data.id;
-    this.idMVForm = data.medidorVirtual.id;
     this.validateFormMedidorV = this.fb.group({
+      medidorVirtualId: [data.medidorVirtual.id],
       operacion: [(data.operacion === true) ? 'true' : 'false'],
       observacion: [data.observacion]
     });
@@ -634,7 +628,7 @@ export class MedidoresComponent implements OnInit {
     const codigo = this.codigo;
 
     const medidor: any[] = this.medidoresPME.filter(x => x.nombre === codigo);
-    if (medidor.length > 0 && medidor[0].id !== null) {
+    if (medidor.length > 0) {
 
       swal({
         icon: 'success',
@@ -648,7 +642,6 @@ export class MedidoresComponent implements OnInit {
       this.puntoMedicionId = medidor[0].puntoMedicionId;
       this.lecturaMax = medidor[0].lecturaMax;
       this.observacion = medidor[0].observacion;
-      this.idMVForm = medidor[0].id;
 
     } else {
       this.codigo = '';
@@ -680,6 +673,7 @@ export class MedidoresComponent implements OnInit {
 
   limpiarMVirtual() {
     this.validateFormMedidorV = this.fb.group({
+      medidorVirtualId: [null, [Validators.required]],
       operacion: [0],
       observacion: ['']
     });
@@ -704,7 +698,6 @@ export class MedidoresComponent implements OnInit {
             .then(
               (data: any[]) => {
                 this.listOfDataMVirtuales = data
-
               });
 
           this.medidoresService.getMedidoreVirtualesJoin()
@@ -713,31 +706,9 @@ export class MedidoresComponent implements OnInit {
               (data: any) => {
 
                 this.MVirtualesJoin = data;
-
                 this.cantMV = this.listOfDataMVirtuales.length;
-
               }
             )
-
-          ///////
-          // Clientes.E_31_3
-          // MV.14.1
-
-          // for (let x = 0; x < data.length; x++) {
-          //   this.listOfDataMedidores = [{
-          //     id: data[x].id,
-          //     codigo: data[x].codigo.substr(9),
-          //     descripcion: data[x].descripcion,
-          //     serie: data[x].serie,
-          //     modelo: data[x].modelo,
-          //     ip: data[x].ip,
-          //     lecturaMax: data[x].lecturaMax,
-          //     puntoMedicionId: data[x].puntoMedicionId,
-          //     multiplicador: data[x].multiplicador,
-          //     observacion: data[x].observacion,
-          //     contrato: (data[x].contrato)
-          //   }, ...this.listOfDataMedidores];
-          // }
         },
         (error) => {
           swal({
@@ -755,8 +726,6 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataRollover = data;
-
-
         }
       );
 
@@ -765,23 +734,6 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.medidoresPME = data;
-
-          // tslint:disable-next-line: prefer-for-of
-          // for (let x = 0; x < data.length; x++) {
-          //   this.medidoresPME = [{
-          //     id: data[x].id,
-          //     codigo: data[x].codigo.substr(9),
-          //     descripcion: data[x].descripcion,
-          //     serie: data[x].serie,
-          //     modelo: data[x].modelo,
-          //     ip: data[x].ip,
-          //     lecturaMax: data[x].lecturaMax,
-          //     puntoMedicionId: data[0].puntoMedicionId,
-          //     multiplicador: data[x].multiplicador,
-          //     observacion: data[x].observacion,
-          //     contrato: (data[x].contrato)
-          //   }, ...this.medidoresPME];
-          // }
 
         }
       );
