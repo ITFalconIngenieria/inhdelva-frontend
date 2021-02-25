@@ -68,8 +68,8 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
-
 import { ScrollingModule } from '@angular/cdk/scrolling';
+
 // Importaciones de componentes
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';

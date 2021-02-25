@@ -38,3 +38,21 @@ nz-input-number {
     gap: 5px 6px;
     grid-template-areas: ". . .";
 }
+
+.search-box {
+    padding: 8px;
+}
+
+.search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.search-box button {
+    width: 90px;
+}
+
+.search-button {
+    margin-right: 8px;
+}
