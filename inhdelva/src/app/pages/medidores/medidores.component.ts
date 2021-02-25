@@ -5,7 +5,6 @@ import { MedidorPME, RolloverModel, Medidor } from '../../Modelos/medidor';
 import * as moment from 'moment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
-import { treeCollapseMotion } from 'ng-zorro-antd/core';
 
 @Component({
   selector: 'app-medidores',

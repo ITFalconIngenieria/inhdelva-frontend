@@ -4,6 +4,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../servicios/usuario.service';
 
+interface DataItem {
+  name: string;
+  age: number;
+  address: string;
+}
+
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
@@ -21,6 +27,43 @@ export class UsuariosComponent implements OnInit {
   passwordVisible = false;
   password: string;
 
+  searchValue = '';
+  visible = false;
+  listOfData: DataItem[] = [
+    {
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park'
+    },
+    {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park'
+    },
+    {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park'
+    },
+    {
+      name: 'Jim Red',
+      age: 32,
+      address: 'London No. 2 Lake Park'
+    }
+  ];
+  listOfDisplayData = [...this.listOfData];
+  sortFn = (a: DataItem, b: DataItem) => a.name.localeCompare(b.name);
+
+reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
+  }
+  
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
@@ -207,8 +250,6 @@ export class UsuariosComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataUsuarios = data;
-          console.log(data);
-
         },
         (error) => {
           swal({
