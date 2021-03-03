@@ -9,10 +9,14 @@
 </div>
 <br>
 <div class="tabla">
-    <nz-table #basicTable [nzData]="listOfDataProveedores" nzPageSize="6">
+    <nz-table #basicTable [nzData]="listOfDisplayData" nzPageSize="6">
         <thead>
             <tr>
-                <th></th>
+                <th>
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +28,7 @@
                                 <img src="assets/proveedor.png" style="width: 45%;">
                             </div>
                             <div class="col-9 div-border" style="position: relative;">
-                                <h6> {{ data.Nombre }} </h6>
+                                <h6 style="background-color: #d6ecff; width: fit-content;"> {{ data.Nombre }} </h6>
                                 <label> {{ data.Direccion ? data.Direccion : '---'  }} </label>
                                 <br>
                                 <label>Telefono: {{ data.Telefono ? data.Telefono : '---' }} </label>
@@ -121,3 +125,15 @@
         <button nz-button nzType="primary" (click)="guardar()">Guardar</button>
     </div>
 </nz-modal>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

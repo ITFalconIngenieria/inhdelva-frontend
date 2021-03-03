@@ -4,10 +4,26 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../servicios/usuario.service';
 
-interface DataItem {
-  name: string;
-  age: number;
-  address: string;
+interface UsuarioModel {
+  id: number;
+  Nombre: string;
+  Apellido: string;
+  Telefono: string;
+  idUser: string;
+  Observacion: string;
+  AD: boolean;
+  Estado: boolean;
+  Correo?: any;
+  TipoUsuario: number;
+  usId: string;
+  realm?: any;
+  username: string;
+  email: string;
+  emailVerified?: any;
+  verificationToken?: any;
+  ucId: string;
+  password: string;
+  userId: string;
 }
 
 @Component({
@@ -22,48 +38,44 @@ export class UsuariosComponent implements OnInit {
   radioValue = 'A';
   userEdit;
   dataUser;
-  listOfDataUsuarios: any[] = [];
+  op;
+  listOfDataUsuarios: UsuarioModel[] = [];
   accion: string;
   passwordVisible = false;
   password: string;
-
   searchValue = '';
   visible = false;
-  listOfData: DataItem[] = [
+  listOfDisplayData: UsuarioModel[] = [];
+  sortFn = (a: UsuarioModel, b: UsuarioModel) => a.Nombre.localeCompare(b.Nombre);
+
+  listOfColumn = [
     {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
+      title: 'Nombre',
+      compare: (a: UsuarioModel, b: UsuarioModel) => a.Nombre.localeCompare(b.Nombre),
+      priority: 1
     },
     {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
+      title: 'Apellido',
+      compare: (a: any, b: any) => a.Apellido.localeCompare(b.Apellido),
+      priority: 2
     },
     {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
+      title: 'User',
+      compare: (a: any, b: any) => a.username.localeCompare(b.username),
+      priority: 3
     },
     {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
+      title: 'Telefono',
+      compare: null,
+      priority: false
+    },
+    {
+      title: 'D/A',
+      compare: null,
+      priority: false
     }
   ];
-  listOfDisplayData = [...this.listOfData];
-  sortFn = (a: DataItem, b: DataItem) => a.name.localeCompare(b.name);
 
-reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  search(): void {
-    this.visible = false;
-    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
-  }
-  
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
@@ -129,6 +141,7 @@ reset(): void {
               item.username = data.username;
               item.AD = data.AD;
             }
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
 
             this.accion = 'new';
             this.limpiar();
@@ -159,6 +172,8 @@ reset(): void {
               'El registro fue guardado con éxito'
             );
             this.listOfDataUsuarios = [...this.listOfDataUsuarios, data];
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
+
             this.limpiar();
           },
           (error) => {
@@ -206,6 +221,8 @@ reset(): void {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataUsuarios = this.listOfDataUsuarios.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
+
         },
         (error) => {
 
@@ -241,15 +258,56 @@ reset(): void {
     );
   }
 
-  ngOnInit() {
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
 
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataUsuarios.filter((item: any) => (item.Nombre.indexOf(this.searchValue) !== -1) || (item.Apellido.indexOf(this.searchValue) !== -1) || (item.username.indexOf(this.searchValue) !== -1));
+  }
+
+  sort(op) {
+
+    switch (op) {
+      case 'n': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.Nombre.localeCompare(b.Nombre);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'a': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.Apellido.localeCompare(b.Apellido);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'u': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.username.localeCompare(b.username);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      default:
+        break;
+    }
+  }
+
+  ngOnInit() {
     this.accion = 'new';
 
     this.usuarioService.getAllUsuarios()
       .toPromise()
       .then(
-        (data: any[]) => {
+        (data: UsuarioModel[]) => {
+          console.log(data);
+
           this.listOfDataUsuarios = data;
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
         },
         (error) => {
           swal({

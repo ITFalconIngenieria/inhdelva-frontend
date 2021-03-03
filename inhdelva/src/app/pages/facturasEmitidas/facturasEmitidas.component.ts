@@ -18,6 +18,10 @@ export class FacturasEmitidasComponent implements OnInit {
   listOfDataFacturas: ListadoFactura[] = [];
   fechas = null;
 
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+
   constructor(
     private facturaService: FacturaService,
     private router: Router,
@@ -26,17 +30,39 @@ export class FacturasEmitidasComponent implements OnInit {
   ) { }
 
   verFactura(data) {
-    const navigationExtras: NavigationExtras = {
-      state: data
+    const dataNavegacion: any = {
+      ...data,
+      pag: 'E'
     };
+    const navigationExtras: NavigationExtras = {
+      state: dataNavegacion
+    };
+
     this.router.navigate(['factura'], navigationExtras);
-    this.facturaService.ejecutarNavegacion(data);
+    this.facturaService.ejecutarNavegacion(dataNavegacion);
   }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('dataFE'))) {
+      this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFE'));
+      this.listOfDisplayData = [...this.listOfDataFacturas];
+    }
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataFacturas.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.contrato.indexOf(this.searchValue) !== -1) || (item.cliente.indexOf(this.searchValue) !== -1));
+  }
+  
   consultar() {
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
+
     this.spinner.show();
     if (this.fechas === null) {
       this.spinner.hide();
@@ -56,6 +82,9 @@ export class FacturasEmitidasComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.listOfDataFacturas = data;
+            this.listOfDisplayData = [...this.listOfDataFacturas];
+
+            localStorage.setItem('dataFE', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {
               swal({

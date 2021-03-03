@@ -51,6 +51,13 @@ export class MedidoresComponent implements OnInit {
   listOfDataMVirtuales: any[] = [];
   MVirtualesJoin: any[] = [];
   MVirtualesFilter: any[] = [];
+  searchValue = '';
+  searchValueV = '';
+  visibleV = false;
+  visible = false;
+  listOfDisplayData: any[] = [];
+  listOfDisplayDataV: any[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -253,11 +260,13 @@ export class MedidoresComponent implements OnInit {
               item.puntoMedicionId = dataMedidor.puntoMedicionId;
               item.observacion = dataMedidor.observacion;
             }
+          this.listOfDisplayData = [...this.listOfDataMedidores]
 
             for (const item of this.listOfDataMVirtuales.filter(x => x.id === this.idMedidor)) {
               item.codigo = dataMedidor.codigo;
               item.observacion = dataMedidor.observacion;
             }
+            this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
 
             this.codigo = '';
             this.descripcion = '';
@@ -315,6 +324,8 @@ export class MedidoresComponent implements OnInit {
                 puntoMedicionId: data.puntoMedicionId,
                 tipo: true
               }]
+              this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+
               this.ShowNotification(
                 'success',
                 'Guardado con éxito',
@@ -345,6 +356,8 @@ export class MedidoresComponent implements OnInit {
                 tipo: data.tipo
               }
               ];
+          this.listOfDisplayData = [...this.listOfDataMedidores]
+
             }
 
             this.codigo = '';
@@ -438,6 +451,8 @@ export class MedidoresComponent implements OnInit {
               'El registro fue eliminado con éxito'
             );
             this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataMedidores]
+
           },
           (error) => {
             this.ShowNotification(
@@ -467,6 +482,8 @@ export class MedidoresComponent implements OnInit {
                     'El registro fue eliminado con éxito'
                   );
                   this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
+                this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+
                 },
                 (error) => {
                   this.ShowNotification(
@@ -678,6 +695,26 @@ export class MedidoresComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataMedidores.filter((item: any) => item.codigo.indexOf(this.searchValue) !== -1);  
+  }
+
+  resetVirtual(): void {
+    this.searchValueV = '';
+    this.searchVirtual();
+  }
+
+  searchVirtual(): void {
+    this.visible = false;
+    this.listOfDisplayDataV = this.listOfDataMVirtuales.filter((item: any) => item.codigo.indexOf(this.searchValueV) !== -1);  
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
     this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;
@@ -690,6 +727,7 @@ export class MedidoresComponent implements OnInit {
         (data: any[]) => {
 
           this.listOfDataMedidores = data;
+          this.listOfDisplayData = [...this.listOfDataMedidores]
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
@@ -697,6 +735,7 @@ export class MedidoresComponent implements OnInit {
             .then(
               (data: any[]) => {
                 this.listOfDataMVirtuales = data
+                this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
               });
 
           this.medidoresService.getMedidoreVirtualesJoin()
@@ -733,7 +772,10 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.medidoresPME = data;
-
+        },
+        (error) => {
+          
+          console.log(error);
         }
       );
 

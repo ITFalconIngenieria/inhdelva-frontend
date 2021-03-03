@@ -24,6 +24,9 @@ export class ParametrosEntradaComponent implements OnInit {
   listOfDataParametro: any[] = [];
   tipoCargo: TipoCargo[] = [];
   unidad;
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -100,6 +103,8 @@ export class ParametrosEntradaComponent implements OnInit {
               item.observacion = data.observacion;
               item.estado = data.estado;
             }
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
             this.accion = 'new';
             this.unidad = null;
             this.limpiarParametro();
@@ -128,6 +133,8 @@ export class ParametrosEntradaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataParametro = [...this.listOfDataParametro, data];
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
             this.unidad = null;
             this.limpiarParametro();
           },
@@ -171,6 +178,8 @@ export class ParametrosEntradaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataParametro = this.listOfDataParametro.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
         },
         (error) => {
           this.ShowNotification(
@@ -192,6 +201,16 @@ export class ParametrosEntradaComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataParametro.filter((item: any) => (item.tipoCargo.codigo.indexOf(this.searchValue) !== -1) );
+  }
+
   ngOnInit() {
 
     this.parametroServce.getParametroRelacion()
@@ -199,6 +218,7 @@ export class ParametrosEntradaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametro = data;
+          this.listOfDisplayData = [...this.listOfDataParametro];
 
         },
         (error) => {

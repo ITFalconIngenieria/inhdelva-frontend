@@ -44,6 +44,10 @@ export class MatrizEnergeticaComponent implements OnInit {
   totalEditar: number = 0;
   dataMatrizEnergetica: any[] = [];
 
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
@@ -123,6 +127,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+
             this.total = 0;
             this.accion = 'new';
             this.limpiarDistribucion();
@@ -162,6 +168,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+
             this.total = 0;
 
             this.limpiarDistribucion();
@@ -257,6 +265,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               item.observacion = data.observacion;
               item.total = this.totalEditar;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
             this.limpiarMatrizEnergetica();
             this.accion = 'new';
@@ -338,6 +347,7 @@ export class MatrizEnergeticaComponent implements OnInit {
           );
           this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
           this.dataMatrizEnergetica = this.dataMatrizEnergetica.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
         },
         (error) => {
@@ -366,6 +376,16 @@ export class MatrizEnergeticaComponent implements OnInit {
       valor: [0],
       emisiones: [0]
     });
+  }
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.dataMatrizEnergetica.filter((item: any) => (item.actor.indexOf(this.searchValue) !== -1));
   }
 
   ngOnInit() {
@@ -407,6 +427,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             }, ...this.dataMatrizEnergetica];
             this.total = 0;
           }
+
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
         }
       );
 

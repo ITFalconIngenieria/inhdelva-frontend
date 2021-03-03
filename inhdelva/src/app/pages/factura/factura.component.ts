@@ -68,13 +68,24 @@ export class FacturaComponent implements OnInit {
   }
 
   volver() {
-    // Z♥
-    if (this.pag === 'G') {
-      this.facturaService.destroyInfo();
-      this.router.navigate(['facturasGeneradas']);
-    } else {
-      this.facturaService.destroyInfo();
-      this.router.navigate(['facturasCanceladas']);
+    switch (this.pag) {
+      case 'G': {
+        this.facturaService.destroyInfo();
+        this.router.navigate(['facturasGeneradas']);
+      }
+        break;
+      case 'C':{
+        this.facturaService.destroyInfo();
+        this.router.navigate(['facturasCanceladas']);
+      }
+        break;
+      case 'E':{
+        this.facturaService.destroyInfo();
+        this.router.navigate(['facturasEmitidas']);
+      }
+        break;
+      default:
+        break;
     }
 
   }

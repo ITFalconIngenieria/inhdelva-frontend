@@ -58,6 +58,13 @@ export class ContratosComponent implements OnInit {
   fechaInicial: any;
   fechaFinal: any;
 
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+  searchValueM = '';
+  visibleM = false;
+  listOfDisplayDataM: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private contratoService: ContratoService,
@@ -146,6 +153,8 @@ export class ContratosComponent implements OnInit {
                 item.exportacion = data.exportacion;
                 item.estado = data.estado;
               }
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
               this.accion = 'new';
               this.limpiarFormContrato();
               this.isVisible = false;
@@ -175,6 +184,8 @@ export class ContratosComponent implements OnInit {
                 'El registro fue guardado con éxito'
               );
               this.listOfDataContrato = [...this.listOfDataContrato, data];
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
               this.limpiarFormContrato();
             },
             (error) => {
@@ -223,6 +234,8 @@ export class ContratosComponent implements OnInit {
           );
 
           this.listOfDataContrato = this.listOfDataContrato.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
         },
         (error) => {
 
@@ -240,7 +253,7 @@ export class ContratosComponent implements OnInit {
   guardarMedidor() {
 
     console.log(this.validateFormMedidores.value.trifasica);
-    
+
     if (this.validateFormMedidores.value.iluminacionTC === 'true' || this.validateFormMedidores.value.sComTC === 'true') {
       if (this.validateFormMedidores.value.iluminacionP === 0 || this.validateFormMedidores.value.sComP === 0) {
         swal({
@@ -307,7 +320,7 @@ export class ContratosComponent implements OnInit {
       }
 
       console.log(dataMedidor);
-      
+
 
       if (this.accion === 'editar') {
 
@@ -344,6 +357,9 @@ export class ContratosComponent implements OnInit {
                   item.observacion = data.observacion,
                   item.estado = data.estado;
               }
+
+    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+
               for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
                 item.contratoId = data.contratoId,
                   item.contrato = { ...data.contrato },
@@ -476,6 +492,8 @@ export class ContratosComponent implements OnInit {
 
           this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
           this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+
         },
         (error) => {
           this.ShowNotification(
@@ -536,6 +554,26 @@ export class ContratosComponent implements OnInit {
     this.rangoFechas = (data === 'A') ? true : false;
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataContrato.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.actor.codigo.indexOf(this.searchValue) !== -1) || (item.clasificacion.indexOf(this.searchValue) !== -1));
+  }
+
+  resetM(): void {
+    this.searchValueM = '';
+    this.searchM();
+  }
+
+  searchM(): void {
+    this.visibleM = false;
+    this.listOfDisplayDataM = this.listaMedidoresFiltrado.filter((item: any) => (item.medidor.codigo.indexOf(this.searchValueM) !== -1));
+  }
+
   ngOnInit() {
 
     this.radioValue = 'A';
@@ -586,7 +624,8 @@ export class ContratosComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataContrato = data;          
+          this.listOfDataContrato = data;
+          this.listOfDisplayData = [...this.listOfDataContrato];
         }
         ,
         (error) => {
@@ -680,6 +719,7 @@ export class ContratosComponent implements OnInit {
     }
 
     this.listaMedidoresFiltrado = this.listOfDataMedidores.filter(x => x.contratoId === this.idContrato);
+    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
   }
 
   handleCancelMedidor(): void {

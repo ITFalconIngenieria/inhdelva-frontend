@@ -10,15 +10,19 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataContrato" nzPageSize="5" nzTableLayout="fixed" nzPageSize="5">
+    <nz-table #nzTable [nzData]="listOfDisplayData" nzPageSize="5" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Codigo</th>
-                <th>Cliente</th>
-                <th>Clasificación</th>
+                <th style="background-color: #d6ecff;">Codigo</th>
+                <th style="background-color: #d6ecff;">Cliente</th>
+                <th style="background-color: #d6ecff;">Clasificación</th>
                 <th>Creación</th>
                 <th>Medidores</th>
             </tr>
@@ -343,11 +347,15 @@
     <br>
     <div style="background-color: #f3f9ff; padding: 15px;">
         <h6> Listado de medidores </h6>
-        <nz-table #nzTableParametro [nzData]="listaMedidoresFiltrado" nzSize="small" nzTableLayout="fixed" nzPageSize="4">
+        <nz-table #nzTableParametro [nzData]="listOfDisplayDataM" nzSize="small" nzTableLayout="fixed" nzPageSize="4">
             <thead>
                 <tr>
-                    <th nzWidth="60px"></th>
-                    <th>Medidor</th>
+                    <th nzWidth="60px">
+                        <nz-filter-trigger [(nzVisible)]="visibleM" [nzActive]="searchValueM.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuM">
+                            <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th style="background-color: #d6ecff;">Medidor</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
                     <th nzWidth="30px"></th>
@@ -383,3 +391,27 @@
         <button nz-button nzType="primary" (click)="handleOkMedidor()">OK</button>
     </div>
 </nz-modal>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #menuM="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValueM" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchM()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="resetM()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

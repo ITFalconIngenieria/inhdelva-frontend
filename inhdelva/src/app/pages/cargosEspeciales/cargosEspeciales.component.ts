@@ -232,7 +232,6 @@ export class CargosEspecialesComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-
           // tslint:disable-next-line: prefer-for-of
           for (let x = 0; x < data.length; x++) {
             // tslint:disable-next-line: max-line-length
@@ -253,7 +252,6 @@ export class CargosEspecialesComponent implements OnInit {
             this.dataProcesada.push(datos);
           }
           this.listOfData = this.dataProcesada;
-          console.log(this.listOfData);
         },
         (error) => {
           swal({
