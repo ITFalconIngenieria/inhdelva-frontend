@@ -10,15 +10,19 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataUsuarios" nzTableLayout="fixed" nzPageSize="5">
+    <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" nzPageSize="5">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>User</th>
+                <th style="background-color: #d6ecff;">Nombre</th>
+                <th style="background-color: #d6ecff;">Apellido</th>
+                <th style="background-color: #d6ecff;">User</th>
                 <th>Telefono</th>
                 <th>D/A</th>
             </tr>
@@ -149,30 +153,6 @@
         <button nz-button nzType="primary" [disabled]="!validateForm.valid" (click)="guardar()">Guardar</button>
     </div>
 </nz-modal>
-
-<br>
-<br>
-<nz-table #nzTableSear [nzData]="listOfDisplayData" nzTableLayout="fixed">
-    <thead>
-        <tr>
-            <th nzCustomFilter>
-                Name
-                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
-                    <i nz-icon nzType="search"></i>
-                </nz-filter-trigger>
-            </th>
-            <th>Age</th>
-            <th>Address</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of nzTableSear.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.age }}</td>
-            <td>{{ data.address }}</td>
-        </tr>
-    </tbody>
-</nz-table>
 <nz-dropdown-menu #menu="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">
         <div class="search-box">

@@ -13,11 +13,15 @@
     <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
         <thead>
             <tr>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Código</th>
-                <th>Contrato</th>
-                <th>Cliente</th>
+                <th style="background-color: #d6ecff;">Código</th>
+                <th style="background-color: #d6ecff;">Contrato</th>
+                <th style="background-color: #d6ecff;">Cliente</th>
                 <th>Fecha generación</th>
                 <th>Energia consumida</th>
                 <th>Total a pagar</th>
@@ -52,3 +56,14 @@
 <div>
     <ngx-spinner bdColor="#a4b4d2" size="medium" color="#fff"></ngx-spinner>
 </div>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

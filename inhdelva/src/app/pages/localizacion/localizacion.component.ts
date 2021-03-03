@@ -21,6 +21,10 @@ export class LocalizacionComponent implements OnInit {
   listOfDataZona: ZonaModel[] = [];
   accion: string;
   permiso: any;
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -173,6 +177,16 @@ export class LocalizacionComponent implements OnInit {
     );
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataZona.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1));
+  }
+
   ngOnInit() {
 
     this.accion = 'new';
@@ -182,6 +196,7 @@ export class LocalizacionComponent implements OnInit {
       .then(
         (data: ZonaModel[]) => {
           this.listOfDataZona = data;
+          this.listOfDisplayData = [...data]
         },
         (error) => {
           swal({

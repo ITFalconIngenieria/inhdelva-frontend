@@ -34,7 +34,10 @@ export class TipoTarifaComponent implements OnInit {
   tipoCargo: TipoCargo[] = [];
   bloqueHorario: any[] = [];
   unidad;
-
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+  
   constructor(
     private fb: FormBuilder,
     private tarifaService: TarifaService,
@@ -369,6 +372,16 @@ export class TipoTarifaComponent implements OnInit {
 
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataTarifa.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) );
+  }
+
   ngOnInit() {
 
     this.limpiarTarifa();
@@ -379,6 +392,7 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataTarifa = data;
+          this.listOfDisplayData = [...data];
 
         },
         (error) => {
@@ -397,7 +411,6 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametros = data;
-          console.log(data);
 
         }
       );

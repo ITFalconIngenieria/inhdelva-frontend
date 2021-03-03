@@ -24,6 +24,9 @@ export class ParametrosEntradaComponent implements OnInit {
   listOfDataParametro: any[] = [];
   tipoCargo: TipoCargo[] = [];
   unidad;
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -192,6 +195,16 @@ export class ParametrosEntradaComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataParametro.filter((item: any) => (item.tipoCargo.codigo.indexOf(this.searchValue) !== -1) );
+  }
+
   ngOnInit() {
 
     this.parametroServce.getParametroRelacion()
@@ -199,6 +212,7 @@ export class ParametrosEntradaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametro = data;
+          this.listOfDisplayData = [...data];
 
         },
         (error) => {

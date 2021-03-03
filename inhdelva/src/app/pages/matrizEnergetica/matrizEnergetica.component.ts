@@ -44,6 +44,10 @@ export class MatrizEnergeticaComponent implements OnInit {
   totalEditar: number = 0;
   dataMatrizEnergetica: any[] = [];
 
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
@@ -368,6 +372,16 @@ export class MatrizEnergeticaComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.dataMatrizEnergetica.filter((item: any) => (item.actor.indexOf(this.searchValue) !== -1));
+  }
+
   ngOnInit() {
     this.accion = 'new';
     this.limpiarMatrizEnergetica();
@@ -407,6 +421,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             }, ...this.dataMatrizEnergetica];
             this.total = 0;
           }
+
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
         }
       );
 

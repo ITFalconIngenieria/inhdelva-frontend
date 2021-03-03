@@ -51,6 +51,9 @@ export class FacturasGeneradasComponent implements OnInit {
   idActualizar: any[] = [];
   valoresActualizar: any[] = [];
   valoresAnteriores: any[] = [];
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -86,6 +89,16 @@ export class FacturasGeneradasComponent implements OnInit {
     this.facturaService.ejecutarNavegacion(dataNavegacion);
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataFacturas.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.contrato.indexOf(this.searchValue) !== -1) || (item.cliente.indexOf(this.searchValue) !== -1));
+  }
+
   ngOnInit() {
 
     this.validateForm = this.fb.group({
@@ -97,11 +110,17 @@ export class FacturasGeneradasComponent implements OnInit {
       total: [0],
     });
 
-    this.listOfDataFacturas = JSON.parse(localStorage.getItem('data'));
+    if (JSON.parse(localStorage.getItem('dataFG'))) {
+      this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFG'));
+      this.listOfDisplayData = [...this.listOfDataFacturas];
+    }
 
   }
 
   consultar() {
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
+
     this.spinner.show();
     if (this.fechas === null) {
       this.spinner.hide();
@@ -121,9 +140,9 @@ export class FacturasGeneradasComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.listOfDataFacturas = data;
-            console.log(data);
+            this.listOfDisplayData = [...this.listOfDataFacturas];
 
-            localStorage.setItem('data', JSON.stringify(this.listOfDataFacturas));
+            localStorage.setItem('dataFG', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {
               swal({

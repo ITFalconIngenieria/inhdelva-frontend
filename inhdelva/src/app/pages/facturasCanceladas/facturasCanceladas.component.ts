@@ -44,6 +44,10 @@ export class FacturasCanceladasComponent implements OnInit {
   listOfDataFacturas: ListadoFactura[] = [];
   setOfCheckedId = new Set<number>();
 
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
+
   constructor(
     private facturaService: FacturaService,
     private router: Router,
@@ -66,10 +70,26 @@ export class FacturasCanceladasComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('dataFC'))) {
+      this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFC'));
+      this.listOfDisplayData = [...this.listOfDataFacturas];
+    }
+  }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataFacturas.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.contrato.indexOf(this.searchValue) !== -1) || (item.cliente.indexOf(this.searchValue) !== -1));
   }
 
   consultar() {
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
+
     this.spinner.show();
     if (this.fechas === null) {
       this.spinner.hide();
@@ -89,6 +109,9 @@ export class FacturasCanceladasComponent implements OnInit {
         .then(
           (data: any[]) => {
             this.listOfDataFacturas = data;
+            this.listOfDisplayData = [...this.listOfDataFacturas];
+
+            localStorage.setItem('dataFC', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {
               swal({

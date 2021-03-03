@@ -26,8 +26,10 @@ export class ProveedoresComponent implements OnInit {
   observacion: string;
 
   accion: string;
-
   listOfDataProveedores: any[] = [];
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
 
   constructor(
     private actoresService: ActoresService,
@@ -181,6 +183,16 @@ export class ProveedoresComponent implements OnInit {
       );
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataProveedores.filter((item: any) => (item.Nombre.indexOf(this.searchValue) !== -1));
+  }
+
   ngOnInit() {
     this.accion = 'new';
 
@@ -189,7 +201,7 @@ export class ProveedoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataProveedores = data;
-
+          this.listOfDisplayData = [...data];
         },
         (error) => {
 
@@ -208,9 +220,6 @@ export class ProveedoresComponent implements OnInit {
       .then(
         (data: ActoresSapSearch[]) => {
           this.actoresSap = data;
-
-          console.log(this.actoresSap);
-
         },
         (error) => {
 

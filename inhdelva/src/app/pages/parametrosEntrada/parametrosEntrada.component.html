@@ -10,13 +10,17 @@
 <br>
 <br>
 <div class="tabla">
-    <nz-table #nzTable [nzData]="listOfDataParametro" nzTableLayout="fixed" nzPageSize="6">
+    <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed" nzPageSize="6">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Cargo</th>
+                <th style="background-color: #d6ecff;">Cargo</th>
                 <th>Valor</th>
                 <th>Fecha inicio</th>
                 <th>Fecha fin</th>
@@ -97,3 +101,15 @@
         <button nz-button nzType="primary" (click)="guardarParametro()">Guardar</button>
     </div>
 </nz-modal>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

@@ -4,10 +4,26 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import swal from 'sweetalert';
 import { UsuarioService } from '../../servicios/usuario.service';
 
-interface DataItem {
-  name: string;
-  age: number;
-  address: string;
+interface UsuarioModel {
+  id: number;
+  Nombre: string;
+  Apellido: string;
+  Telefono: string;
+  idUser: string;
+  Observacion: string;
+  AD: boolean;
+  Estado: boolean;
+  Correo?: any;
+  TipoUsuario: number;
+  usId: string;
+  realm?: any;
+  username: string;
+  email: string;
+  emailVerified?: any;
+  verificationToken?: any;
+  ucId: string;
+  password: string;
+  userId: string;
 }
 
 @Component({
@@ -22,48 +38,43 @@ export class UsuariosComponent implements OnInit {
   radioValue = 'A';
   userEdit;
   dataUser;
+  op;
   listOfDataUsuarios: any[] = [];
   accion: string;
   passwordVisible = false;
   password: string;
-
   searchValue = '';
   visible = false;
-  listOfData: DataItem[] = [
+  listOfDisplayData: any[] = [];
+
+  listOfColumn = [
     {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
+      title: 'Nombre',
+      compare: (a: UsuarioModel, b: UsuarioModel) => a.Nombre.localeCompare(b.Nombre),
+      priority: 1
     },
     {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
+      title: 'Apellido',
+      compare: (a: any, b: any) => a.Apellido.localeCompare(b.Apellido),
+      priority: 2
     },
     {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
+      title: 'User',
+      compare: (a: any, b: any) => a.username.localeCompare(b.username),
+      priority: 3
     },
     {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
+      title: 'Telefono',
+      compare: null,
+      priority: false
+    },
+    {
+      title: 'D/A',
+      compare: null,
+      priority: false
     }
   ];
-  listOfDisplayData = [...this.listOfData];
-  sortFn = (a: DataItem, b: DataItem) => a.name.localeCompare(b.name);
 
-reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  search(): void {
-    this.visible = false;
-    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
-  }
-  
   constructor(
     private fb: FormBuilder,
     private notification: NzNotificationService,
@@ -241,15 +252,27 @@ reset(): void {
     );
   }
 
-  ngOnInit() {
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
 
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataUsuarios.filter((item: any) => (item.Nombre.indexOf(this.searchValue) !== -1) || (item.Apellido.indexOf(this.searchValue) !== -1) || (item.username.indexOf(this.searchValue) !== -1));
+  }
+
+  ngOnInit() {
     this.accion = 'new';
 
     this.usuarioService.getAllUsuarios()
       .toPromise()
       .then(
         (data: any[]) => {
+          console.log(data);
+          
           this.listOfDataUsuarios = data;
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
         },
         (error) => {
           swal({

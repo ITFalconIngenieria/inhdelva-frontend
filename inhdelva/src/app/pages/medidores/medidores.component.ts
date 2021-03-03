@@ -51,6 +51,13 @@ export class MedidoresComponent implements OnInit {
   listOfDataMVirtuales: any[] = [];
   MVirtualesJoin: any[] = [];
   MVirtualesFilter: any[] = [];
+  searchValue = '';
+  searchValueV = '';
+  visibleV = false;
+  visible = false;
+  listOfDisplayData: any[] = [];
+  listOfDisplayDataV: any[] = [];
+
 
   constructor(
     private fb: FormBuilder,
@@ -678,6 +685,26 @@ export class MedidoresComponent implements OnInit {
     });
   }
 
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataMedidores.filter((item: any) => item.codigo.indexOf(this.searchValue) !== -1);  
+  }
+
+  resetVirtual(): void {
+    this.searchValueV = '';
+    this.searchVirtual();
+  }
+
+  searchVirtual(): void {
+    this.visible = false;
+    this.listOfDisplayDataV = this.listOfDataMVirtuales.filter((item: any) => item.codigo.indexOf(this.searchValueV) !== -1);  
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
     this.permiso = (localStorage.getItem('permiso') === 'true') ? true : false;
@@ -690,6 +717,7 @@ export class MedidoresComponent implements OnInit {
         (data: any[]) => {
 
           this.listOfDataMedidores = data;
+          this.listOfDisplayData = [...this.listOfDataMedidores]
           this.cantidad = data.length;
 
           this.medidoresService.getMedidoreVirtuales()
@@ -697,6 +725,7 @@ export class MedidoresComponent implements OnInit {
             .then(
               (data: any[]) => {
                 this.listOfDataMVirtuales = data
+                this.listOfDisplayDataV = [...data];
               });
 
           this.medidoresService.getMedidoreVirtualesJoin()
@@ -733,7 +762,10 @@ export class MedidoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.medidoresPME = data;
-
+        },
+        (error) => {
+          
+          console.log(error);
         }
       );
 

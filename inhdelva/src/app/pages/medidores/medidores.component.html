@@ -13,13 +13,17 @@
     <h4> Medidores físicos </h4>
     <p> <span style="color: black; font-size: 20px; font-weight: bold;">Existencia: </span> <span style="font-size: 25px; font-weight: bold;"> {{ cantidad }} </span> </p>
     <hr>
-    <nz-table #nzTableMedidor [nzData]="listOfDataMedidores" nzTableLayout="fixed" nzPageSize="4">
+    <nz-table #nzTableMedidor [nzData]="listOfDisplayData" nzTableLayout="fixed" nzPageSize="4">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Codigo</th>
+                <th style="background-color: #d6ecff;">Codigo</th>
                 <th>Modelo</th>
                 <th>Serie</th>
                 <th>Estado</th>
@@ -66,13 +70,17 @@
     <h4> Medidores virtuales </h4>
     <p> <span style="color: black; font-size: 20px; font-weight: bold;">Existencia: </span> <span style="font-size: 25px; font-weight: bold;"> {{ cantMV }} </span> </p>
     <hr>
-    <nz-table #nzTable [nzData]="listOfDataMVirtuales" nzTableLayout="fixed" nzPageSize="4">
+    <nz-table #nzTable [nzData]="listOfDisplayDataV" nzTableLayout="fixed" nzPageSize="4">
         <thead>
             <tr>
                 <th nzWidth="60px"></th>
+                <th nzWidth="30px">
+                    <nz-filter-trigger [(nzVisible)]="visibleV" [nzActive]="searchValueV.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuV">
+                        <i nz-icon nzType="search" style="margin-left: 30px;"></i>
+                    </nz-filter-trigger>
+                </th>
                 <th nzWidth="30px"></th>
-                <th nzWidth="30px"></th>
-                <th>Codigo</th>
+                <th style="background-color: #d6ecff;">Codigo</th>
                 <th>Estado</th>
                 <th></th>
             </tr>
@@ -420,3 +428,26 @@
         <button nz-button nzType="primary" (click)="handleOkMV()">OK</button>
     </div>
 </nz-modal>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #menuV="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+        <div class="search-box">
+            <input type="text" nz-input placeholder="" [(ngModel)]="searchValueV" />
+            <button nz-button nzSize="small" nzType="primary" (click)="searchVirtual()" class="search-button">
+          Buscar
+        </button>
+            <button nz-button nzSize="small" (click)="resetVirtual()">Limpiar</button>
+        </div>
+    </div>
+</nz-dropdown-menu>

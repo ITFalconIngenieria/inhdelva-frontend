@@ -11,8 +11,8 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class ClientesComponent implements OnInit {
   isVisible = false;
-  actoresSap: ActoresSapSearch[] = [];
-  listOfDataClientes: ClientesVista[] = [];
+  actoresSap: any[] = [];
+  listOfDataClientes: any[] = [];
   cantidad;
   idCliente;
   codigo: string;
@@ -25,6 +25,9 @@ export class ClientesComponent implements OnInit {
   imagen: string;
   observacion: string;
   accion: string;
+  searchValue = '';
+  visible = false;
+  listOfDisplayData: any[] = [];
 
   constructor(
     private actoresService: ActoresService,
@@ -50,6 +53,17 @@ export class ClientesComponent implements OnInit {
         text: 'No se encontró ese cliente'
       });
     }
+  }
+
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listOfDisplayData = this.listOfDataClientes.filter((item: any) => item.Nombre.indexOf(this.searchValue) !== -1  ) ;  
+
   }
 
   guardar() {
@@ -99,7 +113,7 @@ export class ClientesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-            
+
             this.codigo = '';
             this.nombreEmpresa = '';
             this.rtn = '';
@@ -144,7 +158,7 @@ export class ClientesComponent implements OnInit {
               'El registro no pudo ser guardado, por favor revise los datos ingresados sino comuníquese con el proveedor.'
             );
             console.log(error);
-            
+
             this.codigo = '';
             this.nombreEmpresa = '';
             this.rtn = '';
@@ -210,6 +224,9 @@ export class ClientesComponent implements OnInit {
         (data: any[]) => {
           this.cantidad = data.length;
           this.listOfDataClientes = data;
+          this.listOfDisplayData = [...data];
+          console.log(this.listOfDisplayData);
+
         },
         (error) => {
 
@@ -226,7 +243,7 @@ export class ClientesComponent implements OnInit {
     this.actoresService.busquedad()
       .toPromise()
       .then(
-        (data: ActoresSapSearch[]) => {
+        (data: any[]) => {
           this.actoresSap = data;
         },
         (error) => {
