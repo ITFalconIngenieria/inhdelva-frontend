@@ -202,6 +202,8 @@ export class ClientesComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataClientes = this.listOfDataClientes.filter(x => x.Id !== data.Id);
+          this.listOfDisplayData = [...this.listOfDataClientes];
+
         },
         (error) => {
 
@@ -224,8 +226,7 @@ export class ClientesComponent implements OnInit {
         (data: any[]) => {
           this.cantidad = data.length;
           this.listOfDataClientes = data;
-          this.listOfDisplayData = [...data];
-          console.log(this.listOfDisplayData);
+          this.listOfDisplayData = [...this.listOfDataClientes];
 
         },
         (error) => {

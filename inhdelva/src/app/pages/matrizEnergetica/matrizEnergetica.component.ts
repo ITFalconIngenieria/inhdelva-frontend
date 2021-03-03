@@ -127,6 +127,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+
             this.total = 0;
             this.accion = 'new';
             this.limpiarDistribucion();
@@ -166,6 +168,8 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+
             this.total = 0;
 
             this.limpiarDistribucion();
@@ -261,6 +265,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               item.observacion = data.observacion;
               item.total = this.totalEditar;
             }
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
             this.limpiarMatrizEnergetica();
             this.accion = 'new';
@@ -342,6 +347,7 @@ export class MatrizEnergeticaComponent implements OnInit {
           );
           this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
           this.dataMatrizEnergetica = this.dataMatrizEnergetica.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
         },
         (error) => {

@@ -78,6 +78,7 @@ export class LocalizacionComponent implements OnInit {
               item.observacion = this.dataZona.observacion;
               item.estado = this.dataZona.estado;
             }
+            this.listOfDisplayData = [...this.listOfDataZona]
 
             this.accion = 'new';
             this.limpiar();
@@ -107,6 +108,8 @@ export class LocalizacionComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataZona = [...this.listOfDataZona, data];
+          this.listOfDisplayData = [...this.listOfDataZona]
+
             this.limpiar();
           },
           (error) => {
@@ -148,6 +151,8 @@ export class LocalizacionComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataZona]
+
         },
         (error) => {
 
@@ -196,7 +201,7 @@ export class LocalizacionComponent implements OnInit {
       .then(
         (data: ZonaModel[]) => {
           this.listOfDataZona = data;
-          this.listOfDisplayData = [...data]
+          this.listOfDisplayData = [...this.listOfDataZona]
         },
         (error) => {
           swal({

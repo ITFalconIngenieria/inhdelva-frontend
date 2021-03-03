@@ -260,11 +260,13 @@ export class MedidoresComponent implements OnInit {
               item.puntoMedicionId = dataMedidor.puntoMedicionId;
               item.observacion = dataMedidor.observacion;
             }
+          this.listOfDisplayData = [...this.listOfDataMedidores]
 
             for (const item of this.listOfDataMVirtuales.filter(x => x.id === this.idMedidor)) {
               item.codigo = dataMedidor.codigo;
               item.observacion = dataMedidor.observacion;
             }
+            this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
 
             this.codigo = '';
             this.descripcion = '';
@@ -322,6 +324,8 @@ export class MedidoresComponent implements OnInit {
                 puntoMedicionId: data.puntoMedicionId,
                 tipo: true
               }]
+              this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+
               this.ShowNotification(
                 'success',
                 'Guardado con éxito',
@@ -352,6 +356,8 @@ export class MedidoresComponent implements OnInit {
                 tipo: data.tipo
               }
               ];
+          this.listOfDisplayData = [...this.listOfDataMedidores]
+
             }
 
             this.codigo = '';
@@ -445,6 +451,8 @@ export class MedidoresComponent implements OnInit {
               'El registro fue eliminado con éxito'
             );
             this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataMedidores]
+
           },
           (error) => {
             this.ShowNotification(
@@ -474,6 +482,8 @@ export class MedidoresComponent implements OnInit {
                     'El registro fue eliminado con éxito'
                   );
                   this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
+                this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+
                 },
                 (error) => {
                   this.ShowNotification(
@@ -725,7 +735,7 @@ export class MedidoresComponent implements OnInit {
             .then(
               (data: any[]) => {
                 this.listOfDataMVirtuales = data
-                this.listOfDisplayDataV = [...data];
+                this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
               });
 
           this.medidoresService.getMedidoreVirtualesJoin()

@@ -20,9 +20,24 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Nombre</th>
-                <th style="background-color: #d6ecff;">Apellido</th>
-                <th style="background-color: #d6ecff;">User</th>
+                <th style="background-color: #d6ecff;">
+                    Nombre
+                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('n')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
+                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
+                    </button>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Apellido
+                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('a')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
+                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
+                    </button>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    User
+                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('u')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
+                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
+                    </button>
+                </th>
                 <th>Telefono</th>
                 <th>D/A</th>
             </tr>

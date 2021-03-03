@@ -39,13 +39,14 @@ export class UsuariosComponent implements OnInit {
   userEdit;
   dataUser;
   op;
-  listOfDataUsuarios: any[] = [];
+  listOfDataUsuarios: UsuarioModel[] = [];
   accion: string;
   passwordVisible = false;
   password: string;
   searchValue = '';
   visible = false;
-  listOfDisplayData: any[] = [];
+  listOfDisplayData: UsuarioModel[] = [];
+  sortFn = (a: UsuarioModel, b: UsuarioModel) => a.Nombre.localeCompare(b.Nombre);
 
   listOfColumn = [
     {
@@ -140,6 +141,7 @@ export class UsuariosComponent implements OnInit {
               item.username = data.username;
               item.AD = data.AD;
             }
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
 
             this.accion = 'new';
             this.limpiar();
@@ -170,6 +172,8 @@ export class UsuariosComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataUsuarios = [...this.listOfDataUsuarios, data];
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
+
             this.limpiar();
           },
           (error) => {
@@ -217,6 +221,8 @@ export class UsuariosComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataUsuarios = this.listOfDataUsuarios.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataUsuarios];
+
         },
         (error) => {
 
@@ -262,15 +268,44 @@ export class UsuariosComponent implements OnInit {
     this.listOfDisplayData = this.listOfDataUsuarios.filter((item: any) => (item.Nombre.indexOf(this.searchValue) !== -1) || (item.Apellido.indexOf(this.searchValue) !== -1) || (item.username.indexOf(this.searchValue) !== -1));
   }
 
+  sort(op) {
+
+    switch (op) {
+      case 'n': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.Nombre.localeCompare(b.Nombre);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'a': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.Apellido.localeCompare(b.Apellido);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'u': {
+        let array = this.listOfDataUsuarios.sort(function (a, b) {
+          return a.username.localeCompare(b.username);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      default:
+        break;
+    }
+  }
+
   ngOnInit() {
     this.accion = 'new';
 
     this.usuarioService.getAllUsuarios()
       .toPromise()
       .then(
-        (data: any[]) => {
+        (data: UsuarioModel[]) => {
           console.log(data);
-          
+
           this.listOfDataUsuarios = data;
           this.listOfDisplayData = [...this.listOfDataUsuarios];
         },

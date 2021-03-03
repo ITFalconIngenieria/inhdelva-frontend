@@ -153,6 +153,8 @@ export class ContratosComponent implements OnInit {
                 item.exportacion = data.exportacion;
                 item.estado = data.estado;
               }
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
               this.accion = 'new';
               this.limpiarFormContrato();
               this.isVisible = false;
@@ -182,6 +184,8 @@ export class ContratosComponent implements OnInit {
                 'El registro fue guardado con éxito'
               );
               this.listOfDataContrato = [...this.listOfDataContrato, data];
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
               this.limpiarFormContrato();
             },
             (error) => {
@@ -230,6 +234,8 @@ export class ContratosComponent implements OnInit {
           );
 
           this.listOfDataContrato = this.listOfDataContrato.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataContrato];
+
         },
         (error) => {
 
@@ -351,6 +357,9 @@ export class ContratosComponent implements OnInit {
                   item.observacion = data.observacion,
                   item.estado = data.estado;
               }
+
+    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+
               for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
                 item.contratoId = data.contratoId,
                   item.contrato = { ...data.contrato },
@@ -483,6 +492,8 @@ export class ContratosComponent implements OnInit {
 
           this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
           this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+
         },
         (error) => {
           this.ShowNotification(
@@ -614,7 +625,7 @@ export class ContratosComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataContrato = data;
-          this.listOfDisplayData = [...data];
+          this.listOfDisplayData = [...this.listOfDataContrato];
         }
         ,
         (error) => {

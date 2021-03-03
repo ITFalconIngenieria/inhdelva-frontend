@@ -103,6 +103,8 @@ export class ParametrosEntradaComponent implements OnInit {
               item.observacion = data.observacion;
               item.estado = data.estado;
             }
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
             this.accion = 'new';
             this.unidad = null;
             this.limpiarParametro();
@@ -131,6 +133,8 @@ export class ParametrosEntradaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataParametro = [...this.listOfDataParametro, data];
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
             this.unidad = null;
             this.limpiarParametro();
           },
@@ -174,6 +178,8 @@ export class ParametrosEntradaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataParametro = this.listOfDataParametro.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataParametro];
+
         },
         (error) => {
           this.ShowNotification(
@@ -212,7 +218,7 @@ export class ParametrosEntradaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataParametro = data;
-          this.listOfDisplayData = [...data];
+          this.listOfDisplayData = [...this.listOfDataParametro];
 
         },
         (error) => {

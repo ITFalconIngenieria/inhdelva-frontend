@@ -170,6 +170,8 @@ export class ProveedoresComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataProveedores = this.listOfDataProveedores.filter(x => x.Id !== data.Id);
+          this.listOfDisplayData = [...this.listOfDataProveedores];
+
         },
         (error) => {
 
@@ -201,7 +203,7 @@ export class ProveedoresComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataProveedores = data;
-          this.listOfDisplayData = [...data];
+          this.listOfDisplayData = [...this.listOfDataProveedores];
         },
         (error) => {
 

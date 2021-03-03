@@ -185,6 +185,8 @@ export class FacturasGeneradasComponent implements OnInit {
           .then(
             () => {
               this.listOfDataFacturas = this.listOfDataFacturas.filter(y => y.id !== x);
+      this.listOfDisplayData = [...this.listOfDataFacturas];
+
               swal({
                 icon: 'success',
                 text: 'Facturas emitidas'
@@ -219,6 +221,7 @@ export class FacturasGeneradasComponent implements OnInit {
         () => {
 
           this.listOfDataFacturas = this.listOfDataFacturas.filter(x => x.id !== data.id);
+      this.listOfDisplayData = [...this.listOfDataFacturas];
 
           swal({
             icon: 'success',
@@ -259,6 +262,7 @@ export class FacturasGeneradasComponent implements OnInit {
             for (const item of this.listOfDataFacturas.filter(y => y.id === this.idFactura)) {
               item.total = this.total;
             }
+            this.listOfDisplayData = [...this.listOfDataFacturas];
 
           }
         );

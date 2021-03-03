@@ -115,6 +115,8 @@ export class TipoTarifaComponent implements OnInit {
               item.matrizHoraria = { ...data.matrizHoraria }
               item.estado = data.estado;
             }
+          this.listOfDisplayData = [...this.listOfDataTarifa];
+
             this.accion = 'new';
             this.limpiarTarifa();
             this.isVisible = false;
@@ -144,6 +146,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataTarifa = [...this.listOfDataTarifa, data];
+          this.listOfDisplayData = [...this.listOfDataTarifa];
 
             this.limpiarTarifa();
           },
@@ -187,6 +190,8 @@ export class TipoTarifaComponent implements OnInit {
             'El registro fue eliminado con éxito'
           );
           this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
+          this.listOfDisplayData = [...this.listOfDataTarifa];
+
         },
         (error) => {
           this.ShowNotification(
@@ -392,7 +397,7 @@ export class TipoTarifaComponent implements OnInit {
       .then(
         (data: any[]) => {
           this.listOfDataTarifa = data;
-          this.listOfDisplayData = [...data];
+          this.listOfDisplayData = [...this.listOfDataTarifa];
 
         },
         (error) => {
