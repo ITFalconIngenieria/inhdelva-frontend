@@ -38,6 +38,7 @@ import { FacturasGuard } from './servicios/Guards/facturas.guard';
 import { CargosGuard } from './servicios/Guards/cargos.guard';
 import { ConfiguracionGuard } from './servicios/Guards/configuracion.guard';
 import { ReporteGuard } from './servicios/Guards/reporte.guard';
+import { ExportarFacturaComponent } from './pages/exportarFactura/exportarFactura.component'
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -59,6 +60,7 @@ const routes: Routes = [
       { path: 'matrizEnergetica', component: MatrizEnergeticaComponent, canActivate: [MatrizGuard] },
       { path: 'ayuda', component: AyudaComponent },
       { path: 'factura', component: FacturaComponent, canActivate: [FacturasGuard] },
+      { path: 'exportarFactura', component: ExportarFacturaComponent, canActivate: [FacturasGuard] },
       { path: 'localizacion', component: LocalizacionComponent },
       { path: 'cargosEspeciales', component: CargosEspecialesComponent, canActivate: [CargosGuard] },
       { path: 'facturasGeneradas', component: FacturasGeneradasComponent, canActivate: [FacturasGuard] },

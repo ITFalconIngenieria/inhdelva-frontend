@@ -108,7 +108,7 @@ export class LocalizacionComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataZona = [...this.listOfDataZona, data];
-          this.listOfDisplayData = [...this.listOfDataZona]
+            this.listOfDisplayData = [...this.listOfDataZona]
 
             this.limpiar();
           },
@@ -141,29 +141,42 @@ export class LocalizacionComponent implements OnInit {
   }
 
   eliminar(data) {
-    this.zonaService.deleteZona(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataZona]
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.zonaService.deleteZona(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataZona = this.listOfDataZona.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataZona]
 
-        },
-        (error) => {
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              });
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiar() {

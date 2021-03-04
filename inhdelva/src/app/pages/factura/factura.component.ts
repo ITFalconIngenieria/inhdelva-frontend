@@ -95,7 +95,6 @@ export class FacturaComponent implements OnInit {
     this.isVisibleAnexo = false;
     this.spinner.show();
     this.dataFactura = this.facturaService.getInfoNavegacion();
-    console.log(this.dataFactura);
 
     const { id, contratoid, fechaInicio, medidorId, fechaLectura, fechaFin } = this.dataFactura;
     this.pag = this.dataFactura.pag;
@@ -112,7 +111,6 @@ export class FacturaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any) => {
-          console.log(data);
 
           this.EncabezadoFacturaData = { ...data[0] };
           this.BloquesdeEnergiaFactura = data[1];

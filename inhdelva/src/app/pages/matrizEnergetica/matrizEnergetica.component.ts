@@ -127,7 +127,7 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
-          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+            this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
             this.total = 0;
             this.accion = 'new';
@@ -168,7 +168,7 @@ export class MatrizEnergeticaComponent implements OnInit {
             for (const item of this.dataMatrizEnergetica.filter(x => x.id === this.idMatriz)) {
               item.total = this.total;
             }
-          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+            this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
             this.total = 0;
 
@@ -201,28 +201,41 @@ export class MatrizEnergeticaComponent implements OnInit {
   }
 
   eliminarDistribucion(data) {
-    this.matrizService.deleteDistribucion(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataDistribucion = this.listOfDataDistribucion.filter(x => x.id !== data.id);
-          this.listOfDataDistribucionFiltrado = this.listOfDataDistribucionFiltrado.filter(x => x.id !== data.id);
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+          this.matrizService.deleteDistribucion(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataDistribucion = this.listOfDataDistribucion.filter(x => x.id !== data.id);
+                this.listOfDataDistribucionFiltrado = this.listOfDataDistribucionFiltrado.filter(x => x.id !== data.id);
+
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              });
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   onOpen(event) {
@@ -265,7 +278,7 @@ export class MatrizEnergeticaComponent implements OnInit {
               item.observacion = data.observacion;
               item.total = this.totalEditar;
             }
-          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+            this.listOfDisplayData = [...this.dataMatrizEnergetica];
 
             this.limpiarMatrizEnergetica();
             this.accion = 'new';
@@ -336,29 +349,43 @@ export class MatrizEnergeticaComponent implements OnInit {
   }
 
   eliminarMatriz(data) {
-    this.matrizService.deleteMatriz(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
-          this.dataMatrizEnergetica = this.dataMatrizEnergetica.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.dataMatrizEnergetica];
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+          this.matrizService.deleteMatriz(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataMatriz = this.listOfDataMatriz.filter(x => x.id !== data.id);
+                this.dataMatrizEnergetica = this.dataMatrizEnergetica.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.dataMatrizEnergetica];
+
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              });
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiarMatrizEnergetica() {

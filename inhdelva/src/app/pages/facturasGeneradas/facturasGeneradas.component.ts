@@ -75,6 +75,19 @@ export class FacturasGeneradasComponent implements OnInit {
     }
   }
 
+  exportarFacturas() {
+    const dataNavegacion: any = {
+      pag: 'G',
+      dataFacturas: [...this.listOfDataFacturas]
+    };
+    const navigationExtras: NavigationExtras = {
+      state: dataNavegacion
+    };
+
+    this.router.navigate(['exportarFactura'], navigationExtras);
+    this.facturaService.ejecutarNavegacion(dataNavegacion);
+  }
+
   verFactura(data) {
 
     const dataNavegacion: any = {
@@ -109,7 +122,8 @@ export class FacturasGeneradasComponent implements OnInit {
       otros: [0],
       total: [0],
     });
-
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
     if (JSON.parse(localStorage.getItem('dataFG'))) {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFG'));
       this.listOfDisplayData = [...this.listOfDataFacturas];
@@ -185,7 +199,7 @@ export class FacturasGeneradasComponent implements OnInit {
           .then(
             () => {
               this.listOfDataFacturas = this.listOfDataFacturas.filter(y => y.id !== x);
-      this.listOfDisplayData = [...this.listOfDataFacturas];
+              this.listOfDisplayData = [...this.listOfDataFacturas];
 
               swal({
                 icon: 'success',
@@ -214,30 +228,45 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   cancelarFactura(data) {
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
 
-    this.facturaService.changeFactura(data.id, { estado: 0 })
-      .toPromise()
-      .then(
-        () => {
+          this.facturaService.changeFactura(data.id, { estado: 0 })
+            .toPromise()
+            .then(
+              () => {
 
-          this.listOfDataFacturas = this.listOfDataFacturas.filter(x => x.id !== data.id);
-      this.listOfDisplayData = [...this.listOfDataFacturas];
+                this.listOfDataFacturas = this.listOfDataFacturas.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataFacturas];
 
-          swal({
-            icon: 'success',
-            text: 'Facturas cancelada'
-          });
-        },
-        (error) => {
+                swal({
+                  icon: 'success',
+                  text: 'Facturas cancelada'
+                });
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo cancelar factura',
-            'La factura no se pudo cancelar, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo cancelar factura',
+                  'La factura no se pudo cancelar, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
+
   }
 
   guardar() {

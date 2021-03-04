@@ -160,29 +160,43 @@ export class ProveedoresComponent implements OnInit {
   }
 
   eliminar(data) {
-    this.actoresService.delteProveedor(data.Id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataProveedores = this.listOfDataProveedores.filter(x => x.Id !== data.Id);
-          this.listOfDisplayData = [...this.listOfDataProveedores];
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.actoresService.delteProveedor(data.Id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataProveedores = this.listOfDataProveedores.filter(x => x.Id !== data.Id);
+                this.listOfDisplayData = [...this.listOfDataProveedores];
 
-        },
-        (error) => {
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   reset(): void {

@@ -153,7 +153,7 @@ export class ContratosComponent implements OnInit {
                 item.exportacion = data.exportacion;
                 item.estado = data.estado;
               }
-          this.listOfDisplayData = [...this.listOfDataContrato];
+              this.listOfDisplayData = [...this.listOfDataContrato];
 
               this.accion = 'new';
               this.limpiarFormContrato();
@@ -184,7 +184,7 @@ export class ContratosComponent implements OnInit {
                 'El registro fue guardado con éxito'
               );
               this.listOfDataContrato = [...this.listOfDataContrato, data];
-          this.listOfDisplayData = [...this.listOfDataContrato];
+              this.listOfDisplayData = [...this.listOfDataContrato];
 
               this.limpiarFormContrato();
             },
@@ -223,30 +223,44 @@ export class ContratosComponent implements OnInit {
   }
 
   eliminarContrato(data) {
-    this.contratoService.deleteContrato(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.contratoService.deleteContrato(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
 
-          this.listOfDataContrato = this.listOfDataContrato.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataContrato];
+                this.listOfDataContrato = this.listOfDataContrato.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataContrato];
 
-        },
-        (error) => {
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
 
@@ -358,7 +372,7 @@ export class ContratosComponent implements OnInit {
                   item.estado = data.estado;
               }
 
-    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+              this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
 
               for (const item of this.listOfDataMedidores.filter(x => x.id === this.idMedidorContrato)) {
                 item.contratoId = data.contratoId,
@@ -479,32 +493,44 @@ export class ContratosComponent implements OnInit {
   }
 
   eliminarMedidor(data) {
-    this.contratoService.deleteContratoMedidor(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.contratoService.deleteContratoMedidor(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
 
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
 
-          this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
-          this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
-    this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
+                this.listaMedidoresFiltrado = this.listaMedidoresFiltrado.filter(x => x.id !== data.id);
+                this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+                this.listOfDisplayDataM = [...this.listaMedidoresFiltrado];
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              });
+        } else {
+          swal("Su registro sigue activo");
         }
+      });
 
-      );
   }
 
   onChange(result: Date): void {

@@ -112,19 +112,19 @@ export class ProveedoresEnergiaComponent implements OnInit {
                   if (elemento.proveedor === valorActual.proveedor) {
                     return {
                       ...elemento,
-                      consumoEnergiaActiva: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva) ),
-                      energiaActivaExportada: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.energiaActivaExportada + valorActual.energiaActivaExportada) ),
-                      demandaPotenciaMaxima: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima) ),
-                      consumoEnergiaReactiva: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva) ),
-                      factorPotencia: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.factorPotencia + valorActual.factorPotencia) ),
-                      precioEnergia: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.precioEnergia + valorActual.precioEnergia) ),
-                      precioDemanda: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.precioDemanda + valorActual.precioDemanda) ),
-                      costoEnergia: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.costoEnergia + valorActual.costoEnergia) ),
-                      costoDemanda: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.costoDemanda + valorActual.costoDemanda) ),
-                      alumbradoPublico: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.alumbradoPublico + valorActual.alumbradoPublico) ),
-                      cargoComercializacion: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.consumoEnergiaActiva + valorActual.cargoComercializacion) ),
-                      cargoRegulacion: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.cargoRegulacion + valorActual.cargoRegulacion) ),
-                      total: new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format((elemento.total + valorActual.total) )
+                      consumoEnergiaActiva: elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva,
+                      energiaActivaExportada: elemento.energiaActivaExportada + valorActual.energiaActivaExportada,
+                      demandaPotenciaMaxima: elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima,
+                      consumoEnergiaReactiva: elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva,
+                      factorPotencia: elemento.factorPotencia + valorActual.factorPotencia,
+                      precioEnergia: elemento.precioEnergia + valorActual.precioEnergia,
+                      precioDemanda: elemento.precioDemanda + valorActual.precioDemanda,
+                      costoEnergia: elemento.costoEnergia + valorActual.costoEnergia,
+                      costoDemanda: elemento.costoDemanda + valorActual.costoDemanda,
+                      alumbradoPublico: elemento.alumbradoPublico + valorActual.alumbradoPublico,
+                      cargoComercializacion: elemento.consumoEnergiaActiva + valorActual.cargoComercializacion,
+                      cargoRegulacion: elemento.cargoRegulacion + valorActual.cargoRegulacion,
+                      total: elemento.total + valorActual.total
                     };
                   }
                   return elemento;
