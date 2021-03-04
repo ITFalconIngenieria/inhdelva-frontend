@@ -141,7 +141,7 @@ export class UsuariosComponent implements OnInit {
               item.username = data.username;
               item.AD = data.AD;
             }
-          this.listOfDisplayData = [...this.listOfDataUsuarios];
+            this.listOfDisplayData = [...this.listOfDataUsuarios];
 
             this.accion = 'new';
             this.limpiar();
@@ -172,7 +172,7 @@ export class UsuariosComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataUsuarios = [...this.listOfDataUsuarios, data];
-          this.listOfDisplayData = [...this.listOfDataUsuarios];
+            this.listOfDisplayData = [...this.listOfDataUsuarios];
 
             this.limpiar();
           },
@@ -211,29 +211,43 @@ export class UsuariosComponent implements OnInit {
   }
 
   eliminar(data) {
-    this.usuarioService.deleteUsuario(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataUsuarios = this.listOfDataUsuarios.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataUsuarios];
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.usuarioService.deleteUsuario(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataUsuarios = this.listOfDataUsuarios.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataUsuarios];
 
-        },
-        (error) => {
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiar() {

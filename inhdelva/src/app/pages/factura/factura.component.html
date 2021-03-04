@@ -100,13 +100,13 @@
                 <p class="etiqueta-detalle">Demanda</p>
             </div>
             <div>
-                <p class="etiqueta-detalle">{{EncabezadoFacturaData.fechaInicio | date:'dd/M/yyyy'}}</p>
+                <p class="etiqueta-detalle">{{EncabezadoFacturaData.fechaFin | date:'dd/M/yyyy'}}</p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[0]?.valor | number:'1.2-2':'en_US'}} <span class="asterisco" *ngIf="isVisibleAnexo">*</span></p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[3]?.valor | number:'1.2-2':'en_US'}} <span class="asterisco" *ngIf="isVisibleAnexo">*</span></p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[5]?.valor | number:'1.2-2':'en_US'}}</p>
             </div>
             <div>
-                <p class="etiqueta-detalle">{{ EncabezadoFacturaData.fechaFin | date:'dd/M/yyyy'}}</p>
+                <p class="etiqueta-detalle">{{ EncabezadoFacturaData.fechaInicio | date:'dd/M/yyyy'}}</p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[1]?.valor | number:'1.2-2':'en_US'}} <span class="asterisco" *ngIf="isVisibleAnexo">*</span></p>
                 <p class="etiqueta-detalle">{{ DetalleFacturaData[4]?.valor | number:'1.2-2':'en_US'}} <span class="asterisco" *ngIf="isVisibleAnexo">*</span></p>
                 <p class="etiqueta-detalle">-</p>

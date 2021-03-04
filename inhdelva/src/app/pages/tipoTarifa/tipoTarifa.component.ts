@@ -37,7 +37,7 @@ export class TipoTarifaComponent implements OnInit {
   searchValue = '';
   visible = false;
   listOfDisplayData: any[] = [];
-  
+
   constructor(
     private fb: FormBuilder,
     private tarifaService: TarifaService,
@@ -115,7 +115,7 @@ export class TipoTarifaComponent implements OnInit {
               item.matrizHoraria = { ...data.matrizHoraria }
               item.estado = data.estado;
             }
-          this.listOfDisplayData = [...this.listOfDataTarifa];
+            this.listOfDisplayData = [...this.listOfDataTarifa];
 
             this.accion = 'new';
             this.limpiarTarifa();
@@ -146,7 +146,7 @@ export class TipoTarifaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataTarifa = [...this.listOfDataTarifa, data];
-          this.listOfDisplayData = [...this.listOfDataTarifa];
+            this.listOfDisplayData = [...this.listOfDataTarifa];
 
             this.limpiarTarifa();
           },
@@ -179,29 +179,43 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   eliminarTarifa(data) {
-    this.tarifaService.deleteTarifa(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.tarifaService.deleteTarifa(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
 
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataTarifa];
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataTarifa = this.listOfDataTarifa.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataTarifa];
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   onOpen(event) {
@@ -331,29 +345,43 @@ export class TipoTarifaComponent implements OnInit {
   }
 
   eliminarParametro(data) {
-    this.tarifaService.deleteTarifaParametro(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.tarifaService.deleteTarifaParametro(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
 
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataParametrosFiltrado = this.listOfDataParametrosFiltrado.filter(x => x.id !== data.id);
-          this.listOfDataParametros = this.listOfDataParametros.filter(x => x.id !== data.id);
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataParametrosFiltrado = this.listOfDataParametrosFiltrado.filter(x => x.id !== data.id);
+                this.listOfDataParametros = this.listOfDataParametros.filter(x => x.id !== data.id);
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiarTarifa() {
@@ -384,7 +412,7 @@ export class TipoTarifaComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfDataTarifa.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) );
+    this.listOfDisplayData = this.listOfDataTarifa.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1));
   }
 
   ngOnInit() {

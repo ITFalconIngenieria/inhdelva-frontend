@@ -103,7 +103,7 @@ export class ParametrosEntradaComponent implements OnInit {
               item.observacion = data.observacion;
               item.estado = data.estado;
             }
-          this.listOfDisplayData = [...this.listOfDataParametro];
+            this.listOfDisplayData = [...this.listOfDataParametro];
 
             this.accion = 'new';
             this.unidad = null;
@@ -133,7 +133,7 @@ export class ParametrosEntradaComponent implements OnInit {
               'El registro fue guardado con éxito'
             );
             this.listOfDataParametro = [...this.listOfDataParametro, data];
-          this.listOfDisplayData = [...this.listOfDataParametro];
+            this.listOfDisplayData = [...this.listOfDataParametro];
 
             this.unidad = null;
             this.limpiarParametro();
@@ -168,28 +168,42 @@ export class ParametrosEntradaComponent implements OnInit {
   }
 
   eliminarParametro(data) {
-    this.parametroServce.deleteParametro(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataParametro = this.listOfDataParametro.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataParametro];
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+          this.parametroServce.deleteParametro(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataParametro = this.listOfDataParametro.filter(x => x.id !== data.id);
+                this.listOfDisplayData = [...this.listOfDataParametro];
+
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              });
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiarParametro() {
@@ -208,7 +222,7 @@ export class ParametrosEntradaComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfDataParametro.filter((item: any) => (item.tipoCargo.codigo.indexOf(this.searchValue) !== -1) );
+    this.listOfDisplayData = this.listOfDataParametro.filter((item: any) => (item.tipoCargo.codigo.indexOf(this.searchValue) !== -1));
   }
 
   ngOnInit() {

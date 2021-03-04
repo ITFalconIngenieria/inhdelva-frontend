@@ -206,28 +206,43 @@ export class MedidoresComponent implements OnInit {
   }
 
   eliminarRollover(data) {
-    this.medidoresService.deleteRollovers(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
-          this.listOfDataRollover = this.listOfDataRollover.filter(x => x.id !== data.id);
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
 
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+          this.medidoresService.deleteRollovers(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataRolloverMedidor = this.listOfDataRolloverMedidor.filter(x => x.id !== data.id);
+                this.listOfDataRollover = this.listOfDataRollover.filter(x => x.id !== data.id);
+
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   ////////////////////////////////////////////////////////
@@ -260,7 +275,7 @@ export class MedidoresComponent implements OnInit {
               item.puntoMedicionId = dataMedidor.puntoMedicionId;
               item.observacion = dataMedidor.observacion;
             }
-          this.listOfDisplayData = [...this.listOfDataMedidores]
+            this.listOfDisplayData = [...this.listOfDataMedidores]
 
             for (const item of this.listOfDataMVirtuales.filter(x => x.id === this.idMedidor)) {
               item.codigo = dataMedidor.codigo;
@@ -356,7 +371,7 @@ export class MedidoresComponent implements OnInit {
                 tipo: data.tipo
               }
               ];
-          this.listOfDisplayData = [...this.listOfDataMedidores]
+              this.listOfDisplayData = [...this.listOfDataMedidores]
 
             }
 
@@ -441,38 +456,16 @@ export class MedidoresComponent implements OnInit {
   eliminarMedidor(data, tipo) {
 
     if (tipo === 'f') {
-      this.medidoresService.deleteMedidores(data.id, { estado: false })
-        .toPromise()
-        .then(
-          () => {
-            this.ShowNotification(
-              'success',
-              'Eliminado',
-              'El registro fue eliminado con éxito'
-            );
-            this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
-          this.listOfDisplayData = [...this.listOfDataMedidores]
-
-          },
-          (error) => {
-            this.ShowNotification(
-              'error',
-              'No se pudo eliminar',
-              'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-            );
-            console.log(error);
-          }
-        );
-
-    } else {
-      let info = data;
-
-      this.checkMVirtual(data.id).then(
-        (data) => {
-
-          if (data === true) {
-
-            this.medidoresService.deleteMedidores(info.id, { estado: false })
+      swal({
+        title: "¿Está seguro de borrar el registro?",
+        // text: "Una vez eliminado el registro ",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            this.medidoresService.deleteMedidores(data.id, { estado: false })
               .toPromise()
               .then(
                 () => {
@@ -481,8 +474,8 @@ export class MedidoresComponent implements OnInit {
                     'Eliminado',
                     'El registro fue eliminado con éxito'
                   );
-                  this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
-                this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+                  this.listOfDataMedidores = this.listOfDataMedidores.filter(x => x.id !== data.id);
+                  this.listOfDisplayData = [...this.listOfDataMedidores]
 
                 },
                 (error) => {
@@ -493,7 +486,55 @@ export class MedidoresComponent implements OnInit {
                   );
                   console.log(error);
                 }
-              )
+              );
+
+          } else {
+            swal("Su registro sigue activo");
+          }
+        });
+
+    } else {
+      let info = data;
+
+      this.checkMVirtual(data.id).then(
+        (data) => {
+          if (data === true) {
+            swal({
+              title: "¿Está seguro de borrar el registro?",
+              // text: "Una vez eliminado el registro ",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+              .then((willDelete) => {
+                if (willDelete) {
+                  this.medidoresService.deleteMedidores(info.id, { estado: false })
+                    .toPromise()
+                    .then(
+                      () => {
+                        this.ShowNotification(
+                          'success',
+                          'Eliminado',
+                          'El registro fue eliminado con éxito'
+                        );
+                        this.listOfDataMVirtuales = this.listOfDataMVirtuales.filter(x => x.id !== info.id)
+                        this.listOfDisplayDataV = [...this.listOfDataMVirtuales];
+
+                      },
+                      (error) => {
+                        this.ShowNotification(
+                          'error',
+                          'No se pudo eliminar',
+                          'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                        );
+                        console.log(error);
+                      }
+                    )
+
+                } else {
+                  swal("Su registro sigue activo");
+                }
+              });
           } else {
             swal({
               icon: 'error',
@@ -600,31 +641,42 @@ export class MedidoresComponent implements OnInit {
   }
 
   eliminarMVirtual(data) {
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.medidoresService.deleteMedidoreVirtual(data.id)
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
 
-    this.medidoresService.deleteMedidoreVirtual(data.id)
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
+                this.MVirtualesJoin = this.MVirtualesJoin.filter(x => x.id !== data.id);
+                this.MVirtualesFilter = this.MVirtualesFilter.filter(x => x.id !== data.id);
 
-          this.MVirtualesJoin = this.MVirtualesJoin.filter(x => x.id !== data.id);
-          this.MVirtualesFilter = this.MVirtualesFilter.filter(x => x.id !== data.id);
-
-        },
-        (error) => {
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+              },
+              (error) => {
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+        } else {
+          swal("Su registro sigue activo");
         }
-      )
-
+      });
   }
 
   checkMVirtual(id) {
@@ -702,7 +754,7 @@ export class MedidoresComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfDataMedidores.filter((item: any) => item.codigo.indexOf(this.searchValue) !== -1);  
+    this.listOfDisplayData = this.listOfDataMedidores.filter((item: any) => item.codigo.indexOf(this.searchValue) !== -1);
   }
 
   resetVirtual(): void {
@@ -712,7 +764,7 @@ export class MedidoresComponent implements OnInit {
 
   searchVirtual(): void {
     this.visible = false;
-    this.listOfDisplayDataV = this.listOfDataMVirtuales.filter((item: any) => item.codigo.indexOf(this.searchValueV) !== -1);  
+    this.listOfDisplayDataV = this.listOfDataMVirtuales.filter((item: any) => item.codigo.indexOf(this.searchValueV) !== -1);
   }
 
   ngOnInit() {
@@ -774,7 +826,7 @@ export class MedidoresComponent implements OnInit {
           this.medidoresPME = data;
         },
         (error) => {
-          
+
           console.log(error);
         }
       );

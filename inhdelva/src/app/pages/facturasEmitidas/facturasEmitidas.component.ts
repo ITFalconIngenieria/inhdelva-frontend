@@ -43,6 +43,8 @@ export class FacturasEmitidasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
     if (JSON.parse(localStorage.getItem('dataFE'))) {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFE'));
       this.listOfDisplayData = [...this.listOfDataFacturas];

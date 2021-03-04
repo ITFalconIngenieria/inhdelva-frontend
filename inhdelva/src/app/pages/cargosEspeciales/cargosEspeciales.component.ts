@@ -191,27 +191,43 @@ export class CargosEspecialesComponent implements OnInit {
   }
 
   eliminar(data) {
-    this.cargoService.deleteCargoEspecial(data.id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfData = this.listOfData.filter(x => x.id !== data.id);
-        },
-        (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+
+          this.cargoService.deleteCargoEspecial(data.id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfData = this.listOfData.filter(x => x.id !== data.id);
+              },
+              (error) => {
+
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   limpiar() {

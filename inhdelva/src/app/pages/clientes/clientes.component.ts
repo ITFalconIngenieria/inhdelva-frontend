@@ -62,7 +62,7 @@ export class ClientesComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfDataClientes.filter((item: any) => item.Nombre.indexOf(this.searchValue) !== -1  ) ;  
+    this.listOfDisplayData = this.listOfDataClientes.filter((item: any) => item.Nombre.indexOf(this.searchValue) !== -1);
 
   }
 
@@ -192,29 +192,43 @@ export class ClientesComponent implements OnInit {
   }
 
   eliminar(data) {
-    this.actoresService.delteProveedor(data.Id, { estado: false })
-      .toPromise()
-      .then(
-        () => {
-          this.ShowNotification(
-            'success',
-            'Eliminado',
-            'El registro fue eliminado con éxito'
-          );
-          this.listOfDataClientes = this.listOfDataClientes.filter(x => x.Id !== data.Id);
-          this.listOfDisplayData = [...this.listOfDataClientes];
+    swal({
+      title: "¿Está seguro de borrar el registro?",
+      // text: "Una vez eliminado el registro ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.actoresService.delteProveedor(data.Id, { estado: false })
+            .toPromise()
+            .then(
+              () => {
+                this.ShowNotification(
+                  'success',
+                  'Eliminado',
+                  'El registro fue eliminado con éxito'
+                );
+                this.listOfDataClientes = this.listOfDataClientes.filter(x => x.Id !== data.Id);
+                this.listOfDisplayData = [...this.listOfDataClientes];
 
-        },
-        (error) => {
+              },
+              (error) => {
 
-          this.ShowNotification(
-            'error',
-            'No se pudo eliminar',
-            'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
-          );
-          console.log(error);
+                this.ShowNotification(
+                  'error',
+                  'No se pudo eliminar',
+                  'El registro no pudo ser eleminado, por favor revise su conexión a internet o comuníquese con el proveedor.'
+                );
+                console.log(error);
+              }
+            );
+
+        } else {
+          swal("Su registro sigue activo");
         }
-      );
+      });
   }
 
   ngOnInit() {

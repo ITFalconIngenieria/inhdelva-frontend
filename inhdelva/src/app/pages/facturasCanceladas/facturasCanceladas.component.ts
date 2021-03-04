@@ -70,6 +70,8 @@ export class FacturasCanceladasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listOfDataFacturas = [];
+    this.listOfDisplayData = [];
     if (JSON.parse(localStorage.getItem('dataFC'))) {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFC'));
       this.listOfDisplayData = [...this.listOfDataFacturas];
