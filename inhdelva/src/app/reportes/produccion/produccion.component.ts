@@ -73,20 +73,22 @@ export class ProduccionComponent implements OnInit {
             console.log(data);
 
             this.isVisible = true;
-
+           
             let a = 1;
+            let fecha1 = moment('2021-01-01');
             for (let h = 1; h <= data.length; h++) {
 
               this.listOfDataProduccion = [...this.listOfDataProduccion, {
                 x: a,
                 fecha: data[h - 1].fecha,
+                mesOperacion: moment(data[h - 1].fecha).diff(fecha1, 'month') + 1,
                 produccionTotalEnergiaSolar: data[h - 1].produccionTotalEnergiaSolar,
                 energiaExportadaHaciaRed: data[h - 1].energiaExportadaHaciaRed,
                 energiaAutoconsumoINH: data[h - 1].energiaAutoconsumoINH,
                 energiaConsumidaRed: data[h - 1].energiaConsumidaRed,
                 consumoEnergiaTotalINH: data[h - 1].consumoEnergiaTotalINH,
-                fraccionEnergiaSolarAutoconsumo: data[h - 1].fraccionEnergiaSolarAutoconsumo ,
-                fraccionEnergiaSolarTotal: data[h - 1].fraccionEnergiaSolarTotal ,
+                fraccionEnergiaSolarAutoconsumo: data[h - 1].fraccionEnergiaSolarAutoconsumo,
+                fraccionEnergiaSolarTotal: data[h - 1].fraccionEnergiaSolarTotal,
                 costoEnergiaINH: data[h - 1].costoEnergiaINH,
                 energiaTotalINH: data[h - 1].energiaTotalINH,
                 costoTotalEnergiaINH: data[h - 1].costoTotalEnergiaINH,
@@ -96,7 +98,7 @@ export class ProduccionComponent implements OnInit {
                 ahorroSolar: data[h - 1].ahorroSolar,
                 produccionRealEnergiaSolar: data[h - 1].produccionRealEnergiaSolar,
                 produccionEstimadaEnergiaSolar: data[h - 1].produccionEstimadaEnergiaSolar,
-                degradacionMaxima: data[h - 1].degradacionMaxima ,
+                degradacionMaxima: data[h - 1].degradacionMaxima,
                 porcentajeCumplimiento: data[h - 1].porcentajeCumplimiento
               }]
               if (h <= (data.length - 1)) {
@@ -107,7 +109,7 @@ export class ProduccionComponent implements OnInit {
 
               this.dataExport = [...this.dataExport, {
                 'Año de operación': a,
-                'Mes de operación': moment(data[h - 1].fecha).format('MM'),
+                'Mes de operación': moment(data[h - 1].fecha).diff(fecha1, 'month') + 1,
                 'Mes calendario': moment(data[h - 1].fecha).format('MMMM'),
                 'Año calendario': moment(data[h - 1].fecha).format('YYYY'),
                 'Fecha': moment(data[h - 1].fecha).format('MM/YYYY'),
