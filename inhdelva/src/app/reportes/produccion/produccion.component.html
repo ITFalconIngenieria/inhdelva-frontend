@@ -104,7 +104,7 @@
         <ng-container *ngFor="let data of nzTable.data">
             <tr>
                 <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 239px; " nzAlign="center">{{data.x}}</td>
-                <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 240px;" nzAlign="center">{{ data.fecha | date:'M'}}</td>
+                <td nzRight="true" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 240px;" nzAlign="center">{{ data.mesOperacion }}</td>
                 <td style="background-color: white; border: rgb(121, 121, 121); border-style: solid; border-width: 1px; color: black; width: 212px;;" nzAlign="center">{{ data.fecha | date:'MMMM'}}</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.fecha | date:'yyyy' }}</td>
                 <td class="tdGrisOscuro" nzAlign="center">{{ data.produccionTotalEnergiaSolar | number:'1.2-2':'en_US'}} kWh/mes </td>

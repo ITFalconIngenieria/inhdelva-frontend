@@ -9,6 +9,7 @@ moment.locale('es');
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { items } from 'fusioncharts';
 
 @Component({
   selector: 'app-exportarFactura',
@@ -34,7 +35,7 @@ export class ExportarFacturaComponent implements OnInit {
   energiaReactiva: number = 0;
   resultadoFactorP: number = 0;
   resultadoPenalidad: number = 0;
-  dataFactura;
+  dataFactura: any[] = [];
   cargado: boolean;
   diferencia;
   EncabezadoFacturaData: any;
@@ -69,29 +70,30 @@ export class ExportarFacturaComponent implements OnInit {
     this.dataFactura = this.router.getCurrentNavigation().extras.state || this.facturaService.getInfoNavegacion();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cargado = false;
     this.isVisibleAnexo = false;
     this.spinner.show();
 
     let facturas = this.facturaService.getInfoNavegacion();
     this.dataFactura = facturas.dataFacturas;
-
-    console.log(this.dataFactura);
     this.cantFac = this.dataFactura.length;
 
     this.facGen = this.x + 1;
 
-    while (this.x  < 3) {
-      console.log(this.x);
-
+    for await (const y of this.dataFactura) { 
       this.generarFactura(
-        this.dataFactura[this.x].id,
-        this.dataFactura[this.x].fechaInicio,
-        this.dataFactura[this.x].fechaFin,
-        this.dataFactura[this.x].contratoid,
-        this.dataFactura[this.x].medidorId
-      );
+        y.id,
+        y.fechaInicio,
+        y.fechaFin,
+        y.contratoid,
+        y.medidorId
+      ).then(() => {
+        setTimeout(() => {
+          this.generarPDF();
+        }, 3000);
+      });
+
     }
   }
 
@@ -109,8 +111,6 @@ export class ExportarFacturaComponent implements OnInit {
         .toPromise()
         .then(
           async (data: any) => {
-            this.x++;
-
             console.log(data);
 
             this.EncabezadoFacturaData = { ...data[0] };
@@ -653,7 +653,6 @@ export class ExportarFacturaComponent implements OnInit {
             }
 
             this.cargado = true;
-            this.spinner.hide();
           },
           (error) => {
 
@@ -668,15 +667,10 @@ export class ExportarFacturaComponent implements OnInit {
         );
       res(true);
 
-    }).then(async () => {
-      setTimeout(() => {
-        this.generarPDF();
-      }, 2000);
     });
   }
 
   async generarPDF() {
-    this.spinner.show();
     const div = document.getElementById('content');
     const anexo = document.getElementById('anexo');
 
@@ -718,13 +712,22 @@ export class ExportarFacturaComponent implements OnInit {
 
           return doc;
         }).then((doc) => {
-          doc.save(`factura-${this.dataFactura.dataFacturas[0].codigo}.pdf`);
-          this.spinner.hide();
+          doc.save(`factura-${this.dataFactura[this.x].codigo}.pdf`);
+          this.x++;
+          this.facGen = this.x + 1;
+          if (this.x === this.dataFactura.length) {
+            this.spinner.hide();
+          }
         })
 
       } else {
-        doc.save(`factura-${this.dataFactura.dataFacturas[0].codigo}.pdf`);
-        this.spinner.hide();
+        doc.save(`factura-${this.dataFactura[this.x].codigo}.pdf`);
+        this.x++;
+        this.facGen = this.x + 1;
+        if (this.x === this.dataFactura.length) {
+          this.spinner.hide();
+        }
+
       }
     });
   }

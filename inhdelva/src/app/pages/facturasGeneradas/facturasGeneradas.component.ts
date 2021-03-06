@@ -37,7 +37,7 @@ export class FacturasGeneradasComponent implements OnInit {
     }
   ];
   fechas = null;
-
+  visibleEF = true;
   isVisible = false;
   checked = false;
   validateForm: FormGroup;
@@ -127,6 +127,7 @@ export class FacturasGeneradasComponent implements OnInit {
     if (JSON.parse(localStorage.getItem('dataFG'))) {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFG'));
       this.listOfDisplayData = [...this.listOfDataFacturas];
+      this.visibleEF = false;
     }
 
   }
@@ -155,7 +156,7 @@ export class FacturasGeneradasComponent implements OnInit {
           (data: any[]) => {
             this.listOfDataFacturas = data;
             this.listOfDisplayData = [...this.listOfDataFacturas];
-
+            this.visibleEF = false;
             localStorage.setItem('dataFG', JSON.stringify(this.listOfDataFacturas));
 
             if (this.listOfDataFacturas.length <= 0) {

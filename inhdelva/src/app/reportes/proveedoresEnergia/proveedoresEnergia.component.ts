@@ -100,8 +100,6 @@ export class ProveedoresEnergiaComponent implements OnInit {
         .then(
           (data: any[]) => {
 
-            console.log(data);
-
             this.isVisible = true;
             this.listOfData = data;
 
@@ -115,6 +113,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
                       consumoEnergiaActiva: elemento.consumoEnergiaActiva + valorActual.consumoEnergiaActiva,
                       energiaActivaExportada: elemento.energiaActivaExportada + valorActual.energiaActivaExportada,
                       demandaPotenciaMaxima: elemento.demandaPotenciaMaxima + valorActual.demandaPotenciaMaxima,
+                      demandaSeleccionada: elemento.demandaSeleccionada + valorActual.demandaSeleccionada,
                       consumoEnergiaReactiva: elemento.consumoEnergiaReactiva + valorActual.consumoEnergiaReactiva,
                       factorPotencia: elemento.factorPotencia + valorActual.factorPotencia,
                       precioEnergia: elemento.precioEnergia + valorActual.precioEnergia,
@@ -139,19 +138,20 @@ export class ProveedoresEnergiaComponent implements OnInit {
                 'Año': moment(y.fecha).format('YYYY'),
                 'Mes': moment(y.fecha).format('MM'),
                 'Fecha': moment(y.fecha).format('MM/YYYY'),
-                'Consumo Energia activa (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.consumoEnergiaActiva ),
-                'Energia activa exportada (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.energiaActivaExportada ),
-                'Demanda potencia maxima (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.demandaPotenciaMaxima ),
-                'Consumo Energia reactiva (kVArh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.consumoEnergiaReactiva ),
-                'Factor de Potencia': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.factorPotencia ),
-                'Costo de la Energia (L/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(y.precioEnergia ),
-                'Costo de la Demanda (L/kW-mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(y.precioDemanda ),
-                'Costo de la Energia (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.costoEnergia ),
-                'Demanda (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.costoDemanda ),
-                'Alumbrado Público (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.alumbradoPublico ),
-                'Cargo de Comercialización (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.cargoComercializacion ),
-                'Cargo de Regulación (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.cargoRegulacion ),
-                'TOTAL (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.total )
+                'Consumo Energia activa (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.consumoEnergiaActiva),
+                'Energia activa exportada (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.energiaActivaExportada),
+                'Demanda potencia maxima (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.demandaPotenciaMaxima),
+                'Demanda seleccionada (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.demandaSeleccionada),
+                'Consumo Energia reactiva (kVArh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.consumoEnergiaReactiva),
+                'Factor de Potencia': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.factorPotencia),
+                'Costo de la Energia (L/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(y.precioEnergia),
+                'Costo de la Demanda (L/kW-mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(y.precioDemanda),
+                'Costo de la Energia (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.costoEnergia),
+                'Demanda (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.costoDemanda),
+                'Alumbrado Público (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.alumbradoPublico),
+                'Cargo de Comercialización (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.cargoComercializacion),
+                'Cargo de Regulación (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.cargoRegulacion),
+                'TOTAL (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(y.total)
               }]
             });
 
@@ -161,19 +161,20 @@ export class ProveedoresEnergiaComponent implements OnInit {
                 'Año': '',
                 'Mes': '',
                 'Fecha': 'TOTALES',
-                'Consumo Energia activa (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.consumoEnergiaActiva ),
-                'Energia activa exportada (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.energiaActivaExportada ),
-                'Demanda potencia maxima (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.demandaPotenciaMaxima ),
-                'Consumo Energia reactiva (kVArh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.consumoEnergiaReactiva ),
-                'Factor de Potencia': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.factorPotencia ),
-                'Costo de la Energia (L/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(x.precioEnergia ),
-                'Costo de la Demanda (L/kW-mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(x.precioDemanda ),
-                'Costo de la Energia (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.costoEnergia ),
-                'Demanda (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.costoDemanda ),
-                'Alumbrado Público (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.alumbradoPublico ),
-                'Cargo de Comercialización (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.cargoComercializacion ),
-                'Cargo de Regulación (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.cargoRegulacion ),
-                'TOTAL (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.total )
+                'Consumo Energia activa (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.consumoEnergiaActiva),
+                'Energia activa exportada (kWh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.energiaActivaExportada),
+                'Demanda potencia maxima (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.demandaPotenciaMaxima),
+                'Demanda seleccionada (kW)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.demandaSeleccionada),
+                'Consumo Energia reactiva (kVArh/mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.consumoEnergiaReactiva),
+                'Factor de Potencia': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.factorPotencia),
+                'Costo de la Energia (L/kWh)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(x.precioEnergia),
+                'Costo de la Demanda (L/kW-mes)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(x.precioDemanda),
+                'Costo de la Energia (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.costoEnergia),
+                'Demanda (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.costoDemanda),
+                'Alumbrado Público (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.alumbradoPublico),
+                'Cargo de Comercialización (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.cargoComercializacion),
+                'Cargo de Regulación (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.cargoRegulacion),
+                'TOTAL (L)': new Intl.NumberFormat('en-us', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x.total)
               }]
             });
 
@@ -184,6 +185,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
               ['Consumo Energia activa (kWh/mes)', ...this.dataExport.map(x => x['Consumo Energia activa (kWh/mes)'])],
               ['Energia activa exportada (kWh/mes)', ...this.dataExport.map(x => x['Energia activa exportada (kWh/mes)'])],
               ['Demanda potencia maxima (kW)', ...this.dataExport.map(x => x['Demanda potencia maxima (kW)'])],
+              ['Demanda seleccionada (kW)', ...this.dataExport.map(x => x['Demanda seleccionada (kW)'])],
               ['Consumo Energia reactiva (kVArh/mes)', ...this.dataExport.map(x => x['Consumo Energia reactiva (kVArh/mes)'])],
               ['Factor de Potencia', ...this.dataExport.map(x => x['Factor de Potencia'])],
               ['Costo de la Energia (L/kWh)', ...this.dataExport.map(x => x['Costo de la Energia (L/kWh)'])],
@@ -243,6 +245,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
     this.dataPDFExport[12] = this.dataPDF[12].slice(0, 6);
     this.dataPDFExport[13] = this.dataPDF[13].slice(0, 6);
     this.dataPDFExport[14] = this.dataPDF[14].slice(0, 6);
+    this.dataPDFExport[15] = this.dataPDF[15].slice(0, 6);
 
     const doc = new jspdf('p', 'in', 'letter');
     (doc as any).autoTable(
@@ -252,7 +255,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
         theme: 'striped',
         styles: { fontSize: 8, halign: 'right' },
         columnStyles: {
-          0 : { halign : 'left' } 
+          0: { halign: 'left' }
         }
       }
     );
@@ -274,6 +277,7 @@ export class ProveedoresEnergiaComponent implements OnInit {
       this.dataPDFExport[12] = this.dataPDF[12].slice(x, (x + 6));
       this.dataPDFExport[13] = this.dataPDF[13].slice(x, (x + 6));
       this.dataPDFExport[14] = this.dataPDF[14].slice(x, (x + 6));
+      this.dataPDFExport[15] = this.dataPDF[15].slice(x, (x + 6));
 
       doc.addPage('p');
       (doc as any).autoTable(

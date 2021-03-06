@@ -60,6 +60,7 @@
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Consumo Energia activa (kWh/mes)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Energia activa exportada (kWh/mes)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Demanda potencia maxima (kW)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Demanda seleccionada (kW)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Consumo Energia reactiva (kVArh/mes)</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Factor de Potencia</th>
             <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;"> Costo de la Energia (L/kWh)</th>
@@ -81,6 +82,7 @@
                 <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaActiva | number:'1.2-2':'en_US' }} </td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.energiaActivaExportada | number:'1.2-2':'en_US' }} </td>
                 <td class="tdBlanco" nzAlign="center">{{ data.demandaPotenciaMaxima | number:'1.2-2':'en_US' }} </td>
+                <td class="tdBlanco" nzAlign="center"> {{ data.demandaSeleccionada | number:'1.2-2':'en_US' }} </td>
                 <td class="tdBlanco" nzAlign="center"> {{ data.consumoEnergiaReactiva | number:'1.2-2':'en_US' }} </td>
                 <td class="tdGrisClaro" nzAlign="center">{{ data.factorPotencia | number:'1.2-2':'en_US' }}</td>
                 <td class="tdBlanco" nzAlign="center">{{ data.precioEnergia | number:'1.4-4':'en_US' }} </td>
@@ -99,6 +101,7 @@
             <td class="totales" nzAlign="center"> {{ total.consumoEnergiaActiva | number:'1.2-2':'en_US' }} </td>
             <td class="totales" nzAlign="center"> {{ total.energiaActivaExportada | number:'1.2-2':'en_US' }} </td>
             <td class="totales" nzAlign="center"> {{ total.demandaPotenciaMaxima | number:'1.2-2':'en_US' }} kW</td>
+            <td class="totales" nzAlign="center"> {{ total.demandaSeleccionada | number:'1.2-2':'en_US' }} </td>
             <td class="totales" nzAlign="center"> {{ total.consumoEnergiaReactiva | number:'1.2-2':'en_US' }} </td>
             <td class="totales" nzAlign="center"> {{ total.factorPotencia | number:'1.2-2':'en_US'}} </td>
             <td class="totales" nzAlign="center"> {{ total.precioEnergia | number:'1.4-4':'en_US' }} Lps/kWh</td>

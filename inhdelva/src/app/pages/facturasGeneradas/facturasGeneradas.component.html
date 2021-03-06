@@ -11,7 +11,7 @@
 </div>
 
 <div class="tabla">
-    <button nz-button (click)="exportarFacturas()" style="background-color: #e67d7d;" nzDanger><i nz-icon
+    <button nz-button (click)="exportarFacturas()" [disabled]="visibleEF" style="background-color: #e67d7d;" nzDanger><i nz-icon
         nzType="file-pdf"></i>Exportar a PDF</button>
     <button nz-button nzSize="small" style="width: 9%; margin-left: 90%;" (click)="emitirFactura()" nzType="primary">Emitir</button>
     <nz-table #rowSelectionTable nzShowSizeChanger nzPageSize="10" [nzData]="listOfDisplayData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
