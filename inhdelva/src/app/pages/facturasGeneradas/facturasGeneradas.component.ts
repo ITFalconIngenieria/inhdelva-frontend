@@ -302,8 +302,10 @@ export class FacturasGeneradasComponent implements OnInit {
 
   generarFacturas() {
     if (this.setOfCheckedIdM.size > 0) {
+
+
+      
       let medidores: any[] = [...this.setOfCheckedIdM];
-      console.log(medidores);
 
       this.facturaService.generarFactura(medidores)
         .toPromise()
@@ -337,28 +339,28 @@ export class FacturasGeneradasComponent implements OnInit {
     switch (op) {
       case 'cod': {
         let array = this.listOfDataFacturas.sort(function (a, b) {
-          return a.Nombre.localeCompare(b.Nombre);
+          return a.codigo.localeCompare(b.codigo);
         });
         this.listOfDisplayData = [...array]
       }
         break;
       case 'con': {
         let array = this.listOfDataFacturas.sort(function (a, b) {
-          return a.Apellido.localeCompare(b.Apellido);
+          return a.contrato.localeCompare(b.contrato);
         });
         this.listOfDisplayData = [...array]
       }
         break;
       case 'cli': {
         let array = this.listOfDataFacturas.sort(function (a, b) {
-          return a.username.localeCompare(b.username);
+          return a.cliente.localeCompare(b.cliente);
         });
         this.listOfDisplayData = [...array]
       }
         break;
         case 'f': {
           let array = this.listOfDataFacturas.sort(function (a, b) {
-            return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+            return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
           });
           this.listOfDisplayData = [...array];
         }
@@ -504,7 +506,7 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   onAllCheckedMedidor(value: boolean): void {
-    this.listOfCurrentPageDataM.forEach(item => this.updateCheckedSetMedidor(item.id, value));
+    this.listOfCurrentPageDataM.forEach(item => this.updateCheckedSetMedidor(item.medidorId, value));
     this.refreshCheckedStatusMedidor();
   }
 

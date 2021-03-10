@@ -19,10 +19,22 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Código</th>
-                <th style="background-color: #d6ecff;">Contrato</th>
-                <th style="background-color: #d6ecff;">Cliente</th>
-                <th>Fecha generación</th>
+                <th style="background-color: #d6ecff;">
+                    Código
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cod')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Contrato
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('con')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Cliente
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cli')" nz-tooltip></i>
+                </th>
+                <th>
+                    Fecha generación
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('f')" nz-tooltip></i>
+                </th>
                 <th>Energia consumida</th>
                 <th>Total a pagar</th>
             </tr>
