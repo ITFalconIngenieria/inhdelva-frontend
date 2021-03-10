@@ -242,7 +242,7 @@ export class CargosEspecialesComponent implements OnInit {
     });
   }
 
-  sort(op) {
+  sort() {
 
     let array = this.dataProcesada.sort(function (a, b) {
       return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();

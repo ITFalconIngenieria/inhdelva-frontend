@@ -117,6 +117,42 @@ export class FacturasCanceladasComponent implements OnInit {
     }
   }
 
+  sort(op) {
+
+    switch (op) {
+      case 'cod': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.codigo.localeCompare(b.codigo);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'con': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.contrato.localeCompare(b.contrato);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'cli': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.cliente.localeCompare(b.cliente);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+        case 'f': {
+          let array = this.listOfDataFacturas.sort(function (a, b) {
+            return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
+          });
+          this.listOfDisplayData = [...array];
+        }
+          break;
+      default:
+        break;
+    }
+  }
+
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,
