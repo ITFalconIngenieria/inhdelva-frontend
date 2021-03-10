@@ -605,7 +605,7 @@ export class MedidoresComponent implements OnInit {
         .then(
           (data: any) => {
             this.MVirtualesJoin = [...this.MVirtualesJoin, data];
-            this.MVirtualesFilter = [...this.MVirtualesFilter, data]
+            this.MVirtualesFilter = [...this.MVirtualesFilter, data];
 
             this.ShowNotification(
               'success',
@@ -823,6 +823,8 @@ export class MedidoresComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
+          console.log(data);
+
           this.medidoresPME = data;
         },
         (error) => {
@@ -833,6 +835,27 @@ export class MedidoresComponent implements OnInit {
 
     this.limpiarRollover();
     this.limpiarMVirtual();
+  }
+
+  sort() {
+    let array = this.listOfDataMedidores.sort(function (a, b) {
+      return a.codigo.localeCompare(b.codigo);
+    });
+    this.listOfDisplayData = [...array]
+  }
+
+  sortMV() {
+    let array = this.listOfDataMVirtuales.sort(function (a, b) {
+      return a.codigo.localeCompare(b.codigo);
+    });
+    this.listOfDisplayDataV = [...array]
+  }
+
+  sortRollover() {
+    let array = this.listOfDataRolloverMedidor.sort(function (a, b) {
+      return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+    });
+    this.listOfDataRolloverMedidor = [...array];
   }
 
   changeTipo(data) {

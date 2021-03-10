@@ -23,7 +23,11 @@
                 <th style="background-color: #d6ecff;">Cargo</th>
                 <th>Valor</th>
                 <th>Fecha inicio</th>
-                <th>Fecha fin</th>
+                <th style="background-color: #d6ecff;">
+                    Fecha fin
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sortParametro()" nz-tooltip></i>
+                </th>
+                <th>Dias disponibles</th>
             </tr>
         </thead>
         <tbody>
@@ -41,9 +45,15 @@
                         </button>
                     </td>
                     <td>{{ data.tipoCargo.codigo }}</td>
-                    <td>{{ data.valor }}</td>
+                    <td>{{ data.valor | number:'1.4-4':'en_US' }}</td>
                     <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC' }}</td>
                     <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC' }}</td>
+                    <td nzAlign="center">
+                        <span class="badge bg-success" nzTooltipTitle="Disponible" nzTooltipPlacement="right" *ngIf="data.dias > 30" nz-tooltip>{{ data.dias }}</span>
+                        <span class="badge bg-warning text-dark" nzTooltipTitle="Pronto de vencer" nzTooltipPlacement="right" *ngIf="data.dias <= 30 && data.dias >= 1" nz-tooltip>{{ data.dias
+                            }}</span>
+                        <span class="badge bg-danger" nzTooltipTitle="Vencido" nzTooltipPlacement="right" *ngIf="data.dias <= 0" nz-tooltip>{{ data.dias }}</span>
+                    </td>
                 </tr>
                 <tr [nzExpand]="expandSet.has(data.id)">
                     <td colSpan="7">{{ data.observacion }}</td>
@@ -107,8 +117,8 @@
         <div class="search-box">
             <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
             <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-          Buscar
-        </button>
+                Buscar
+            </button>
             <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
         </div>
     </div>

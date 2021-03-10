@@ -16,6 +16,7 @@
                     <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
                         <i nz-icon nzType="search" style="margin-left: 30px;"></i>
                     </nz-filter-trigger>
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort()" nz-tooltip></i>
                 </th>
             </tr>
         </thead>
@@ -57,7 +58,7 @@
             <nz-form-label>Código del provedor</nz-form-label>
             <nz-form-control nzErrorTip="Por favor escriba el dato correcto!">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                    <input type="text" [(ngModel)]="codigo" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
+                    <input type="text" [(ngModel)]="codigo" [disabled]="codVisible" [ngModelOptions]="{standalone: true}" nz-input placeholder="Busca por código" />
                 </nz-input-group>
                 <ng-template #suffixIconButton>
                     <button nz-button nzType="primary" (click)="busquedad()" nzSearch><i nz-icon nzType="search"></i></button>

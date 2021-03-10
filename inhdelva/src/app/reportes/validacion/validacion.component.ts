@@ -71,8 +71,6 @@ export class ValidacionComponent implements OnInit {
             this.isVisible = true;
             this.listOfData = data;
             this.colspan = data.length;
-            console.log(data);
-
             this.listOfData.forEach(x => {
               this.dataReporte = [...this.dataReporte, {
                 'FECHA': moment(x.fecha).format('MM-YYYY'),

@@ -46,7 +46,6 @@ export class UsuariosComponent implements OnInit {
   searchValue = '';
   visible = false;
   listOfDisplayData: UsuarioModel[] = [];
-  sortFn = (a: UsuarioModel, b: UsuarioModel) => a.Nombre.localeCompare(b.Nombre);
 
   listOfColumn = [
     {

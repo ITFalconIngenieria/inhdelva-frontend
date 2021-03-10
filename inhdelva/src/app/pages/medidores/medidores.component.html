@@ -23,7 +23,10 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Codigo</th>
+                <th style="background-color: #d6ecff;">
+                    Codigo
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort()" nz-tooltip></i>
+                </th>
                 <th>Modelo</th>
                 <th>Serie</th>
                 <th>Estado</th>
@@ -80,7 +83,10 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Codigo</th>
+                <th style="background-color: #d6ecff;">
+                    Codigo
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sortMV()" nz-tooltip></i>
+                </th>
                 <th>Estado</th>
                 <th></th>
             </tr>
@@ -295,7 +301,10 @@
             <thead>
                 <tr>
                     <th nzWidth="60px"></th>
-                    <th>Fecha rollover</th>
+                    <th>
+                        Fecha rollover
+                        <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sortRollover()" nz-tooltip></i>
+                    </th>
                     <th>Ultima lectura</th>
                     <th>Nueva lectura</th>
                     <th>Energia</th>

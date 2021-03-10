@@ -10,7 +10,7 @@
     <button nz-button nzType="primary" (click)="consultar()" style="margin: 2% 0% 0% 4%;"><i nz-icon nzType="search"></i>Consultar</button>
 </div>
 <div class="tabla">
-    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6">
         <thead>
             <tr>
                 <th nzWidth="30px">
@@ -25,8 +25,6 @@
                 <th>Fecha generación</th>
                 <th>Energia consumida</th>
                 <th>Total a pagar</th>
-                <th [nzSelections]="listOfSelection" [(nzChecked)]="checked" nzShowRowSelection="true" nzShowCheckbox="true" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">
-                    Emitir</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +35,7 @@
                     </button>
                 </td>
                 <td style="width: 30px;">
-                    <button nz-button nzType="primary" (click)="generarFactura(data)" nzShape="circle" nzTooltipTitle="Volver a generar" nzTooltipPlacement="top" nz-tooltip>
+                    <button nz-button nzType="primary" nzShape="circle" nzTooltipTitle="Volver a generar" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="redo" nzTheme="outline"></i>
                     </button>
                 </td>
@@ -47,7 +45,6 @@
                 <td>{{ data.fechaLectura | date:'dd/M/yyyy' }}</td>
                 <td>{{ data.consumo | number:'':'en_US' }}</td>
                 <td>{{ data.total | number:'':'en_US' }}</td>
-                <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             </tr>
         </tbody>
     </nz-table>

@@ -89,6 +89,7 @@ export class FacturacionComponent implements OnInit {
         title: 'No se puede consultar',
         text: 'Debe seleccionar un contrato y un rango de fechas'
       });
+      this.spinner.hide();
       this.isVisible = false;
     } else {
       this.contratos = (this.contratos.includes('0')) ? this.listaIDContratos : this.contratos;
@@ -102,7 +103,7 @@ export class FacturacionComponent implements OnInit {
         .then(
           (data: any[]) => {
             console.log(data);
-            
+
             this.listOfData = data;
             this.isVisible = true;
 

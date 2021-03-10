@@ -25,6 +25,10 @@ export class FacturaService {
     return this.valores;
   }
 
+  generarFactura(medidores) {
+    return this.http.post(`http://localhost:3002/GenerarFacturas`, [medidores, true]);
+  }
+
   getInfoNavegacion() {
     return this.valores;
   }

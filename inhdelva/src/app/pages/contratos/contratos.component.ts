@@ -587,7 +587,7 @@ export class ContratosComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfDataContrato.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.actor.codigo.indexOf(this.searchValue) !== -1) || (item.clasificacion.indexOf(this.searchValue) !== -1));
+    this.listOfDisplayData = this.listOfDataContrato.filter((item: any) => (item.codigo.indexOf(this.searchValue) !== -1) || (item.actor.codigo.indexOf(this.searchValue) !== -1) || (item.nombreCliente.indexOf(this.searchValue) !== -1) || (item.clasificacion.indexOf(this.searchValue) !== -1));
   }
 
   resetM(): void {
@@ -652,6 +652,8 @@ export class ContratosComponent implements OnInit {
         (data: any[]) => {
           this.listOfDataContrato = data;
           this.listOfDisplayData = [...this.listOfDataContrato];
+          console.log(this.listOfDisplayData);
+
         }
         ,
         (error) => {
@@ -677,6 +679,54 @@ export class ContratosComponent implements OnInit {
     this.limpiarFormContrato();
     this.limpiarFormMedidores();
 
+  }
+
+  sort(op) {
+
+    switch (op) {
+      case 'cod': {
+        let array = this.listOfDataContrato.sort(function (a, b) {
+          return a.codigo.localeCompare(b.codigo);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'nc': {
+        let array = this.listOfDataContrato.sort(function (a, b) {
+          return a.nombreCliente.localeCompare(b.nombreCliente);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'cc': {
+        let array = this.listOfDataContrato.sort(function (a, b) {
+          return a.actor.codigo.localeCompare(b.actor.codigo);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'c': {
+        let array = this.listOfDataContrato.sort(function (a, b) {
+          return new Date(b.fechaCreacion).getTime() - new Date(a.fechaCreacion).getTime();
+        });
+        this.listOfDisplayData = [...array];
+      }
+      case 'm': {
+        let array = this.listaMedidoresFiltrado.sort(function (a, b) {
+          return a.medidor.codigo.localeCompare(b.medidor.codigoo);
+        });
+        this.listOfDisplayDataM = [...array]
+      }
+      case 'fm': {
+        let array = this.listaMedidoresFiltrado.sort(function (a, b) {
+          return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+        });
+        this.listOfDisplayDataM = [...array];
+      }
+        break;
+      default:
+        break;
+    }
   }
 
   ShowNotification(type: string, titulo: string, mensaje: string): void {

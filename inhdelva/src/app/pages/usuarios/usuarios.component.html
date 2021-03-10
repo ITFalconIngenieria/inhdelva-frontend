@@ -22,21 +22,17 @@
                 <th nzWidth="30px"></th>
                 <th style="background-color: #d6ecff;">
                     Nombre
-                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('n')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
-                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
-                    </button>
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('n')" nz-tooltip></i>
                 </th>
                 <th style="background-color: #d6ecff;">
                     Apellido
-                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('a')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
-                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
-                    </button>
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('a')" nz-tooltip></i>
+
                 </th>
                 <th style="background-color: #d6ecff;">
                     User
-                    <button nz-button nzType="primary" nzTooltipTitle="ordenar" (click)="sort('u')" nzTooltipPlacement="top" nzShape="circle" nz-tooltip>
-                        <i nz-icon nzType="caret-up" nzTheme="outline"></i>
-                    </button>
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('u')" nz-tooltip></i>
+
                 </th>
                 <th>Telefono</th>
                 <th>D/A</th>
@@ -173,8 +169,8 @@
         <div class="search-box">
             <input type="text" nz-input placeholder="" [(ngModel)]="searchValue" />
             <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-          Buscar
-        </button>
+                Buscar
+            </button>
             <button nz-button nzSize="small" (click)="reset()">Limpiar</button>
         </div>
     </div>

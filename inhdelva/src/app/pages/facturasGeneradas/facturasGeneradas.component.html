@@ -8,11 +8,14 @@
     </div>
     <br>
     <button nz-button nzType="primary" (click)="consultar()" style="margin: 2% 0% 0% 4%;"><i nz-icon nzType="search"></i>Consultar</button>
+
 </div>
 
 <div class="tabla">
     <button nz-button (click)="exportarFacturas()" [disabled]="visibleEF" style="background-color: #e67d7d;" nzDanger><i nz-icon
         nzType="file-pdf"></i>Exportar a PDF</button>
+    <button nz-button nzType="primary" [disabled]="visibleEF" (click)="generarFacturas()" style="margin: 2% 0% 0% 4%;"><i nz-icon nzType="container"></i>Generar facturas</button>
+
     <button nz-button nzSize="small" style="width: 9%; margin-left: 90%;" (click)="emitirFactura()" nzType="primary">Emitir</button>
     <nz-table #rowSelectionTable nzShowSizeChanger nzPageSize="10" [nzData]="listOfDisplayData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
         <thead>
@@ -24,10 +27,23 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Código</th>
-                <th style="background-color: #d6ecff;">Contrato</th>
-                <th style="background-color: #d6ecff;">Cliente</th>
-                <th>Fecha generación</th>
+                <th [nzSelections]="listOfSelectionMedidor" [(nzChecked)]="checkedM" nzShowRowSelection="true" nzShowCheckbox="true" [nzIndeterminate]="indeterminateM" (nzCheckedChange)="onAllCheckedMedidor($event)">Medidor</th>
+                <th style="background-color: #d6ecff;">
+                    Código
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cod')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Contrato
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('con')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Cliente
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cli')" nz-tooltip></i>
+                </th>
+                <th>
+                    Fecha generación
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('f')" nz-tooltip></i>
+                </th>
                 <th>Energia consumida</th>
                 <th>Total a pagar</th>
                 <th [nzSelections]="listOfSelection" [(nzChecked)]="checked" nzShowRowSelection="true" nzShowCheckbox="true" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">
@@ -51,6 +67,7 @@
                         <i nz-icon nzType="close-circle" nzTheme="outline"></i>
                     </button>
                 </td>
+                <td [nzChecked]="setOfCheckedIdM.has(data.medidorId)" nzShowCheckbox="true" (nzCheckedChange)="onItemCheckedMedidor(data.medidorId, $event)"></td>
                 <td>{{ data.codigo }}</td>
                 <td>{{ data.contrato }}</td>
                 <td>{{ data.cliente }}</td>
