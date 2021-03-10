@@ -20,10 +20,23 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Codigo</th>
-                <th style="background-color: #d6ecff;">Cliente</th>
+                <th style="background-color: #d6ecff;">
+                    Codigo
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cod')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Cliente
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('nc')" nz-tooltip></i>
+                </th>
+                <th style="background-color: #d6ecff;">
+                    Cod. Cliente
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('cc')" nz-tooltip></i>
+                </th>
                 <th style="background-color: #d6ecff;">Clasificación</th>
-                <th>Creación</th>
+                <th>
+                    Creación
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('c')" nz-tooltip></i>
+                </th>
                 <th>Medidores</th>
             </tr>
         </thead>
@@ -42,6 +55,7 @@
                         </button>
                     </td>
                     <td>{{ data.codigo }}</td>
+                    <td>{{ data.nombreCliente }}</td>
                     <td>{{ data.actor.codigo }}</td>
                     <td>{{ data.clasificacion }}</td>
                     <td>{{ data.fechaCreacion | date:'dd/M/yyyy':'UTC+6' }}</td>
@@ -355,9 +369,15 @@
                             <i nz-icon nzType="search" style="margin-left: 30px;"></i>
                         </nz-filter-trigger>
                     </th>
-                    <th style="background-color: #d6ecff;">Medidor</th>
+                    <th style="background-color: #d6ecff;">
+                        Medidor
+                        <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('m')" nz-tooltip></i>
+                    </th>
                     <th>Fecha inicio</th>
-                    <th>Fecha fin</th>
+                    <th>
+                        Fecha fin
+                        <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('fm')" nz-tooltip></i>
+                    </th>
                     <th nzWidth="30px"></th>
                     <th nzWidth="30px"></th>
                 </tr>

@@ -228,6 +228,13 @@ export class LocalizacionComponent implements OnInit {
     this.limpiar();
   }
 
+  sort() {
+    let array = this.listOfDataZona.sort(function (a, b) {
+      return a.codigo.localeCompare(b.codigo);
+    });
+    this.listOfDisplayData = [...array]
+  }
+
   showModal(): void {
     this.isVisible = true;
   }

@@ -36,14 +36,41 @@ export class FacturasGeneradasComponent implements OnInit {
       }
     }
   ];
+
+  listOfSelectionMedidor = [
+    {
+      text: 'Selecciona todos los medidores',
+      onSelect: () => {
+        this.onAllCheckedMedidor(true);
+      }
+    },
+    {
+      text: 'Seleccionar fila impar',
+      onSelect: () => {
+        this.listOfCurrentPageDataM.forEach((data, index) => this.updateCheckedSetMedidor(data.medidorId, index % 2 !== 0));
+        this.refreshCheckedStatusMedidor();
+      }
+    },
+    {
+      text: 'Seleccionar fila par',
+      onSelect: () => {
+        this.listOfCurrentPageDataM.forEach((data, index) => this.updateCheckedSetMedidor(data.medidorId, index % 2 === 0));
+        this.refreshCheckedStatusMedidor();
+      }
+    }
+  ];
   fechas = null;
   visibleEF = true;
   isVisible = false;
   checked = false;
+  checkedM = false;
+  indeterminateM = false;
   validateForm: FormGroup;
   indeterminate = false;
-  listOfCurrentPageData: ListadoFactura[] = [];
-  listOfDataFacturas: ListadoFactura[] = [];
+  listOfCurrentPageDataM: any[] = [];
+  setOfCheckedIdM = new Set<number>();
+  listOfCurrentPageData: any[] = [];
+  listOfDataFacturas: any[] = [];
   setOfCheckedId = new Set<number>();
   dataEditar: any[] = [];
   total: number = 0;
@@ -127,7 +154,10 @@ export class FacturasGeneradasComponent implements OnInit {
     if (JSON.parse(localStorage.getItem('dataFG'))) {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFG'));
       this.listOfDisplayData = [...this.listOfDataFacturas];
+      console.log(this.listOfDisplayData);
+
       this.visibleEF = false;
+      this.spinner.hide();
     }
 
   }
@@ -270,6 +300,74 @@ export class FacturasGeneradasComponent implements OnInit {
 
   }
 
+  generarFacturas() {
+    if (this.setOfCheckedIdM.size > 0) {
+      let medidores: any[] = [...this.setOfCheckedIdM];
+      console.log(medidores);
+
+      this.facturaService.generarFactura(medidores)
+        .toPromise()
+        .then(
+          () => {
+            swal({
+              icon: 'success',
+              text: 'Las facturas se están generando'
+            });
+
+          },
+          (error) => {
+            swal({
+              icon: 'error',
+              text: 'No se pudo generar las facturas'
+            });
+
+            console.log(error);
+          });
+
+    } else {
+      swal({
+        icon: 'warning',
+        text: 'No selecciono ningún medidor'
+      });
+    }
+  }
+
+  sort(op) {
+
+    switch (op) {
+      case 'cod': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.Nombre.localeCompare(b.Nombre);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'con': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.Apellido.localeCompare(b.Apellido);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+      case 'cli': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return a.username.localeCompare(b.username);
+        });
+        this.listOfDisplayData = [...array]
+      }
+        break;
+        case 'f': {
+          let array = this.listOfDataFacturas.sort(function (a, b) {
+            return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+          });
+          this.listOfDisplayData = [...array];
+        }
+          break;
+      default:
+        break;
+    }
+  }
+
   guardar() {
     // tslint:disable-next-line: max-line-length
     this.total = this.total + (this.validateForm.value.cargoFinancionamiento - this.valoresAnteriores[0]) + (this.validateForm.value.ajuste - this.valoresAnteriores[1]) + (this.validateForm.value.cargoCorte - this.valoresAnteriores[2]) + (this.validateForm.value.recargo - this.valoresAnteriores[3]) + (this.validateForm.value.otros - this.valoresAnteriores[4]);
@@ -359,6 +457,8 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
+    console.log(id);
+
     if (checked) {
       this.setOfCheckedId.add(id);
     } else {
@@ -386,6 +486,36 @@ export class FacturasGeneradasComponent implements OnInit {
   refreshCheckedStatus(): void {
     this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+  }
+
+  // Opciones medidores
+  updateCheckedSetMedidor(id: number, checked: boolean): void {
+
+    if (checked) {
+      this.setOfCheckedIdM.add(id);
+    } else {
+      this.setOfCheckedIdM.delete(id);
+    }
+  }
+
+  onItemCheckedMedidor(id: number, checked: boolean): void {
+    this.updateCheckedSetMedidor(id, checked);
+    this.refreshCheckedStatusMedidor();
+  }
+
+  onAllCheckedMedidor(value: boolean): void {
+    this.listOfCurrentPageDataM.forEach(item => this.updateCheckedSetMedidor(item.id, value));
+    this.refreshCheckedStatusMedidor();
+  }
+
+  onCurrentPageDataChangeMedidor($event: any[]): void {
+    this.listOfCurrentPageDataM = $event;
+    this.refreshCheckedStatusMedidor();
+  }
+
+  refreshCheckedStatusMedidor(): void {
+    this.checkedM = this.listOfCurrentPageDataM.every(item => this.setOfCheckedIdM.has(item.id));
+    this.indeterminateM = this.listOfCurrentPageDataM.some(item => this.setOfCheckedIdM.has(item.id)) && !this.checkedM;
   }
 
 }

@@ -20,7 +20,8 @@ export class ContratoService {
   }
 
   getContratosRelacion() {
-    return this.http.get(`${apiUrl}contrato?filter={"include":[{"relation":"actor"}],"where":{"estado":true}}`);
+    // return this.http.get(`${apiUrl}contrato?filter={"include":[{"relation":"actor"}],"where":{"estado":true}}`);
+    return this.http.get(`${apiUrl}contratoActores?filter={"include":[{"relation":"actor"}],"where":{"estado":true}}`);
   }
 
   getAllContratos() {

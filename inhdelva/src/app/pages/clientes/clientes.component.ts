@@ -14,6 +14,7 @@ export class ClientesComponent implements OnInit {
   actoresSap: any[] = [];
   listOfDataClientes: any[] = [];
   cantidad;
+  codVisible = false;
   idCliente;
   codigo: string;
   nombreEmpresa: string;
@@ -79,29 +80,22 @@ export class ClientesComponent implements OnInit {
       this.actoresService.putClientes(this.idCliente, clienteData)
         .toPromise()
         .then(
-          () => {
+          (data) => {
+            this.codVisible = false;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
 
-            // for (const item of this.listOfDataClientes.filter(x => x.Id === this.idCliente)) {
-            //   item.Codigo = clienteData.codigo;
-            //   item.Contacto = clienteData.;
-            //   item.Observacion = clienteData.observacion;
-            // }
+            for (const item of this.listOfDataClientes.filter(x => x.Id === this.idCliente)) {
+              item.Observacion = clienteData.observacion;
+              item.Imagen = clienteData.imagen;
+            }
 
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
+            this.listOfDisplayData = [...this.listOfDataClientes];
 
+            this.limpiar();
             this.accion = 'new';
             this.isVisible = false;
           },
@@ -114,15 +108,7 @@ export class ClientesComponent implements OnInit {
             );
             console.log(error);
 
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
+            this.limpiar();
             this.isVisible = false;
             this.accion = 'new';
           }
@@ -131,24 +117,31 @@ export class ClientesComponent implements OnInit {
       this.actoresService.postClientes(clienteData)
         .toPromise()
         .then(
-          (data) => {
+          () => {
 
             this.cantidad = this.cantidad + 1;
+            this.listOfDataClientes = [...this.listOfDataClientes,
+            {
+              'Codigo': this.codigo,
+              'Contacto': this.contacto,
+              'Direccion': this.direccion,
+              'Email': this.email,
+              'Imagen': this.imagen,
+              'Nombre': this.nombreEmpresa,
+              'Observacion': this.observacion,
+              'RTN': this.rtn,
+              'Telefono': this.tel,
+              'TipoActor': false
+            }
+            ];
+            this.listOfDisplayData = [...this.listOfDataClientes];
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
+            this.limpiar();
 
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
           },
           (error) => {
 
@@ -159,15 +152,7 @@ export class ClientesComponent implements OnInit {
             );
             console.log(error);
 
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
+            this.limpiar();
 
           }
         );
@@ -177,7 +162,7 @@ export class ClientesComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
-
+    this.codVisible = true;
     this.idCliente = data.Id;
     this.codigo = data.Codigo;
     this.nombreEmpresa = data.Nombre;
@@ -231,6 +216,18 @@ export class ClientesComponent implements OnInit {
       });
   }
 
+  limpiar() {
+    this.codigo = '';
+    this.nombreEmpresa = '';
+    this.rtn = '';
+    this.contacto = '';
+    this.tel = '';
+    this.email = '';
+    this.direccion = '';
+    this.imagen = '';
+    this.observacion = '';
+  }
+
   ngOnInit() {
     this.accion = 'nuevo';
 
@@ -275,6 +272,12 @@ export class ClientesComponent implements OnInit {
 
   }
 
+  sort() {
+    let array = this.listOfDataClientes.sort(function (a, b) {
+      return a.Nombre.localeCompare(b.Nombre);
+    });
+    this.listOfDisplayData = [...array]
+  }
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,
@@ -289,12 +292,15 @@ export class ClientesComponent implements OnInit {
 
   handleCancel(): void {
     this.accion = 'new';
-
+    this.codVisible = false;
     this.isVisible = false;
+    this.limpiar();
   }
 
   handleOk(): void {
     this.isVisible = false;
+    this.codVisible = false;
+    this.limpiar();
   }
 
 }

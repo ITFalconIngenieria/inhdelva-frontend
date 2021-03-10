@@ -12,7 +12,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class ProveedoresComponent implements OnInit {
   isVisible = false;
   actoresSap: ActoresSapSearch[] = [];
-
+  codVisible = false;
   idProveedor;
   codigo: string;
   nombreEmpresa: string;
@@ -72,30 +72,25 @@ export class ProveedoresComponent implements OnInit {
         .toPromise()
         .then(
           () => {
+            this.codVisible = false;
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
+            for (const item of this.listOfDataProveedores.filter(x => x.Id === this.idProveedor)) {
+              item.Observacion = proveedorData.observacion;
+              item.Imagen = proveedorData.imagen;
+            }
 
-            // for (const item of this.listOfDataClientes.filter(x => x.Id === this.idProveedor)) {
-            //   item.Codigo = proveedorData.codigo;
-            //   item.Contacto = proveedorData.;
-            //   item.Observacion = proveedorData.observacion;
-            // }
+            this.listOfDisplayData = [...this.listOfDataProveedores];
             this.accion = 'new';
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
+            this.limpiar();
             this.isVisible = false;
           },
           (error) => {
+            this.limpiar();
+
             this.ShowNotification(
               'error',
               'No se pudo guardar',
@@ -112,23 +107,32 @@ export class ProveedoresComponent implements OnInit {
         .toPromise()
         .then(
           (data) => {
+            this.listOfDataProveedores = [...this.listOfDataProveedores,
+            {
+              'Codigo': this.codigo,
+              'Contacto': this.contacto,
+              'Direccion': this.direccion,
+              'Email': this.email,
+              'Imagen': this.imagen,
+              'Nombre': this.nombreEmpresa,
+              'Observacion': this.observacion,
+              'RTN': this.rtn,
+              'Telefono': this.tel,
+              'TipoActor': true
+            }
+            ];
+            this.listOfDisplayData = [...this.listOfDataProveedores];
+
             this.ShowNotification(
               'success',
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
 
-            this.codigo = '';
-            this.nombreEmpresa = '';
-            this.rtn = '';
-            this.contacto = '';
-            this.tel = '';
-            this.email = '';
-            this.direccion = '';
-            this.imagen = '';
-            this.observacion = '';
+            this.limpiar();
           },
           (error) => {
+            this.limpiar();
 
             this.ShowNotification(
               'error',
@@ -145,7 +149,7 @@ export class ProveedoresComponent implements OnInit {
   editar(data) {
     this.accion = 'editar';
     this.isVisible = true;
-
+    this.codVisible = true;
     this.idProveedor = data.Id;
     this.codigo = data.Codigo;
     this.nombreEmpresa = data.Nombre;
@@ -209,6 +213,18 @@ export class ProveedoresComponent implements OnInit {
     this.listOfDisplayData = this.listOfDataProveedores.filter((item: any) => (item.Nombre.indexOf(this.searchValue) !== -1));
   }
 
+  limpiar() {
+    this.codigo = '';
+    this.nombreEmpresa = '';
+    this.rtn = '';
+    this.contacto = '';
+    this.tel = '';
+    this.email = '';
+    this.direccion = '';
+    this.imagen = '';
+    this.observacion = '';
+  }
+
   ngOnInit() {
     this.accion = 'new';
 
@@ -251,6 +267,13 @@ export class ProveedoresComponent implements OnInit {
 
   }
 
+  sort() {
+    let array = this.listOfDataProveedores.sort(function (a, b) {
+      return a.Nombre.localeCompare(b.Nombre);
+    });
+    this.listOfDisplayData = [...array]
+  }
+
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,
@@ -266,30 +289,17 @@ export class ProveedoresComponent implements OnInit {
   handleCancel(): void {
     this.accion = 'new';
     this.isVisible = false;
+    this.codVisible = false;
     this.accion = 'new';
-    this.codigo = '';
-    this.nombreEmpresa = '';
-    this.rtn = '';
-    this.contacto = '';
-    this.tel = '';
-    this.email = '';
-    this.direccion = '';
-    this.imagen = '';
-    this.observacion = '';
+    this.limpiar();
   }
 
   handleOk(): void {
     this.isVisible = false;
+    this.codVisible = false;
     this.accion = 'new';
-    this.codigo = '';
-    this.nombreEmpresa = '';
-    this.rtn = '';
-    this.contacto = '';
-    this.tel = '';
-    this.email = '';
-    this.direccion = '';
-    this.imagen = '';
-    this.observacion = '';
+    this.limpiar();
+
   }
 
 }

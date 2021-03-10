@@ -467,6 +467,20 @@ export class MatrizEnergeticaComponent implements OnInit {
 
   }
 
+  sort(op) {
+    if (op === 'p') {
+      let array = this.dataMatrizEnergetica.sort(function (a, b) {
+        return a.actor.localeCompare(b.actor);
+      });
+      this.listOfDisplayData = [...array];
+    } else {
+      let array = this.dataMatrizEnergetica.sort(function (a, b) {
+        return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+      });
+      this.listOfDisplayData = [...array];
+    }
+  }
+
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,

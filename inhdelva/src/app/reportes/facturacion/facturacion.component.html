@@ -1,29 +1,3 @@
-<!-- <nz-table #basicTable [nzData]="listOfData">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-                <a>Action 一 </a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-            </td>
-        </tr>
-    </tbody>
-</nz-table>
-<br>
-<button nz-button (click)="exportPdf()" nzType="primary">PDF</button>
-<button nz-button (click)="exportExcel()" nzType="primary">Excel</button> -->
-<!-- <br> -->
 <h4>RESUMEN DE FACTURACION </h4>
 <h5>PARQUE INDUSTRIAL INHDELVA</h5>
 <br>
@@ -39,7 +13,7 @@
     </div>
     <div style="margin: 2%;">
         <p style="font-size: 16px; color: black; font-weight: bold;"> Fechas: </p>
-        <nz-range-picker [(ngModel)]="fechas"></nz-range-picker>
+        <nz-range-picker nzMode="month" [(ngModel)]="fechas"></nz-range-picker>
     </div>
     <div style="width: 100%; margin: auto;">
         <button nz-button nzType="primary" (click)="consultar()"><i nz-icon nzType="search"></i>Consultar</button>
@@ -48,66 +22,114 @@
 </div>
 <hr>
 <div>
-    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" nz-button style="margin: 1%; background-color: #095f09;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-excel"></i></button>
-    <button *ngIf="isVisible" nzTooltipTitle="Exportar a PDF" nz-button style="margin: 1%; background-color: #f36161;" (click)="exportPdf()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon nzType="file-pdf"></i></button>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a Excel" nz-button style="margin: 1%; background-color: #095f09;" (click)="exportExcel()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon
+            nzType="file-excel"></i></button>
+    <button *ngIf="isVisible" nzTooltipTitle="Exportar a PDF" nz-button style="margin: 1%; background-color: #f36161;" (click)="exportPdf()" nzSize="large" nzTooltipPlacement="topRight" nz-tooltip><i nz-icon
+            nzType="file-pdf"></i></button>
 </div>
 <nz-table *ngIf="isVisible" #nzTable [nzPageSize]="25" [nzData]="listOfData" nzSize="small" [nzScroll]="{y: '400px', x: '13200px' }">
     <thead>
         <tr>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Nave</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Empresa</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cuenta</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Codigo medidor</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Codigo tarifa</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia Activa (EA)</th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia reactiva (ER) </th>
-            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Potencia maxima (PM)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor potencia (FP)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Fraccion de energia solar en autoocnsumo (FS) </th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Precio base de energia (PBE)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por energia(CPE)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Promedio potencia 11 meses (P11)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Precio base potencia (PBP)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por potencia (CPC) </th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor de recargo (FR)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por energia reactiva (CER)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo operativo sistema solar (COS)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo operativo mantenimiento red de distribucion (COR)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costo operativo de mantenimiento de equipos auxiliares (COE)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Costos administrativos (COA)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Punto de medida</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Nave</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Empresa</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cuenta</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Codigo medidor</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Codigo tarifa</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia Activa (EA)</th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia reactiva (ER) </th>
+            <th nzWidth="300px" style="background-color: #aae0ff; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Potencia maxima (PM)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor potencia (FP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Fraccion de energia solar en autoocnsumo (FS) </th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Precio base de energia (PBE)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por energia(CPE)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Promedio potencia 11 meses (P11)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Precio base potencia (PBP)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por potencia (CPC) </th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor de recargo (FR)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por energia reactiva (CER)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo operativo sistema solar (COS)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo operativo mantenimiento red de distribucion (COR)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costo operativo de mantenimiento de equipos auxiliares (COE)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Costos administrativos (COA)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Punto de medida</th>
 
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia Perdidas Internas Total (EPIT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia perdida a los usuarios de media tensio (EPUMT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor de perdidas en media tension (FPMT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia perdida a los usuarios de baja tension (EPUBT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor de perdidas en baja tension (FPBT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Perdidas de linea (PL)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia Perdidas Internas Total (EPIT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia perdida a los usuarios de media tensio (EPUMT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor de perdidas en media tension (FPMT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia perdida a los usuarios de baja tension (EPUBT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor de perdidas en baja tension (FPBT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Perdidas de linea (PL)</th>
 
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Perdidas internas (PI)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por perdidas internas (CPI)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Perdidas internas (PI)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por perdidas internas (CPI)</th>
 
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Zona</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Calculo por energia o area de consumo de iluminacion</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor de utilizacion iluminacion</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Zona</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Calculo por energia o area de consumo de iluminacion</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor de utilizacion iluminacion</th>
 
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia activa consumida en Alumbrado Público (EAAP)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Precio de la energia tarifa Alumbrado Público (EAP)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía total consumida por los usuarios (ETCU)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por iluminación comunitaria (CIC)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia activa consumida en Alumbrado Público (EAAP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Precio de la energia tarifa Alumbrado Público (EAP)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energía total consumida por los usuarios (ETCU)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por iluminación comunitaria (CIC)</th>
 
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Calculo por energia o area de consumo de servicios comunitarios</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Factor de utilizacion consumos comunitarios (FUC)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Calculo por energia o area de consumo de servicios comunitarios</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Factor de utilizacion consumos comunitarios (FUC)</th>
 
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energia activa consumida en servicios comunitarios (EASC)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Precio de la energia tarifa Servicio General de Baja Tensión (EBT)</th>
-            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Energía total consumida por los usuarios (ETCU)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por servicios comunitarios (CSC)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energia activa consumida en servicios comunitarios (EASC)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Precio de la energia tarifa Servicio General de Baja Tensión (EBT)</th>
+            <th nzWidth="300px" style="background-color: #c0c0c0; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Energía total consumida por los usuarios (ETCU)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por servicios comunitarios (CSC)</th>
 
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por regulacion CREE (%)</th>
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">Cargo por regulacion CREE (Lps)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por regulacion CREE (%)</th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                Cargo por regulacion CREE (Lps)</th>
 
-            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">CARGOS TOTALES </th>
+            <th nzWidth="300px" style="background-color: #d7ffd9; border: rgb(121, 121, 121); border-style: solid;  border-width: 1px;  color: black;">
+                CARGOS TOTALES </th>
         </tr>
     </thead>
     <tbody>
@@ -129,7 +151,7 @@
                 <td class="tdBlanco" nzAlign="center"> {{ data.PBP | number:'1.4-4':'en_US' }} </td>
                 <td class="tdVerde" nzAlign="center"> {{ data.CPC | number:'1.2-2':'en_US' }} </td>
                 <td class="tdGrisClaro" nzAlign="center"> {{ (data.FP
-                    < 0.9 && data.FP !==0 ) ? ((0.9/data.FP)-1 ) : 0 | number: '1.2-2': 'en_US' }} </td>
+                    < 0.9 && data.FP !==0 ) ? ((0.9/data.FP)-1 ) : 0 | number: '1.2-2' : 'en_US' }} </td>
                         <td class="tdVerde" nzAlign="center"> {{ data.CER | number:'1.2-2':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.COS | number:'1.4-4':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.COR | number:'1.4-4':'en_US' }} </td>
@@ -137,19 +159,19 @@
                         <td class="tdBlanco" nzAlign="center"> {{ data.COA | number:'1.4-4':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.PuntoMedida }}</td>
 
-                        <td class="tdBlanco" nzAlign="center"> {{data.EPIT}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.EPUMT}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.FPMT}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.EPUBT}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.FPBT}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.PL}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.EPIT | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.EPUMT | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.FPMT | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.EPUBT | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.FPBT | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.PL | number: '1.2-2': 'en_US'}} </td>
 
                         <td class="tdGrisClaro" nzAlign="center"> {{ data.PI | number:'1.4-4':'en_US' }}</td>
                         <td class="tdVerde" nzAlign="center"> {{ data.CPI | number:'1.2-2':'en_US' }} </td>
 
                         <td class="tdBlanco" nzAlign="center"> {{data.zona}} </td>
                         <td class="tdBlanco" nzAlign="center"> {{data.tipoCalculoIluminacion}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.FUI}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.FUI | number:'1.2-2':'en_US'}} </td>
 
                         <td class="tdGrisClaro" nzAlign="center"> {{ data.EAAP | number:'1.2-2':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.EAP | number:'1.4-4':'en_US' }}</td>
@@ -157,15 +179,15 @@
                         <td class="tdVerde" nzAlign="center"> {{ data.CIC | number:'1.2-2':'en_US' }} </td>
 
                         <td class="tdBlanco" nzAlign="center"> {{data.tipoCalculoSC}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.FUC}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.FUC | number: '1.2-2': 'en_US'}} </td>
 
                         <td class="tdGrisClaro" nzAlign="center"> {{ data.EASC | number:'1.2-2':'en_US' }} </td>
                         <td class="tdBlanco" nzAlign="center"> {{ data.EBT | number:'1.4-4':'en_US' }} </td>
                         <td class="tdGrisClaro" nzAlign="center"> {{ data.ETCU | number:'1.2-2':'en_US' }} </td>
                         <td class="tdVerde" nzAlign="center"> {{ data.CSC | number:'1.2-2':'en_US' }} </td>
 
-                        <td class="tdBlanco" nzAlign="center"> {{data.porCREE}} </td>
-                        <td class="tdBlanco" nzAlign="center"> {{data.lpsCREE}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.porCREE | number: '1.2-2': 'en_US'}} </td>
+                        <td class="tdBlanco" nzAlign="center"> {{data.lpsCREE | number: '1.2-2': 'en_US'}} </td>
 
                         <td class="tdVerde" nzAlign="center"> {{ data.TOTAL | number:'1.2-2':'en_US' }} </td>
             </tr>
@@ -174,7 +196,8 @@
 
         <tr>
             <td colSpan="5" style="background-color: #d7ffd9; border: rgb(102, 102, 102); border-style: solid; border-width: 1px; color: black; font-weight: bold;" nzAlign="right"> TOTAL CLIENTES </td>
-            <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'1.2-2':'en_US' }} </td>
+            <td *ngFor="let total of listaTotales" class="footer" nzAlign="center"> {{ total | number:'1.2-2':'en_US' }}
+            </td>
         </tr>
     </tbody>
 </nz-table>

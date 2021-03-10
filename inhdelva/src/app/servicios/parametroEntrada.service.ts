@@ -31,7 +31,7 @@ export class ParametroEntradaService {
   }
 
   getParametroRelacion() {
-    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where": {"estado":true,"tarifaId": null }}`);
+    return this.http.get(`${apiUrl}parametro-tarifas?filter={"include":[{"relation":"tarifa"},{"relation":"tipoCargo"},{"relation":"bloqueHorario"}],"where": {"estado":true,"tarifaId": null }, "order": "fechaFinal DESC"}`);
   }
 
 }

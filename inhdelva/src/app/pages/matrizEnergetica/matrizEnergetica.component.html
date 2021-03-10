@@ -21,9 +21,15 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Proveedor</th>
+                <th style="background-color: #d6ecff;">
+                    Proveedor
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('p')" nz-tooltip></i>
+                </th>
                 <th>Fecha inicio</th>
-                <th>Fecha final</th>
+                <th>
+                    Fecha final
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('ff')" nz-tooltip></i>
+                </th>
                 <th>Total energía</th>
                 <th></th>
             </tr>

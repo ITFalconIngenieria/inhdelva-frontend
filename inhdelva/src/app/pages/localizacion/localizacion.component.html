@@ -20,7 +20,10 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Codigo</th>
+                <th style="background-color: #d6ecff;">
+                    Codigo
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort()" nz-tooltip></i>
+                </th>
                 <th>Descripción</th>
             </tr>
         </thead>

@@ -242,6 +242,14 @@ export class CargosEspecialesComponent implements OnInit {
     });
   }
 
+  sort(op) {
+
+    let array = this.dataProcesada.sort(function (a, b) {
+      return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+    });
+    this.listOfData = [...array];
+  }
+
   ngOnInit() {
     this.accion = 'new';
     this.cargoService.getCargosEspeciales()

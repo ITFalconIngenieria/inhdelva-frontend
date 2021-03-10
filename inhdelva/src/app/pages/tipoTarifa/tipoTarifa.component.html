@@ -20,7 +20,10 @@
                     </nz-filter-trigger>
                 </th>
                 <th nzWidth="30px"></th>
-                <th style="background-color: #d6ecff;">Codigo</th>
+                <th style="background-color: #d6ecff;">
+                    Codigo
+                    <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('t')" nz-tooltip></i>
+                </th>
                 <th>Matríz horaria</th>
                 <th>Punto de medicion</th>
                 <th>Parámetros</th>
@@ -187,7 +190,11 @@
                     <th>Cargo</th>
                     <th>valor</th>
                     <th>Fecha inicio</th>
-                    <th>Fecha fin</th>
+                    <th>
+                        Fecha fin
+                        <i nz-icon nzType="caret-up" nzTooltipTitle="ordenar" nzTheme="outline" nzTooltipPlacement="top" (click)="sort('p')" nz-tooltip></i>
+                    </th>
+                    <th>Dias disponibles</th>
                     <th nzWidth="30px"></th>
                     <th nzWidth="30px"></th>
                 </tr>
@@ -196,9 +203,15 @@
                 <ng-container *ngFor="let data of nzTableParametro.data">
                     <tr>
                         <td>{{ data.tipoCargo.codigo }}</td>
-                        <td>{{ data.valor }}</td>
+                        <td>{{ data.valor | number:'1.4-4':'en_US' }}</td>
                         <td>{{ data.fechaInicio | date:'dd/M/yyyy':'UTC' }}</td>
                         <td>{{ data.fechaFinal | date:'dd/M/yyyy':'UTC' }}</td>
+                        <td nzAlign="center">
+                            <span class="badge bg-success" nzTooltipTitle="Disponible" nzTooltipPlacement="right" *ngIf="data.dias > 30" nz-tooltip>{{ data.dias }}</span>
+                            <span class="badge bg-warning text-dark" nzTooltipTitle="Pronto de vencer" nzTooltipPlacement="right" *ngIf="data.dias <= 30 && data.dias >= 1" nz-tooltip>{{ data.dias
+                                }}</span>
+                            <span class="badge bg-danger" nzTooltipTitle="Vencido" nzTooltipPlacement="right" *ngIf="data.dias <= 0" nz-tooltip>{{ data.dias }}</span>
+                        </td>
                         <td style="width: 30px;">
                             <button nz-button nzType="primary" (click)="editarParametro(data)" nzShape="circle">
                                 <i nz-icon nzType="edit" nzTheme="outline"></i>

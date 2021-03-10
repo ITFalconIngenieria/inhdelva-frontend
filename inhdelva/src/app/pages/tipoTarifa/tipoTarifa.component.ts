@@ -92,9 +92,6 @@ export class TipoTarifaComponent implements OnInit {
       estado: true
     };
 
-    console.log(dataTarifa);
-
-
     if (this.accion === 'editar') {
       this.tarifaService.putTarifa(this.idTarifa, dataTarifa)
         .toPromise()
@@ -261,6 +258,7 @@ export class TipoTarifaComponent implements OnInit {
               item.bloqueHorario = { ...data.bloqueHorario }
               item.fechaInicio = data.fechaInicio;
               item.fechaFinal = data.fechaFinal;
+              item.dias = moment(data.fechaFinal).diff(moment(), 'days')
               item.valor = data.valor;
               item.observacion = data.observacion;
               item.estado = data.estado;
@@ -274,6 +272,7 @@ export class TipoTarifaComponent implements OnInit {
               item.bloqueHorario = { ...data.bloqueHorario }
               item.fechaInicio = data.fechaInicio;
               item.fechaFinal = data.fechaFinal;
+              item.dias = moment(data.fechaFinal).diff(moment(), 'days')
               item.valor = data.valor;
               item.observacion = data.observacion;
               item.estado = data.estado;
@@ -307,7 +306,7 @@ export class TipoTarifaComponent implements OnInit {
             );
             this.unidad = null;
 
-            this.listOfDataParametrosFiltrado = [...this.listOfDataParametrosFiltrado, data];
+            this.listOfDataParametrosFiltrado = [...this.listOfDataParametrosFiltrado, { data, 'dias': moment(data.fechaFinal).diff(moment(), 'days') }];
             this.listOfDataParametros = [...this.listOfDataParametros, data];
 
             this.limpiarParametro();
@@ -328,8 +327,6 @@ export class TipoTarifaComponent implements OnInit {
   editarParametro(data) {
     this.idParametro = data.id;
     this.accion = 'editar';
-    console.log(data);
-
 
     const cargo = this.tipoCargo.filter(x => x.id === data.tipoCargo.id);
     this.unidad = cargo[0].unidad;
@@ -405,6 +402,20 @@ export class TipoTarifaComponent implements OnInit {
 
   }
 
+  sort(op) {
+    if (op === 'p') {
+      let array = this.listOfDataParametrosFiltrado.sort(function (a, b) {
+        return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+      });
+      this.listOfDataParametrosFiltrado = [...array];
+    } else {
+      let array = this.listOfDataTarifa.sort(function (a, b) {
+        return a.codigo.localeCompare(b.codigo);
+      });
+      this.listOfDisplayData = [...array];
+    }
+  }
+
   reset(): void {
     this.searchValue = '';
     this.search();
@@ -443,8 +454,9 @@ export class TipoTarifaComponent implements OnInit {
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataParametros = data;
-
+          data.forEach(element => {
+            this.listOfDataParametros.push({ ...element, 'dias': moment(element.fechaFinal).diff(moment(), 'days') });
+          });
         }
       );
 

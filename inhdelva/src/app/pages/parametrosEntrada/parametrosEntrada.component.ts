@@ -96,13 +96,16 @@ export class ParametrosEntradaComponent implements OnInit {
             );
             for (const item of this.listOfDataParametro.filter(x => x.id === this.idParametro)) {
               item.tipoCargoId = data.tipoCargoId;
-              item.tipoCargo = { ...data.tipoCargo }
+              item.tipoCargo = { ...data.tipoCargo };
               item.fechaInicio = data.fechaInicio;
               item.fechaFinal = data.fechaFinal;
+              item.dias = moment(data.fechaFinal).diff(moment(), 'days')
               item.valor = data.valor;
               item.observacion = data.observacion;
               item.estado = data.estado;
             }
+            console.log(this.listOfDataParametro);
+            
             this.listOfDisplayData = [...this.listOfDataParametro];
 
             this.accion = 'new';
@@ -132,7 +135,7 @@ export class ParametrosEntradaComponent implements OnInit {
               'Guardado con éxito',
               'El registro fue guardado con éxito'
             );
-            this.listOfDataParametro = [...this.listOfDataParametro, data];
+            this.listOfDataParametro = [...this.listOfDataParametro, { data, 'dias': moment(data.fechaFinal).diff(moment(), 'days') }];
             this.listOfDisplayData = [...this.listOfDataParametro];
 
             this.unidad = null;
@@ -225,13 +228,23 @@ export class ParametrosEntradaComponent implements OnInit {
     this.listOfDisplayData = this.listOfDataParametro.filter((item: any) => (item.tipoCargo.codigo.indexOf(this.searchValue) !== -1));
   }
 
+  sortParametro() {
+    let array = this.listOfDataParametro.sort(function (a, b) {
+      return new Date(b.fechaFinal).getTime() - new Date(a.fechaFinal).getTime();
+    });
+    this.listOfDataParametro = [...array];
+  }
+
   ngOnInit() {
 
     this.parametroServce.getParametroRelacion()
       .toPromise()
       .then(
         (data: any[]) => {
-          this.listOfDataParametro = data;
+
+          data.forEach(element => {
+            this.listOfDataParametro.push({ ...element, 'dias': moment(element.fechaFinal).diff(moment(), 'days') });
+          });
           this.listOfDisplayData = [...this.listOfDataParametro];
 
         },

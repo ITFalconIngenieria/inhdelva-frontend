@@ -14,35 +14,8 @@ import * as moment from 'moment';
 })
 export class FacturasCanceladasComponent implements OnInit {
 
-  listOfSelection = [
-    {
-      text: 'Selecciona todas la filas',
-      onSelect: () => {
-        this.onAllChecked(true);
-      }
-    },
-    {
-      text: 'Seleccionar fila impar',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
-        this.refreshCheckedStatus();
-      }
-    },
-    {
-      text: 'Seleccionar fila par',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
-        this.refreshCheckedStatus();
-      }
-    }
-  ];
   fechas = null;
-
-  checked = false;
-  indeterminate = false;
-  listOfCurrentPageData: ListadoFactura[] = [];
   listOfDataFacturas: ListadoFactura[] = [];
-  setOfCheckedId = new Set<number>();
 
   searchValue = '';
   visible = false;
@@ -144,10 +117,6 @@ export class FacturasCanceladasComponent implements OnInit {
     }
   }
 
-  generarFactura(data) {
-
-  }
-
   ShowNotification(type: string, titulo: string, mensaje: string): void {
     this.notification.create(
       type,
@@ -155,36 +124,5 @@ export class FacturasCanceladasComponent implements OnInit {
       mensaje
     );
   }
-
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-    console.log(id);
-
-  }
-
-  onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onCurrentPageDataChange($event: ListadoFactura[]): void {
-    this.listOfCurrentPageData = $event;
-    this.refreshCheckedStatus();
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
-  }
-
 
 }
