@@ -74,7 +74,7 @@
                 <td>{{ data.fechaLectura | date:'dd/M/yyyy' }}</td>
                 <td>{{ data.consumo | number:'':'en_US' }}</td>
                 <td>{{ data.total | number:'':'en_US'}}</td>
-                <td [nzChecked]="setOfCheckedId.has(data.id)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                <td [nzChecked]="setOfCheckedId.has(data.id,data.medidorId)" nzShowCheckbox="true" (nzCheckedChange)="onItemChecked(data.id,data.medidorId, $event)"></td>
             </tr>
         </tbody>
     </nz-table>
