@@ -10,9 +10,10 @@
     <button nz-button nzType="primary" (click)="consultar()" style="margin: 2% 0% 0% 4%;"><i nz-icon nzType="search"></i>Consultar</button>
 </div>
 <div class="tabla">
-    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6">
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfDataFacturas" nzPageSize="6" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
         <thead>
             <tr>
+                <th [nzSelections]="listOfSelection" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
                 <th nzWidth="30px">
                     <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
                         <i nz-icon nzType="search" style="margin-left: 30px;"></i>
@@ -41,6 +42,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let data of rowSelectionTable.data">
+                <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
                 <td style="width: 30px;">
                     <button nz-button nzType="primary" (click)="verFactura(data)" nzShape="circle" nzTooltipTitle="Ver factura" nzTooltipPlacement="top" nz-tooltip>
                         <i nz-icon nzType="search" nzTheme="outline"></i>

@@ -13,6 +13,32 @@ import * as moment from 'moment';
   styleUrls: ['./facturasCanceladas.component.css']
 })
 export class FacturasCanceladasComponent implements OnInit {
+  listOfSelection = [
+    {
+      text: 'Select All Row',
+      onSelect: () => {
+        this.onAllChecked(true);
+      }
+    },
+    {
+      text: 'Select Odd Row',
+      onSelect: () => {
+        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
+        this.refreshCheckedStatus();
+      }
+    },
+    {
+      text: 'Select Even Row',
+      onSelect: () => {
+        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
+        this.refreshCheckedStatus();
+      }
+    }
+  ];
+  checked = false;
+  indeterminate = false;
+  listOfCurrentPageData: ReadonlyArray<any> = [];
+  setOfCheckedId = new Set<number>();
 
   fechas = null;
   listOfDataFacturas: ListadoFactura[] = [];
@@ -49,6 +75,34 @@ export class FacturasCanceladasComponent implements OnInit {
       this.listOfDataFacturas = JSON.parse(localStorage.getItem('dataFC'));
       this.listOfDisplayData = [...this.listOfDataFacturas];
     }
+  }
+
+  updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
+  }
+
+  onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
+
+  onAllChecked(value: boolean): void {
+    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
+    this.refreshCheckedStatus();
+  }
+
+  onCurrentPageDataChange($event: ReadonlyArray<any>): void {
+    this.listOfCurrentPageData = $event;
+    this.refreshCheckedStatus();
+  }
+
+  refreshCheckedStatus(): void {
+    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
+    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
   reset(): void {
@@ -141,13 +195,13 @@ export class FacturasCanceladasComponent implements OnInit {
         this.listOfDisplayData = [...array]
       }
         break;
-        case 'f': {
-          let array = this.listOfDataFacturas.sort(function (a, b) {
-            return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
-          });
-          this.listOfDisplayData = [...array];
-        }
-          break;
+      case 'f': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
+        });
+        this.listOfDisplayData = [...array];
+      }
+        break;
       default:
         break;
     }

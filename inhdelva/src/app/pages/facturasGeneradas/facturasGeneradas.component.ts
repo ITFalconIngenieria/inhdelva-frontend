@@ -20,20 +20,6 @@ export class FacturasGeneradasComponent implements OnInit {
       onSelect: () => {
         this.onAllChecked(true);
       }
-    },
-    {
-      text: 'Seleccionar fila impar',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
-        this.refreshCheckedStatus();
-      }
-    },
-    {
-      text: 'Seleccionar fila par',
-      onSelect: () => {
-        this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
-        this.refreshCheckedStatus();
-      }
     }
   ];
 
@@ -42,20 +28,6 @@ export class FacturasGeneradasComponent implements OnInit {
       text: 'Selecciona todos los medidores',
       onSelect: () => {
         this.onAllCheckedMedidor(true);
-      }
-    },
-    {
-      text: 'Seleccionar fila impar',
-      onSelect: () => {
-        this.listOfCurrentPageDataM.forEach((data, index) => this.updateCheckedSetMedidor(data.medidorId, index % 2 !== 0));
-        this.refreshCheckedStatusMedidor();
-      }
-    },
-    {
-      text: 'Seleccionar fila par',
-      onSelect: () => {
-        this.listOfCurrentPageDataM.forEach((data, index) => this.updateCheckedSetMedidor(data.medidorId, index % 2 === 0));
-        this.refreshCheckedStatusMedidor();
       }
     }
   ];
@@ -302,29 +274,30 @@ export class FacturasGeneradasComponent implements OnInit {
 
   generarFacturas() {
     if (this.setOfCheckedIdM.size > 0) {
+      console.log(this.setOfCheckedIdM);
+      console.log(this.setOfCheckedId);
 
 
-      
-      let medidores: any[] = [...this.setOfCheckedIdM];
+      // let medidores: any[] = [...this.setOfCheckedIdM];
 
-      this.facturaService.generarFactura(medidores)
-        .toPromise()
-        .then(
-          () => {
-            swal({
-              icon: 'success',
-              text: 'Las facturas se están generando'
-            });
+      // this.facturaService.generarFactura(medidores)
+      //   .toPromise()
+      //   .then(
+      //     () => {
+      //       swal({
+      //         icon: 'success',
+      //         text: 'Las facturas se están generando'
+      //       });
 
-          },
-          (error) => {
-            swal({
-              icon: 'error',
-              text: 'No se pudo generar las facturas'
-            });
+      //     },
+      //     (error) => {
+      //       swal({
+      //         icon: 'error',
+      //         text: 'No se pudo generar las facturas'
+      //       });
 
-            console.log(error);
-          });
+      //       console.log(error);
+      //     });
 
     } else {
       swal({
@@ -358,13 +331,13 @@ export class FacturasGeneradasComponent implements OnInit {
         this.listOfDisplayData = [...array]
       }
         break;
-        case 'f': {
-          let array = this.listOfDataFacturas.sort(function (a, b) {
-            return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
-          });
-          this.listOfDisplayData = [...array];
-        }
-          break;
+      case 'f': {
+        let array = this.listOfDataFacturas.sort(function (a, b) {
+          return new Date(b.fechaLectura).getTime() - new Date(a.fechaLectura).getTime();
+        });
+        this.listOfDisplayData = [...array];
+      }
+        break;
       default:
         break;
     }
@@ -458,29 +431,31 @@ export class FacturasGeneradasComponent implements OnInit {
     this.isVisible = false;
   }
 
-  updateCheckedSet(id: number, checked: boolean): void {
-    console.log(id);
+  updateCheckedSet(id: number, medidorId: number, checked: boolean): void {
+    console.log(id, medidorId);
 
     if (checked) {
       this.setOfCheckedId.add(id);
+      this.setOfCheckedIdM.add(medidorId);
     } else {
       this.setOfCheckedId.delete(id);
+      this.setOfCheckedIdM.delete(medidorId);
     }
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
+  onItemChecked(id: number, medidorId: number, checked: boolean): void {
+    this.updateCheckedSet(id, medidorId, checked);
     this.refreshCheckedStatus();
-    console.log(id);
+    console.log(id, medidorId);
 
   }
 
   onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
+    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, item.medidorId, value));
     this.refreshCheckedStatus();
   }
 
-  onCurrentPageDataChange($event: ListadoFactura[]): void {
+  onCurrentPageDataChange($event: any[]): void {
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
   }
@@ -488,24 +463,29 @@ export class FacturasGeneradasComponent implements OnInit {
   refreshCheckedStatus(): void {
     this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+    this.checkedM = this.listOfCurrentPageDataM.every(item => this.setOfCheckedIdM.has(item.medidorId));
+    this.indeterminateM = this.listOfCurrentPageDataM.some(item => this.setOfCheckedIdM.has(item.medidorId)) && !this.checkedM;
   }
 
   // Opciones medidores
-  updateCheckedSetMedidor(id: number, checked: boolean): void {
+  updateCheckedSetMedidor(medidorId: number, checked: boolean): void {
+    console.log(medidorId);
 
     if (checked) {
-      this.setOfCheckedIdM.add(id);
+      this.setOfCheckedIdM.add(medidorId);
     } else {
-      this.setOfCheckedIdM.delete(id);
+      this.setOfCheckedIdM.delete(medidorId);
     }
   }
 
-  onItemCheckedMedidor(id: number, checked: boolean): void {
-    this.updateCheckedSetMedidor(id, checked);
+  onItemCheckedMedidor(medidorId: number, checked: boolean): void {
+    this.updateCheckedSetMedidor(medidorId, checked);
     this.refreshCheckedStatusMedidor();
   }
 
   onAllCheckedMedidor(value: boolean): void {
+    console.log(value);
+
     this.listOfCurrentPageDataM.forEach(item => this.updateCheckedSetMedidor(item.medidorId, value));
     this.refreshCheckedStatusMedidor();
   }
@@ -516,8 +496,8 @@ export class FacturasGeneradasComponent implements OnInit {
   }
 
   refreshCheckedStatusMedidor(): void {
-    this.checkedM = this.listOfCurrentPageDataM.every(item => this.setOfCheckedIdM.has(item.id));
-    this.indeterminateM = this.listOfCurrentPageDataM.some(item => this.setOfCheckedIdM.has(item.id)) && !this.checkedM;
+    this.checkedM = this.listOfCurrentPageDataM.every(item => this.setOfCheckedIdM.has(item.medidorId));
+    this.indeterminateM = this.listOfCurrentPageDataM.some(item => this.setOfCheckedIdM.has(item.medidorId)) && !this.checkedM;
   }
 
 }
